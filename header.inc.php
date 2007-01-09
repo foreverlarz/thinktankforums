@@ -54,8 +54,8 @@
    <div class="menu_two">
     · <a href="search.php">search</a><br />
     · <a href="editprofile.php">edit your profile</a><br />
-    · <a href="logout.php">log out</a>
-    · <a href="http://code.google.com/p/thinktankforums/">ttf development</a><br />
+    · <a href="logout.php">log out</a><br />
+    · <a href="http://code.google.com/p/thinktankforums/">ttf development</a>
 <?php	
 	if ($ttf["uid"] == 1 || $ttf["uid"] == 2) {
 ?>
