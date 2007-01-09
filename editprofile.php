@@ -134,52 +134,49 @@
     <tr class="mediuminv"><td width="594" colspan="3"><b>change your time zone</b></td></tr>
     <tr class="medium">
      <td align="center">localize:</td>
-     <td align="center"><select name="zone">
-<!-- /////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////     THE FOLLOWING IS GPL     //////////////////////////////
-//////////////////////////////Copyright (C) 2002-2005  Rickard Andersson
-////////////////////////////////////////////////////////////////////////////////////// -->
-	<option value="-12"<?php if($user["time_zone"]==-12) echo " selected=\"selected\""; ?>>-12</option>
-	<option value="-11"<?php if($user["time_zone"]==-11) echo " selected=\"selected\""; ?>>-11</option>
-	<option value="-10"<?php if($user["time_zone"]==-10) echo " selected=\"selected\""; ?>>-10</option>
-	<option value="-9.5"<?php if($user["time_zone"]==-9.5) echo " selected=\"selected\""; ?>>-09.5</option>
-	<option value="-9"<?php if($user["time_zone"]==-9) echo " selected=\"selected\""; ?>>-09</option>
-	<option value="-8.5"<?php if($user["time_zone"]==-8.5) echo " selected=\"selected\""; ?>>-08.5</option>
-	<option value="-8"<?php if($user["time_zone"]==-8) echo " selected=\"selected\""; ?>>-08 PST</option>
-	<option value="-7"<?php if($user["time_zone"]==-7) echo " selected=\"selected\""; ?>>-07 MST</option>
-	<option value="-6"<?php if($user["time_zone"]==-6) echo " selected=\"selected\""; ?>>-06 CST</option>
-	<option value="-5"<?php if($user["time_zone"]==-5) echo " selected=\"selected\""; ?>>-05 EST</option>
-	<option value="-4"<?php if($user["time_zone"]==-4) echo " selected=\"selected\""; ?>>-04 AST</option>
-	<option value="-3.5"<?php if($user["time_zone"]==-3.5) echo " selected=\"selected\""; ?>>-03.5</option>
-	<option value="-3"<?php if($user["time_zone"]==-3) echo " selected=\"selected\""; ?>>-03 ADT</option>
-	<option value="-2"<?php if($user["time_zone"]==-2) echo " selected=\"selected\""; ?>>-02</option>
-	<option value="-1"<?php if($user["time_zone"]==-1) echo " selected=\"selected\""; ?>>-01</option>
-	<option value="0"<?php if($user["time_zone"]==0) echo " selected=\"selected\""; ?>>00 GMT</option>
-	<option value="1"<?php if($user["time_zone"]==1) echo " selected=\"selected\""; ?>>+01 CET</option>
-	<option value="2"<?php if($user["time_zone"]==2) echo " selected=\"selected\""; ?>>+02</option>
-	<option value="3"<?php if($user["time_zone"]==3) echo " selected=\"selected\""; ?>>+03</option>
-	<option value="3.5"<?php if($user["time_zone"]==3.5) echo " selected=\"selected\""; ?>>+03.5</option>
-	<option value="4"<?php if($user["time_zone"]==4) echo " selected=\"selected\""; ?>>+04</option>
-	<option value="4.5"<?php if($user["time_zone"]==4.5) echo " selected=\"selected\""; ?>>+04.5</option>
-	<option value="5"<?php if($user["time_zone"]==5) echo " selected=\"selected\""; ?>>+05</option>
-	<option value="5.5"<?php if($user["time_zone"]==5.5) echo " selected=\"selected\""; ?>>+05.5</option>
-	<option value="6"<?php if($user["time_zone"]==6) echo " selected=\"selected\""; ?>>+06</option>
-	<option value="6.5"<?php if($user["time_zone"]==6.5) echo " selected=\"selected\""; ?>>+06.5</option>
-	<option value="7"<?php if($user["time_zone"]==7) echo " selected=\"selected\""; ?>>+07</option>
-	<option value="8"<?php if($user["time_zone"]==8) echo " selected=\"selected\""; ?>>+08</option>
-	<option value="9"<?php if($user["time_zone"]==9) echo " selected=\"selected\""; ?>>+09</option>
-	<option value="9.5"<?php if($user["time_zone"]==9.5) echo " selected=\"selected\""; ?>>+09.5</option>
-	<option value="10"<?php if($user["time_zone"]==10) echo " selected=\"selected\""; ?>>+10</option>
-	<option value="10.5"<?php if($user["time_zone"]==10.5) echo " selected=\"selected\""; ?>>+10.5</option>
-	<option value="11"<?php if($user["time_zone"]==11) echo " selected=\"selected\""; ?>>+11</option>
-	<option value="11.5"<?php if($user["time_zone"]==11.5) echo " selected=\"selected\""; ?>>+11.5</option>
-	<option value="12"<?php if($user["time_zone"]==12) echo " selected=\"selected\""; ?>>+12</option>
-	<option value="13"<?php if($user["time_zone"]==13) echo " selected=\"selected\""; ?>>+13</option>
-	<option value="14"<?php if($user["time_zone"]==14) echo " selected=\"selected\""; ?>>+14</option>
-<!-- /////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////     THE PRECEDING IS GPL     //////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////// -->
-      </select></td>
+     <td align="center">
+      <select name="zone">
+       <option value="-12"<?php if($user["time_zone"]==-12) echo " selected=\"selected\""; ?>>UTC-12</option>
+       <option value="-11"<?php if($user["time_zone"]==-11) echo " selected=\"selected\""; ?>>UTC-11</option>
+       <option value="-10"<?php if($user["time_zone"]==-10) echo " selected=\"selected\""; ?>>UTC-10</option>
+       <option value="-9.5"<?php if($user["time_zone"]==-9.5) echo " selected=\"selected\""; ?>>UTC-09:30</option>
+       <option value="-9"<?php if($user["time_zone"]==-9) echo " selected=\"selected\""; ?>>UTC-09</option>
+       <option value="-8"<?php if($user["time_zone"]==-8) echo " selected=\"selected\""; ?>>UTC-08</option>
+       <option value="-7"<?php if($user["time_zone"]==-7) echo " selected=\"selected\""; ?>>UTC-07</option>
+       <option value="-6"<?php if($user["time_zone"]==-6) echo " selected=\"selected\""; ?>>UTC-06</option>
+       <option value="-5"<?php if($user["time_zone"]==-5) echo " selected=\"selected\""; ?>>UTC-05</option>
+       <option value="-4"<?php if($user["time_zone"]==-4) echo " selected=\"selected\""; ?>>UTC-04</option>
+       <option value="-3.5"<?php if($user["time_zone"]==-3.5) echo " selected=\"selected\""; ?>>UTC-03:30</option>
+       <option value="-3"<?php if($user["time_zone"]==-3) echo " selected=\"selected\""; ?>>UTC-03</option>
+       <option value="-2"<?php if($user["time_zone"]==-2) echo " selected=\"selected\""; ?>>UTC-02</option>
+       <option value="-1"<?php if($user["time_zone"]==-1) echo " selected=\"selected\""; ?>>UTC-01</option>
+       <option value="0"<?php if($user["time_zone"]==0) echo " selected=\"selected\""; ?>>UTC</option>
+       <option value="1"<?php if($user["time_zone"]==1) echo " selected=\"selected\""; ?>>UTC+01</option>
+       <option value="2"<?php if($user["time_zone"]==2) echo " selected=\"selected\""; ?>>UTC+02</option>
+       <option value="3"<?php if($user["time_zone"]==3) echo " selected=\"selected\""; ?>>UTC+03</option>
+       <option value="3.5"<?php if($user["time_zone"]==3.5) echo " selected=\"selected\""; ?>>UTC+03:30</option>
+       <option value="4"<?php if($user["time_zone"]==4) echo " selected=\"selected\""; ?>>UTC+04</option>
+       <option value="4.5"<?php if($user["time_zone"]==4.5) echo " selected=\"selected\""; ?>>UTC+04:30</option>
+       <option value="5"<?php if($user["time_zone"]==5) echo " selected=\"selected\""; ?>>UTC+05</option>
+       <option value="5.5"<?php if($user["time_zone"]==5.5) echo " selected=\"selected\""; ?>>UTC+05:30</option>
+       <option value="5.75"<?php if($user["time_zone"]==5.75) echo " selected=\"selected\""; ?>>UTC+05:45</option>
+       <option value="6"<?php if($user["time_zone"]==6) echo " selected=\"selected\""; ?>>UTC+06</option>
+       <option value="6.5"<?php if($user["time_zone"]==6.5) echo " selected=\"selected\""; ?>>UTC+06:30</option>
+       <option value="7"<?php if($user["time_zone"]==7) echo " selected=\"selected\""; ?>>UTC+07</option>
+       <option value="8"<?php if($user["time_zone"]==8) echo " selected=\"selected\""; ?>>UTC+08</option>
+       <option value="8.75"<?php if($user["time_zone"]==8.75) echo " selected=\"selected\""; ?>>UTC+08:45</option>
+       <option value="9"<?php if($user["time_zone"]==9) echo " selected=\"selected\""; ?>>UTC+09</option>
+       <option value="9.5"<?php if($user["time_zone"]==9.5) echo " selected=\"selected\""; ?>>UTC+09:30</option>
+       <option value="10"<?php if($user["time_zone"]==10) echo " selected=\"selected\""; ?>>UTC+10</option>
+       <option value="10.5"<?php if($user["time_zone"]==10.5) echo " selected=\"selected\""; ?>>UTC+10:30</option>
+       <option value="11"<?php if($user["time_zone"]==11) echo " selected=\"selected\""; ?>>UTC+11</option>
+       <option value="11.5"<?php if($user["time_zone"]==11.5) echo " selected=\"selected\""; ?>>UTC+11:30</option>
+       <option value="12"<?php if($user["time_zone"]==12) echo " selected=\"selected\""; ?>>UTC+12</option>
+       <option value="12.75"<?php if($user["time_zone"]==12.75) echo " selected=\"selected\""; ?>>UTC+12:45</option>
+       <option value="13"<?php if($user["time_zone"]==13) echo " selected=\"selected\""; ?>>UTC+13</option>
+       <option value="14"<?php if($user["time_zone"]==14) echo " selected=\"selected\""; ?>>UTC+14</option>
+      </select>
+     </td>
      <td align="center">
       <input type="hidden" name="edit" value="zone" />
       <input type="submit" value="change!" />
