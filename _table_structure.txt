@@ -1,0 +1,86 @@
+CREATE TABLE `ttf_banned` (
+  `user_id` mediumint(9) NOT NULL default '0',
+  `ip` varchar(15) NOT NULL default '',
+  UNIQUE KEY `ip` (`ip`)
+) TYPE=MyISAM;
+
+CREATE TABLE `ttf_config` (
+  `name` varchar(32) default NULL,
+  `value` varchar(128) default NULL
+) TYPE=MyISAM;
+
+CREATE TABLE `ttf_forum` (
+  `forum_id` tinyint(4) NOT NULL auto_increment,
+  `name` text NOT NULL,
+  `description` text NOT NULL,
+  `threads` mediumint(9) NOT NULL default '0',
+  `posts` mediumint(9) NOT NULL default '0',
+  `date` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`forum_id`)
+) TYPE=MyISAM;
+
+CREATE TABLE `ttf_forum_new` (
+  `user_id` mediumint(9) NOT NULL default '0',
+  `forum_id` mediumint(9) NOT NULL default '0',
+  `last_view` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`user_id`,`forum_id`)
+) TYPE=MyISAM;
+
+CREATE TABLE `ttf_post` (
+  `post_id` mediumint(9) NOT NULL auto_increment,
+  `thread_id` mediumint(9) default NULL,
+  `author_id` mediumint(9) default NULL,
+  `date` int(11) default NULL,
+  `ip` varchar(15) default NULL,
+  `body` longtext,
+  PRIMARY KEY  (`post_id`),
+  KEY `thread_id` (`thread_id`),
+  FULLTEXT KEY `body` (`body`)
+) TYPE=MyISAM;
+
+CREATE TABLE `ttf_thread` (
+  `forum_id` mediumint(9) NOT NULL default '0',
+  `thread_id` mediumint(9) NOT NULL auto_increment,
+  `author_id` mediumint(9) NOT NULL default '0',
+  `posts` mediumint(9) NOT NULL default '1',
+  `views` mediumint(9) NOT NULL default '0',
+  `date` int(11) NOT NULL default '0',
+  `title` text NOT NULL,
+  PRIMARY KEY  (`thread_id`),
+  KEY `forum_id` (`forum_id`),
+  FULLTEXT KEY `title` (`title`)
+) TYPE=MyISAM;
+
+CREATE TABLE `ttf_thread_new` (
+  `user_id` mediumint(9) NOT NULL default '0',
+  `thread_id` mediumint(9) NOT NULL default '0',
+  `last_view` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`user_id`,`thread_id`)
+) TYPE=MyISAM;
+
+CREATE TABLE `ttf_user` (
+  `user_id` mediumint(9) NOT NULL auto_increment,
+  `username` varchar(16) NOT NULL default '',
+  `password` varchar(40) NOT NULL default '',
+  `email` varchar(64) NOT NULL default '',
+  `title` varchar(64) default NULL,
+  `avatar_type` enum('gif','jpg','png') default NULL,
+  `time_zone` float NOT NULL default '-7',
+  `register_date` int(11) default NULL,
+  `visit_date` int(11) default NULL,
+  `post_date` int(11) default NULL,
+  `register_ip` varchar(15) default NULL,
+  `visit_ip` varchar(15) default NULL,
+  `profile` longtext,
+  `banned` enum('yes','no') NOT NULL default 'no',
+  PRIMARY KEY  (`user_id`),
+  UNIQUE KEY `username` (`username`),
+  UNIQUE KEY `email` (`email`)
+) TYPE=MyISAM;
+
+CREATE TABLE `ttf_visit` (
+  `user_id` mediumint(9) NOT NULL default '0',
+  `ip` varchar(15) NOT NULL default '',
+  `date` int(11) NOT NULL default '0',
+  KEY `user_id` (`user_id`)
+) TYPE=MyISAM;
