@@ -55,6 +55,7 @@
     · <a href="search.php">search</a><br />
     · <a href="editprofile.php">edit your profile</a><br />
     · <a href="logout.php">log out</a>
+    · <a href="http://code.google.com/p/thinktankforums/">ttf development</a><br />
 <?php	
 	if ($ttf["uid"] == 1 || $ttf["uid"] == 2) {
 ?>
@@ -83,6 +84,7 @@
    <div class="menu_two">
     · <a href="register.php">register an account</a><br />
     · <a href="search.php">search the forums</a><br />
+    · <a href="http://code.google.com/p/thinktankforums/">ttf development</a><br />
     · <a href="http://en.wikipedia.org/wiki/Think_Tank_Forums">about ttf</a>
 <?php	 
    };
