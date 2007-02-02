@@ -113,8 +113,13 @@ function ttf_format($input)
 
 function output($input)
 {
-	$output['profile'] = htmlspecialchars(stripslashes($input));
-	$output['body'] = nl2br(ttf_format($output['profile']));
+	$output = htmlspecialchars(stripslashes($input));
+	return $output;
+};
+
+function outputbody($input)
+{
+	$output = nl2br(ttf_format(output($input)));
 	return $output;
 };
 
