@@ -85,53 +85,38 @@ function clean($input) {	// allows html, only escapes
  * function may be modified to use text formatting
  * utilities such as php-markdown.
  */
-function add_tags($input) {	// converts some html entities to tags
-	$search = array("&lt;b&gt;",  "&lt;i&gt;",  "&lt;u&gt;", "&lt;pre&gt;", "&lt;/b&gt;", "&lt;/i&gt;", "&lt;/u&gt;", "&lt;/pre&gt;");
-	$replace = array("<b>",  "<i>",  "<u>", "<pre>", "</b>", "</i>", "</u>", "</pre>");
-	$input = str_replace($search, $replace, $input);
-	return($input);
+
+function ttf_format($input)
+{
+	$input = str_replace("\n","\n ", $input);
+	
+	//for a direct copy-paste style insert. 
+	$match_array[0] = '/([\s\(])(http(s)|(s)ftp)://([\w\-]+\.([\w\-]+\.)*[\w]+(:[0-9]+)?(\s\))?$)/ime'; //i modifier set since some people link upper/lower case && m
+	$clean_array[0] = '/<a href="$1" target="_blank">$2</a>';
+	
+	//for a [url=http://www.domain.com]domain[/url]
+	$match_array[1] = '/\[url=(.*?)\](.*?)[\/url]/i';
+	$clean_array[1] = '/<a href="$1" target="_blank">$2</a>/';
+	
+	//for a [url]domain.com[/url]
+	$match_array[2] = '/\[url\](.*?)[\/url]/i';
+	$clean_array[2] = '/<a href="http://.$1" target="_blank">$1</a>/';
+	
+	//for bold, italic, underline, and preformatted text
+	$match_array[3] = '/"&lt;b&gt;",  "&lt;i&gt;",  "&lt;u&gt;", "&lt;pre&gt;", "&lt;/b&gt;", "&lt;/i&gt;", "&lt;/u&gt;", "&lt;/pre&gt;"/';
+	$clean_array[3] = '/"<b>",  "<i>",  "<u>", "<pre>", "</b>", "</i>", "</u>", "</pre>"/';
+	
+	$input = preg_replace($match_array, $clean_array, $input);
+	$input = str_replace("\n","\n ", $input);
+	return $input;
 };
 
-
-//////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////     THE FOLLOWING IS GPL     //////////////////////////////
-//////////////////////////////Copyright (C) 2002-2005  Rickard Andersson
-//////////////////////////////////////////////////////////////////////////////////////////
-function handle_url_tag($url, $link = '')/////////////////////////////////////////////////
-{/////////////////////////////////////////////////////////////////////////////////////////
-	$full_url = str_replace(array(' ', '\'', '`'), array('%20', '', ''), $url);///////
-	if (strpos($url, 'www.') === 0)///////////// If it starts with www, we add http://
-		$full_url = 'http://'.$full_url;//////////////////////////////////////////
-	else if (strpos($url, 'ftp.') === 0)//// Else if it starts with ftp, we add ftp://
-		$full_url = 'ftp://'.$full_url;///////////////////////////////////////////
-	else if (!preg_match('#^([a-z0-9]{3,6})://#', $url, $bah))// Else if it doesn't start with abcdef://, we add http://
-		$full_url = 'http://'.$full_url;//////////////////////////////////////////
-	// Ok, not very pretty :-)////////////////////////////////////////////////////////
-	$link = ($link == '' || $link == $url) ? ((strlen($url) > 55) ? substr($url, 0 , 39).' … '.substr($url, -10) : $url) : stripslashes($link);
-	return '<a href="'.$full_url.'">'.$link.'</a>';///////////////////////////////////
-};////////////////////////////////////////////////////////////////////////////////////////
-function linkup($input) {///////// post formatting ///////////////////////////////////////
-	$input = ' '.$input;//////////////////////////////////////////////////////////////
-	$input = preg_replace('#([\s\(\)])(https?|ftp|news){1}://([\w\-]+\.([\w\-]+\.)*[\w]+(:[0-9]+)?(/[^"\s\(\)<\[]*)?)#ie', '\'$1\'.handle_url_tag(\'$2://$3\')', $input);
-	$input = preg_replace('#([\s\(\)])(www|ftp)\.(([\w\-]+\.)*[\w]+(:[0-9]+)?(/[^"\s\(\)<\[]*)?)#ie', '\'$1\'.handle_url_tag(\'$2.$3\', \'$2.$3\')', $input);
-	$input = substr($input, 1);///////////////////////////////////////////////////////
-	return($input);///////////////////////////////////////////////////////////////////
-};////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////     THE PRECEDING IS GPL     //////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////
-
-function output($input) {
-	$output = htmlspecialchars(stripslashes($input));
-	return($output);
+function output($input)
+{
+	$output['profile'] = htmlspecialchars(stripslashes($input));
+	$output['body'] = nl2br(ttf_format($output['profile']));
+	return $output;
 };
-
-
-function outputbody($input) {
-	$output = nl2br(add_tags(linkup(htmlspecialchars(stripslashes($input)))));
-	return($output);
-};
-
 
 // mysql error printing
 function showerror() {
