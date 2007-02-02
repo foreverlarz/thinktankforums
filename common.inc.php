@@ -119,7 +119,7 @@ function output($input)
 
 function outputbody($input)
 {
-	$output = nl2br(ttf_format(output($input)));
+	$output = nl2br(ttf_format(htmlspecialchars(stripslashes($input))));
 	return $output;
 };
 
