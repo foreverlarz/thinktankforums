@@ -89,8 +89,10 @@
  * utilities such as php-markdown.
  */
 
-function ttf_format($input)
+function outputbody($input)
 {
+	$input = htmlspecialchars($input, ENT_COMPAT, 'UTF-8');
+
 	$input = str_replace("\n","\n ", $input);
 	
 	//for a direct copy-paste style insert. 
@@ -113,18 +115,15 @@ function ttf_format($input)
 	
 	$input = preg_replace($match_array, $clean_array, $input);
 	$input = str_replace("\n","\n ", $input);
+
+	$input = nl2br($input);
+
 	return $input;
 };
 
 function output($input)
 {
-	$output = htmlspecialchars($input);
-	return $output;
-};
-
-function outputbody($input)
-{
-	$output = nl2br(ttf_format(htmlspecialchars($input)));
+	$output = htmlspecialchars($input, ENT_COMPAT, 'UTF-8');
 	return $output;
 };
 
