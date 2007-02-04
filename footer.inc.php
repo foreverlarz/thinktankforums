@@ -25,8 +25,6 @@
  *
  * being an include script, there are no sanity checks.
  */
-
- if ($dbmscnx) mysql_close();
 ?>
    <!-- begin footer.inc.php -->
    <script src="http://www.google-analytics.com/urchin.js" type="text/javascript">

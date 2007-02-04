@@ -50,6 +50,5 @@ if (isset($ttf["uid"])) {
       };
    };
 };
-if ($dbmscnx) mysql_close();
 header("Location: thread.php?thread_id=$thread_id");
 ?>
