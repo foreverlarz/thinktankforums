@@ -19,6 +19,7 @@
  */
 require "common.inc.php";
 admin();
+die("THIS SHOULD NOT BE RUN WITHOUT EXTREME CARE");
 $label = "administration » decoding all html characters in posts...";
 require "header.inc.php";
 ?>
@@ -75,6 +76,5 @@ mysql_free_result($result);
 ?>
    </div>
 <?php
-mysql_close();
-include "footer.inc.php";
+require "footer.inc.php";
 ?>

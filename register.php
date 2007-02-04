@@ -102,5 +102,4 @@
   };
  } else { message("register an account","error!","you already have an account!",0,0); };
  require "footer.inc.php";
- mysql_close();
 ?>

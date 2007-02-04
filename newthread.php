@@ -78,5 +78,4 @@
    };
   } else { message("create a new thread","error!","invalid forum.",1,1); };
  } else { message("create a new thread","error!","you must login before you may post a new thread.",1,1); };
- mysql_close();
 ?>

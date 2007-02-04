@@ -103,6 +103,5 @@ while ($post = mysql_fetch_array($result)) {
 } else {
 	message("view thread","error!","not a valid thread.",0,0);
 };
-mysql_close();
 require "footer.inc.php";
 ?>

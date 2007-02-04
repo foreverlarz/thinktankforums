@@ -227,6 +227,5 @@
 <?php
   };
  } else { message("edit your profile","error!","you must login before you may edit your profile.",0,0); };
- mysql_close();
  require "footer.inc.php";
 ?>

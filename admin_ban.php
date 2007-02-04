@@ -17,10 +17,10 @@
  *
  ****************************************************************************
  */
- include "common.inc.php";
+ require "common.inc.php";
  admin();
  $label = "administration » user ban";
- include "header.inc.php";
+ require "header.inc.php";
  $user_id = clean($_GET["user_id"]);
 ?>
   <table border="0" cellpadding="2" cellspacing="1" width="600" class="shift">
@@ -62,6 +62,5 @@
   </table>
 <?php
  } else { message("user information","error!","the `user_id` you provided was invalid!",0,0); };
- mysql_close();
- include "footer.inc.php";
+ require "footer.inc.php";
 ?>

@@ -17,10 +17,10 @@
  *
  ****************************************************************************
  */
- include "common.inc.php";
+ require "common.inc.php";
  admin();
  $label = "administration » user info";
- include "header.inc.php";
+ require "header.inc.php";
  $user_id = clean($_GET["user_id"]);
  $result = mysql_query("SELECT * FROM ttf_user WHERE user_id='$user_id'");
  $user = mysql_fetch_array($result);
@@ -111,6 +111,5 @@
    </table>
 <?php
  } else { message("user profile","error!","not a valid user!",0,0); };
- mysql_close();
- include "footer.inc.php";
+ require "footer.inc.php";
 ?>

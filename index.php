@@ -91,5 +91,4 @@
    </table>
 <?php
  require "footer.inc.php";
- mysql_close();
 ?>

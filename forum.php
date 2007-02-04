@@ -117,6 +117,5 @@
    </table>
 <?php
  } else { message("view forum","error!","not a valid forum.",1,0); };
- mysql_close();
  require "footer.inc.php";
 ?>

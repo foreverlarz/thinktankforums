@@ -39,7 +39,7 @@
 	global $ttf;
 	if ($a == 1) {
 		$label = $section;
-		include "header.inc.php";
+		require "header.inc.php";
 	};
 ?>
   <table border="0" cellpadding="2" cellspacing="1" width="600" class="shift">
@@ -47,7 +47,7 @@
    <tr class="medium"><td><?php echo $message; ?></td></tr>
   </table>
 <?php
-	if ($b == 1) include "footer.inc.php";
+	if ($b == 1) require "footer.inc.php";
  };
 
 

@@ -51,5 +51,5 @@
    header("Location: index.php");
   } else { message("log in","error!","invalid username and/or password!",1,1); };
  } else { message("log in","error!","you must be logged out and provide credentials.",1,1); };
- mysql_close();
+ if ($dbmscnx) mysql_close();
 ?>

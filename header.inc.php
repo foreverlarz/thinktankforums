@@ -54,8 +54,7 @@
    <div class="menu_two">
     · <a href="search.php">search</a><br />
     · <a href="editprofile.php">edit your profile</a><br />
-    · <a href="logout.php">log out</a><br />
-    · <a href="http://code.google.com/p/thinktankforums/">ttf development</a>
+    · <a href="logout.php">log out</a>
 <?php	
 	if ($ttf["uid"] == 1 || $ttf["uid"] == 2) {
 ?>
@@ -64,7 +63,8 @@
    <div class="menu_two">
     · <a href="admin_dbms.php">dbms tables</a><br />
     · <a href="admin_user.php">users</a><br />
-    · <a href="http://www.wingedleopard.net/phpmyadmin/">phpmyadmin</a>
+    · <a href="http://www.wingedleopard.net/phpmyadmin/">phpmyadmin</a><br />
+    · <a href="http://code.google.com/p/thinktankforums/">ttf development</a>
 <?php
 	};
    } else {
@@ -83,9 +83,7 @@
    </div>
    <div class="menu_two">
     · <a href="register.php">register an account</a><br />
-    · <a href="search.php">search the forums</a><br />
-    · <a href="http://code.google.com/p/thinktankforums/">ttf development</a><br />
-    · <a href="http://en.wikipedia.org/wiki/Think_Tank_Forums">about ttf</a>
+    · <a href="search.php">search the forums</a>
 <?php	 
    };
 ?>

@@ -17,10 +17,10 @@
  *
  ****************************************************************************
  */
- include "common.inc.php";
+ require "common.inc.php";
  admin();
  $label = "administration » user list";
- include "header.inc.php";
+ require "header.inc.php";
 ?>
   <table cellspacing="0" cellpadding="1" width="600" class="shift">
 <?php
@@ -59,6 +59,5 @@
 ?>
   </table>
 <?php
- mysql_close();
- include "footer.inc.php";
+ require "footer.inc.php";
 ?>

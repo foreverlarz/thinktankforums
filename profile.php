@@ -59,6 +59,5 @@
    </div>
 <?php
  } else { message("user profile","error!","not a valid user!",0,0); };
- mysql_close();
  require "footer.inc.php";
 ?>

@@ -81,7 +81,6 @@
 <?php
   };
   mysql_free_result($result);
- } else { message("search ttf posts","error!","you must enter search terms.",0,0); };
- mysql_close();
+ } else if (isset($_GET["string"])) { message("search ttf posts","error!","you must enter search terms.",0,0); };
  require "footer.inc.php";
 ?>

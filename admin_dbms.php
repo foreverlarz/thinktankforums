@@ -17,10 +17,10 @@
  *
  ****************************************************************************
  */
- include "common.inc.php";
+ require "common.inc.php";
  admin();
  $label = "administration » dbms tables";
- include "header.inc.php";
+ require "header.inc.php";
 ?>
 <table border="0" cellpadding="2" cellspacing="1" width="600" class="shift">
 <tr class="mediuminv"><td width="594" colspan="5"><b>
@@ -77,6 +77,5 @@ if ($fix == "thread_date") {
 ?>
 </td></tr></table>
 <?php
-mysql_close();
-include "footer.inc.php";
+require "footer.inc.php";
 ?>
