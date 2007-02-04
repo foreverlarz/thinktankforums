@@ -2,12 +2,12 @@ CREATE TABLE `ttf_banned` (
   `user_id` mediumint(9) NOT NULL default '0',
   `ip` varchar(15) NOT NULL default '',
   UNIQUE KEY `ip` (`ip`)
-) TYPE=MyISAM;
+) TYPE=MyISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 CREATE TABLE `ttf_config` (
   `name` varchar(32) default NULL,
   `value` varchar(128) default NULL
-) TYPE=MyISAM;
+) TYPE=MyISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 CREATE TABLE `ttf_forum` (
   `forum_id` tinyint(4) NOT NULL auto_increment,
@@ -17,14 +17,14 @@ CREATE TABLE `ttf_forum` (
   `posts` mediumint(9) NOT NULL default '0',
   `date` int(11) NOT NULL default '0',
   PRIMARY KEY  (`forum_id`)
-) TYPE=MyISAM;
+) TYPE=MyISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 CREATE TABLE `ttf_forum_new` (
   `user_id` mediumint(9) NOT NULL default '0',
   `forum_id` mediumint(9) NOT NULL default '0',
   `last_view` int(11) NOT NULL default '0',
   PRIMARY KEY  (`user_id`,`forum_id`)
-) TYPE=MyISAM;
+) TYPE=MyISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 CREATE TABLE `ttf_post` (
   `post_id` mediumint(9) NOT NULL auto_increment,
@@ -36,7 +36,7 @@ CREATE TABLE `ttf_post` (
   PRIMARY KEY  (`post_id`),
   KEY `thread_id` (`thread_id`),
   FULLTEXT KEY `body` (`body`)
-) TYPE=MyISAM;
+) TYPE=MyISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 CREATE TABLE `ttf_thread` (
   `forum_id` mediumint(9) NOT NULL default '0',
@@ -49,14 +49,14 @@ CREATE TABLE `ttf_thread` (
   PRIMARY KEY  (`thread_id`),
   KEY `forum_id` (`forum_id`),
   FULLTEXT KEY `title` (`title`)
-) TYPE=MyISAM;
+) TYPE=MyISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 CREATE TABLE `ttf_thread_new` (
   `user_id` mediumint(9) NOT NULL default '0',
   `thread_id` mediumint(9) NOT NULL default '0',
   `last_view` int(11) NOT NULL default '0',
   PRIMARY KEY  (`user_id`,`thread_id`)
-) TYPE=MyISAM;
+) TYPE=MyISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 CREATE TABLE `ttf_user` (
   `user_id` mediumint(9) NOT NULL auto_increment,
@@ -76,11 +76,19 @@ CREATE TABLE `ttf_user` (
   PRIMARY KEY  (`user_id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`)
-) TYPE=MyISAM;
+) TYPE=MyISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 CREATE TABLE `ttf_visit` (
   `user_id` mediumint(9) NOT NULL default '0',
   `ip` varchar(15) NOT NULL default '',
   `date` int(11) NOT NULL default '0',
   KEY `user_id` (`user_id`)
-) TYPE=MyISAM;
+) TYPE=MyISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+INSERT INTO `ttf_config` (`name`, `value`) VALUES
+('version', '1.0-dev'),
+('index_title', 'watch next level'),
+('forum_display', '15'),
+('maintenance', '0'),
+('server_time_zone', '+5'),
+('online_timeout', '900');
