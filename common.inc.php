@@ -116,13 +116,13 @@ function ttf_format($input)
 
 function output($input)
 {
-	$output = htmlspecialchars(stripslashes($input));
+	$output = htmlspecialchars($input);
 	return $output;
 };
 
 function outputbody($input)
 {
-	$output = nl2br(ttf_format(htmlspecialchars(stripslashes($input))));
+	$output = nl2br(ttf_format(htmlspecialchars($input)));
 	return $output;
 };
 
