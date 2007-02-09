@@ -86,7 +86,7 @@ CREATE TABLE `ttf_visit` (
 ) TYPE=MyISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 INSERT INTO `ttf_config` (`name`, `value`) VALUES
-('version', '1.0-dev'),
+('version', 'CURRENT'),
 ('index_title', 'watch next level'),
 ('forum_display', '15'),
 ('maintenance', '0'),

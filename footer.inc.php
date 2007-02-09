@@ -1,5 +1,5 @@
 <?php
-/* think tank forums 1.0-beta
+/* think tank forums
  *
  * footer.inc.php
  *
