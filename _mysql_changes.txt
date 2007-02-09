@@ -1,0 +1,6 @@
+to use the new admin function, run:
+
+ALTER TABLE `ttf_user` ADD `perm` ENUM( 'admin', 'user', 'banned' ) NOT NULL DEFAULT 'user' AFTER `password` ;
+ALTER TABLE `ttf_user` DROP `banned` ;
+UPDATE ttf_user SET perm = 'admin' WHERE user_id =1 ;
+UPDATE ttf_user SET perm = 'admin' WHERE user_id =2 ;
