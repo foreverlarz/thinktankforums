@@ -39,7 +39,7 @@
   $result = mysql_query("SELECT user_id, banned FROM ttf_user WHERE username='$username' AND password='$password'");
   $user = mysql_fetch_array($result);
   mysql_free_result($result);
-  if (isset($user["user_id"]) && $user["banned"] == 'yes') {
+  if (isset($user["user_id"]) && $user["perm"] == 'banned') {
    $resulta = mysql_query("INSERT INTO ttf_banned VALUES ('{$user["user_id"]}', '{$_SERVER["REMOTE_ADDR"]}')");
    $resultb = mysql_query("INSERT INTO ttf_visit VALUES ('{$ttf["uid"]}', '{$_SERVER["REMOTE_ADDR"]}', UNIX_TIMESTAMP())");
    message("log in","error!","holy shit! you're banned!",1,1);

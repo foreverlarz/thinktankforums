@@ -18,6 +18,7 @@
  ****************************************************************************
  */
  require "common.inc.php";
+ die("broken");
  admin();
  $label = "administration » user info";
  require "header.inc.php";

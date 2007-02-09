@@ -65,14 +65,18 @@
 <?php
  };
  mysql_free_result($result);
- $sql = "SELECT user_id, username FROM ttf_user
+ $sql = "SELECT user_id, username, perm FROM ttf_user
          WHERE visit_date > UNIX_TIMESTAMP()-{$ttf_config["online_timeout"]}
 	 ORDER BY username";
  $result = mysql_query($sql);
  $code = ""; $i = 0;
  while ($user = mysql_fetch_array($result)) {
   if ($i > 0) $code .= ", ";
-  $code .= "<a href=\"profile.php?user_id={$user["user_id"]}\">".output($user["username"])."</a>";
+  if ($user["perm"] == 'admin') {
+	$code .= "<a href=\"profile.php?user_id={$user["user_id"]}\"><b>".output($user["username"])."</b></a>";
+  } else {
+  	$code .= "<a href=\"profile.php?user_id={$user["user_id"]}\">".output($user["username"])."</a>";
+  };
   $i = 1;
  };
  if ($i == 0) $code = "noone is online.";

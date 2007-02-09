@@ -55,7 +55,7 @@
 
  function admin() {
 	global $ttf;
-	if ($ttf["uid"] != 1 && $ttf["uid"] != 2) {
+	if ($ttf["perm"] != 'admin') {
 	 message("ttf administration backend!","dead end.","please do not reload this page or attempt to exploit it. every <b>page view</b> is logged with {ip, timestamp, request, additional agent information}.",1,1);
 	 die();
 	};
@@ -190,11 +190,12 @@ function output($input)
 
  if (isset($_COOKIE["thinktank"])) {
   list($user_id, $password) = unserialize(stripslashes($_COOKIE["thinktank"]));
-  $result = mysql_query("SELECT user_id, username, avatar_type, time_zone FROM ttf_user WHERE user_id='$user_id' AND password='$password'");
+  $result = mysql_query("SELECT user_id, username, perm, avatar_type, time_zone FROM ttf_user WHERE user_id='$user_id' AND password='$password'");
   if (mysql_num_rows($result) == 1) {
    $user = mysql_fetch_array($result);
    $ttf["uid"] = $user["user_id"];
    $ttf["username"] = $user["username"];
+   $ttf["perm"] = $user["perm"];
    $ttf["avatar_type"] = $user["avatar_type"];
    $ttf["time_zone"] = $user["time_zone"] + $ttf_config["server_time_zone"];
    mysql_free_result($result);
@@ -208,7 +209,7 @@ function output($input)
 
 // maintenance
 
- if ($ttf_config["maintenance"] && $ttf["uid"] != 1) {
+ if ($ttf_config["maintenance"] && $ttf["perm"] != 'admin') {
   message("think tank forums!","maintenance","sorry, ttf is offline for maintenance.<br />we are most likely updating scripts and adding new features! come back soon!\n", 1, 1);
   die();
  };

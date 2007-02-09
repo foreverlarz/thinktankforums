@@ -62,6 +62,7 @@ CREATE TABLE `ttf_user` (
   `user_id` mediumint(9) NOT NULL auto_increment,
   `username` varchar(16) NOT NULL default '',
   `password` varchar(40) NOT NULL default '',
+  `perm` enum('admin','user','banned') NOT NULL default 'user',
   `email` varchar(64) NOT NULL default '',
   `title` varchar(64) default NULL,
   `avatar_type` enum('gif','jpg','png') default NULL,
@@ -72,7 +73,6 @@ CREATE TABLE `ttf_user` (
   `register_ip` varchar(15) default NULL,
   `visit_ip` varchar(15) default NULL,
   `profile` longtext,
-  `banned` enum('yes','no') NOT NULL default 'no',
   PRIMARY KEY  (`user_id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`)

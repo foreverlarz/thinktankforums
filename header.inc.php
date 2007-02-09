@@ -56,7 +56,7 @@
     · <a href="editprofile.php">edit your profile</a><br />
     · <a href="logout.php">log out</a>
 <?php	
-	if ($ttf["uid"] == 1 || $ttf["uid"] == 2) {
+	if ($ttf["perm"] == 'admin') {
 ?>
    </div>
    <div class="menu_one"><b>administrate!</b></div>
