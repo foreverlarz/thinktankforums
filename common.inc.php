@@ -18,10 +18,9 @@
 
 // message printing
 
- function message($section, $header, $message, $a, $b) {
-	global $ttf;
+ function message($label, $header, $message, $a, $b) {
+	global $ttf;			// i think this is made a global here to pass to header.inc.php
 	if ($a == 1) {
-		$label = $section;
 		require "header.inc.php";
 	};
 ?>
@@ -45,32 +44,7 @@
  };
 
 
-// input security cleaning
-
- function clean($input) {	// allows html, only escapes
-	if (get_magic_quotes_gpc()) {
-		$input = stripslashes($input);
-	};
-	$output = mysql_real_escape_string(trim($input));
-	return($output);
- };
-
-
-/* convert text blobs for output //
- *
- * used solely for two fields:
- * 	ttf_user.profile
- * 	ttf_post.body
- *
- * all other fields must be inserted using cleanall.
- * these two fields only user clean, therefore they
- * may contain unencoded html characters.
- *
- * note: the primary function is output(). all other
- * functions defined are ancillary to output(). this
- * function may be modified to use text formatting
- * utilities such as php-markdown.
- */
+// format text output for posts and profiles
 
 function outputbody($input)
 {
@@ -115,6 +89,14 @@ function outputbody($input)
 	return $input;
 };
 
+
+/* output text for non-post and non-profile uses
+ *
+ * this must be used to make the data xhtml compliant.
+ * for example, "&" is not compliant, you must use "&amp;",
+ * and this function converts that for you!
+ */
+
 function output($input)
 {
 	$output = htmlspecialchars($input, ENT_COMPAT, 'UTF-8');
@@ -149,11 +131,21 @@ function output($input)
  if (!mysql_select_db($dbms_db)) showerror();
 
 
+// input security cleaning
+
+ function clean($input) {	// allows html, only escapes
+	if (get_magic_quotes_gpc()) {
+		$input = stripslashes($input);
+	};
+	$output = mysql_real_escape_string(trim($input));
+	return($output);
+ };
+
+
 // config variables
 
  $result = mysql_query("SELECT * FROM ttf_config");
  while ($config = mysql_fetch_array($result)) $ttf_config["{$config["name"]}"] = $config["value"];
- mysql_free_result($result);
 
 
 // check banned list
@@ -166,7 +158,6 @@ function output($input)
    die();
   };
  };
- mysql_free_result($result);
 
 
 // cookie management
@@ -181,7 +172,6 @@ function output($input)
    $ttf["perm"] = $user["perm"];
    $ttf["avatar_type"] = $user["avatar_type"];
    $ttf["time_zone"] = $user["time_zone"] + $ttf_config["server_time_zone"];
-   mysql_free_result($result);
   } else { message("fatal error", "authentication", "your cookie is invalid. please <a href=\"logout.php\">logout</a> then login again.",1,1); die(); };
  };
  if (isset($ttf["uid"])) {
