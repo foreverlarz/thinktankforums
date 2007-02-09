@@ -20,7 +20,7 @@
  if (!isset($ttf["uid"]) && isset($_POST["username"]) && isset($_POST["password"])) {
   $username = clean($_POST["username"]);
   $password = sha1(clean($_POST["password"]));
-  $result = mysql_query("SELECT user_id, banned FROM ttf_user WHERE username='$username' AND password='$password'");
+  $result = mysql_query("SELECT user_id, perm FROM ttf_user WHERE username='$username' AND password='$password'");
   $user = mysql_fetch_array($result);
   mysql_free_result($result);
   if (isset($user["user_id"]) && $user["perm"] == 'banned') {
