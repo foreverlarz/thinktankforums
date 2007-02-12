@@ -1,5 +1,5 @@
  ********************************************************************************
- * Copyright (c) 2007	   Think Tank Forums					*
+ * Copyright (c) 2007	   Think Tank Forums <http://www.thinktankforums.com/>	*
  * Copyright (c) 2004-2007 Jonathan Lucas Reddinger <lucas@wingedleopard.net>	*
  *										*
  * Permission to use, copy, modify, and distribute this software for any	*
