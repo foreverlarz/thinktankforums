@@ -43,6 +43,15 @@
 	};
  };
 
+// converts some html entities to tags
+
+function addtags($input) {	
+	$search = array("&lt;b&gt;",  "&lt;i&gt;",  "&lt;u&gt;", "&lt;pre&gt;", "&lt;/b&gt;", "&lt;/i&gt;", "&lt;/u&gt;", "&lt;/pre&gt;");
+	$replace = array("<b>",  "<i>",  "<u>", "<pre>", "</b>", "</i>", "</u>", "</pre>");
+	$input = str_replace($search, $replace, $input);
+	return($input);
+};
+
 
 // format text output for posts and profiles
 
@@ -50,39 +59,15 @@ function outputbody($input)
 {
 	$input = htmlspecialchars($input, ENT_COMPAT, 'UTF-8');
 	
-	//for a direct copy-paste style insert. 
-	//i modifier set since some people link upper/lower case
-	$match_array[0] = '@(http(s)?|(s)?ftp):\/\/([\w\-]+\.?([\w\-]+)\.([\w(\:\d)?]+)(/[^\s]*)?(\s\w+\/+)?)@i';
-	if (strlen($match_array[0]) > 60) {
-		print_r($match_array[0]);
-		$foxy = (preg_match($match_array[0], $input, $foxy));
-		print_r($foxy);
-		$fox = (substr($foxy, 0, 40).' … '.substr(preg_match($foxy, -5)));
-		$clean_array[0] = "<a href=\"$0\" target=\"_blank\">$fox</a>";
-	} else {
-	$clean_array[0] = '<a href="$0" target="_blank">$0</a>';
-	};
+	$match_array[0] = '@(http(s)?|(s)?ftp):\/\/(([\w\/.\-\=\~\?\&\;]*)?[^\"\s\,\.\)\!\?\:\'\}\]$])@i';
+	$clean_array[0] = '<a href="$0">$0</a>';
+ 
+	$match_array[1] = '@\s(\w+)\.(com|net)\s@i';
+	$clean_array[1] = ' <a href="http://$1.$2">$1.$2</a> ';
+	
+	$input = preg_replace($match_array, $clean_array, $input);
 
-	//for a [url=http://www.domain.com]domain[/url]
-	$match_array[1] = '/\[url=(.*?)\](.*?)\[\/url\]/i';
-	$clean_array[1] = '<a href="$1" target="_blank">$2</a>';
-	
-	//for a [url]domain.com[/url]
-	$match_array[2] = '/\[url\](.*?)\[\/url\]/i';
-	$clean_array[2] = '<a href="http://.$1" target="_blank">$1</a>';
-	
-	$match_array[3] = '/(\w+)\.(com|net)/i';
-	$clean_array[3] = '<a href="http://$1.$2" target="_blank">$0</a>';
-	
-	//find a way to get rid of \s
-	//find a way to format matching string
-	
-	
-	//for bold, italic, underline, and preformatted text
-	$match_array[4] = '/"&lt;b&gt;",  "&lt;i&gt;",  "&lt;u&gt;", "&lt;pre&gt;", "&lt;/b&gt;", "&lt;/i&gt;", "&lt;/u&gt;", "&lt;/pre&gt;"/';
-	$clean_array[4] = '"<b>",  "<i>",  "<u>", "<pre>", "</b>", "</i>", "</u>", "</pre>"';
-	
-	$input = preg_replace($match_array[0], $clean_array[0], $input);
+	$input = addtags($input);
 
 	$input = nl2br($input);
 
