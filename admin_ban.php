@@ -18,7 +18,7 @@
  $user = mysql_fetch_array($result);
  mysql_free_result($result);
  if (isset($user["register_ip"]) && $user["register_ip"] != "") {
-	$resulta = mysql_query("UPDATE ttf_user SET perm='banner' WHERE user_id='$user_id'");
+	$resulta = mysql_query("UPDATE ttf_user SET perm='banned' WHERE user_id='$user_id'");
         if ($resulta == 1) echo "user.perm->'banned'<br />\n";
 	$resultb = mysql_query("REPLACE INTO ttf_banned VALUES ('$user_id', '{$user["register_ip"]}')");
         if ($resultb == 1) echo "banned+={$user["register_ip"]}R<br />\n";
