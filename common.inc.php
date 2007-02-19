@@ -43,34 +43,51 @@
 	};
  };
 
-// converts some html entities to tags
-
-function addtags($input) {	
-	$search = array("&lt;b&gt;",  "&lt;i&gt;",  "&lt;u&gt;", "&lt;pre&gt;", "&lt;/b&gt;", "&lt;/i&gt;", "&lt;/u&gt;", "&lt;/pre&gt;");
-	$replace = array("<b>",  "<i>",  "<u>", "<pre>", "</b>", "</i>", "</u>", "</pre>");
-	$input = str_replace($search, $replace, $input);
-	return($input);
+//chop links
+function choplink($link = '') {
+	$link = str_replace(' ', '%20', $link);
+	$short = ((strlen($link) > 60) ? substr($link, 0 , 45).'[…]'.substr($link, -10) : $link);
+	return ' <a href="'.$link.'">'.$short.'</a> ';
+};
+//<pre> and </pre> tags drop extra <br /> baggage.
+function unprebr($prestrn = '') {
+	$brless = str_replace(array('\s', '\n', '\r'), '', $prestrn);
+	return '<pre>'.$brless.'</pre>';
 };
 
-
 // format text output for posts and profiles
-
 function outputbody($input)
 {
 	$input = htmlspecialchars($input, ENT_COMPAT, 'UTF-8');
 	
-	$match_array[0] = '@(http(s)?|(s)?ftp):\/\/(([\w\/.\-\=\~\?\&\;]*)?[^\"\s\,\.\)\!\?\:\'\}\]$])@i';
-	$clean_array[0] = '<a href="$0">$0</a>';
- 
-	$match_array[1] = '@\s(\w+)\.(com|net)\s@i';
-	$clean_array[1] = ' <a href="http://$1.$2">$1.$2</a> ';
+	//long paste
+	//ex1: http://www.thinktankforums.com == <a href="http://www.wingedleopard.net">http://www.wingedleopard.net</a>
+	$input = preg_replace('@(^|\s)(http(s)?|(s)?ftp):\/\/(([\w\/.\-\=\~\?\&]*)?[^\s\,\.\)\!\?\:\'\}\]$])@ie', 'choplink(\'$2$3$4://$5\')', $input);
 	
-	$input = preg_replace($match_array, $clean_array, $input);
+	//name paste
+	//ex1: wlw:http://www.wingedleopard.net == <a href="http://www.wingedleopard.net">wlw</a> 
+	//ex2: 'winged leopard':http://www.wingedleopard.net == <a href="http://www.wingedleopard.net">winged leopard</a> 
+	$input = preg_replace('@(((\'([\w\s]+)\')?(\w+)?:))(http(s)?|(s)?ftp):\/\/(([\w\/.\-\=\~\?\&]*)?[^\s\,\.\)\!\?\:\'\}\]$])@i', '<a href="$6$7$8://$9">$4$5</a>', $input);
 
-	$input = addtags($input);
+	//quick link
+	//ex: ttf.com
+ 	$input = preg_replace('@(^|\s)(\w+)\.(com|net|org|edu|gov|mil)($|\s)@i', ' <a href="http://$2.$3">$2.$3</a> ', $input);
+	
+	//quick subdomain
+	//ex: www.ttf.com
+ 	$input = preg_replace('@(^|\s)(\w+)\.(\w+)\.(com|net|org|edu|gov|mil)($|\s)@i', ' <a href="http://$2.$3.$4">$2.$3.$4</a> ', $input);
 
-	$input = nl2br($input);
-
+	// converts some html entities to tags
+	$search = array("&lt;b&gt;",  "&lt;i&gt;",  "&lt;u&gt;", "&lt;/b&gt;", "&lt;/i&gt;", "&lt;/u&gt;");
+	$replace = array("<b>",  "<i>",  "<u>", "</b>", "</i>", "</u>");
+	$input = str_replace($search, $replace, $input);
+	if (preg_match('@&lt;pre&gt;([\w\s\r\n]+)&lt;/pre&gt;@i', $input)) {
+		$input = preg_replace('@&lt;pre&gt;([\w\s\r\n]+)&lt;/pre&gt;@ie', 'unprebr(\'$1\')', $input);
+	} elseif (preg_match('@<pre>([\w\s\r\n]+)</pre>@i', $input)) {
+		return $input;
+	} else {
+		$input = nl2br($input);
+	};
 	return $input;
 };
 
