@@ -66,7 +66,6 @@ function admin() {
 
 // chop links
 function choplink($link = '') {
-	$link = str_replace(' ', '%20', $link);		// what \_/ is this block right here? --jlr
 	$short = ((strlen($link) > 60) ? substr($link, 0 , 45).'[…]'.substr($link, -10) : $link);
 	return ' <a href="'.$link.'">'.$short.'</a> ';
 };
