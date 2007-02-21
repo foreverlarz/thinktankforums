@@ -66,7 +66,7 @@ function admin() {
 
 // chop links
 function choplink($link = '') {
-	$short = ((strlen($link) > 60) ? substr($link, 0 , 45).'[…]'.substr($link, -10) : $link);
+	$short = ((strlen($link) > 60) ? substr($link, 0 , 45).' … '.substr($link, -10) : $link);
 	return ' <a href="'.$link.'">'.$short.'</a> ';
 };
 // <pre> and </pre> tags drop extra <br /> baggage.
