@@ -17,11 +17,11 @@
   <title>think tank forums <?php echo $ttf_config["version"]; ?></title>
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
   <style type="text/css">
-   @import "_style_brown.css";
+   @import "_style.css";
   </style>
  </head>
  <body>
-  <div id="ttf"><a href="/">think tank forums</a></div>
+  <a href="/"><img id="ttf" src="images/header.gif" width="600" height="46" border="0" alt="think tank forums!" /></a>
   <div id="label"><span class="indent"><?php echo $label; ?></span></div>
   <div id="enclosure">
    <div class="menu_one"> 
