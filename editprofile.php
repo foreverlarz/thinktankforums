@@ -3,8 +3,6 @@
  *
  * editprofile.php
  *
- * AUDITED BY JLR 200611250210
- *
  * this script accepts the following variables:
  * 	$_POST["edit"]			--
  *	$_POST["password0"]		clean

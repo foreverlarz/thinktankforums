@@ -3,8 +3,6 @@
  *
  * thread.php
  *
- * AUDITED BY JLR 200611250122
- *
  * this script accepts the following variables:
  * 	$_GET["thread_id"]	clean
  *

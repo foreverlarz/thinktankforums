@@ -3,8 +3,6 @@
  *
  * forum.php
  *
- * AUDITED BY JLR 200611250140
- *
  * this script accepts the following variables:
  * 	$_GET["forum_id"]	clean
  *	$_GET["offset"]		clean

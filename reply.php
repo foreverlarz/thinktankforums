@@ -3,8 +3,6 @@
  *
  * reply.php
  *
- * AUDITED BY JLR 200611250107
- *
  * this script accepts the following variables:
  * 	$_POST["thread_id"]	clean
  *	$_POST["body"]		clean

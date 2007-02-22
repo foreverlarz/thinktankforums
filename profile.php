@@ -3,8 +3,6 @@
  *
  * profile.php
  *
- * AUDITED BY JLR 200611250103
- *
  * this script accepts the following variables:
  * 	$_GET["user_id"]	clean
  *

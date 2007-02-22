@@ -3,8 +3,6 @@
  *
  * search.php
  *
- * AUDITED BY JLR 200611250113
- *
  * this script accepts the following variables:
  * 	$_GET["string"]		clean
  *

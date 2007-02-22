@@ -3,8 +3,6 @@
  *
  * index.php
  *
- * AUDITED BY JLR 200611250133
- *
  * this script accepts NO variables.
  *
  * sanity checks include:

@@ -3,8 +3,6 @@
  *
  * register.php
  *
- * AUDITED BY JLR 200611250153
- *
  * the following variables are accepted:
  * 	$_POST["username"]	clean
  * 	$_POST["email0"]	clean

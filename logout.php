@@ -3,8 +3,6 @@
  *
  * logout.php
  *
- * AUDITED BY JLR 200611250124
- *
  * this script accepts NO variables.
  *
  * sanity checks include:

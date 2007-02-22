@@ -3,8 +3,6 @@
  *
  * login.php
  *
- * AUDITED BY JLR 200611250126
- *
  * this script accepts the following variables:
  * 	$_POST["username"]	clean
  *	$_POST["password"]	clean

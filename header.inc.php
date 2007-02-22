@@ -3,8 +3,6 @@
  *
  * header.inc.php
  *
- * AUDITED BY JLR 200611250137
- *
  * the following variables are accepted:
  * 	$label		secured
  *
