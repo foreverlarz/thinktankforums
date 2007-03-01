@@ -15,11 +15,11 @@
   <title>think tank forums <?php echo $ttf_config["version"]; ?></title>
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
   <style type="text/css">
-   @import "_style_brown.css";
+   @import "_style.css";
   </style>
  </head>
  <body>
-  <div id="ttf"><a href="/">think tank forums</a></div>
+  <a href="/"><img id="ttf" src="images/header.gif" width="600" height="46" border="0" alt="think tank forums!" /></a>
   <div id="label"><span class="indent"><?php echo $label; ?></span></div>
   <div id="enclosure">
    <div class="menu_one"> 
@@ -45,7 +45,6 @@
    <div class="menu_two">
     · <a href="admin_dbms.php">dbms tables</a><br />
     · <a href="admin_user.php">users</a><br />
-    · <a href="http://www.wingedleopard.net/phpmyadmin/">phpmyadmin</a><br />
     · <a href="http://code.google.com/p/thinktankforums/">ttf development</a>
 <?php
 	};

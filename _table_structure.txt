@@ -86,9 +86,9 @@ CREATE TABLE `ttf_visit` (
 ) TYPE=MyISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 INSERT INTO `ttf_config` (`name`, `value`) VALUES
-('version', 'CURRENT'),
+('version', 'ttf-dev'),
 ('index_title', 'watch next level'),
 ('forum_display', '15'),
 ('maintenance', '0'),
-('server_time_zone', '+5'),
+('server_time_zone', '0'),
 ('online_timeout', '900');

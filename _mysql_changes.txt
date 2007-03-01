@@ -1,10 +1,4 @@
 to get your tables working with r33, run:
 
-----
 ALTER TABLE `ttf_user` ADD `perm` ENUM( 'admin', 'user', 'banned' ) NOT NULL DEFAULT 'user' AFTER `password` ;
 ALTER TABLE `ttf_user` DROP `banned` ;
-UPDATE `ttf_user` SET `perm` = 'admin' WHERE `user_id`='1' ;
-UPDATE `ttf_user` SET `perm` = 'admin' WHERE `user_id`='2' ;
-----
-
-have fun!
