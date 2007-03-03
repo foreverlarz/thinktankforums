@@ -39,25 +39,23 @@ while ($post = mysql_fetch_array($result)) {
 	$date = strtolower(date("g\:i a, j M y", $post["date"] + 3600*$ttf["time_zone"]));
 ?>
    <a name="<?php echo $post["post_id"]; ?>"></a>
-   <table border="0" cellspacing="0" cellpadding="1" class="shift" width="600">
-    <tr>
-     <td align="left" class="smallinv" rowspan="2" valign="middle" width="34">
+   <div class="userbar">
+    <div class="userbar_left">
 <?php
 	if (isset($post["avatar_type"])) {
 ?>
-      <img src="avatars/<?php echo $post["author_id"].".".$post["avatar_type"]; ?>" alt="avatar!" width="30" height="30" class="avatar" />
+      <img src="avatars/<?php echo $post["author_id"].".".$post["avatar_type"]; ?>" alt="avatar!" width="30" height="30" />
 <?php
 		} else { echo "&nbsp;\n"; };
 ?>
-     </td>
-     <td align="left" class="mediuminv" valign="middle" width="400"><b><a style="color: #ffffff" href="profile.php?user_id=<?php echo $post["author_id"]; ?>"><?php echo output($post["username"]); ?></a></b></td>
-     <td align="right" class="smallinv" rowspan="2" valign="middle" width="166"><?php echo $date; ?>&nbsp;&nbsp;</td>
-    </tr>
-    <tr>
-     <td align="left" class="smallinv" valign="middle" width="400"><?php echo output($post["title"]); ?></td>
-    </tr>
-   </table>
-   <div class="whitebox">
+    </div>
+    <div class="userbar_right">
+     <?php echo $date; ?>
+    </div>
+    <a class="username" href="profile.php?user_id=<?php echo $post["author_id"]; ?>"><?php echo output($post["username"]); ?></a><br />
+    <?php echo output($post["title"]); ?>
+   </div>
+   <div class="contentbox">
 <?php
 		echo outputbody($post["body"])."\n";
 ?>

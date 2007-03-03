@@ -118,11 +118,11 @@ form {
 }
 
 .indent {
-	margin: 0px 0px 0px 25px;
+	margin-left: 25px;
 }
 
 .shift {
-	margin: 25px 0px 0px 25px;
+	margin-top: 25px;
 }
 
 .sidebox {
@@ -157,9 +157,10 @@ form {
 }
 
 #enclosure {
-	width: 825px;
-	padding: 0px 25px 25px 0px;
+	width: 800px;
+	padding: 0px 25px 25px 25px;
         margin: 0px 0px;
+	overflow: auto;
 }
 
 .menu_one {
@@ -193,12 +194,54 @@ form {
 	display: block;
 }
 
-.whitebox {
+.userbar {
+	width: 596px;
+	margin-top: 26px;
+	padding: 2px;
+	background-color: #000000;
+	color: #ffffff;
+	font-size: 8pt;
+	line-height: 12pt;
+	height: 30px;
+	overflow: hidden;
+}
+
+.userbar_left {
+	float: left;
+	width: 30px;
+	height: 30px;
+	margin-right: 4px;
+}
+
+.userbar_right {
+	border: 1px red solid;
+	float: right;
+	//height: 30px;
+	//margin: 0px 4px 0px 10px;
+	margin-top: auto;
+	margin-bottom: auto;
+	margin-right: 4px;
+	margin-left: 10px;
+	text-align: right;
+	//these statements do not effectively center the text vertically!
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.username {
+	font-size: 10pt;
+	font-weight: bold;
+}
+
+a.username {
+	color: #ffffff;
+}
+
+.contentbox {
 	width: 590px;
-	margin: 1px 0px 0px 25px;
+	margin-top: 1px;
 	padding: 5px 5px 5px 5px;
 	color: #000000;
-	font-size: 11px;
 	background-color: #ffffff;
-	font-family: verdana, sans-serif;
+	font-size: 11px;
 }

@@ -2,3 +2,7 @@ to get your tables working with r33, run:
 
 ALTER TABLE `ttf_user` ADD `perm` ENUM( 'admin', 'user', 'banned' ) NOT NULL DEFAULT 'user' AFTER `password` ;
 ALTER TABLE `ttf_user` DROP `banned` ;
+
+the next update:
+
+ALTER TABLE `ttf_post` ADD `hide` ENUM( 't', 'f' ) NOT NULL DEFAULT 'f' AFTER `author_id` ;
