@@ -2,10 +2,6 @@
 /* think tank forums
  *
  * footer.inc.php
- *
- * this script accepts NO variables.
- *
- * being an include script, there are no sanity checks.
  */
 ?>
    <!-- begin footer.inc.php -->

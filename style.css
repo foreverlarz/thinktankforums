@@ -1,7 +1,8 @@
 /* think tank forums
  *
- * _style.css
+ * style.css
  */
+
 
 a {
 	color: #000000;
@@ -36,6 +37,7 @@ textarea {
 
 textarea.reply {
 	width: 555px;
+	height: 190px;
 	color: #000000;
 	font-size: 11px;
 	background-color: #ffffff;
@@ -68,7 +70,7 @@ input.reply {
 	border-color: black;
 	border-width: 1px;
 	background-color: black;
-	margin: 0px 0px 0px 0px;
+	margin: 67px 5px 5px 5px;
 }
 
 form {
@@ -219,7 +221,7 @@ form {
 	//margin: 0px 4px 0px 10px;
 	margin-top: auto;
 	margin-bottom: auto;
-	margin-right: 4px;
+	margin-right: 2px;
 	margin-left: 10px;
 	text-align: right;
 	//these statements do not effectively center the text vertically!
@@ -232,8 +234,28 @@ form {
 	font-weight: bold;
 }
 
-a.username, a.link {
+a.username, a.username:link, a.username:active, a.username:visited,
+a.link, a.link:link, a.link:active, a.link:visited {
 	color: #ffffff;
+}
+
+.contenttitle {
+	width: 596px;
+	margin-top: 25px;
+	padding: 2px 2px 2px 2px;
+	color: #ffffff;
+	background-color: #000000;
+	font-size: 13px;
+	font-weight: bold;
+}
+
+.contenttitle_sm {
+	width: 596px;
+	margin-top: 25px;
+	padding: 4px;
+	color: #ffffff;
+	background-color: #000000;
+	font-size: 11px;
 }
 
 .contentbox {
@@ -243,4 +265,34 @@ a.username, a.link {
 	color: #000000;
 	background-color: #ffffff;
 	font-size: 11px;
+}
+
+.contentbox_lg {
+	width: 590px;
+	margin-top: 1px;
+	padding: 5px 5px 5px 5px;
+	color: #000000;
+	background-color: #ffffff;
+	font-size: 13px;
+	text-align: center;
+}
+
+#replybox_button {
+	padding: 0px;
+	width: 35px;
+	height: 200px;
+	float: left;
+	background-color: #000000;
+}
+
+#replybox_textarea {
+	padding: 0px;
+	margin-top: 25px;
+	width: 600px;
+	height: 200px;
+	background-color: #ffffff;	
+}
+
+.highlight {
+	background-color: #00ff33;
 }

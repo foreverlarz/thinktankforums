@@ -2,20 +2,8 @@
 /* think tank forums
  *
  * newthread.php
- *
- * this script accepts the following variables:
- * 	$_GET["forum_id"]	clean
- * 	$_POST["newthread"]	clean
- * 	$_POST["title"]		clean
- * 	$_POST["body"] 		clean
- * 
- * sanity checks include:
- * 	logged in as valid user
- * 	adding to a valid forum
- * 	neither title nor body are blank
- * 	includes are REQUIRED
  */
- require "common.inc.php";
+ require "include_common.php";
  if (isset($ttf["uid"])) {
   if (isset($_POST["newthread"])) $forum_id = clean($_POST["newthread"]);
   else $forum_id = clean($_GET["forum_id"]);
@@ -38,7 +26,7 @@
     } else { message("create a new thread","error!","you left a field blank.",1,1); };
    } else {	
     $label = "<a href=\"forum.php?forum_id=".$forum_id."\">".$forum["name"]."</a> » create a new thread";
-    require "header.inc.php";  
+    require "include_header.php";  
 ?>
   <form action="newthread.php" method="post">
    <table border="0" cellpadding="2" cellspacing="1" class="shift">
@@ -56,7 +44,7 @@
    <input type="hidden" name="newthread" value="<?php echo $forum_id; ?>" />
   </form>
 <?php
-    require "footer.inc.php";
+    require "include_footer.php";
    };
   } else { message("create a new thread","error!","invalid forum.",1,1); };
  } else { message("create a new thread","error!","you must login before you may post a new thread.",1,1); };

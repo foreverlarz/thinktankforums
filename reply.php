@@ -4,7 +4,7 @@
  * reply.php
  */
 
-require "common.inc.php";
+require "include_common.php";
 
 $thread_id = clean($_POST["thread_id"]);
 $body = clean($_POST["body"]);
@@ -48,11 +48,11 @@ if (isset($ttf["uid"])) {
 		header("Location: thread.php?thread_id=$thread_id");
 
 	} else {
-		message("fatal error", "fatal error", "either the thread_id or body fields were left empty.", 1, 1);
+		message("post a reply", "fatal error", "either the thread_id or body fields were left empty.", 1, 1);
 	};
 
 } else {
-	message("fatal error", "fatal error", "you must be logged in to post.", 1, 1);
+	message("post a reply", "fatal error", "you must be logged in to post.", 1, 1);
 };
 
 ?>

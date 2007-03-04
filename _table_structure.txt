@@ -30,6 +30,7 @@ CREATE TABLE `ttf_post` (
   `post_id` mediumint(9) NOT NULL auto_increment,
   `thread_id` mediumint(9) default NULL,
   `author_id` mediumint(9) default NULL,
+  `hide` enum('t','f') NOT NULL default 'f',
   `date` int(11) default NULL,
   `ip` varchar(15) default NULL,
   `body` longtext,

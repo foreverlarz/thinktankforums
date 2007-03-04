@@ -2,16 +2,8 @@
 /* think tank forums
  *
  * forum.php
- *
- * this script accepts the following variables:
- * 	$_GET["forum_id"]	clean
- *	$_GET["offset"]		clean
- *
- * sanity checks include:
- * 	valid forum exists
- * 	includes are REQUIRED
  */
- require "common.inc.php";
+ require "include_common.php";
  $forum_id = clean($_GET["forum_id"]);
  $offset   = clean($_GET["offset"]);
  $sql = "SELECT name FROM ttf_forum WHERE forum_id='$forum_id'";
@@ -23,7 +15,7 @@
    $result = mysql_query("REPLACE INTO ttf_forum_new SET forum_id='$forum_id', user_id='{$ttf["uid"]}', last_view=UNIX_TIMESTAMP()");
   }; 
   $label = $forum["name"]; // should this be run through output() ? --jlr
-  require "header.inc.php";
+  require "include_header.php";
 ?>
    <div class="sidebox"><a href="newthread.php?forum_id=<?php echo $forum_id; ?>"><b>start new thread</b></a></div>
 <?php
@@ -99,5 +91,5 @@
    </table>
 <?php
  } else { message("view forum","error!","not a valid forum.",1,0); };
- require "footer.inc.php";
+ require "include_footer.php";
 ?>

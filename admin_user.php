@@ -3,10 +3,10 @@
  *
  * admin_user.php
  */
- require "common.inc.php";
+ require "include_common.php";
  admin();
  $label = "administration » user list";
- require "header.inc.php";
+ require "include_header.php";
 ?>
   <table cellspacing="0" cellpadding="1" width="600" class="shift">
 <?php
@@ -45,5 +45,5 @@
 ?>
   </table>
 <?php
- require "footer.inc.php";
+ require "include_footer.php";
 ?>

@@ -3,10 +3,10 @@
  *
  * admin_userinfo.php
  */
- require "common.inc.php";
+ require "include_common.php";
  admin();
  $label = "administration » user info";
- require "header.inc.php";
+ require "include_header.php";
  $user_id = clean($_GET["user_id"]);
  $result = mysql_query("SELECT * FROM ttf_user WHERE user_id='$user_id'");
  $user = mysql_fetch_array($result);
@@ -96,5 +96,5 @@
    </table>
 <?php
  } else { message("user profile","error!","not a valid user!",0,0); };
- require "footer.inc.php";
+ require "include_footer.php";
 ?>

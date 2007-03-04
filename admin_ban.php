@@ -3,10 +3,10 @@
  *
  * admin_ban.php
  */
- require "common.inc.php";
+ require "include_common.php";
  admin();
  $label = "administration » user ban";
- require "header.inc.php";
+ require "include_header.php";
  $user_id = clean($_GET["user_id"]);
 ?>
   <table border="0" cellpadding="2" cellspacing="1" width="600" class="shift">
@@ -48,5 +48,5 @@
   </table>
 <?php
  } else { message("user information","error!","the `user_id` you provided was invalid!",0,0); };
- require "footer.inc.php";
+ require "include_footer.php";
 ?>

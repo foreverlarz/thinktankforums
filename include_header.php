@@ -2,11 +2,6 @@
 /* think tank forums
  *
  * header.inc.php
- *
- * the following variables are accepted:
- * 	$label		secured
- *
- * being an include script, there are no sanity checks.
  */
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -14,9 +9,10 @@
  <head>
   <title>think tank forums <?php echo $ttf_config["version"]; ?></title>
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-  <style type="text/css">
-   @import "_style.css";
-  </style>
+  <link rel="stylesheet" type="text/css" href="style.css" />
+  <!--[if lt IE 7]>
+  <link rel="stylesheet" type="text/css" href="style_ie.css" />
+  <![endif]-->
   <script type="text/javascript">
 	<!--
 	// Nannette Thacker http://www.shiningstar.net
@@ -54,16 +50,15 @@
 	if ($ttf["perm"] == 'admin') {
 ?>
    </div>
-   <div class="menu_one"><b>administrate!</b></div>
+   <div class="menu_one"><b>administrate</b></div>
    <div class="menu_two">
-    · <a href="admin_dbms.php">dbms tables</a><br />
-    · <a href="admin_user.php">users</a><br />
+    · <a href="admin_user.php">manage users</a><br />
     · <a href="http://code.google.com/p/thinktankforums/">ttf development</a>
 <?php
 	};
    } else {
 ?>
-    <b>log in to ttf!</b>
+    <b>log in to ttf</b>
    </div>
    <div class="menu_two">
     <form action="login.php" method="post">

@@ -2,31 +2,10 @@
 /* think tank forums
  *
  * editprofile.php
- *
- * this script accepts the following variables:
- * 	$_POST["edit"]			--
- *	$_POST["password0"]		clean
- *	$_POST["password1"]		clean
- *	$_FILES["avatar"]["size"]	--
- *	$_FILES["avatar"]["tmp_name"]	bin2hex
- *	$_POST["profile"]		clean
- *	$_POST["title"]			clean
- *	$_POST["zone"]			clean
- *	$_POST["email0"]		clean
- *	$_POST["email1"]		clean
- *
- * sanity checks include:
- * 	passwords match
- * 	passwords are not blank
- * 	passwords do not contain invalid characters
- *	avatar is not 0 bytes
- *	avatar is gif||jpg||png
- *	avatar is 30px by 30px
- * 	includes are REQUIRED
  */
- require "common.inc.php";	  
+ require "include_common.php";	  
  $label = "edit your profile";
- require "header.inc.php";
+ require "include_header.php";
  if (isset($ttf["uid"])) {
   $edit = clean($_POST["edit"]);
   if ($edit == "password") {			//////// EDIT PASSWORD ////////
@@ -209,5 +188,5 @@
 <?php
   };
  } else { message("edit your profile","error!","you must login before you may edit your profile.",0,0); };
- require "footer.inc.php";
+ require "include_footer.php";
 ?>
