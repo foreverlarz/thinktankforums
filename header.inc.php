@@ -17,6 +17,19 @@
   <style type="text/css">
    @import "_style.css";
   </style>
+  <script type="text/javascript">
+	<!--
+	// Nannette Thacker http://www.shiningstar.net
+	function confirmaction()
+	{
+	var agree=confirm("are you sure you wish to take this action?");
+	if (agree)
+		return true ;
+	else
+		return false ;
+	}
+	// -->
+  </script>
  </head>
  <body>
   <a href="/"><img id="ttf" src="images/header.gif" width="600" height="46" border="0" alt="think tank forums!" /></a>

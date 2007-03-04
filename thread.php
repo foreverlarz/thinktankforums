@@ -32,28 +32,31 @@ require "header.inc.php";
 $sql = "SELECT ttf_post.post_id, ttf_post.author_id, ttf_post.date, ttf_post.body,
 	ttf_user.username, ttf_user.title, ttf_user.avatar_type
 	FROM ttf_post, ttf_user
-	WHERE ttf_post.author_id = ttf_user.user_id && ttf_post.thread_id = '$thread_id'
+	WHERE ttf_post.author_id = ttf_user.user_id
+	&& ttf_post.hide='f' && ttf_post.thread_id = '$thread_id'
 	ORDER BY date ASC";
 $result = mysql_query($sql);
 while ($post = mysql_fetch_array($result)) {
 	$date = strtolower(date("g\:i a, j M y", $post["date"] + 3600*$ttf["time_zone"]));
 ?>
-   <a name="<?php echo $post["post_id"]; ?>"></a>
+   <a name="<?php echo $post["post_id"]; ?>"><!-- new post begins here --></a>
    <div class="userbar">
     <div class="userbar_left">
 <?php
 	if (isset($post["avatar_type"])) {
 ?>
-      <img src="avatars/<?php echo $post["author_id"].".".$post["avatar_type"]; ?>" alt="avatar!" width="30" height="30" />
+     <img src="avatars/<?php echo $post["author_id"].".".$post["avatar_type"]; ?>" alt="avatar!" width="30" height="30" />
 <?php
 		} else { echo "&nbsp;\n"; };
 ?>
     </div>
     <div class="userbar_right">
-     <?php echo $date; ?>
+     <?php echo $date; ?><br />
+     <!--<a class="link" href="editpost.php?post_id=<?php echo $post["post_id"]; ?>">edit</a>,-->
+     <a class="link" href="archivepost.php?post_id=<?php echo $post["post_id"]; ?>" onclick="return confirmaction()">archive</a>
     </div>
     <a class="username" href="profile.php?user_id=<?php echo $post["author_id"]; ?>"><?php echo output($post["username"]); ?></a><br />
-    <?php echo output($post["title"]); ?>
+    <?php echo output($post["title"])."\n"; ?>
    </div>
    <div class="contentbox">
 <?php

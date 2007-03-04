@@ -214,7 +214,6 @@ form {
 }
 
 .userbar_right {
-	border: 1px red solid;
 	float: right;
 	//height: 30px;
 	//margin: 0px 4px 0px 10px;
@@ -233,7 +232,7 @@ form {
 	font-weight: bold;
 }
 
-a.username {
+a.username, a.link {
 	color: #ffffff;
 }
 
