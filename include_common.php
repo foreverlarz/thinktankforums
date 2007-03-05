@@ -88,6 +88,7 @@ function choplink($link = '') {
 
 };
 
+/*
 // <pre> and </pre> tags drop extra <br /> baggage.
 function unprebr($prestrn = '') {
 
@@ -96,6 +97,7 @@ function unprebr($prestrn = '') {
 	return '<pre>'.$brless.'</pre>';
 
 };
+ */
 
 // format text output for posts and profiles
 function outputbody($input) {
@@ -118,6 +120,7 @@ function outputbody($input) {
 	$replace = array("<b>",  "<i>",  "<u>", "</b>", "</i>", "</u>");
 	$input = str_replace($search, $replace, $input);
 
+	/*
 	if (preg_match('@&lt;pre&gt;([\w\s\r\n]+)&lt;/pre&gt;@i', $input)) {
 
 		$input = preg_replace('@&lt;pre&gt;([\w\s\r\n]+)&lt;/pre&gt;@ie', 'unprebr(\'$1\')', $input);
@@ -131,8 +134,28 @@ function outputbody($input) {
 		$input = nl2br($input);
 
 	};
+	 */
 
-	return $input;
+	// new <pre> code. --jlr
+	$open_split = explode('&lt;pre&gt;', $input);
+	foreach ($open_split as $var) {
+		$close_split = explode('&lt;/pre&gt;', $var);
+		foreach ($close_split as $doubly) {
+			$alternate[] = $doubly;
+		};
+	};
+	$print = '';
+	$br = 1;
+	foreach ($alternate as $finally) {
+		if ($br % 2) {
+			$print .= nl2br($finally);
+		} else {
+			$print .= '<pre>'.$finally.'</pre>';
+		};
+		$br++;
+	};
+
+	return $print;
 
 };
 
