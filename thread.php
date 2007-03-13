@@ -77,7 +77,6 @@ if (isset($thread_title)) {
                 <div class="userbar_right"><?php echo $date; ?><?php
         if ($ttf["perm"] == 'admin' || $ttf["uid"] == $post["author_id"]) {
 ?><br />
-                    <a class="link" href="editpost.php?post_id=<?php echo $post["post_id"]; ?>">edit</a>,
                     <a class="link" href="archivepost.php?post_id=<?php echo $post["post_id"]; ?>" onclick="return confirmaction()">archive</a>
 <?php
         };

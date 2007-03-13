@@ -48,7 +48,11 @@ if (!empty($string)) {
 
         // highlight the keyword
         // ** if part of a url is replaces, it busts the link. needs fixed. --jlr **
-        $body = str_ireplace($string, "<span class=\"highlight\">$string</span>", outputbody($post["body"]));
+        if (function_exists('str_ireplace')) {
+            $body = str_ireplace($string, "<span class=\"highlight\">$string</span>", outputbody($post["body"]));
+        } else {
+            $body = str_replace($string, "<span class=\"highlight\">$string</span>", outputbody($post["body"]));
+        };
 
 ?>
             <div class="contenttitle_sm">
