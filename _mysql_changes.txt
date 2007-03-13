@@ -6,3 +6,7 @@ ALTER TABLE `ttf_user` DROP `banned` ;
 sql changes for r62:
 
 ALTER TABLE `ttf_post` ADD `hide` ENUM( 't', 'f' ) NOT NULL DEFAULT 'f' AFTER `author_id` ;
+
+sql changes for r71:
+
+ALTER TABLE `ttf_thread` CHANGE `posts` `posts` MEDIUMINT( 9 ) NOT NULL DEFAULT '0' ;
