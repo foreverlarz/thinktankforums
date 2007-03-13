@@ -16,16 +16,16 @@
  */
 function message($label, $title, $body, $header, $footer) {
 
-	global $ttf;	// pull through the $ttf array for header.inc.php
+    global $ttf;    // pull through the $ttf array for header.inc.php
 
-	if ($header) require "include_header.php";
+    if ($header) require "include_header.php";
 
 ?>
   <div class="contenttitle"><?php echo $title; ?></div>
   <div class="contentbox"><?php echo $body; ?></div>
 <?php
 
-	if ($footer) require "include_footer.php";
+    if ($footer) require "include_footer.php";
 
 };
 
@@ -40,15 +40,15 @@ function message($label, $title, $body, $header, $footer) {
  */
 function admin() {
 
-	global $ttf;	// pull through the $ttf array for header.inc.php
+    global $ttf;    // pull through the $ttf array for header.inc.php
 
-	if ($ttf["perm"] != 'admin') {
-		
-		message("think tank forums", "fatal error", "you do not have permission to access this page.", 1, 1);
+    if ($ttf["perm"] != 'admin') {
+        
+        message("think tank forums", "fatal error", "you do not have permission to access this page.", 1, 1);
 
-		die();
+        die();
 
-	};
+    };
 
 };
 
@@ -64,17 +64,17 @@ function admin() {
  * as suitable for posts and profiles:
  *  -> htmlspecialchars(, ENT_COMPAT, 'UTF-8')
  *  -> url linking
- *	* full	(http://www.sld.tld)
- *	* named	(ttf:http://www.sld.tld)
- *		('my page':http://subdomain.sld.tld)
- *	* short	(sld.tld)
- *		(subdomain.sld.tld)
+ *  * full  (http://www.sld.tld)
+ *  * named (ttf:http://www.sld.tld)
+ *      ('my page':http://subdomain.sld.tld)
+ *  * short (sld.tld)
+ *      (subdomain.sld.tld)
  *  -> html tag support
- *	* <b> . . . . </b>
- *	* <i> . . . . </i>
- *	* <u> . . . . </u>
- *	* <pre> . . </pre>
- *	* removes <br /> from <pre> . . </pre>
+ *  * <b> . . . . </b>
+ *  * <i> . . . . </i>
+ *  * <u> . . . . </u>
+ *  * <pre> . . </pre>
+ *  * removes <br /> from <pre> . . </pre>
  *
  * this function is necessary to retain xhtml compliance.
  */
@@ -82,9 +82,9 @@ function admin() {
 // chop links
 function choplink($link = '') {
 
-	$short = ((strlen($link) > 60) ? substr($link, 0 , 45).' … '.substr($link, -10) : $link);
+    $short = ((strlen($link) > 60) ? substr($link, 0 , 45).' … '.substr($link, -10) : $link);
 
-	return ' <a href="'.$link.'">'.$short.'</a> ';
+    return ' <a href="'.$link.'">'.$short.'</a> ';
 
 };
 
@@ -92,9 +92,9 @@ function choplink($link = '') {
 // <pre> and </pre> tags drop extra <br /> baggage.
 function unprebr($prestrn = '') {
 
-	$brless = str_replace(array('\s', '\n', '\r'), '', $prestrn);
+    $brless = str_replace(array('\s', '\n', '\r'), '', $prestrn);
 
-	return '<pre>'.$brless.'</pre>';
+    return '<pre>'.$brless.'</pre>';
 
 };
  */
@@ -102,60 +102,61 @@ function unprebr($prestrn = '') {
 // format text output for posts and profiles
 function outputbody($input) {
 
-	// convert all special characters to their html equivalent
-	$input = htmlspecialchars($input, ENT_COMPAT, 'UTF-8');
+    // convert all special characters to their html equivalent
+    $input = htmlspecialchars($input, ENT_COMPAT, 'UTF-8');
 
-	// full url
-	$input = preg_replace('@(^|\s)(http(s)?|(s)?ftp):\/\/(([\w\/.\-\=\~\?\&\,\.]*)?[^\s\,\.\)\!\?\:\'\}\]$]+)@ie', 'choplink(\'$2://$5\')', $input);
+    // full url
+    $input = preg_replace('@(^|\s)(http(s)?|(s)?ftp):\/\/(([\w\/.\-\=\~\?\&\,\.]*)?[^\s\,\.\)\!\?\:\'\}\]$]+)@ie', 'choplink(\'$2://$5\')', $input);
 
-	// named url
-	$input = preg_replace('@(((\'([\w\s.?\!?\@?\:?\-?]+)\')?([\w.?\!?\@?\:?\-?]+)?:))(http(s)?|(s)?ftp(s)?):\/\/(([\w\/.\-\=\~\?\&]*)?[^\s\,\.\)\!\?\:\'\}\]$]+)@i', '<a href="$6://$10">$4$5</a>', $input);
+    // named url
+    $input = preg_replace('@(((\'([\w\s.?\!?\@?\:?\-?]+)\')?([\w.?\!?\@?\:?\-?]+)?:))(http(s)?|(s)?ftp(s)?):\/\/(([\w\/.\-\=\~\?\&]*)?[^\s\,\.\)\!\?\:\'\}\]$]+)@i', '<a href="$6://$10">$4$5</a>', $input);
 
-	// short url
- 	$input = preg_replace('@(^|\s)(\w+)\.(com|net|org|edu|gov)($|\s)@i', ' <a href="http://$2.$3">$2.$3</a> ', $input);
- 	$input = preg_replace('@(^|\s)(\w+)\.(\w+)\.(com|net|org|edu|gov)($|\s)@i', ' <a href="http://$2.$3.$4">$2.$3.$4</a> ', $input);
+    // short url
+    $input = preg_replace('@(^|\s)(\w+)\.(com|net|org|edu|gov)($|\s)@i', ' <a href="http://$2.$3">$2.$3</a> ', $input);
+    $input = preg_replace('@(^|\s)(\w+)\.(\w+)\.(com|net|org|edu|gov)($|\s)@i', ' <a href="http://$2.$3.$4">$2.$3.$4</a> ', $input);
 
-	// converts some html entities to tags
-	$search = array("&lt;b&gt;",  "&lt;i&gt;",  "&lt;u&gt;", "&lt;/b&gt;", "&lt;/i&gt;", "&lt;/u&gt;");
-	$replace = array("<b>",  "<i>",  "<u>", "</b>", "</i>", "</u>");
-	$input = str_replace($search, $replace, $input);
+    // converts some html entities to tags
+    $search = array("&lt;b&gt;",  "&lt;i&gt;",  "&lt;u&gt;", "&lt;/b&gt;", "&lt;/i&gt;", "&lt;/u&gt;");
+    $replace = array("<b>",  "<i>",  "<u>", "</b>", "</i>", "</u>");
+    $input = str_replace($search, $replace, $input);
 
-	/*
-	if (preg_match('@&lt;pre&gt;([\w\s\r\n]+)&lt;/pre&gt;@i', $input)) {
+    /*
+    if (preg_match('@&lt;pre&gt;([\w\s\r\n]+)&lt;/pre&gt;@i', $input)) {
 
-		$input = preg_replace('@&lt;pre&gt;([\w\s\r\n]+)&lt;/pre&gt;@ie', 'unprebr(\'$1\')', $input);
+        $input = preg_replace('@&lt;pre&gt;([\w\s\r\n]+)&lt;/pre&gt;@ie', 'unprebr(\'$1\')', $input);
 
-	} elseif (preg_match('@<pre>([\w\s\r\n]+)</pre>@i', $input)) {
+    } elseif (preg_match('@<pre>([\w\s\r\n]+)</pre>@i', $input)) {
 
-		return $input;
+        return $input;
 
-	} else {
+    } else {
 
-		$input = nl2br($input);
+        $input = nl2br($input);
 
-	};
-	 */
+    };
+     */
 
-	// new <pre> code. --jlr
-	$open_split = explode('&lt;pre&gt;', $input);
-	foreach ($open_split as $var) {
-		$close_split = explode('&lt;/pre&gt;', $var);
-		foreach ($close_split as $doubly) {
-			$alternate[] = $doubly;
-		};
-	};
-	$print = '';
-	$br = 1;
-	foreach ($alternate as $finally) {
-		if ($br % 2) {
-			$print .= nl2br($finally);
-		} else {
-			$print .= '<pre>'.$finally.'</pre>';
-		};
-		$br++;
-	};
+    // new <pre> code. --jlr
+    // ** only run this if $input contains '&lt;pre&gt;'. --jlr **
+    $open_split = explode('&lt;pre&gt;', $input);
+    foreach ($open_split as $var) {
+        $close_split = explode('&lt;/pre&gt;', $var);
+        foreach ($close_split as $doubly) {
+            $alternate[] = $doubly;
+        };
+    };
+    $print = '';
+    $br = 1;
+    foreach ($alternate as $finally) {
+        if ($br % 2) {
+            $print .= nl2br($finally);
+        } else {
+            $print .= '<pre>'.$finally.'</pre>';
+        };
+        $br++;
+    };
 
-	return $print;
+    return $print;
 
 };
 
@@ -170,9 +171,9 @@ function outputbody($input) {
  */
 function output($input) {
 
-	$output = htmlspecialchars($input, ENT_COMPAT, 'UTF-8');
+    $output = htmlspecialchars($input, ENT_COMPAT, 'UTF-8');
 
-	return $output;
+    return $output;
 
 };
 
@@ -183,7 +184,7 @@ function output($input) {
  * this function should be used with any call to a mysql function.
  * 
  * example use:
- * 	if (!$result = mysql_query($sql)) showerror();
+ *  if (!$result = mysql_query($sql)) showerror();
  *
  * remember that this function will exit the script if mysql
  * encounters an error. this is extremely necessary when issuing
@@ -192,19 +193,19 @@ function output($input) {
  */
 function showerror() {
 
-	if (mysql_error()) {
+    if (mysql_error()) {
 
-		message("think tank forums", "fatal error", "mysql error ".mysql_errno().": ".mysql_error(), 1, 1);
+        message("think tank forums", "fatal error", "mysql error ".mysql_errno().": ".mysql_error(), 1, 1);
 
-		die();
-		
-	} else {
-		
-		message("think tank forums", "fatal error", "could not connect to the mysql dbms.", 1, 1);
+        die();
+        
+    } else {
+        
+        message("think tank forums", "fatal error", "could not connect to the mysql dbms.", 1, 1);
 
-		die();
+        die();
 
-	};
+    };
 
 };
 
@@ -242,15 +243,15 @@ if (!mysql_select_db($dbms_db)) showerror();
  */
 function clean($input) {
 
-	if (get_magic_quotes_gpc()) {
+    if (get_magic_quotes_gpc()) {
 
-		$input = stripslashes($input);
+        $input = stripslashes($input);
 
-	};
+    };
 
-	$output = mysql_real_escape_string(trim($input));
+    $output = mysql_real_escape_string(trim($input));
 
-	return($output);
+    return($output);
 
 };
 
@@ -264,7 +265,7 @@ function clean($input) {
 $sql = "SELECT * FROM ttf_config";
 if (!$result = mysql_query($sql)) showerror();
 while ($config = mysql_fetch_array($result)) {
-	$ttf_config["{$config["name"]}"] = $config["value"];
+    $ttf_config["{$config["name"]}"] = $config["value"];
 };
 
 
@@ -278,13 +279,13 @@ $sql = "SELECT * FROM ttf_banned GROUP BY ip";
 if (!$result = mysql_query($sql)) showerror();
 while ($ban = mysql_fetch_array($result)) {
 
-	if ($ban["ip"] == $_SERVER["REMOTE_ADDR"]) {
+    if ($ban["ip"] == $_SERVER["REMOTE_ADDR"]) {
 
-		message("think tank forums","fatal error","your ip is banned.", 1, 1);
+        message("think tank forums","fatal error","your ip is banned.", 1, 1);
 
-		die();
+        die();
 
-	};
+    };
 
 };
 
@@ -296,34 +297,34 @@ while ($ban = mysql_fetch_array($result)) {
  */
 if (isset($_COOKIE["thinktank"])) {
 
-	// pull the data out of the cookie
-	list($user_id, $password) = unserialize(stripslashes($_COOKIE["thinktank"]));
+    // pull the data out of the cookie
+    list($user_id, $password) = unserialize(stripslashes($_COOKIE["thinktank"]));
 
-	// select the data from ttf_user associated with this user
-	$sql =	"SELECT user_id, username, perm, avatar_type, time_zone ".
-		"FROM ttf_user WHERE user_id='$user_id' AND password='$password'";
-	if (!$result = mysql_query($sql)) showerror();
+    // select the data from ttf_user associated with this user
+    $sql = "SELECT user_id, username, perm, avatar_type, time_zone ".
+           "FROM ttf_user WHERE user_id='$user_id' AND password='$password'";
+    if (!$result = mysql_query($sql)) showerror();
 
-	// if we could find a user matching the specified user_id and password...
-	if (mysql_num_rows($result) == 1) {
+    // if we could find a user matching the specified user_id and password...
+    if (mysql_num_rows($result) == 1) {
 
-		// put the user data into the $ttf array
-		$user = mysql_fetch_array($result);
-		$ttf["uid"] = $user["user_id"];
-		$ttf["username"] = $user["username"];
-		$ttf["perm"] = $user["perm"];
-		$ttf["avatar_type"] = $user["avatar_type"];
-		$ttf["time_zone"] = $user["time_zone"] + $ttf_config["server_time_zone"];
+        // put the user data into the $ttf array
+        $user = mysql_fetch_array($result);
+        $ttf["uid"] = $user["user_id"];
+        $ttf["username"] = $user["username"];
+        $ttf["perm"] = $user["perm"];
+        $ttf["avatar_type"] = $user["avatar_type"];
+        $ttf["time_zone"] = $user["time_zone"] + $ttf_config["server_time_zone"];
 
-	} else {
+    } else {
 
-		// or print an error and exit
-		message("fatal error", "authentication","your cookie is invalid. ".
-			"please <a href=\"logout.php\">logout</a> then login again.",1,1);
+        // or print an error and exit
+        message("fatal error", "authentication","your cookie is invalid. ".
+                "please <a href=\"logout.php\">logout</a> then login again.",1,1);
 
-		die();
+        die();
 
-	};
+    };
 
 };
 
@@ -339,13 +340,13 @@ if (isset($_COOKIE["thinktank"])) {
  */
 if (isset($ttf["uid"])) {
 
-	$sql =	"UPDATE ttf_user SET visit_date=UNIX_TIMESTAMP(), ".
-		"visit_ip='{$_SERVER["REMOTE_ADDR"]}' WHERE user_id='{$ttf["uid"]}'";
-	if (!$result = mysql_query($sql)) showerror();
+    $sql = "UPDATE ttf_user SET visit_date=UNIX_TIMESTAMP(), ".
+           "visit_ip='{$_SERVER["REMOTE_ADDR"]}' WHERE user_id='{$ttf["uid"]}'";
+    if (!$result = mysql_query($sql)) showerror();
 
-	$sql =	"INSERT INTO ttf_visit SET user_id='{$ttf["uid"]}', ".
-		"ip='{$_SERVER["REMOTE_ADDR"]}', date=UNIX_TIMESTAMP()";
-	if (!$result = mysql_query($sql)) showerror();
+    $sql = "INSERT INTO ttf_visit SET user_id='{$ttf["uid"]}', ".
+           "ip='{$_SERVER["REMOTE_ADDR"]}', date=UNIX_TIMESTAMP()";
+    if (!$result = mysql_query($sql)) showerror();
 
 };
 
@@ -359,11 +360,11 @@ if (isset($ttf["uid"])) {
  */
 if ($ttf_config["maintenance"] && $ttf["perm"] != 'admin') {
 
-	message("think tank forums","maintenance",
-		"sorry, ttf is offline for maintenance.<br />we are most likely ".
-		"updating scripts and adding new features. come back soon!\n", 1, 1);
+    message("think tank forums","maintenance",
+            "sorry, ttf is offline for maintenance.<br />we are most likely ".
+            "updating scripts and adding new features. come back soon!\n", 1, 1);
 
-	die();
+    die();
 
 };
 

@@ -5,6 +5,7 @@
  */
 ?>
             <!-- **** **** begin footer.inc.php **** **** -->
+            <br style="clear: both;" />
         </div>
         <script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
         </script>

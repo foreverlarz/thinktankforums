@@ -9,11 +9,11 @@
     <head>
         <title>think tank forums <?php echo $ttf_config["version"]; ?></title>
         <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+        <script type="text/javascript" src="script_confirm.js"></script>
         <link rel="stylesheet" type="text/css" href="style.css" />
         <!--[if lt IE 7]>
         <link rel="stylesheet" type="text/css" href="style_ie.css" />
         <![endif]-->
-        <script type="text/javascript" src="script_confirm.js"></script>
     </head>
     <body>
         <div id="header">

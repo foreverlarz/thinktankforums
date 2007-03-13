@@ -4,143 +4,143 @@
  */
 
 body {
-	margin: 0px;
-	padding: 0px;
+    margin: 0px;
+    padding: 0px;
 
-	background-color: white;
-	background-image: url(images/bg.gif);
+    background-color: white;
+    background-image: url(images/bg.gif);
 
-	color: black;
-	font-size: 10pt;
-	font-family: verdana, sans-serif;
+    color: black;
+    font-size: 10pt;
+    font-family: verdana, sans-serif;
 }
 
 #header {
-	padding-top: 10px;
-	padding-left: 25px;
+    padding-top: 10px;
+    padding-left: 25px;
 
-	width: 600px;
+    width: 600px;
 }
 
 #header img {
-	display: block;
+    display: block;
 }
 
 #title {
-	padding-top: 3px;
-	padding-bottom: 3px;
-	padding-left: 25px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 25px;
 
-	color: black;
-	background-color: white;
-	font-size: 11pt;
-	font-family: verdana, sans-serif;
-	font-weight: bold;
+    color: black;
+    background-color: white;
+    font-size: 11pt;
+    font-family: verdana, sans-serif;
+    font-weight: bold;
 }
 
 #enclosure {
-	padding-top: 1px;	/* check out what happens if this is set to 0px! */
-	padding-right: 25px;
-	padding-bottom: 25px;
-	padding-left: 25px;
+    padding-top: 1px;   /* check out what happens if this is set to 0px! */
+    padding-right: 25px;
+    padding-bottom: 25px;
+    padding-left: 25px;
 
-	width: 800px;
+    width: 800px;
 }
 
 .menu_title {
-	float: right;
-	clear: right;
+    float: right;
+    clear: right;
 
-	margin-top: 25px;
-	padding: 2px;
+    margin-top: 25px;
+    padding: 2px;
 
-	width: 171px;
+    width: 171px;
 
-	color: white;
-	background-color: black;
-	font-size: 10pt;
-	font-family: verdana, sans-serif;
-	font-weight: bold;
+    color: white;
+    background-color: black;
+    font-size: 10pt;
+    font-family: verdana, sans-serif;
+    font-weight: bold;
 }
 
 .menu_title img {
-	vertical-align: middle;
+    vertical-align: middle;
 }
 
 .menu_body {
-	float: right;
-	clear: right;
+    float: right;
+    clear: right;
 
-	margin-top: 1px;
-	padding: 5px;
+    margin-top: 1px;
+    padding: 5px;
 
-	width: 165px;
+    width: 165px;
 
-	color: black;
-	background-color: white;
-	font-size: 8pt;
-	font-family: verdana, sans-serif;
+    color: black;
+    background-color: white;
+    font-size: 8pt;
+    font-family: verdana, sans-serif;
 }
 
 .sidebox {
-	float: right;
-	clear: right;
+    float: right;
+    clear: right;
 
-	margin-top: 25px;
-	padding: 10px;
+    margin-top: 25px;
+    padding: 10px;
 
-	width: 155px;
+    width: 155px;
 
-	font-size: 10pt;
-	color: black;
-	background-color: white;
-	font-family: verdana, sans-serif;
-	text-align: center;
+    font-size: 10pt;
+    color: black;
+    background-color: white;
+    font-family: verdana, sans-serif;
+    text-align: center;
 }
 
 .contenttitle {
-	margin-top: 25px;
-	padding: 2px;
+    margin-top: 25px;
+    padding: 2px;
 
-	width: 596px;
+    width: 596px;
 
-	color: white;
-	background-color: black;
-	font-size: 10pt;
-	font-weight: bold;
+    color: white;
+    background-color: black;
+    font-size: 10pt;
+    font-weight: bold;
 }
 
 .contenttitle_sm {
-	margin-top: 25px;
-	padding: 5px;
+    margin-top: 25px;
+    padding: 5px;
 
-	width: 590px;
+    width: 590px;
 
-	color: white;
-	background-color: black;
-	font-size: 8pt;
+    color: white;
+    background-color: black;
+    font-size: 8pt;
 }
 
 .contentbox {
-	margin-top: 1px;
-	padding: 5px;
+    margin-top: 1px;
+    padding: 2px;
 
-	width: 590px;
+    width: 596px;
 
-	color: black;
-	background-color: white;
-	font-size: 10pt;
+    color: black;
+    background-color: white;
+    font-size: 10pt;
 }
 
 .contentbox_sm {
-	margin-top: 1px;
-	padding: 5px;
+    margin-top: 1px;
+    padding: 5px;
 
-	width: 590px;
+    width: 590px;
 
-	color: black;
-	background-color: white;
-	font-size: 8pt;
+    color: black;
+    background-color: white;
+    font-size: 8pt;
 }
 
 
@@ -149,19 +149,19 @@ body {
  ***************/
 
 a, a:active, a:link, a:visited {
-	color: black;
+    color: black;
 }
 
 .small {
-	font-size: 8pt;
+    font-size: 8pt;
 }
 
 .medium {
-	font-size: 10pt;
+    font-size: 10pt;
 }
 
 .highlight {
-	background-color: #00ff33;
+    background-color: #00ff33;
 }
 
 
@@ -170,63 +170,54 @@ a, a:active, a:link, a:visited {
  ****************/
 
 table {
-	margin-top: 24px;
-}
-
-caption {
-	padding: 2px;
-
-	color: white;
-	background-color: black;
-	font-size: 10pt;
-	font-weight: bold;
+    margin-top: 24px;
 }
 
 col#mark {
-	width: 40px;
+    width: 40px;
 }
 
 col#forum {
-	width: 425px;
+    width: 425px;
 }
 
 col#thread {
-	width: 304px;
+    width: 304px;
 }
 
 col#author {
-	width: 120px;
+    width: 120px;
 }
 
 col#threads {
-	width: 65px;
+    width: 65px;
 }
 
 col#posts {
-	width: 65px;
+    width: 65px;
 }
 
 col#views {
-	width: 65px;
+    width: 65px;
 }
 
 th {
-	padding: 2px;
+    padding: 2px;
 
-	color: white;
-	background-color: black;
-	font-size: 10pt;
-	font-family: verdana, sans-serif;
-	text-align: left;
+    color: white;
+    background-color: black;
+    font-size: 10pt;
+    font-family: verdana, sans-serif;
+    text-align: left;
 }
 
 td {
-	padding: 2px;
+    padding: 2px;
 
-	color: black;
-	background-color: white;
-	font-size: 10pt;
-	font-family: verdana, sans-serif;
+    color: black;
+    background-color: white;
+    font-size: 10pt;
+    font-family: verdana, sans-serif;
 }
 
 
@@ -235,49 +226,49 @@ td {
  ***************/
 
 textarea {
-	border-style: solid;
-	border-width: 0;
+    border-style: solid;
+    border-width: 0;
 }
 
 textarea.reply {
-	width: 555px;
-	height: 190px;
-	color: #000000;
-	font-size: 11px;
-	background-color: #ffffff;
-	font-family: verdana, sans-serif;
-	margin: 5px 5px 5px 5px;
+    width: 555px;
+    height: 190px;
+    color: #000000;
+    font-size: 11px;
+    background-color: #ffffff;
+    font-family: verdana, sans-serif;
+    margin: 5px 5px 5px 5px;
 }
 
 textarea.profile {
-	width: 588px;
-	color: #000000;
-	font-size: 11px;
-	background-color: #ffffff;
-	font-family: verdana, sans-serif;
-	margin: 3px 3px 3px 3px;
+    width: 588px;
+    color: #000000;
+    font-size: 11px;
+    background-color: #ffffff;
+    font-family: verdana, sans-serif;
+    margin: 3px 3px 3px 3px;
 }
 
 input, select {
-	border-style: solid;
-	border-color: black;
-	border-width: 1px;
-	background-color: white;
-	font-family: verdana, sans-serif;
-	color: #000000;
-	margin: 1px 0px 1px 0px;
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+    background-color: white;
+    font-family: verdana, sans-serif;
+    color: #000000;
+    margin: 1px 0px 1px 0px;
 }
 
 input.reply {
-	border-style: solid;
-	border-color: black;
-	border-width: 1px;
-	background-color: black;
-	margin: 67px 5px 5px 5px;
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+    background-color: black;
+    margin: 67px 5px 5px 5px;
 }
 
 form {
-	margin: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
 }
 
 
@@ -286,99 +277,78 @@ form {
  ********************/
 
 #reply_button {
-	float: left;
+    float: left;
 
-	margin-top: 25px;
+    /*margin-top: 25px;*/
 
 
-	width: 35px;
-	height: 200px;
+    width: 35px;
+    height: 200px;
 
-	background-color: #000000;
+    background-color: #000000;
 }
 
 #reply_textarea {
+    float: left;
 
-	margin-top: 25px;
+    margin-top: 25px;
 
-	width: 500px;
-	height: 200px;
+    width: 600px;
+    height: 200px;
 
-	background-color: #ffffff;	
+    background-color: #ffffff;  
 }
-
-#left {
-	float: left;
-
-	margin-top: 25px;
-
-	width: 100px;
-	height: 200px;
-
-	background-color: green;
-}
-
-#reply {
-
-	margin-top: 25px;
-
-	width: 500px;
-	height: 200px;
-
-	background-color: yellow;
-}
-
 
 /******************
  * USERBAR STYLES *
  ******************/
 
 .avatar {
-	border: 0px;
-	margin: 1px 1px 1px 1px;
-	padding: 0px 0px 0px 0px;
-	display: block;
+    border: 0px;
+    margin: 1px;
+    padding: 0px;
+    display: block;
 }
 
 .userbar {
-	width: 596px;
-	margin-top: 26px;
-	padding: 2px;
-	background-color: #000000;
-	color: #ffffff;
-	font-size: 8pt;
-	line-height: 12pt;
-	height: 30px;
-	overflow: hidden;
+    width: 596px;
+    margin-top: 25px;
+    padding: 2px;
+    background-color: #000000;
+    color: #ffffff;
+    font-size: 8pt;
+    line-height: 12pt;
+    height: 30px;
+    overflow: hidden;
 }
 
 .userbar_left {
-	float: left;
-	width: 30px;
-	height: 30px;
-	margin-right: 4px;
+    float: left;
+    width: 30px;
+    height: 30px;
+    margin-right: 4px;
 }
 
 .userbar_right {
-	float: right;
-	height: 30px;
-	margin: 0px 4px 0px 10px;
-	margin-top: auto;
-	margin-bottom: auto;
-	margin-right: 2px;
-	margin-left: 10px;
-	text-align: right;
-	/*these statements do not effectively center the text vertically!*/
-	display: table-cell;
-	vertical-align: middle;
+    float: right;
+    height: 30px;
+    margin: 0px 4px 0px 10px;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 2px;
+    margin-left: 10px;
+    text-align: right;
+    /* these statements do not effectively center the text vertically! */
+    display: table-cell;
+    vertical-align: middle;
 }
 
 .username {
-	font-size: 10pt;
-	font-weight: bold;
+    font-size: 10pt;
+    font-weight: bold;
 }
 
 a.username, a.username:link, a.username:active, a.username:visited,
 a.link, a.link:link, a.link:active, a.link:visited {
-	color: #ffffff;
+    color: #ffffff;
 }

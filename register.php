@@ -20,7 +20,7 @@ if (!isset($ttf["uid"])) {
         if ($username == substr($username, 0, 15)) {
 
             // if the username is not blank
-            if ($username != "") {
+            if (!empty($username)) {
 
                 // if the username is clean 
                 if ($username == $_POST["username"]) {
@@ -32,7 +32,7 @@ if (!isset($ttf["uid"])) {
                     if ($email0 == $email1) {
 
                         // if the email address isn't blank
-                        if ($email0 != "") {
+                        if (!empty($email0)) {
 
                             // if the email address is clean
                             if ($email0 == $_POST["email0"]) { 
@@ -53,12 +53,12 @@ if (!isset($ttf["uid"])) {
         
         // insert the new user into the ttf_user table
         $sql = "INSERT INTO ttf_user SET username='$username', password=SHA1('$password'), ".
-            "email='$email', register_date=UNIX_TIMESTAMP(), register_ip='{$_SERVER["REMOTE_ADDR"]}'";
+               "email='$email', register_date=UNIX_TIMESTAMP(), register_ip='{$_SERVER["REMOTE_ADDR"]}'";
         if (!$result = mysql_query($sql)) {
 
             // if unsuccessful, a user with the same username probably exists
             message("register an account", "fatal error", "no account was created. perhaps an ".
-                "account already exists with a matching username or password.", 0, 0);
+                    "account already exists with a matching username or password.", 0, 0);
 
         } else {
 
@@ -66,8 +66,8 @@ if (!isset($ttf["uid"])) {
             $subject = "think tank forums account information";
             $fromadd = "violet@thinktankforums.com";
             $message = "hi--\n\nhere is your account information for think tank forums:\n\n".
-                "username: $username\npassword: $password\n\n".
-                "log in at http://www.thinktankforums.com/\n\nthanks,\nviolet";
+                       "username: $username\npassword: $password\n\n".
+                       "log in at http://www.thinktankforums.com/\n\nthanks,\nviolet";
 
             if (!mail($email, $subject, $message, "from: ".$fromadd)) {
 
@@ -90,48 +90,48 @@ if (!isset($ttf["uid"])) {
                             } else {
 
                                 message("register an account",
-                                    "fatal error",
-                                    "your e-mail address contained ".
-                                    "invalid characters. no account ".
-                                    "was created.", 0, 0);
+                                        "fatal error",
+                                        "your e-mail address contained ".
+                                        "invalid characters. no account ".
+                                        "was created.", 0, 0);
 
                             };
 
                         } else {
 
                             message("register an account", "fatal error",
-                                "your e-mail address cannot be null. ".
-                                "no account was created.", 0, 0);
+                                    "your e-mail address cannot be null. ".
+                                    "no account was created.", 0, 0);
 
                         };
 
                     } else {
 
                         message("register an account", "fatal error",
-                            "your e-mail address did not match. ".
-                            "no account was created.", 0, 0);
+                                "your e-mail address did not match. ".
+                                "no account was created.", 0, 0);
 
                     };
 
                 } else {
 
                     message("register an account", "fatal error",
-                        "your username contained invalid characters. ".
-                        "no account was created.", 0, 0);
+                            "your username contained invalid characters. ".
+                            "no account was created.", 0, 0);
 
                 };
 
             } else {
 
                 message("register an account", "fatal error",
-                    "your username cannot be null. no account was created.", 0, 0);
+                        "your username cannot be null. no account was created.", 0, 0);
 
             };
         
         } else {
             
             message("register an account", "fatal error",
-                "your username was longer than 16 characters. no account was created.", 0, 0);
+                    "your username was longer than 16 characters. no account was created.", 0, 0);
         };
     
     } else {
@@ -157,8 +157,8 @@ if (!isset($ttf["uid"])) {
                     <tr>
                         <td>&nbsp;</td>
                         <td>
-                            <input type="hidden" name="action" value="register" />
                             <input type="submit" value="register" />
+                            <input type="hidden" name="action" value="register" />
                         </td>
                     </tr>
                 </table>

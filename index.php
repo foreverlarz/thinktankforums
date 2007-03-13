@@ -27,8 +27,8 @@ require "include_header.php";
                 <tbody>
 <?php
 $sql = "SELECT ttf_forum.*, ttf_forum_new.last_view FROM ttf_forum ".
-    "LEFT JOIN ttf_forum_new ON ttf_forum_new.forum_id=ttf_forum.forum_id ".
-    "AND ttf_forum_new.user_id='{$ttf["uid"]}'";
+       "LEFT JOIN ttf_forum_new ON ttf_forum_new.forum_id=ttf_forum.forum_id ".
+       "AND ttf_forum_new.user_id='{$ttf["uid"]}'";
 if (!$result = mysql_query($sql)) showerror();
 
 // let's calculate total numbers of threads and posts
@@ -38,18 +38,18 @@ $tot_posts = 0;
 while ($forum = mysql_fetch_array($result)) {
 
     // reset $code from last time
-    unset($code);
+    unset($mark);
 
     // if user is logged in and hasn't read the forum since the last post
     if ($forum["last_view"] < $forum["date"] && isset($ttf["uid"])) {
 
-        // make $code an arrow
-        $code = "<img src=\"images/arrow.gif\" width=\"11\" height=\"11\" alt=\"new posts\" />";
+        // make $mark an arrow
+        $mark = "<img src=\"images/arrow.gif\" width=\"11\" height=\"11\" alt=\"new posts\" />";
     
     } else {
 
         // or make it a space
-        $code = "&nbsp;";
+        $mark = "&nbsp;";
     
     };
 
@@ -61,10 +61,10 @@ while ($forum = mysql_fetch_array($result)) {
 
 ?>
                     <tr>
-                        <td><?php echo $code; ?></td>
+                        <td><?php echo $mark; ?></td>
                         <td>
                             <a href="forum.php?forum_id=<?php echo $forum["forum_id"]; ?>"><?php echo $forum["name"]; ?></a><br />
-                            <span class="small">&nbsp;&nbsp;· <?php echo $forum["description"]; ?></span>
+                            <span class="small">&nbsp;&nbsp;&middot; <?php echo $forum["description"]; ?></span>
                         </td>
                         <td><?php echo $forum["threads"]; ?></td>
                         <td><?php echo $forum["posts"]; ?></td>
@@ -72,16 +72,15 @@ while ($forum = mysql_fetch_array($result)) {
 <?php
 
 };
-mysql_free_result($result);
 
 // let's find out if anyone is online
 $sql = "SELECT user_id, username, perm FROM ttf_user ".
-    "WHERE visit_date > UNIX_TIMESTAMP()-{$ttf_config["online_timeout"]} ".
-    "ORDER BY username";
+       "WHERE visit_date > UNIX_TIMESTAMP()-{$ttf_config["online_timeout"]} ".
+       "ORDER BY username";
 if (!$result = mysql_query($sql)) showerror();
 
-// initialize $code and $i
-$code = ""; $i = 0;
+// initialize $i
+$i = 0;
 
 while ($user = mysql_fetch_array($result)) {
 
@@ -126,5 +125,7 @@ if ($i == 0) $code = "noone is online.";
                 </tbody>
             </table>
 <?php
+
 require "include_footer.php";
+
 ?>

@@ -6,12 +6,12 @@
 
 if (isset($_COOKIE["thinktank"])) {
 
-	$expire = time() - 3600;
-	
-	setcookie("thinktank", "", $expire);
+    $expire = time() - 3600;
+    
+    setcookie("thinktank", "", $expire);
 
 };
 
-header("Location: index.php");
+header("Location: ".$_SERVER["HTTP_REFERER"]);
 
 ?>

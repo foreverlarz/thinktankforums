@@ -70,16 +70,13 @@ if (isset($thread_title)) {
                     <img src="avatars/<?php echo $post["author_id"].".".$post["avatar_type"]; ?>" alt="av" width="30" height="30" />
 <?php
         } else {
-            echo "&nbsp;\n";
+            echo "                    &nbsp;\n";
         };
 ?>
                 </div>
-                <div class="userbar_right"><?php echo $date; ?>
-
-<?php
+                <div class="userbar_right"><?php echo $date; ?><?php
         if ($ttf["perm"] == 'admin' || $ttf["uid"] == $post["author_id"]) {
-?>
-                    <br />
+?><br />
                     <a class="link" href="editpost.php?post_id=<?php echo $post["post_id"]; ?>">edit</a>,
                     <a class="link" href="archivepost.php?post_id=<?php echo $post["post_id"]; ?>" onclick="return confirmaction()">archive</a>
 <?php
@@ -99,24 +96,24 @@ if (isset($thread_title)) {
     // if user is logged in, print a reply box
     if (isset($ttf["uid"])) {
 ?>
-
+            <!-- <br style="clear: left;" />-->
             <form action="reply.php" method="post">
-                <div id="reply_button">
-                    <input class="reply" type="image" src="images/post.gif" width="25" height="65" border="0" alt="click to post" />
-                </div>
                 <div id="reply_textarea">
+                    <div id="reply_button">
+                        <input class="reply" type="image" src="images/post.gif" width="25" height="65" border="0" alt="click to post" />
+                    </div>
                     <textarea class="reply" rows="7" name="body" wrap="virtual"></textarea>
                 </div>
                 <input type="hidden" name="thread_id" value="<?php echo $thread_id; ?>" />
             </form>
-
-            <br style="clear: both;" />
 <?php
 
     };
 
 } else {
+
     message("view thread", "fatal error", "the thread specified is not valid.", 1, 1);
+
 };
 
 require "include_footer.php";

@@ -3,7 +3,7 @@ function confirmaction()
 {
 var agree=confirm("are you sure you wish to take this action?");
 if (agree)
-	return true ;
+    return true ;
 else
-	return false ;
+    return false ;
 }

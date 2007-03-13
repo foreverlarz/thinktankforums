@@ -43,7 +43,7 @@ CREATE TABLE `ttf_thread` (
   `forum_id` mediumint(9) NOT NULL default '0',
   `thread_id` mediumint(9) NOT NULL auto_increment,
   `author_id` mediumint(9) NOT NULL default '0',
-  `posts` mediumint(9) NOT NULL default '1',
+  `posts` mediumint(9) NOT NULL default '0',
   `views` mediumint(9) NOT NULL default '0',
   `date` int(11) NOT NULL default '0',
   `title` text NOT NULL,

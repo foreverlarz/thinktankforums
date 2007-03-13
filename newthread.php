@@ -50,7 +50,7 @@ if (isset($ttf["uid"])) {
     
     } else {
 
-        message("create a new thread", "fatal error", "you left a field blank.", 1, 1);
+        message("create a new thread", "fatal error", "you must enter a thread title.", 1, 1);
 
     };
 

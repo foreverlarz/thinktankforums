@@ -36,7 +36,7 @@ if (!empty($string)) {
     if (mysql_num_rows($result) == 0) {
 
         message("search ttf posts", "search results", "no results returned.<br /><br />".
-            "either the keyword you entered is <i>very</i> common or non-existent.", 0, 0);
+                "either the keyword you entered is <i>very</i> common or non-existent.", 0, 0);
 
     };
 
@@ -47,13 +47,12 @@ if (!empty($string)) {
         $date = strtolower(date("M j, g\:i a", $post["date"] + 3600*$ttf["time_zone"]));
 
         // highlight the keyword
-        // ** this is case sensitive, but the search is not. needs fixed. --jlr **
         // ** if part of a url is replaces, it busts the link. needs fixed. --jlr **
-        $body = str_replace($string, "<span class=\"highlight\">$string</span>", outputbody($post["body"]));
+        $body = str_ireplace($string, "<span class=\"highlight\">$string</span>", outputbody($post["body"]));
 
 ?>
             <div class="contenttitle_sm">
-                <?php echo "[".$post["post_id"]."] in <a style=\"color: #ffffff\" href=\"thread.php?thread_id=".$post["thread_id"]."#".$post["post_id"]."\">".output($post["title"])."</a> by <a style=\"color: #ffffff\" href=\"profile.php?user_id=".$post["author_id"]."\">".output($post["username"])."</a> on $date"; ?>
+                <?php echo "[".$post["post_id"]."] in <a style=\"color: white\" href=\"thread.php?thread_id=".$post["thread_id"]."#".$post["post_id"]."\">".output($post["title"])."</a> by <a style=\"color: white\" href=\"profile.php?user_id=".$post["author_id"]."\">".output($post["username"])."</a> on $date\n"; ?>
             </div>
             <div class="contentbox_sm">
 <?php echo $body."\n"; ?>
