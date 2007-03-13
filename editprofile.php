@@ -67,124 +67,109 @@
    $user = mysql_fetch_array($result);
    mysql_free_result($result);
 ?>
-  <form action="editprofile.php" method="post"><table border="0" cellpadding="2" cellspacing="1" width="600" class="shift">
-    <tr class="mediuminv"><td width="594"><b>edit your actual profile</b></td></tr>
-    <tr class="medium">
-     <td align="center" width="594">
-      <textarea class="profile" cols="70" rows="7" name="profile" wrap="virtual"><?php echo output($user["profile"]); ?></textarea>
-     </td>
-    </tr>
-    <tr class="medium">
-     <td align="center" width="594">
-      <input type="hidden" name="edit" value="profile" />
-      <input type="submit" value="edit!" />
-     </td>
-    </tr>
-   </table></form>
-  <form action="editprofile.php" method="post"><table border="0" cellpadding="2" cellspacing="1" width="600" class="shift">
-    <tr class="mediuminv"><td width="594" colspan="2"><b>change your user title</b></td></tr>
-    <tr class="medium">
-     <td align="center"><input type="text" name="title" maxlength="96" size="64" value="<?php echo output($user["title"]); ?>" /></td>
-     <td align="center">
-      <input type="hidden" name="edit" value="title" />
-      <input type="submit" value="change!" />
-     </td>
-    </tr>
-   </table></form>
-  <form action="editprofile.php" method="post"><table border="0" cellpadding="2" cellspacing="1" width="600" class="shift">
-    <tr class="mediuminv"><td width="594" colspan="3"><b>change your time zone</b></td></tr>
-    <tr class="medium">
-     <td align="center">localize:</td>
-     <td align="center">
-      <select name="zone">
-       <option value="-12"<?php if($user["time_zone"]==-12) echo " selected=\"selected\""; ?>>UTC-12</option>
-       <option value="-11"<?php if($user["time_zone"]==-11) echo " selected=\"selected\""; ?>>UTC-11</option>
-       <option value="-10"<?php if($user["time_zone"]==-10) echo " selected=\"selected\""; ?>>UTC-10</option>
-       <option value="-9.5"<?php if($user["time_zone"]==-9.5) echo " selected=\"selected\""; ?>>UTC-09:30</option>
-       <option value="-9"<?php if($user["time_zone"]==-9) echo " selected=\"selected\""; ?>>UTC-09</option>
-       <option value="-8"<?php if($user["time_zone"]==-8) echo " selected=\"selected\""; ?>>UTC-08</option>
-       <option value="-7"<?php if($user["time_zone"]==-7) echo " selected=\"selected\""; ?>>UTC-07</option>
-       <option value="-6"<?php if($user["time_zone"]==-6) echo " selected=\"selected\""; ?>>UTC-06</option>
-       <option value="-5"<?php if($user["time_zone"]==-5) echo " selected=\"selected\""; ?>>UTC-05</option>
-       <option value="-4"<?php if($user["time_zone"]==-4) echo " selected=\"selected\""; ?>>UTC-04</option>
-       <option value="-3.5"<?php if($user["time_zone"]==-3.5) echo " selected=\"selected\""; ?>>UTC-03:30</option>
-       <option value="-3"<?php if($user["time_zone"]==-3) echo " selected=\"selected\""; ?>>UTC-03</option>
-       <option value="-2"<?php if($user["time_zone"]==-2) echo " selected=\"selected\""; ?>>UTC-02</option>
-       <option value="-1"<?php if($user["time_zone"]==-1) echo " selected=\"selected\""; ?>>UTC-01</option>
-       <option value="0"<?php if($user["time_zone"]==0) echo " selected=\"selected\""; ?>>UTC</option>
-       <option value="1"<?php if($user["time_zone"]==1) echo " selected=\"selected\""; ?>>UTC+01</option>
-       <option value="2"<?php if($user["time_zone"]==2) echo " selected=\"selected\""; ?>>UTC+02</option>
-       <option value="3"<?php if($user["time_zone"]==3) echo " selected=\"selected\""; ?>>UTC+03</option>
-       <option value="3.5"<?php if($user["time_zone"]==3.5) echo " selected=\"selected\""; ?>>UTC+03:30</option>
-       <option value="4"<?php if($user["time_zone"]==4) echo " selected=\"selected\""; ?>>UTC+04</option>
-       <option value="4.5"<?php if($user["time_zone"]==4.5) echo " selected=\"selected\""; ?>>UTC+04:30</option>
-       <option value="5"<?php if($user["time_zone"]==5) echo " selected=\"selected\""; ?>>UTC+05</option>
-       <option value="5.5"<?php if($user["time_zone"]==5.5) echo " selected=\"selected\""; ?>>UTC+05:30</option>
-       <option value="5.75"<?php if($user["time_zone"]==5.75) echo " selected=\"selected\""; ?>>UTC+05:45</option>
-       <option value="6"<?php if($user["time_zone"]==6) echo " selected=\"selected\""; ?>>UTC+06</option>
-       <option value="6.5"<?php if($user["time_zone"]==6.5) echo " selected=\"selected\""; ?>>UTC+06:30</option>
-       <option value="7"<?php if($user["time_zone"]==7) echo " selected=\"selected\""; ?>>UTC+07</option>
-       <option value="8"<?php if($user["time_zone"]==8) echo " selected=\"selected\""; ?>>UTC+08</option>
-       <option value="8.75"<?php if($user["time_zone"]==8.75) echo " selected=\"selected\""; ?>>UTC+08:45</option>
-       <option value="9"<?php if($user["time_zone"]==9) echo " selected=\"selected\""; ?>>UTC+09</option>
-       <option value="9.5"<?php if($user["time_zone"]==9.5) echo " selected=\"selected\""; ?>>UTC+09:30</option>
-       <option value="10"<?php if($user["time_zone"]==10) echo " selected=\"selected\""; ?>>UTC+10</option>
-       <option value="10.5"<?php if($user["time_zone"]==10.5) echo " selected=\"selected\""; ?>>UTC+10:30</option>
-       <option value="11"<?php if($user["time_zone"]==11) echo " selected=\"selected\""; ?>>UTC+11</option>
-       <option value="11.5"<?php if($user["time_zone"]==11.5) echo " selected=\"selected\""; ?>>UTC+11:30</option>
-       <option value="12"<?php if($user["time_zone"]==12) echo " selected=\"selected\""; ?>>UTC+12</option>
-       <option value="12.75"<?php if($user["time_zone"]==12.75) echo " selected=\"selected\""; ?>>UTC+12:45</option>
-       <option value="13"<?php if($user["time_zone"]==13) echo " selected=\"selected\""; ?>>UTC+13</option>
-       <option value="14"<?php if($user["time_zone"]==14) echo " selected=\"selected\""; ?>>UTC+14</option>
-      </select>
-     </td>
-     <td align="center">
-      <input type="hidden" name="edit" value="zone" />
-      <input type="submit" value="change!" />
-     </td>
-    </tr>
-   </table></form>
-  <form action="editprofile.php" method="post" enctype="multipart/form-data"><table border="0" cellpadding="2" cellspacing="1" width="600" class="shift">
-    <tr class="mediuminv"><td width="594" colspan="3"><b>change your avatar</b> (30px square; gif, jpg, png)</td></tr>
-    <tr class="medium">
-     <td align="center">choose:</td>
-     <td align="center"><input type="file" name="avatar" size="28" /></td>
-     <td align="center">
-      <input type="hidden" name="MAX_FILE_SIZE" value="10000" />
-      <input type="hidden" name="edit" value="avatar" />
-      <input type="submit" value="upload!" />
-     </td>
-    </tr>
-   </table></form>
-  <form action="editprofile.php" method="post"><table border="0" cellpadding="2" cellspacing="1" width="600" class="shift">
-    <tr class="mediuminv"><td width="594" colspan="5"><b>change your password</b></td></tr>
-    <tr class="medium">
-     <td align="center">type:</td>
-     <td align="center"><input type="password" name="password0" maxlength="32" size="16" /></td>
-     <td align="center">again:</td>
-     <td align="center"><input type="password" name="password1" maxlength="32" size="16" /></td>
-     <td align="center">
-      <input type="hidden" name="edit" value="password" />
-      <input type="submit" value="change!" />
-     </td>
-    </tr>
-   </table></form>
-<!--  <br />
-  <form action="editprofile.php" method="post">
-   <table border="0" cellpadding="2" cellspacing="1" width="600">
-    <tr class="mediuminv"><td width="594" colspan="5"><b>change your e-mail address</b> (must be valid.)</td></tr>
-    <tr class="medium">
-     <td align="center">type:</td>
-     <td align="center"><input type="text" name="email0" maxlength="128" size="25" /></td>
-     <td align="center">again:</td>
-     <td align="center"><input type="text" name="email1" maxlength="128" size="25" /></td>
-     <td align="center">
-      <input type="hidden" name="edit" value="email" />
-      <input type="submit" value="change!" />
-     </td>
-    </tr>
-   </table>
-   </form>-->
+
+            <form action="editprofile.php" method="post">
+                <div class="contenttitle">edit your actual profile</div>
+                <div class="contentbox" style="text-align: center;">
+                    <textarea class="profile" cols="70" rows="7" name="profile" wrap="virtual"><?php echo output($user["profile"]); ?></textarea><br />
+                    <input type="hidden" name="edit" value="profile" />
+                    <input type="submit" value="update" />
+                </div>
+            </form>
+
+            <form action="editprofile.php" method="post">
+                <div class="contenttitle">change your user title</div>
+                <div class="contentbox" style="text-align: center;">
+                    <input type="text" name="title" maxlength="96" size="64" value="<?php echo output($user["title"]); ?>" />
+                    <input type="submit" value="change" />
+                    <input type="hidden" name="edit" value="title" />
+                </div>
+            </form>
+
+            <form action="editprofile.php" method="post">
+                <div class="contenttitle">change your time zone</div>
+                <div class="contentbox" style="text-align: center;">
+                    <select name="zone">
+                        <option value="-12"<?php if($user["time_zone"]==-12) echo " selected=\"selected\""; ?>>UTC-12</option>
+                        <option value="-11"<?php if($user["time_zone"]==-11) echo " selected=\"selected\""; ?>>UTC-11</option>
+                        <option value="-10"<?php if($user["time_zone"]==-10) echo " selected=\"selected\""; ?>>UTC-10</option>
+                        <option value="-9.5"<?php if($user["time_zone"]==-9.5) echo " selected=\"selected\""; ?>>UTC-09:30</option>
+                        <option value="-9"<?php if($user["time_zone"]==-9) echo " selected=\"selected\""; ?>>UTC-09</option>
+                        <option value="-8"<?php if($user["time_zone"]==-8) echo " selected=\"selected\""; ?>>UTC-08</option>
+                        <option value="-7"<?php if($user["time_zone"]==-7) echo " selected=\"selected\""; ?>>UTC-07</option>
+                        <option value="-6"<?php if($user["time_zone"]==-6) echo " selected=\"selected\""; ?>>UTC-06</option>
+                        <option value="-5"<?php if($user["time_zone"]==-5) echo " selected=\"selected\""; ?>>UTC-05</option>
+                        <option value="-4"<?php if($user["time_zone"]==-4) echo " selected=\"selected\""; ?>>UTC-04</option>
+                        <option value="-3.5"<?php if($user["time_zone"]==-3.5) echo " selected=\"selected\""; ?>>UTC-03:30</option>
+                        <option value="-3"<?php if($user["time_zone"]==-3) echo " selected=\"selected\""; ?>>UTC-03</option>
+                        <option value="-2"<?php if($user["time_zone"]==-2) echo " selected=\"selected\""; ?>>UTC-02</option>
+                        <option value="-1"<?php if($user["time_zone"]==-1) echo " selected=\"selected\""; ?>>UTC-01</option>
+                        <option value="0"<?php if($user["time_zone"]==0) echo " selected=\"selected\""; ?>>UTC</option>
+                        <option value="1"<?php if($user["time_zone"]==1) echo " selected=\"selected\""; ?>>UTC+01</option>
+                        <option value="2"<?php if($user["time_zone"]==2) echo " selected=\"selected\""; ?>>UTC+02</option>
+                        <option value="3"<?php if($user["time_zone"]==3) echo " selected=\"selected\""; ?>>UTC+03</option>
+                        <option value="3.5"<?php if($user["time_zone"]==3.5) echo " selected=\"selected\""; ?>>UTC+03:30</option>
+                        <option value="4"<?php if($user["time_zone"]==4) echo " selected=\"selected\""; ?>>UTC+04</option>
+                        <option value="4.5"<?php if($user["time_zone"]==4.5) echo " selected=\"selected\""; ?>>UTC+04:30</option>
+                        <option value="5"<?php if($user["time_zone"]==5) echo " selected=\"selected\""; ?>>UTC+05</option>
+                        <option value="5.5"<?php if($user["time_zone"]==5.5) echo " selected=\"selected\""; ?>>UTC+05:30</option>
+                        <option value="5.75"<?php if($user["time_zone"]==5.75) echo " selected=\"selected\""; ?>>UTC+05:45</option>
+                        <option value="6"<?php if($user["time_zone"]==6) echo " selected=\"selected\""; ?>>UTC+06</option>
+                        <option value="6.5"<?php if($user["time_zone"]==6.5) echo " selected=\"selected\""; ?>>UTC+06:30</option>
+                        <option value="7"<?php if($user["time_zone"]==7) echo " selected=\"selected\""; ?>>UTC+07</option>
+                        <option value="8"<?php if($user["time_zone"]==8) echo " selected=\"selected\""; ?>>UTC+08</option>
+                        <option value="8.75"<?php if($user["time_zone"]==8.75) echo " selected=\"selected\""; ?>>UTC+08:45</option>
+                        <option value="9"<?php if($user["time_zone"]==9) echo " selected=\"selected\""; ?>>UTC+09</option>
+                        <option value="9.5"<?php if($user["time_zone"]==9.5) echo " selected=\"selected\""; ?>>UTC+09:30</option>
+                        <option value="10"<?php if($user["time_zone"]==10) echo " selected=\"selected\""; ?>>UTC+10</option>
+                        <option value="10.5"<?php if($user["time_zone"]==10.5) echo " selected=\"selected\""; ?>>UTC+10:30</option>
+                        <option value="11"<?php if($user["time_zone"]==11) echo " selected=\"selected\""; ?>>UTC+11</option>
+                        <option value="11.5"<?php if($user["time_zone"]==11.5) echo " selected=\"selected\""; ?>>UTC+11:30</option>
+                        <option value="12"<?php if($user["time_zone"]==12) echo " selected=\"selected\""; ?>>UTC+12</option>
+                        <option value="12.75"<?php if($user["time_zone"]==12.75) echo " selected=\"selected\""; ?>>UTC+12:45</option>
+                        <option value="13"<?php if($user["time_zone"]==13) echo " selected=\"selected\""; ?>>UTC+13</option>
+                        <option value="14"<?php if($user["time_zone"]==14) echo " selected=\"selected\""; ?>>UTC+14</option>
+                    </select>
+                    <input type="submit" value="change" />
+                    <input type="hidden" name="edit" value="zone" />
+                </div>
+            </form>
+
+            <form action="editprofile.php" method="post" enctype="multipart/form-data">
+                <div class="contenttitle">
+                    change your avatar <span class="small">(30px square; gif, jpg, png)</span>
+                </div>
+                <div class="contentbox" style="text-align: center;">
+                    <input type="file" name="avatar" size="28" />
+                    <input type="submit" value="upload" />
+                    <input type="hidden" name="MAX_FILE_SIZE" value="10000" />
+                    <input type="hidden" name="edit" value="avatar" />
+                </div>
+            </form>
+
+            <form action="editprofile.php" method="post">
+                <table cellspacing="1">
+                    <tr>
+                        <th colspan="2">change your password</th>
+                    </tr>
+                    <tr>
+                        <td>type once:</td>
+                        <td><input type="password" name="password0" maxlength="32" size="16" /></td>
+                    </tr>
+                    <tr>
+                        <td>and again:</td>
+                        <td><input type="password" name="password1" maxlength="32" size="16" /></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>
+                            <input type="submit" value="change" />
+                            <input type="hidden" name="edit" value="password" />
+                        </td>
+                    </tr>
+                </table>
+            </form>
+
 <?php
   };
  } else { message("edit your profile","error!","you must login before you may edit your profile.",0,0); };

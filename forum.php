@@ -16,9 +16,6 @@
   }; 
   $label = $forum["name"]; // should this be run through output() ? --jlr
   require "include_header.php";
-?>
-   <div class="sidebox"><a href="newthread.php?forum_id=<?php echo $forum_id; ?>"><b>start new thread</b></a></div>
-<?php
   $sql = "SELECT COUNT(thread_id) FROM ttf_thread WHERE forum_id='$forum_id'";
   $result = mysql_query($sql);
   $count = mysql_fetch_array($result);
@@ -28,18 +25,28 @@
    $next = $offset + $ttf_config["forum_display"];
    $left = min($numrows - $offset - $ttf_config["forum_display"], $ttf_config["forum_display"]);
 ?>
-	<div class="sidebox"><a href="forum.php?forum_id=<?php echo $forum_id; ?>&amp;offset=<?php echo $next; ?>"><b>next <?php echo $left; ?> threads</b></a><br />(<?php echo $numrows; ?> total)</div>
+            <div class="sidebox"><a href="forum.php?forum_id=<?php echo $forum_id; ?>&amp;offset=<?php echo $next; ?>"><strong>next <?php echo $left; ?> threads</strong></a><br />(<?php echo $numrows; ?> total)</div>
 <?php
   };
 ?>
-   <table border="0" cellpadding="2" cellspacing="1" width="600" class="shift">
-    <tr class="mediuminv">
-     <td width="40"><b>&nbsp;</b></td>
-     <td width="304"><b>title</b></td>
-     <td width="110"><b>started by</b></td>
-     <td width="70"><b>posts</b></td>
-     <td width="70"><b>views</b></td>
-    </tr>
+            <table cellspacing="1">
+                <colgroup>
+                    <col id="mark" align="center" />
+                    <col id="thread" />
+                    <col id="author" />
+                    <col id="posts" />
+                    <col id="views" />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>&nbsp;</th>
+                        <th>title</th>
+                        <th>author</th>
+                        <th>posts</th>
+                        <th>views</th>
+                    </tr>
+                </thead>
+                <tbody>
 <?php
   if ($offset == "") $offset = 0;
   $sql = "SELECT ttf_thread.thread_id, ttf_thread.author_id,
@@ -77,18 +84,27 @@
     $code2 = "<span class=\"small\">&nbsp;&nbsp;&nbsp;(<a href=\"thread.php?thread_id=".$thread["thread_id"]."#".$newpost["post_id"]."\">jump</a>)</span>";
    };
 ?>
-    <tr class="medium">
-     <td align="center"><?php echo $code; ?></td>
-     <td><?php echo $sticky; ?><a href="thread.php?thread_id=<?php echo $thread["thread_id"]; ?>"><?php echo output($thread["title"]); ?></a><?php echo $code2; ?></td>
-     <td><a href="profile.php?user_id=<?php echo $thread["author_id"]; ?>"><?php echo output($thread["username"]); ?></a></td>
-     <td><?php echo $thread["posts"]; ?></td>
-     <td><?php echo $thread["views"]; ?></td>
-    </tr>
+                    <tr>
+                        <td><?php echo $code; ?></td>
+                        <td><a href="thread.php?thread_id=<?php echo $thread["thread_id"]; ?>"><?php echo output($thread["title"]); ?></a><?php echo $code2; ?></td>
+                        <td><a href="profile.php?user_id=<?php echo $thread["author_id"]; ?>"><?php echo output($thread["username"]); ?></a></td>
+                        <td><?php echo $thread["posts"]; ?></td>
+                        <td><?php echo $thread["views"]; ?></td>
+                    </tr>
 <?php
   };
   mysql_free_result($result);
 ?>
-   </table>
+                </tbody>
+            </table>
+            <div class="contenttitle">start a new thread</div>
+            <div class="contentbox" style="text-align: center;">
+                <form action="newthread.php" method="post">
+                    <input type="text" name="title" maxlength="64" size="64" />
+                    <input type="submit" value="insert" />
+                    <input type="hidden" name="forum_id" value="<?php echo $forum_id; ?>" />
+                </form>
+            </div>
 <?php
  } else { message("view forum","error!","not a valid forum.",1,0); };
  require "include_footer.php";

@@ -11,7 +11,7 @@ $body = clean($_POST["body"]);
 
 if (isset($ttf["uid"])) {
 
-	if ($thread_id != '' && $body != '') {
+	if (!empty($thread_id) && !empty($body)) {
 
 		// select the $forum_id of the forum that the post is being inserted into
 		$sql = "SELECT forum_id FROM ttf_thread WHERE thread_id='$thread_id' LIMIT 1";

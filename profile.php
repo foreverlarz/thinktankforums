@@ -35,7 +35,7 @@ if (isset($user["user_id"])) {
     <span class="username"><?php echo output($user["username"]); ?></span><br />
     <?php echo output($user["title"])."\n"; ?>
    </div>
-   <div class="contentbox">
+   <div class="contentbox_sm">
 <?php echo outputbody($user["profile"])."\n"; ?>
    </div>
 <?php
