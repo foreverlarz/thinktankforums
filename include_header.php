@@ -33,17 +33,17 @@ if (isset($ttf["uid"])) {
                 hi, <?php echo $ttf["username"]; ?>!
             </div>
             <div class="menu_body">
-                · <a href="search.php">search</a><br />
-                · <a href="editprofile.php">edit your profile</a><br />
-                · <a href="logout.php">log out</a>
+                &middot; <a href="search.php">search</a><br />
+                &middot; <a href="editprofile.php">edit your profile</a><br />
+                &middot; <a href="logout.php">log out</a>
 <?php
     if ($ttf["perm"] == 'admin') {
 ?>
             </div>
             <div class="menu_title">administrate</div>
             <div class="menu_body">
-                · <a href="admin_user.php">manage users</a><br />
-                · <a href="http://code.google.com/p/thinktankforums/">ttf development</a>
+                &middot; <a href="admin_user.php">manage users</a><br />
+                &middot; <a href="http://code.google.com/p/thinktankforums/">ttf development</a>
 <?php
     };
 } else {
@@ -61,8 +61,8 @@ if (isset($ttf["uid"])) {
                 lack an account?
             </div>
             <div class="menu_body">
-                · <a href="register.php">register an account</a><br />
-                · <a href="search.php">search the forums</a>
+                &middot; <a href="register.php">register an account</a><br />
+                &middot; <a href="search.php">search the forums</a>
 <?php
 };
 ?>
