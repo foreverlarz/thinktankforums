@@ -4,6 +4,9 @@
  * common.inc.php
  */
 
+// let's time the execution!
+$time_start = microtime(true);
+
 
 
 /* message printing
@@ -82,7 +85,7 @@ function admin() {
 // chop links
 function choplink($link = '') {
 
-    $short = ((strlen($link) > 60) ? substr($link, 0 , 45).' … '.substr($link, -10) : $link);
+    $short = ((strlen($link) > 60) ? substr($link, 0 , 45).' &hellip; '.substr($link, -10) : $link);
 
     return ' <a href="'.$link.'">'.$short.'</a> ';
 
@@ -219,7 +222,7 @@ function showerror() {
  *     $dbms_pass be the password
  *     $dbms_db   be the database
  */
-require "../credentials.inc.php";
+require "include_credentials.php";
 
 
 
@@ -230,6 +233,7 @@ require "../credentials.inc.php";
  */
 if (!($dbms_cnx = @mysql_pconnect($dbms_host, $dbms_user, $dbms_pass))) showerror();
 if (!mysql_select_db($dbms_db)) showerror();
+if (!mysql_query("SET NAMES 'utf8'")) showerror();
 
 
 

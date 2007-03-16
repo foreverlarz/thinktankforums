@@ -8,7 +8,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
     <head>
         <title>think tank forums <?php echo $ttf_config["version"]; ?></title>
-        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <script type="text/javascript" src="script_confirm.js"></script>
         <link rel="stylesheet" type="text/css" href="style.css" />
         <!--[if lt IE 7]>
