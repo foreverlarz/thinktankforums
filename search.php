@@ -46,22 +46,33 @@ if (!empty($string)) {
         // format the date
         $date = strtolower(date("M j, g\:i a", $post["date"] + 3600*$ttf["time_zone"]));
 
-        // highlight the keyword
-        // ** if part of a url is replaces, it busts the link. needs fixed. --jlr **
-        if (function_exists('str_ireplace')) {
-            $body = str_ireplace($string, "<span class=\"highlight\">$string</span>", outputbody($post["body"]));
-        } else {
-            $body = str_replace($string, "<span class=\"highlight\">$string</span>", outputbody($post["body"]));
-        };
+        // shorten the selection
+        // NOTE: THIS IS NOT UTF-8 COMPATIBLE. WE NEED TO USE MULTI-BYTE SAFE
+        //       STRING FUNCTIONS HERE. --jlr
+        $body = $post["body"];
+        $first = strpos($body, $string);
+        $last = strrpos($body, $string);
+        $pad = 256; // chars
+        $len = strlen($body);
+        $start = max(0, $first - $pad);
+        $stop = min($len, $last + $pad);
+        $body = output(substr($body, $start, $stop - $start));
+        $print = "";
+        if ($start > 0) $print .= "&hellip; ";
+        $print .= str_ireplace($string, "<span class=\"highlight\">$string</span>", $body);
+        if ($stop < $len) $print .= " &hellip;";
 
-?>
-            <div class="contenttitle_sm">
-                <?php echo "[".$post["post_id"]."] in <a style=\"color: white\" href=\"thread.php?thread_id=".$post["thread_id"]."#".$post["post_id"]."\">".output($post["title"])."</a> by <a style=\"color: white\" href=\"profile.php?user_id=".$post["author_id"]."\">".output($post["username"])."</a> on $date\n"; ?>
-            </div>
-            <div class="contentbox_sm">
-<?php echo $body."\n"; ?>
-            </div>
-<?php
+        echo "            <div class=\"contenttitle_sm\">\n";
+        echo "                [{$post["post_id"]}] in\n";
+        echo "                <a class=\"link\" href=\"thread.php?thread_id=";
+        echo "{$post["thread_id"]}#{$post["post_id"]}\">".output($post["title"])."</a> by\n";
+        echo "                <a class=\"link\" href=\"profile.php?user_id={$post["author_id"]}\">";
+        echo output($post["username"])."</a> on\n";
+        echo "                $date\n";
+        echo "            </div>\n";
+        echo "            <div class=\"contentbox_sm\">\n";
+        echo nl2br($print)."\n";
+        echo "            </div>\n";
     
     };
     mysql_free_result($result);
