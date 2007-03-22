@@ -173,12 +173,16 @@ table {
     margin-top: 24px;
 }
 
-col#mark {
-    width: 40px;
+col#forum {
+    width: 400px;
 }
 
-col#forum {
-    width: 425px;
+col#forum_lg {
+    width: 465px;
+}
+
+col#freshies {
+    width: 65px;
 }
 
 col#thread {

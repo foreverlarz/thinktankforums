@@ -11,49 +11,40 @@ require "include_header.php";
 ?>
             <table cellspacing="1">
                 <colgroup>
-                    <col id="mark" />
-                    <col id="forum" />
+                    <col id="forum<?php if (!isset($ttf["uid"])) echo "_lg"; ?>" />
+<?php if (isset($ttf["uid"])) echo "                    <col id=\"freshies\" />\n"; ?>
                     <col id="threads" />
                     <col id="posts" />
                 </colgroup>
                 <thead>
                     <tr>
-                        <th>&nbsp;</th>
                         <th>forum</th>
+<?php if (isset($ttf["uid"])) echo "                        <th>freshies</th>\n"; ?>
                         <th>threads</th>
                         <th>posts</th>
                     </tr>
                 </thead>
                 <tbody>
 <?php
-$sql = "SELECT ttf_forum.*, ttf_forum_new.last_view FROM ttf_forum ".
-       "LEFT JOIN ttf_forum_new ON ttf_forum_new.forum_id=ttf_forum.forum_id ".
-       "AND ttf_forum_new.user_id='{$ttf["uid"]}'";
+$sql = "SELECT ttf_forum.*, COUNT( * ) - COUNT( ttf_thread_new.last_view ) AS freshies ".
+       "FROM ttf_forum ".
+       "LEFT JOIN ttf_thread USING ( forum_id ) ".
+       "LEFT JOIN ttf_thread_new ON ( ttf_thread.thread_id = ttf_thread_new.thread_id ".
+       "                              && ttf_thread_new.user_id = '{$ttf["uid"]}' ".
+       "                              && ttf_thread.date <= ttf_thread_new.last_view ) ".
+       "GROUP BY ttf_forum.forum_id";
+
 if (!$result = mysql_query($sql)) showerror();
 
-// let's calculate total numbers of threads and posts
+// let's calculate total numbers of freshies, threads, and posts
+$tot_freshies = 0;
 $tot_threads = 0;
 $tot_posts = 0;
 
 while ($forum = mysql_fetch_array($result)) {
 
-    // reset $code from last time
-    unset($mark);
-
-    // if user is logged in and hasn't read the forum since the last post
-    if ($forum["last_view"] < $forum["date"] && isset($ttf["uid"])) {
-
-        // make $mark an arrow
-        $mark = "<img src=\"images/arrow.gif\" width=\"11\" height=\"11\" alt=\"new posts\" />";
-    
-    } else {
-
-        // or make it a space
-        $mark = "&nbsp;";
-    
-    };
-
     // add the forum's count to the total
+    $tot_freshies += $forum["freshies"];
     $tot_threads += $forum["threads"];
     $tot_posts += $forum["posts"];
     
@@ -61,11 +52,11 @@ while ($forum = mysql_fetch_array($result)) {
 
 ?>
                     <tr>
-                        <td><?php echo $mark; ?></td>
                         <td>
                             <a href="forum.php?forum_id=<?php echo $forum["forum_id"]; ?>"><?php echo $forum["name"]; ?></a><br />
                             <span class="small">&nbsp;&nbsp;&middot; <?php echo $forum["description"]; ?></span>
                         </td>
+<?php if (isset($ttf["uid"])) echo "                        <td>{$forum["freshies"]}</td>\n"; ?>
                         <td><?php echo $forum["threads"]; ?></td>
                         <td><?php echo $forum["posts"]; ?></td>
                     </tr>
@@ -106,19 +97,16 @@ while ($user = mysql_fetch_array($result)) {
 // if no users were printed, say so
 if ($i == 0) $code = "noone is online.";
 
+if (isset($ttf["uid"])) $tot_span = 3; else $tot_span = 2;
+
 ?>
-                </tbody>
-                <thead>
                     <tr>
-                        <th>&nbsp;</th>
                         <th>online persons</th>
-                        <th style="text-align: center;" colspan="2">totals</th>
+                        <th style="text-align: center;" colspan="<?php echo $tot_span; ?>">totals</th>
                     </tr>
-                </thead>
-                <tbody>
                     <tr>
-                        <td>&nbsp;</td>
                         <td class="small"><?php echo $code; ?></td>
+<?php if (isset($ttf["uid"])) echo "                        <td>$tot_freshies</td>\n"; ?>
                         <td><?php echo $tot_threads; ?></td>
                         <td><?php echo $tot_posts; ?></td>
                     </tr>
