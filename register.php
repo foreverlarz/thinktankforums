@@ -58,7 +58,7 @@ if (!isset($ttf["uid"])) {
 
             // if unsuccessful, a user with the same username probably exists
             message("register an account", "fatal error", "no account was created. perhaps an ".
-                    "account already exists with a matching username or password.", 0, 0);
+                    "account already exists with a matching username or e-mail address.", 0, 0);
 
         } else {
 
