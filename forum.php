@@ -11,10 +11,10 @@ $offset   = clean($_GET["offset"]);
 
 $sql = "SELECT name FROM ttf_forum WHERE forum_id='$forum_id'";
 if (!$result = mysql_query($sql)) showerror();
-$forum = mysql_fetch_array($result);
+list($forum_name) = mysql_fetch_array($result);
 mysql_free_result($result);
 
-if (isset($forum["name"])) {
+if (!empty($forum_name)) {
 
     if (isset($ttf["uid"])) {
 
@@ -24,7 +24,7 @@ if (isset($forum["name"])) {
 
     };
 
-    $label = $forum["name"]; // should this be run through output() ? --jlr
+    $label = $forum_name; // should this be run through output() ? --jlr
     
     require "include_header.php";
     

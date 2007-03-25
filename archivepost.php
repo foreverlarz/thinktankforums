@@ -10,7 +10,7 @@ $post_id = clean($_GET["post_id"]);
 
 if (isset($ttf["uid"])) {
 
-    if ($post_id != '') {
+    if (!empty($post_id)) {
 
         // find out the thread_id for the given post
         $sql = "SELECT thread_id FROM ttf_post WHERE post_id=$post_id LIMIT 1";
@@ -53,7 +53,7 @@ if (isset($ttf["uid"])) {
          * point in time, ttf_user.post_date is only used by three
          * scripts:
          *   => newthread.php       UPDATE 
-         *   => reply.php       UPDATE
+         *   => reply.php           UPDATE
          *   => admin_userinfo.php  SELECT
         */
 

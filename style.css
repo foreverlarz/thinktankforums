@@ -173,6 +173,10 @@ table {
     margin-top: 24px;
 }
 
+col#mark {
+    width: 40px;
+}
+
 col#forum {
     width: 400px;
 }
