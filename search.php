@@ -6,6 +6,7 @@
 
 require "include_common.php";
 $label = "search ttf posts";
+$title = $label;
 require "include_header.php";
 
 $string = clean($_GET["string"]);       

@@ -6,6 +6,7 @@
 
 require "include_common.php"; 
 $label = "user profile";
+$title = $label;
 require "include_header.php";     
 
 $user_id = clean($_GET["user_id"]);

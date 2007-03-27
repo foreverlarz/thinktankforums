@@ -6,6 +6,7 @@
 
 require "include_common.php";   
 $label = "register an account";
+$title = $label;
 require "include_header.php";
 
 // if the agent isn't already logged in

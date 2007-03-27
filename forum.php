@@ -25,6 +25,7 @@ if (!empty($forum_name)) {
     };
 
     $label = $forum_name; // should this be run through output() ? --jlr
+    $title = $label;
     
     require "include_header.php";
     

@@ -119,8 +119,14 @@ function outputbody($input) {
     $input = preg_replace('@(^|\s)(\w+)\.(\w+)\.(com|net|org|edu|gov)($|\s)@i', ' <a href="http://$2.$3.$4">$2.$3.$4</a> ', $input);
 
     // converts some html entities to tags
-    $search = array("&lt;b&gt;",  "&lt;i&gt;",  "&lt;u&gt;", "&lt;/b&gt;", "&lt;/i&gt;", "&lt;/u&gt;");
-    $replace = array("<b>",  "<i>",  "<u>", "</b>", "</i>", "</u>");
+    $search =  array("&lt;b&gt;",            "&lt;/b&gt;",
+                     "&lt;i&gt;",            "&lt;/i&gt;",
+                     "&lt;u&gt;",            "&lt;/u&gt;",
+                     "&lt;blockquote&gt;",   "&lt;/blockquote&gt;");
+    $replace = array("<b>",                 "</b>",
+                     "<i>",                 "</i>",
+                     "<u>",                 "</u>",
+                     "<blockquote>",        "</blockquote>");
     $input = str_replace($search, $replace, $input);
 
     /*

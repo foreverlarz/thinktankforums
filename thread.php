@@ -41,6 +41,7 @@ if (isset($thread_title)) {
     // create the header label
     // ** should $forum_name above be run through output()? --jlr **
     $label = "<a href=\"forum.php?forum_id=$forum_id\">$forum_name</a> &raquo; ".output($thread_title);
+    $title = $forum_name." &raquo; ".output($thread_title);
 
     // let's output a page to the user
     require "include_header.php";

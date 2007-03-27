@@ -5,6 +5,7 @@
  */
  require "include_common.php";	  
  $label = "edit your profile";
+ $title = $label;
  require "include_header.php";
  if (isset($ttf["uid"])) {
   $edit = clean($_POST["edit"]);

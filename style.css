@@ -360,3 +360,11 @@ a.username, a.username:link, a.username:active, a.username:visited,
 a.link, a.link:link, a.link:active, a.link:visited {
     color: #ffffff;
 }
+
+pre, blockquote {
+	overflow: auto;
+	margin: 10px 0px 0px 0px;
+	padding: 2px;
+	border-top: 1px solid black;
+	border-left: 5px solid black;
+}
