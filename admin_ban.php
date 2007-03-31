@@ -15,6 +15,13 @@ require "include_header.php";
 
 $user_id = clean($_GET["user_id"]);
 
+$sql = "SELECT perm, register_ip, visit_ip FROM ttf_user WHERE user_id='$user_id'";
+if (!$result = mysql_query($sql)) showerror();
+$user = mysql_fetch_array($result);
+mysql_free_result($result);
+
+if (!empty($user["perm"]) && $user["perm"] != "banned") {
+
 ?>
             <table cellspacing="1">
                 <thead>
@@ -27,13 +34,6 @@ $user_id = clean($_GET["user_id"]);
                 </thead>
                 <tbody>
 <?php
-
-$sql = "SELECT perm, register_ip, visit_ip FROM ttf_user WHERE user_id='$user_id'";
-if (!$result = mysql_query($sql)) showerror();
-$user = mysql_fetch_array($result);
-mysql_free_result($result);
-
-if (!empty($user["perm"]) && $user["perm"] != "banned") {
 
     if (!empty($user["register_ip"])) {
         $sql = "REPLACE INTO ttf_banned ".
