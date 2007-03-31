@@ -209,6 +209,10 @@ col#views {
     width: 65px;
 }
 
+col#bold {
+    font-weight: bold;
+}
+
 th {
     padding: 2px;
 
