@@ -13,7 +13,17 @@ $label = "administration &raquo; user list";
 
 require "include_header.php";
 
-$sql = "SELECT user_id, username, avatar_type, title, email, visit_date FROM ttf_user";
+?>
+            <table cellspacing="1">
+                <tr>
+                    <th>uid</th>
+                    <th>username</th>
+                    <th>email</th>
+                    <th>last visit</th>
+                </tr>
+<?php
+
+$sql = "SELECT user_id, username, email, visit_date FROM ttf_user";
 if (!$result = mysql_query($sql)) showerror();
 
 while ($user = mysql_fetch_array($result)) {
@@ -29,31 +39,21 @@ while ($user = mysql_fetch_array($result)) {
     };
 
 ?>
-            <div class="userbar"<?php if ($i) echo ' style="margin-top: 5px;"'; ?>>
-                <div class="userbar_left">
-<?php
-    if (isset($user["avatar_type"])) {
-?>
-                    <img src="avatars/<?php echo $user["user_id"].".".$user["avatar_type"]; ?>" alt="av" width="30" height="30" />
-<?php
-    } else {
-        echo "                    &nbsp;\n";
-    };
-?>
-                </div>
-                <div class="userbar_right"><?php echo $date; ?><br />
-                    <?php echo $user["email"]."\n"; ?>
-                </div>
-                <?php echo $user["user_id"]."\n"; ?>
-                <a class="username" href="admin_userinfo.php?user_id=<?php echo $user["user_id"]; ?>"><?php echo output($user["username"]); ?></a><br />
-                <?php echo output($user["title"])."\n"; ?>
-            </div>
+                <tr>
+                    <td><?php echo $user["user_id"]; ?></td>
+                    <td><a href="admin_userinfo.php?user_id=<?php echo $user["user_id"]; ?>"><?php echo output($user["username"]); ?></a></td>
+                    <td><a href="mailto:<?php echo $user["email"]; ?>"><?php echo $user["email"]; ?></a></td>
+                    <td><?php echo $date; ?></td>
+                </tr>
 <?php
 
-    $i = TRUE;
 };
 
 mysql_free_result($result);
+
+?>
+            </table>
+<?php
 
 require "include_footer.php";
 
