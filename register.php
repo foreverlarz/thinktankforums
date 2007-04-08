@@ -139,7 +139,7 @@ if (!isset($ttf["uid"])) {
 
 ?>
             <form action="register.php" method="post">
-                <table cellspacing="1">
+                <table cellspacing="1" class="content">
                     <tr>
                         <th colspan="2">punch it in -- we'll e-mail you a password</th>
                     </tr>

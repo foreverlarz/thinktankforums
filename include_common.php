@@ -34,6 +34,17 @@ function message($label, $title, $body, $header, $footer) {
 
 
 
+/* format unix timestamp
+ * ~~~~~~~~~~~~~~~~~~~~~
+ */
+function formatdate($timestamp) {
+    global $ttf;
+    $date = strtolower(date("M j, Y, g\:i a", $timestamp + 3600*$ttf["time_zone"]));
+    return $date;
+};
+
+
+
 /* administrative permission validation
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * this function should be run at the beginning of any script that

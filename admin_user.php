@@ -14,13 +14,16 @@ $label = "administration &raquo; user list";
 require "include_header.php";
 
 ?>
-            <table cellspacing="1">
-                <tr>
-                    <th>uid</th>
-                    <th>username</th>
-                    <th>email</th>
-                    <th>last visit</th>
-                </tr>
+            <table cellspacing="1" class="content">
+                <thead>
+                    <tr>
+                        <th>uid</th>
+                        <th>username</th>
+                        <th>email</th>
+                        <th>last visit</th>
+                    </tr>
+                </thead>
+                <tbody>
 <?php
 
 $sql = "SELECT user_id, username, email, visit_date ".
@@ -40,12 +43,12 @@ while ($user = mysql_fetch_array($result)) {
     };
 
 ?>
-                <tr>
-                    <td><?php echo $user["user_id"]; ?></td>
-                    <td><a href="admin_userinfo.php?user_id=<?php echo $user["user_id"]; ?>"><?php echo output($user["username"]); ?></a></td>
-                    <td><a href="mailto:<?php echo $user["email"]; ?>"><?php echo $user["email"]; ?></a></td>
-                    <td><?php echo $date; ?></td>
-                </tr>
+                    <tr>
+                        <td><?php echo $user["user_id"]; ?></td>
+                        <td><a href="admin_userinfo.php?user_id=<?php echo $user["user_id"]; ?>"><?php echo output($user["username"]); ?></a></td>
+                        <td><a href="mailto:<?php echo $user["email"]; ?>"><?php echo $user["email"]; ?></a></td>
+                        <td><?php echo $date; ?></td>
+                    </tr>
 <?php
 
 };
@@ -53,6 +56,7 @@ while ($user = mysql_fetch_array($result)) {
 mysql_free_result($result);
 
 ?>
+                </tbody>
             </table>
 <?php
 

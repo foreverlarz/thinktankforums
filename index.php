@@ -9,7 +9,7 @@ $label = $ttf_config["index_title"];
 require "include_header.php";
 
 ?>
-            <table cellspacing="1">
+            <table cellspacing="1" class="content">
                 <colgroup>
                     <col id="forum<?php if (!isset($ttf["uid"])) echo "_lg"; ?>" />
 <?php if (isset($ttf["uid"])) echo "                    <col id=\"freshies\" />\n"; ?>

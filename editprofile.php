@@ -149,7 +149,7 @@
             </form>
 
             <form action="editprofile.php" method="post">
-                <table cellspacing="1">
+                <table cellspacing="1" class="content">
                     <tr>
                         <th colspan="2">change your password</th>
                     </tr>

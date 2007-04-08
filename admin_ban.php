@@ -23,7 +23,7 @@ mysql_free_result($result);
 if (!empty($user["perm"]) && $user["perm"] != "banned") {
 
 ?>
-            <table cellspacing="1">
+            <table cellspacing="1" class="content">
                 <thead>
                     <tr>
                         <th>field</th>
@@ -45,7 +45,7 @@ if (!empty($user["perm"]) && $user["perm"] != "banned") {
             echo "<td>{$user["register_ip"]}</td><td>register_ip</td></tr>\n";
         };
     } else {
-        echo "                    <tr><td colspan=\"4\"><em>no register_ip for this user</td></tr>\n";
+        echo "                    <tr><td colspan=\"4\"><em>no register_ip for this user</em></td></tr>\n";
     };
 
 
@@ -59,7 +59,7 @@ if (!empty($user["perm"]) && $user["perm"] != "banned") {
             echo "<td>{$user["visit_ip"]}</td><td>visit_ip</td></tr>\n";
         };
     } else {
-        echo "                    <tr><td colspan=\"4\"><em>no visit_ip for this user</td></tr>\n";
+        echo "                    <tr><td colspan=\"4\"><em>no visit_ip for this user</em></td></tr>\n";
     };
 
 

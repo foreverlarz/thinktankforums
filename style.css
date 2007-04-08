@@ -169,8 +169,14 @@ a, a:active, a:link, a:visited {
  * TABLE STYLES *
  ****************/
 
-table {
+table.content {
     margin-top: 24px;
+    width: 600px;
+}
+
+table.float {
+    margin-top: 24px;
+    width: 288px;
 }
 
 col#mark {

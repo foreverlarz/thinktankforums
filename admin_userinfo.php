@@ -43,11 +43,7 @@ if (isset($user["user_id"])) {
 
             <div class="sidebox"><a href="admin_ban.php?user_id=<?php echo $user["user_id"]; ?>"><strong>BAN THIS USER</strong></a></div>
 
-            <table cellspacing="1">
-                <colgroup>
-                    <col id="bold" />
-                    <col id="none" />
-                </colgroup>
+            <table cellspacing="1" class="content">
                 <thead>
                     <tr>
                         <th>field</th>
@@ -117,7 +113,7 @@ if (isset($user["user_id"])) {
                     </tr>
                 </tbody>
             </table>
-            <table cellspacing="1" style="float: left;">
+            <table cellspacing="1" class="float" style="float: left;">
                 <thead>
                     <tr>
                         <th>post ips</th>
@@ -141,7 +137,7 @@ if (isset($user["user_id"])) {
 ?>
                 </tbody>
             </table>
-            <table cellspacing="1" style="margin-left: 25px;">
+            <table cellspacing="1" class="float" style="margin-left: 24px;">
                 <thead>
                     <tr>
                         <th>visit ips</th>

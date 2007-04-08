@@ -48,7 +48,7 @@ if (!empty($forum_name)) {
     };
 
 ?>
-            <table cellspacing="1">
+            <table cellspacing="1" class="content">
                 <colgroup>
                     <col id="mark" align="center" />
                     <col id="thread" />
