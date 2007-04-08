@@ -4,14 +4,14 @@
  * admin_user.php
  */
 
-require "include_common.php";
+require_once "include_common.php";
 
 // if an admin isn't logged in, then die()!
 admin();
 
 $label = "administration &raquo; user list";
 
-require "include_header.php";
+require_once "include_header.php";
 
 ?>
             <table cellspacing="1" class="content">
@@ -60,6 +60,6 @@ mysql_free_result($result);
             </table>
 <?php
 
-require "include_footer.php";
+require_once "include_footer.php";
 
 ?>

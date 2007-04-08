@@ -4,7 +4,7 @@
  * forum.php
  */
 
-require "include_common.php";
+require_once "include_common.php";
 
 $forum_id = clean($_GET["forum_id"]);
 $offset   = clean($_GET["offset"]);
@@ -27,7 +27,7 @@ if (!empty($forum_name)) {
     $label = $forum_name; // should this be run through output() ? --jlr
     $title = $label;
     
-    require "include_header.php";
+    require_once "include_header.php";
     
     $sql = "SELECT COUNT(thread_id) FROM ttf_thread WHERE forum_id='$forum_id'";
     if (!$result = mysql_query($sql)) showerror();
@@ -140,10 +140,10 @@ if (!empty($forum_name)) {
 
 } else {
 
-    message("view forum", "fatal error", "not a valid forum.", 1, 0);
+    message("view forum", "fatal error", "not a valid forum.");
 
 };
 
-require "include_footer.php";
+require_once "include_footer.php";
 
 ?>

@@ -4,9 +4,9 @@
  * index.php
  */
 
-require "include_common.php";
+require_once "include_common.php";
 $label = $ttf_config["index_title"];
-require "include_header.php";
+require_once "include_header.php";
 
 ?>
             <table cellspacing="1" class="content">
@@ -114,6 +114,6 @@ if (isset($ttf["uid"])) $tot_span = 3; else $tot_span = 2;
             </table>
 <?php
 
-require "include_footer.php";
+require_once "include_footer.php";
 
 ?>

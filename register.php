@@ -4,10 +4,10 @@
  * register.php
  */
 
-require "include_common.php";   
+require_once "include_common.php";   
 $label = "register an account";
 $title = $label;
-require "include_header.php";
+require_once "include_header.php";
 
 // if the agent isn't already logged in
 if (!isset($ttf["uid"])) {
@@ -59,7 +59,7 @@ if (!isset($ttf["uid"])) {
 
             // if unsuccessful, a user with the same username probably exists
             message("register an account", "fatal error", "no account was created. perhaps an ".
-                    "account already exists with a matching username or e-mail address.", 0, 0);
+                    "account already exists with a matching username or e-mail address.");
 
         } else {
 
@@ -73,12 +73,12 @@ if (!isset($ttf["uid"])) {
             if (!mail($email, $subject, $message, "from: ".$fromadd)) {
 
                 // uh oh, the mail() function failed
-                message("register an account","fatal error", "sorry, no account was created.", 1, 1);
+                message("register an account","fatal error", "sorry, no account was created.");
 
             } else {
 
                 // it worked!
-                message("register an account", "success", "we have e-mailed your password to you.", 0, 0);
+                message("register an account", "success", "we have e-mailed your password to you.");
             
             };
 
@@ -94,7 +94,7 @@ if (!isset($ttf["uid"])) {
                                         "fatal error",
                                         "your e-mail address contained ".
                                         "invalid characters. no account ".
-                                        "was created.", 0, 0);
+                                        "was created.");
 
                             };
 
@@ -102,7 +102,7 @@ if (!isset($ttf["uid"])) {
 
                             message("register an account", "fatal error",
                                     "your e-mail address cannot be null. ".
-                                    "no account was created.", 0, 0);
+                                    "no account was created.");
 
                         };
 
@@ -110,7 +110,7 @@ if (!isset($ttf["uid"])) {
 
                         message("register an account", "fatal error",
                                 "your e-mail address did not match. ".
-                                "no account was created.", 0, 0);
+                                "no account was created.");
 
                     };
 
@@ -118,21 +118,21 @@ if (!isset($ttf["uid"])) {
 
                     message("register an account", "fatal error",
                             "your username contained invalid characters. ".
-                            "no account was created.", 0, 0);
+                            "no account was created.");
 
                 };
 
             } else {
 
                 message("register an account", "fatal error",
-                        "your username cannot be null. no account was created.", 0, 0);
+                        "your username cannot be null. no account was created.");
 
             };
         
         } else {
             
             message("register an account", "fatal error",
-                    "your username was longer than 16 characters. no account was created.", 0, 0);
+                    "your username was longer than 16 characters. no account was created.");
         };
     
     } else {
@@ -170,10 +170,10 @@ if (!isset($ttf["uid"])) {
 
 } else {
 
-    message("register an account", "fatal error", "you already have an account!", 0, 0);
+    message("register an account", "fatal error", "you already have an account!");
 
 };
 
-require "include_footer.php";
+require_once "include_footer.php";
 
 ?>

@@ -4,7 +4,7 @@
  * login.php
  */
 
-require "include_common.php";
+require_once "include_common.php";
 
 // if the user isn't logged in and provided a username and password
 if (!isset($ttf["uid"]) && isset($_POST["username"]) && isset($_POST["password"])) {
@@ -29,7 +29,7 @@ if (!isset($ttf["uid"]) && isset($_POST["username"]) && isset($_POST["password"]
         if (!$result = mysql_query($sql)) showerror();
 
         // print an error and kill the script
-        message("log in","error!","holy shit! you're banned!",1,1);
+        message("log in", "error!", "holy shit! you're banned!");
         die();
 
     // if a match was found (and they aren't banned)    
@@ -45,13 +45,13 @@ if (!isset($ttf["uid"]) && isset($_POST["username"]) && isset($_POST["password"]
     
     } else {
 
-        message("log in","fatal error","invalid username and/or password.", 1, 1);
+        message("log in", "fatal error", "invalid username and/or password.");
     
     };
 
 } else {
     
-    message("log in", "fatal error", "you must be logged out and provide credentials.", 1, 1);
+    message("log in", "fatal error", "you must be logged out and provide credentials.");
 
 };
 

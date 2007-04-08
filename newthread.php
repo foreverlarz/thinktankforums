@@ -4,7 +4,7 @@
  * newthread.php
  */
 
-require "include_common.php";
+require_once "include_common.php";
 
 $forum_id = clean($_POST["forum_id"]);
 $title = clean($_POST["title"]);
@@ -44,19 +44,19 @@ if (isset($ttf["uid"])) {
             
         } else {
 
-            message("create a new thread", "fatal error", "you must specify a valid forum.", 1, 1);
+            message("create a new thread", "fatal error", "you must specify a valid forum.");
             
         };
     
     } else {
 
-        message("create a new thread", "fatal error", "you must enter a thread title.", 1, 1);
+        message("create a new thread", "fatal error", "you must enter a thread title.");
 
     };
 
 } else {
     
-    message("create a new thread", "fatal error", "you must login before you may create a new thread.", 1, 1);
+    message("create a new thread", "fatal error", "you must login before you may create a new thread.");
 
 };
 

@@ -4,7 +4,7 @@
  * archivepost.php
  */
 
-require "include_common.php";
+require_once "include_common.php";
 
 $post_id = clean($_GET["post_id"]);
 
@@ -62,19 +62,19 @@ if (isset($ttf["uid"])) {
 
         } else {
 
-            message("archive post", "fatal error", "you don't have permission to do this.", 1, 1);
+            message("archive post", "fatal error", "you don't have permission to do this.");
 
         };
 
     } else {
 
-        message("archive post", "fatal error", "you must specify the post_id.", 1, 1);
+        message("archive post", "fatal error", "you must specify the post_id.");
 
     };
 
 } else {
 
-    message("archive post", "fatal error", "you must be logged in to use this feature.", 1, 1);
+    message("archive post", "fatal error", "you must be logged in to use this feature.");
 
 };
 

@@ -4,10 +4,10 @@
  * search.php
  */
 
-require "include_common.php";
+require_once "include_common.php";
 $label = "search ttf posts";
 $title = $label;
-require "include_header.php";
+require_once "include_header.php";
 
 $string = clean($_GET["string"]);       
 
@@ -37,7 +37,7 @@ if (!empty($string)) {
     if (mysql_num_rows($result) == 0) {
 
         message("search ttf posts", "search results", "no results returned.<br /><br />".
-                "either the keyword you entered is <i>very</i> common or non-existent.", 0, 0);
+                "either the keyword you entered is <i>very</i> common or non-existent.");
 
     };
 
@@ -81,10 +81,10 @@ if (!empty($string)) {
 } else if (isset($_GET["string"])) {
 
     // if a blank string was entered
-    message("search ttf posts", "fatal error", "you must enter search terms.", 0, 0);
+    message("search ttf posts", "fatal error", "you must enter search terms.");
 
 };
 
-require "include_footer.php";
+require_once "include_footer.php";
 
 ?>

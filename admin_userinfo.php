@@ -4,14 +4,14 @@
  * admin_userinfo.php
  */
 
-require "include_common.php";
+require_once "include_common.php";
 
 // if an admin isn't logged in, then die()!
 admin();
 
 $label = "administration &raquo; user info";
 
-require "include_header.php";
+require_once "include_header.php";
 
 $user_id = clean($_GET["user_id"]);
 
@@ -165,10 +165,10 @@ if (isset($user["user_id"])) {
 
 } else {
 
-    message("user profile","fatal error","you must specify a valid user.", 0, 0);
+    message("user profile","fatal error","you must specify a valid user.");
 
 };
 
-require "include_footer.php";
+require_once "include_footer.php";
 
 ?>

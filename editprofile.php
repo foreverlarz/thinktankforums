@@ -3,10 +3,10 @@
  *
  * editprofile.php
  */
- require "include_common.php";	  
+ require_once "include_common.php";	  
  $label = "edit your profile";
  $title = $label;
- require "include_header.php";
+ require_once "include_header.php";
  if (isset($ttf["uid"])) {
   $edit = clean($_POST["edit"]);
   if ($edit == "password") {			//////// EDIT PASSWORD ////////
@@ -17,11 +17,11 @@
      if ($pass0 == clean($pass0)) {
       $encrypt = sha1(clean($pass0));
       $result = mysql_query("UPDATE ttf_user SET password='$encrypt' WHERE user_id='{$ttf["uid"]}'");
-      if ($result == 1) message("edit your profile","success!","your password has been successfully changed.",0,0);
-      else message("edit your profile","error!","the password change was unsuccessful. error unknown!",0,0);
-     } else { message("edit your profile","error!","your password contained invalid characters and was not changed.",0,0); };
-    } else { message("edit your profile","error!","you password cannot be null and was not changed.",0,0); };
-   } else { message("edit your profile","error!","your password did not match and was not changed.",0,0); };
+      if ($result == 1) message("edit your profile","success!","your password has been successfully changed.");
+      else message("edit your profile","error!","the password change was unsuccessful. error unknown!");
+     } else { message("edit your profile","error!","your password contained invalid characters and was not changed."); };
+    } else { message("edit your profile","error!","you password cannot be null and was not changed."); };
+   } else { message("edit your profile","error!","your password did not match and was not changed."); };
   } else if ($edit == "avatar") {		//////// EDIT AVATAR ////////
    if ($_FILES["avatar"]["size"] != 0) {
     if (exif_imagetype($_FILES["avatar"]["tmp_name"]) == 1) $ext = "gif";
@@ -32,27 +32,27 @@
      if ($x == 30 && $y == 30) {
       if (move_uploaded_file($_FILES["avatar"]["tmp_name"], "avatars/".$ttf["uid"].".".$ext)) {
        if ($resulta = mysql_query("UPDATE ttf_user SET avatar_type='$ext' WHERE user_id='{$ttf["uid"]}'")) {
-        message("edit your profile","success!","your avatar has been changed.",0,0);
-       } else { message("edit your profile","error!","the avatar change was unsuccessful. error inserting avatar!",0,0); };
-      } else { message("edit your profile","error!","the avatar change was unsuccessful. attack?",0,0); };
-     } else { message("edit your profile","error!","image uploaded is not 30px sq.",0,0); };
-    } else { message("edit your profile","error!","image uploaded is not a gif, png, or jpeg.",0,0); };
-   } else { message("edit your profile","error!","no image specified.",0,0); };
+        message("edit your profile","success!","your avatar has been changed.");
+       } else { message("edit your profile","error!","the avatar change was unsuccessful. error inserting avatar!"); };
+      } else { message("edit your profile","error!","the avatar change was unsuccessful. attack?"); };
+     } else { message("edit your profile","error!","image uploaded is not 30px sq."); };
+    } else { message("edit your profile","error!","image uploaded is not a gif, png, or jpeg."); };
+   } else { message("edit your profile","error!","no image specified."); };
   } else if ($edit == "profile") {		//////// EDIT PROFILE ////////
    $profile = clean($_POST["profile"]);
    $result = mysql_query("UPDATE ttf_user SET profile='$profile' WHERE user_id='{$ttf["uid"]}'");
-   if ($result == 1) message("edit your profile","success!","your profile was edited.",0,0);
-   else message("edit your profile","error!","your profile edit was unsuccessful. error unknown!",0,0);
+   if ($result == 1) message("edit your profile","success!","your profile was edited.");
+   else message("edit your profile","error!","your profile edit was unsuccessful. error unknown!");
   } else if ($edit == "title") {		//////// EDIT USER TITLE ////////
    $title = clean($_POST["title"]);
    $result = mysql_query("UPDATE ttf_user SET title='$title' WHERE user_id='{$ttf["uid"]}'");
-   if ($result == 1) message("edit your profile","success!","your title was edited.",0,0);
-   else message("edit your profile","error!","your title edit was unsuccessful. error unknown!",0,0);
+   if ($result == 1) message("edit your profile","success!","your title was edited.");
+   else message("edit your profile","error!","your title edit was unsuccessful. error unknown!");
   } else if ($edit == "zone") {			//////// EDIT TIME ZONE ////////
    $zone = clean($_POST["zone"]);
    $result = mysql_query("UPDATE ttf_user SET time_zone='$zone' WHERE user_id='{$ttf["uid"]}'");
-   if ($result == 1) message("edit your profile","success!","your time zone was changed.",0,0);
-   else message("edit your profile","error!","your time zone change was unsuccessful. error unknown!",0,0);
+   if ($result == 1) message("edit your profile","success!","your time zone was changed.");
+   else message("edit your profile","error!","your time zone change was unsuccessful. error unknown!");
   } else if ($edit == "email") {		//////// EDIT E-MAIL ////////
    $email0 = $_POST["email0"];
    $email1 = $_POST["email1"];
@@ -60,9 +60,9 @@
     if ($email0 != "") {
      if ($email0 == clean($email0)) {
 	// do something....
-     } else { message("edit your profile","error!","your e-mail contained invalid characters and was not changed.",0,0); };
-    } else { message("edit your profile","error!","your e-mail cannot be null and was not changed.",0,0); };
-   } else { message("edit your profile","error!","your e-mail did not match and was not changed.",0,0); };
+     } else { message("edit your profile","error!","your e-mail contained invalid characters and was not changed."); };
+    } else { message("edit your profile","error!","your e-mail cannot be null and was not changed."); };
+   } else { message("edit your profile","error!","your e-mail did not match and was not changed."); };
   } else {
    $result = mysql_query("SELECT * FROM ttf_user WHERE user_id='{$ttf["uid"]}' LIMIT 1");
    $user = mysql_fetch_array($result);
@@ -173,6 +173,6 @@
 
 <?php
   };
- } else { message("edit your profile","error!","you must login before you may edit your profile.",0,0); };
- require "include_footer.php";
+ } else { message("edit your profile","error!","you must login before you may edit your profile."); };
+ require_once "include_footer.php";
 ?>

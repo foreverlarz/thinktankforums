@@ -4,14 +4,14 @@
  * admin_ban.php
  */
 
-require "include_common.php";
+require_once "include_common.php";
 
 // if an admin isn't logged it, then die()!
 admin();
 
 $label = "administration &raquo; user ban";
 
-require "include_header.php";
+require_once "include_header.php";
 
 $user_id = clean($_GET["user_id"]);
 
@@ -111,14 +111,14 @@ if (!empty($user["perm"]) && $user["perm"] != "banned") {
 
 } else if ($user["perm"] == "banned") {
 
-    message("user information", "fatal error", "the user_id provided is already banned.", 0, 0);
+    message("user information", "fatal error", "the user_id provided is already banned.");
 
 } else {
 
-    message("user information", "fatal error", "the user_id provided is invalid.", 0, 0);
+    message("user information", "fatal error", "the user_id provided is invalid.");
 
 };
 
-require "include_footer.php";
+require_once "include_footer.php";
 
 ?>

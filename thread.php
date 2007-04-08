@@ -4,7 +4,7 @@
  * thread.php
  */
 
-require "include_common.php";
+require_once "include_common.php";
 
 $thread_id = clean($_GET["thread_id"]);
 
@@ -44,7 +44,7 @@ if (isset($thread_title)) {
     $title = $forum_name." &raquo; ".output($thread_title);
 
     // let's output a page to the user
-    require "include_header.php";
+    require_once "include_header.php";
 
     // select the posts in this thread
     $sql = "SELECT ttf_post.post_id, ttf_post.author_id, ttf_post.date, ".
@@ -112,10 +112,10 @@ if (isset($thread_title)) {
 
 } else {
 
-    message("view thread", "fatal error", "the thread specified is not valid.", 1, 1);
+    message("view thread", "fatal error", "the thread specified is not valid.");
 
 };
 
-require "include_footer.php";
+require_once "include_footer.php";
 
 ?>

@@ -17,18 +17,18 @@ $time_start = microtime(true);
  * $header should evaluate to TRUE to include the header include
  * $footer should evaluate to TRUE to include the footer include
  */
-function message($label, $title, $body, $header, $footer) {
+function message($label, $title, $body) {
 
     global $ttf;    // pull through the $ttf array for header.inc.php
 
-    if ($header) require "include_header.php";
+    require_once "include_header.php";
 
 ?>
   <div class="contenttitle"><?php echo $title; ?></div>
   <div class="contentbox"><?php echo $body; ?></div>
 <?php
 
-    if ($footer) require "include_footer.php";
+    require_once "include_footer.php";
 
 };
 
@@ -58,7 +58,7 @@ function admin() {
 
     if ($ttf["perm"] != 'admin') {
         
-        message("think tank forums", "fatal error", "you do not have permission to access this page.", 1, 1);
+        message("think tank forums", "fatal error", "you do not have permission to access this page.");
 
         die();
 
@@ -215,13 +215,13 @@ function showerror() {
 
     if (mysql_error()) {
 
-        message("think tank forums", "fatal error", "mysql error ".mysql_errno().": ".mysql_error(), 1, 1);
+        message("think tank forums", "fatal error", "mysql error ".mysql_errno().": ".mysql_error());
 
         die();
         
     } else {
         
-        message("think tank forums", "fatal error", "could not connect to the mysql dbms.", 1, 1);
+        message("think tank forums", "fatal error", "could not connect to the mysql dbms.");
 
         die();
 
@@ -302,7 +302,7 @@ while ($ban = mysql_fetch_array($result)) {
 
     if ($ban["ip"] == $_SERVER["REMOTE_ADDR"]) {
 
-        message("think tank forums","fatal error","your ip is banned.", 1, 1);
+        message("think tank forums","fatal error","your ip is banned.");
 
         die();
 
@@ -341,7 +341,7 @@ if (isset($_COOKIE["thinktank"])) {
 
         // or print an error and exit
         message("fatal error", "authentication","your cookie is invalid. ".
-                "please <a href=\"logout.php\">logout</a> then login again.",1,1);
+                "please <a href=\"logout.php\">logout</a> then login again.");
 
         die();
 
@@ -383,7 +383,7 @@ if ($ttf_config["maintenance"] && $ttf["perm"] != 'admin') {
 
     message("think tank forums","maintenance",
             "sorry, ttf is offline for maintenance.<br />we are most likely ".
-            "updating scripts and adding new features. come back soon!\n", 1, 1);
+            "updating scripts and adding new features. come back soon!\n");
 
     die();
 

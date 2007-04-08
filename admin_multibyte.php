@@ -4,13 +4,13 @@
  * admin_multibyte.php
  */
 
-require "include_common.php";
+require_once "include_common.php";
 
 // create the header label
 $label = " all ttf posts with multi-byte characters";
 
 // let's output a page to the user
-require "include_header.php";
+require_once "include_header.php";
 
 // select the posts in this thread
 $sql = "SELECT ttf_post.post_id, ttf_post.author_id, ttf_post.date, ".
@@ -61,6 +61,6 @@ while ($post = mysql_fetch_array($result)) {
 
 mysql_free_result($result);
 
-require "include_footer.php";
+require_once "include_footer.php";
 
 ?>
