@@ -23,7 +23,8 @@ require "include_header.php";
                 </tr>
 <?php
 
-$sql = "SELECT user_id, username, email, visit_date FROM ttf_user";
+$sql = "SELECT user_id, username, email, visit_date ".
+       "FROM ttf_user ORDER BY user_id";
 if (!$result = mysql_query($sql)) showerror();
 
 while ($user = mysql_fetch_array($result)) {
