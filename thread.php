@@ -50,9 +50,11 @@ if (isset($thread_title)) {
     $sql = "SELECT ttf_post.post_id, ttf_post.author_id, ttf_post.date, ".
            "ttf_post.body, ttf_user.username, ttf_user.title, ttf_user.avatar_type ".
            "FROM ttf_post, ttf_user ".
-           "WHERE ttf_post.author_id = ttf_user.user_id && ttf_post.hide='f' ".
-           "      && ttf_post.thread_id = '$thread_id' ".
-           "ORDER BY date ASC";
+           "WHERE ttf_post.author_id = ttf_user.user_id && ttf_post.thread_id = '$thread_id' ";
+    if (!isset($_GET["showall"])) {
+        $sql .="&& ttf_post.hide='f' ";
+    };
+    $sql .="ORDER BY date ASC";
     if (!$result = mysql_query($sql)) showerror();
 
     // for each post...
