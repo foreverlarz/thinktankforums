@@ -75,7 +75,7 @@ if (isset($thread_title)) {
         };
 ?>
                 </div>
-                <div class="userbar_right"><?php echo formatdate($post["date"]); ?><?php
+                <div class="userbar_right"><?php echo formatdate($post["date"], "g\:i a, j M y"); ?><?php
         if ($ttf["perm"] == 'admin' || $ttf["uid"] == $post["author_id"]) {
 ?><br />
                     <a class="link" href="archivepost.php?post_id=<?php echo $post["post_id"]; ?>" onclick="return confirmaction()">archive</a>
