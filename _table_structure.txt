@@ -91,5 +91,4 @@ INSERT INTO `ttf_config` (`name`, `value`) VALUES
 ('index_title', 'watch next level'),
 ('forum_display', '15'),
 ('maintenance', '0'),
-('server_time_zone', '0'),
 ('online_timeout', '900');

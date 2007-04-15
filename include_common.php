@@ -335,7 +335,7 @@ if (isset($_COOKIE["thinktank"])) {
         $ttf["username"] = $user["username"];
         $ttf["perm"] = $user["perm"];
         $ttf["avatar_type"] = $user["avatar_type"];
-        $ttf["time_zone"] = $user["time_zone"] + $ttf_config["server_time_zone"];
+        $ttf["time_zone"] = $user["time_zone"];
 
     } else {
 
