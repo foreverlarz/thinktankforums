@@ -10,7 +10,7 @@ $title = $label;
 require_once "include_header.php";
 
 
-if (!isset($ttf["uid"])) {
+if (isset($ttf["uid"])) {
 
     $edit = clean($_POST["edit"]);
     
