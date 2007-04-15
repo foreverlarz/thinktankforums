@@ -21,24 +21,6 @@ $user = mysql_fetch_array($result);
 
 if (isset($user["user_id"])) {
  
-    if ($user["register_date"] == 0) {
-        $date_reg = "never";
-    } else {
-        $date_reg = strtolower(date("M j, Y, g\:i a", $user["register_date"] + 3600*$ttf["time_zone"]));
-    };
-
-    if ($user["visit_date"] == 0) {
-        $date_visit = "never";
-    } else {
-        $date_visit = strtolower(date("M j, Y, g\:i a", $user["visit_date"] + 3600*$ttf["time_zone"]));
-    };
-
-    if ($user["post_date"] == 0) {
-        $date_post = "never";
-    } else {
-        $date_post = strtolower(date("M j, Y, g\:i a", $user["post_date"] + 3600*$ttf["time_zone"]));
-    };
-
 ?>
 
             <div class="sidebox"><a href="admin_ban.php?user_id=<?php echo $user["user_id"]; ?>"><strong>BAN THIS USER</strong></a></div>
@@ -89,15 +71,15 @@ if (isset($user["user_id"])) {
                     </tr>
                     <tr>
                         <td>date_reg</td>
-                        <td><?php echo $date_reg; ?></td>
+                        <td><?php echo formatdate($user["register_date"]); ?></td>
                     </tr>
                     <tr>
                         <td>date_visit</td>
-                        <td><?php echo $date_visit; ?></td>
+                        <td><?php echo formatdate($user["visit_date"]); ?></td>
                     </tr>
                     <tr>
                         <td>date_post</td>
-                        <td><?php echo $date_post; ?></td>
+                        <td><?php echo formatdate($user["post_date"]); ?></td>
                     </tr>
                     <tr>
                         <td>register_ip</td>
@@ -125,11 +107,10 @@ if (isset($user["user_id"])) {
     $sql = "SELECT ip, MAX(date) AS maxdate FROM ttf_post WHERE author_id = '$user_id' AND ip != 'NULL' GROUP BY ip ORDER BY maxdate DESC";
     if (!$result = mysql_query($sql)) showerror();
 	while ($post = mysql_fetch_array($result)) {
-		$date = strtolower(date("M j, Y, g\:i a", $post["maxdate"] + 3600*$ttf["time_zone"]));
 ?>
                     <tr>
                         <td><?php echo $post["ip"]; ?></td>
-                        <td><?php echo $date; ?></td>
+                        <td><?php echo formatdate($post["maxdate"]); ?></td>
                     </tr>
 <?php
 	};
@@ -149,11 +130,10 @@ if (isset($user["user_id"])) {
 	$sql = "SELECT ip, MAX(date) AS maxdate FROM ttf_visit WHERE user_id = '$user_id' GROUP BY ip ORDER BY maxdate DESC";
 	$result = mysql_query($sql);
 	while ($visit = mysql_fetch_array($result)) {
-		$date = strtolower(date("M j, Y, g\:i a", $visit["maxdate"] + 3600*$ttf["time_zone"]));
 ?>
                     <tr>
                         <td><?php echo $visit["ip"]; ?></td>
-                        <td><?php echo $date; ?></td>
+                        <td><?php echo formatdate($visit["maxdate"]); ?></td>
                     </tr>
 <?php
 	};

@@ -60,8 +60,6 @@ if (isset($thread_title)) {
     // for each post...
     while ($post = mysql_fetch_array($result)) {
 
-        // format the date
-        $date = strtolower(date("g\:i a, j M y", $post["date"] + 3600*$ttf["time_zone"]));
 ?>
 
             <a name="<?php echo $post["post_id"]; ?>"></a>
@@ -77,7 +75,7 @@ if (isset($thread_title)) {
         };
 ?>
                 </div>
-                <div class="userbar_right"><?php echo $date; ?><?php
+                <div class="userbar_right"><?php echo formatdate($post["date"]); ?><?php
         if ($ttf["perm"] == 'admin' || $ttf["uid"] == $post["author_id"]) {
 ?><br />
                     <a class="link" href="archivepost.php?post_id=<?php echo $post["post_id"]; ?>" onclick="return confirmaction()">archive</a>

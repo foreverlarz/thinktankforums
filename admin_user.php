@@ -34,30 +34,21 @@ while ($user = mysql_fetch_array($result)) {
 
     unset($hl);
 
-    if ($user["visit_date"] == 0) {
+    $timeout = 60*60*24*7*2; // two weeks of seconds (s*m*h*d*w)
 
-        $date = "never visited";
+    if ($user["visit_date"] > (time() - $timeout)) {
 
-    } else {
-
-        $date = strtolower(date("M j, Y, g\:i a", $user["visit_date"] + 3600*$ttf["time_zone"]));
-
-        $timeout = 60*60*24*7*2; // two weeks of seconds (s*m*h*d*w)
-
-        if ($user["visit_date"] > (time() - $timeout)) {
-
-            $hl = " class=\"highlight\"";
-
-        };
+        $hl = " class=\"highlight\"";
 
     };
+
 
 ?>
                     <tr>
                         <td><?php echo $user["user_id"]; ?></td>
                         <td><a href="admin_userinfo.php?user_id=<?php echo $user["user_id"]; ?>"><?php echo output($user["username"]); ?></a></td>
                         <td><a href="mailto:<?php echo $user["email"]; ?>"><?php echo $user["email"]; ?></a></td>
-                        <td<?php echo $hl; ?>><?php echo $date; ?></td>
+                        <td<?php echo $hl; ?>><?php echo formatdate($user["visit_date"]); ?></td>
                     </tr>
 <?php
 

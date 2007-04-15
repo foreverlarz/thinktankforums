@@ -44,9 +44,6 @@ if (!empty($string)) {
     // print the results (if there are any)
     while ($post = mysql_fetch_array($result)) {
 
-        // format the date
-        $date = strtolower(date("M j, g\:i a", $post["date"] + 3600*$ttf["time_zone"]));
-
         // shorten the selection
         // NOTE: THIS IS NOT UTF-8 COMPATIBLE. WE NEED TO USE MULTI-BYTE SAFE
         //       STRING FUNCTIONS HERE. --jlr
@@ -69,7 +66,7 @@ if (!empty($string)) {
         echo "{$post["thread_id"]}#{$post["post_id"]}\">".output($post["title"])."</a> by\n";
         echo "                <a class=\"link\" href=\"profile.php?user_id={$post["author_id"]}\">";
         echo output($post["username"])."</a> on\n";
-        echo "                $date\n";
+        echo "                ".formatdate($post["date"])."\n";
         echo "            </div>\n";
         echo "            <div class=\"contentbox_sm\">\n";
         echo nl2br($print)."\n";

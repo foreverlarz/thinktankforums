@@ -39,7 +39,11 @@ function message($label, $title, $body) {
  */
 function formatdate($timestamp) {
     global $ttf;
-    $date = strtolower(date("M j, Y, g\:i a", $timestamp + 3600*$ttf["time_zone"]));
+    if ($timestamp == 0) {
+        $date = "never";
+    } else {
+        $date = strtolower(gmdate("g\:i a, j M y", $timestamp + 3600*$ttf["time_zone"]));
+    };
     return $date;
 };
 
