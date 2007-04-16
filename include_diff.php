@@ -1,4 +1,4 @@
-<?
+<?php
 /*******************************************************************
 * PHP Diff and Patch
 * Copyright (C)2005 CS Wagner. <cs@kainaw.com>
