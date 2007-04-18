@@ -19,7 +19,7 @@ $time_start = microtime(true);
  */
 function message($label, $title, $body) {
 
-    global $ttf;    // pull through the $ttf array for header.inc.php
+    global $ttf;    // pull through the $ttf array for include_header.php
 
     require_once "include_header.php";
 
@@ -40,10 +40,32 @@ function message($label, $title, $body) {
 function formatdate($timestamp, $format = "M j, Y, g\:i a") {
 
     global $ttf;
+    $longago = time() - $timestamp;
+    $minute  = 60;                     // (1 minute) * (60 seconds/minute)
+    $hour    = 60 * $minute;
+    $day     = 24 * $hour;
 
     if ($timestamp == 0) {
 
         $date = "never";
+
+    } else if ($longago < $minute) {
+
+        $date = floor($longago);
+        if ($date != 1) $date .= " seconds ago";
+        else $date .= " second ago";
+
+    } else if ($longago < $hour) {
+
+        $date = floor($longago / $minute);
+        if ($date != 1) $date .= " minutes ago";
+        else $date .= " minute ago";
+
+    } else if ($longago < $day) {
+
+        $date = floor($longago / $hour);
+        if ($date != 1) $date .= " hours ago";
+        else $date .= " hour ago";
 
     } else {
 
