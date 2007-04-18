@@ -342,12 +342,11 @@ if (isset($_COOKIE["thinktank"])) {
     if (mysql_num_rows($result) == 1) {
 
         // put the user data into the $ttf array
-        $user = mysql_fetch_array($result);
-        $ttf["uid"] = $user["user_id"];
-        $ttf["username"] = $user["username"];
-        $ttf["perm"] = $user["perm"];
-        $ttf["avatar_type"] = $user["avatar_type"];
-        $ttf["time_zone"] = $user["time_zone"];
+        list($ttf["uid"],
+             $ttf["username"],
+             $ttf["perm"],
+             $ttf["avatar_type"],
+             $ttf["time_zone"]) = mysql_fetch_array($result);
 
     } else {
 
