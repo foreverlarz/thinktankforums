@@ -62,7 +62,11 @@ function formatdate($timestamp, $format = "M j, Y, g\:i a") {
     $minute  = 60;                     // (1 minute) * (60 seconds/minute)
     $hour    = 60 * $minute;
     $day     = 24 * $hour;
-
+/*
+    $week    = 7  * $day;
+    $month   = 30 * $day;               // how do you handle a month? 30 * $day? 4 * $week? not sure...
+    $year    = 365 * $day;
+*/
     if ($timestamp == 0) {
 
         $date = "never";
@@ -84,7 +88,26 @@ function formatdate($timestamp, $format = "M j, Y, g\:i a") {
         $date = floor($longago / $hour);
         if ($date != 1) $date .= " hours ago";
         else $date .= " hour ago";
+        
+/*  
+    } else if ($longago < $week) {
 
+        $date = floor($longago / $minute);
+        if ($date != 1) $date .= " days ago";
+        else $date .= " day ago";
+
+    } else if ($longago < $month) {
+
+        $date = floor($longago / $minute);
+        if ($date != 1) $date .= " weeks ago";
+        else $date .= " week ago";
+
+    } else if ($longago < $year) {
+
+        $date = floor($longago / $minute);
+        if ($date != 1) $date .= " months ago";
+        else $date .= " month ago";
+*/
     } else {
 
         $date = strtolower(gmdate($format, $timestamp + 3600*$ttf["time_zone"]));
