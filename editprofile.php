@@ -63,7 +63,7 @@ if (isset($ttf["uid"])) {
 
         $profile = clean($_POST["profile"]);    //////// EDIT USER PROFILE ////////
 
-        if ($profile != $user["profile"]) {
+        if ($profile != clean($user["profile"])) {
 
             $sql = "UPDATE ttf_user SET profile='$profile' WHERE user_id='{$ttf["uid"]}'";
         
@@ -74,7 +74,7 @@ if (isset($ttf["uid"])) {
             } else {
 
             $arrMessages[] = "your profile has been successfully changed.";
-        
+            
             };
 
         };
@@ -302,7 +302,13 @@ if (!empty($arrMessages)) {
     
     message("edit your profile", "information", $arrMessages);
     
-}
+} 
+
+if (empty($arrMessages) && !empty($edit)) {
+
+    message("edit your profile", "information", "you didnt make any changes!");
+
+}  
 
 require_once "include_footer.php";
 
