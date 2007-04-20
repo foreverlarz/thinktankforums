@@ -39,6 +39,19 @@ CREATE TABLE `ttf_post` (
   FULLTEXT KEY `body` (`body`)
 ) TYPE=MyISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
+CREATE TABLE `ttf_revision` (
+  `rev_id` int(9) NOT NULL auto_increment,
+  `ref_id` mediumint(9) NOT NULL,
+  `type` enum('post','profile','title') collate utf8_unicode_ci NOT NULL,
+  `author_id` mediumint(9) NOT NULL,
+  `num` smallint(6) NOT NULL default '0',
+  `date` int(11) NOT NULL,
+  `ip` varchar(15) collate utf8_unicode_ci NOT NULL,
+  `body` longtext collate utf8_unicode_ci NOT NULL,
+  PRIMARY KEY  (`rev_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ;
+
+
 CREATE TABLE `ttf_thread` (
   `forum_id` mediumint(9) NOT NULL default '0',
   `thread_id` mediumint(9) NOT NULL auto_increment,
