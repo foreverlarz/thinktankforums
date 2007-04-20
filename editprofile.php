@@ -129,6 +129,33 @@ if (isset($ttf["uid"])) {
                 
                 if ($x == 30 && $y == 30) {
                     
+                    // Delete old avatar from disk before uploading new one
+                    $oldext = "SELECT avatar_type FROM ttf_user WHERE user_id='{$ttf["uid"]}'";
+                    
+                    if ($oldext == "gif" || $oldext == "jpg" || $oldext == "png") {
+
+                        $deleteavatar = unlink("avatars/".$ttf["uid"].".".$oldext);
+
+                            if ($deleteavatar == TRUE) {
+
+                                $sql = "UPDATE ttf_user SET avatar_type=NULL WHERE user_id='{$ttf["uid"]}'";
+
+                                if (!$result = mysql_query($sql)) {
+
+                                    showerror();
+
+                                };
+
+                            } else { 
+                                
+                                $arrMessages[] = "<span class=\"error\">there was an error trying to delete your old avatar.</span>";
+                           
+                            }; 
+
+                    };
+
+                    // Upload new avatar
+
                     if (move_uploaded_file($_FILES["avatar"]["tmp_name"], "avatars/".$ttf["uid"].".".$ext)) {
 
                         $sql = "UPDATE ttf_user SET avatar_type='$ext' WHERE user_id='{$ttf["uid"]}'";
