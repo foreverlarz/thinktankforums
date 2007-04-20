@@ -351,6 +351,24 @@ function clean($input) {
 
 };
 
+/* email validation
+ * ~~~~~~~~~~~~~~~~~~~~~~~
+ * this function should be used on every email address in a script
+ * coming from $_REQUEST, $_GET, and $_POST. it is extremely
+ * important to use it on data used in mysql queries.
+ */
+
+function validateEmail($email) {
+
+    if (!eregi("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$", $email)) {
+
+        return false;
+
+    } else {
+
+        return true;
+    };
+}
 
 
 /* forum configuration variables

@@ -114,7 +114,34 @@ if (isset($ttf["uid"])) {
 
         };
 
-        
+        $email = $_POST["email"];           //////// EDIT EMAIL ////////
+
+        if ($email != $user["email"]) {
+
+            if (validateEmail($email) == true) {
+
+                $sql = "UPDATE ttf_user SET email='$email' WHERE user_id='{$ttf["uid"]}'";
+
+                if (!$result = mysql_query($sql)) {
+            
+                    showerror();
+
+                } else {
+                    
+                    $arrMessages[] = "your email address has been successfully updated.";
+                                    
+                };
+            
+            } else {
+                
+                $arrMessages[] = "<span class=\"error\">your e-mail is not vailid.</span>";
+
+           };
+
+        };
+
+
+
     } else if ($edit == "avatar") {     //////// EDIT AVATAR ////////
         
         if ($_FILES["avatar"]["size"] != 0) {
@@ -195,37 +222,6 @@ if (isset($ttf["uid"])) {
         };
     
     
-    } else if ($edit == "email") {          //////// EDIT E-MAIL ////////
-        
-        $email0 = $_POST["email0"];
-        $email1 = $_POST["email1"];
-        
-        if ($email0 == $email1) {
-            
-            if ($email0 != "") {
-                
-                if ($email0 == clean($email0)) {
-                    
-                    // do something....
-
-                } else {
-                    
-                    $arrMessages[] = "<span class=\"error\">your e-mail contained invalid characters and was not changed.</span>";
-                
-                };
-            
-            } else {
-                
-                $arrMessages[] = "<span class=\"error\">your e-mail cannot be null and was not changed.</span>";
-            
-            };
-     
-        } else {
-            
-            $arrMessages[] = "<span class=\"error\">your e-mail entries did not match and it was not changed.</span>";
-        
-        };
-  
     } else {
 
 ?>
@@ -242,6 +238,10 @@ if (isset($ttf["uid"])) {
             </form>
 
             <form action="editprofile.php" method="post">
+                <div class="contenttitle">change your email</div>
+                <div class="contentbox" style="text-align: center;">
+                    <input type="text" name="email" maxlength="96" size="40" value="<?php echo output($user["email"]); ?>" />
+                </div>
                 <div class="contenttitle">edit your actual profile</div>
                 <div class="contentbox" style="text-align: center;">
                     <textarea class="profile" cols="70" rows="7" name="profile" wrap="virtual"><?php echo output($user["profile"]); ?></textarea><br />
