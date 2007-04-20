@@ -384,7 +384,7 @@ function deleteAvatar() {
 
     if (!empty($ext)) {      // if the user has an avatar set
         
-        if (!unlink("avatars/".$ttf["uid"].".".$oldext)) {
+        if (!unlink("avatars/".$ttf["uid"].".".$ext)) {
 
             return FALSE;
         
