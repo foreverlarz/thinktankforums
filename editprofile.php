@@ -43,10 +43,12 @@ if (isset($ttf["uid"])) {
                     } else {
                         
                         // sql update is successfull, reset cookie
+                        /* can't set headers after html has been printed to the agent
+                         * i can fix this later. -- jlr
                         $expire = time() + 31556926;
                         $cookie = serialize(array($user["user_id"], $encrypt));
                         setcookie("thinktank", $cookie, $expire);
-
+                        */
                         $arrMessages[] = "your password has been successfully changed.";
 
                     };
@@ -161,30 +163,12 @@ if (isset($ttf["uid"])) {
                 
                 if ($x == 30 && $y == 30) {
                     
-                    // Delete old avatar from disk before uploading new one
-                    $oldext = "SELECT avatar_type FROM ttf_user WHERE user_id='{$ttf["uid"]}'";
+                    if (!deleteAvatar()) {
+                        
+                        $arrMessages[] = "<span class=\"error\">there was an error trying to delete your old avatar.</span>";
                     
-                    if ($oldext == "gif" || $oldext == "jpg" || $oldext == "png") {
+                    }; 
 
-                        $deleteavatar = unlink("avatars/".$ttf["uid"].".".$oldext);
-
-                            if ($deleteavatar == TRUE) {
-
-                                $sql = "UPDATE ttf_user SET avatar_type=NULL WHERE user_id='{$ttf["uid"]}'";
-
-                                if (!$result = mysql_query($sql)) {
-
-                                    showerror();
-
-                                };
-
-                            } else { 
-                                
-                                $arrMessages[] = "<span class=\"error\">there was an error trying to delete your old avatar.</span>";
-                           
-                            }; 
-
-                    };
 
                     // Upload new avatar
 

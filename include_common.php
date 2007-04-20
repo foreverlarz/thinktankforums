@@ -370,6 +370,48 @@ function validateEmail($email) {
     };
 }
 
+/* delete a user's avatar
+ * ~~~~~~~~~~~~~~~~~~~~~~
+ * use this function to delete the current user's avatar.
+ */
+function deleteAvatar() {
+
+    global $ttf;
+
+    $sql = "SELECT avatar_type FROM ttf_user WHERE user_id='{$ttf["uid"]}'";
+    if (!$result = mysql_query($sql)) showerror();
+    list($ext) = mysql_fetch_row($result);
+
+    if (!empty($ext)) {      // if the user has an avatar set
+        
+        if (!unlink("avatars/".$ttf["uid"].".".$oldext)) {
+
+            return FALSE;
+        
+        } else {
+            
+            $sql = "UPDATE ttf_user SET avatar_type=NULL ".
+                   "WHERE user_id='{$ttf["uid"]}'";
+            if (!$result = mysql_query($sql)) {
+                
+                showerror();
+
+            } else {
+
+                return TRUE;
+
+            };
+
+        };
+   
+    } else {
+
+        return FALSE;
+
+    };
+
+};
+
 
 /* forum configuration variables
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
