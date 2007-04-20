@@ -41,6 +41,11 @@ if (isset($ttf["uid"])) {
                         showerror();
 
                     } else {
+                        
+                        // sql update is successfull, reset cookie
+                        $expire = time() + 31556926;
+                        $cookie = serialize(array($user["user_id"], $encrypt));
+                        setcookie("thinktank", $cookie, $expire);
 
                         $arrMessages[] = "your password has been successfully changed.";
 
