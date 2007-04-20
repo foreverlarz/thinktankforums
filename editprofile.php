@@ -9,20 +9,27 @@ $label = "edit your profile";
 $title = $label;
 require_once "include_header.php";
 
+// Grab User info
+$sql = "SELECT * FROM ttf_user WHERE user_id='{$ttf["uid"]}' LIMIT 1";
+if (!$result = mysql_query($sql)) showerror();
+$user = mysql_fetch_array($result);
+mysql_free_result($result);
 
 if (isset($ttf["uid"])) {
+        
+
 
     $edit = clean($_POST["edit"]);
     
-    if ($edit == "password") {          //////// EDIT PASSWORD ////////
+    if ($edit == "bulk") {          
 
-        $pass0 = $_POST["password0"];
+        $pass0 = $_POST["password0"];   //////// EDIT PASSWORD ////////
         $pass1 = $_POST["password1"];
-        
-        if ($pass0 == $pass1) {
 
-            if (!empty($pass0)) {
-           
+        if (!empty($pass0)) {
+
+            if ($pass0 == $pass1) {
+
                 if ($pass0 == clean($pass0)) {
               
                     $encrypt = sha1(clean($pass0));
@@ -48,16 +55,65 @@ if (isset($ttf["uid"])) {
 
             } else {
 
-                message("edit your profile", "fatal error", "you password cannot be null and was not changed.");
+                message("edit your profile", "fatal error", "your password did not match and was not changed");
 
             };
 
-        } else {
-            
-            message("edit your profile", "fatal error", "your password did not match and was not changed.");
-        
         };
 
+        $profile = clean($_POST["profile"]);    //////// EDIT USER PROFILE ////////
+
+        if ($profile != $user["profile"]) {
+
+            $sql = "UPDATE ttf_user SET profile='$profile' WHERE user_id='{$ttf["uid"]}'";
+        
+            if (!$result = mysql_query($sql)) {
+            
+                showerror();
+
+            } else {
+
+            message("edit your profile", "success", "your profile has been successfully changed.");
+        
+            };
+
+        };
+
+        $title = clean($_POST["title"]);    //////// EDIT USER TITLE ////////
+        
+        if ($title != $user["title"]) {
+                
+            $sql = "UPDATE ttf_user SET title='$title' WHERE user_id='{$ttf["uid"]}'";
+
+            if (!$result = mysql_query($sql)) {
+            
+                showerror();
+
+            } else {
+
+                message("edit your profile", "success", "your title has been successfully changed.");
+        
+            };
+
+        };
+
+        $zone = clean($_POST["zone"]);      //////// EDIT TIME-ZONE ////////
+
+        if ($zone != $user["time_zone"]) {
+        
+            $sql = "UPDATE ttf_user SET time_zone='$zone' WHERE user_id='{$ttf["uid"]}'";
+
+            if (!$result = mysql_query($sql)) {
+            
+                showerror();
+
+            } else {
+
+                message("edit your profile", "success", "your time zone has been successfully changed.");
+        
+            };
+
+        };
     } else if ($edit == "avatar") {     //////// EDIT AVATAR ////////
         
         if ($_FILES["avatar"]["size"] != 0) {
@@ -110,53 +166,6 @@ if (isset($ttf["uid"])) {
         
         };
     
-    } else if ($edit == "profile") {        //////// EDIT PROFILE ////////
-
-        $profile = clean($_POST["profile"]);
-
-        $sql = "UPDATE ttf_user SET profile='$profile' WHERE user_id='{$ttf["uid"]}'";
-        
-        if (!$result = mysql_query($sql)) {
-            
-            showerror();
-
-        } else {
-
-            message("edit your profile", "success", "your profile has been successfully changed.");
-        
-        };
-    
-    } else if ($edit == "title") {          //////// EDIT USER TITLE ////////
-        
-        $title = clean($_POST["title"]);
-        
-        $sql = "UPDATE ttf_user SET title='$title' WHERE user_id='{$ttf["uid"]}'";
-
-        if (!$result = mysql_query($sql)) {
-            
-            showerror();
-
-        } else {
-
-            message("edit your profile", "success", "your title has been successfully changed.");
-        
-        };
-    
-    } else if ($edit == "zone") {           //////// EDIT TIME ZONE ////////
-        
-        $zone = clean($_POST["zone"]);
-        
-        $sql = "UPDATE ttf_user SET time_zone='$zone' WHERE user_id='{$ttf["uid"]}'";
-
-        if (!$result = mysql_query($sql)) {
-            
-            showerror();
-
-        } else {
-
-            message("edit your profile", "success", "your time zone has been successfully changed.");
-        
-        };
     
     } else if ($edit == "email") {          //////// EDIT E-MAIL ////////
         
@@ -191,32 +200,29 @@ if (isset($ttf["uid"])) {
         };
   
     } else {
-        
-        $sql = "SELECT * FROM ttf_user WHERE user_id='{$ttf["uid"]}' LIMIT 1";
-        if (!$result = mysql_query($sql)) showerror();
-        $user = mysql_fetch_array($result);
-        mysql_free_result($result);
 
 ?>
+            <form action="editprofile.php" method="post" enctype="multipart/form-data">
+                <div class="contenttitle">
+                    change your avatar <span class="small">(30px square; gif, jpg, png)</span>
+                </div>
+                <div class="contentbox" style="text-align: center;">
+                    <input type="file" name="avatar" size="28" />
+                    <input type="submit" value="upload" />
+                    <input type="hidden" name="MAX_FILE_SIZE" value="10000" />
+                    <input type="hidden" name="edit" value="avatar" />
+                </div>
+            </form>
+
             <form action="editprofile.php" method="post">
                 <div class="contenttitle">edit your actual profile</div>
                 <div class="contentbox" style="text-align: center;">
                     <textarea class="profile" cols="70" rows="7" name="profile" wrap="virtual"><?php echo output($user["profile"]); ?></textarea><br />
-                    <input type="hidden" name="edit" value="profile" />
-                    <input type="submit" value="update" />
                 </div>
-            </form>
-
-            <form action="editprofile.php" method="post">
                 <div class="contenttitle">change your user title</div>
                 <div class="contentbox" style="text-align: center;">
                     <input type="text" name="title" maxlength="96" size="64" value="<?php echo output($user["title"]); ?>" />
-                    <input type="submit" value="change" />
-                    <input type="hidden" name="edit" value="title" />
                 </div>
-            </form>
-
-            <form action="editprofile.php" method="post">
                 <div class="contenttitle">change your time zone</div>
                 <div class="contentbox" style="text-align: center;">
                     <select name="zone">
@@ -260,24 +266,7 @@ if (isset($ttf["uid"])) {
                         <option value="13"<?php if($user["time_zone"]==13) echo " selected=\"selected\""; ?>>UTC+13</option>
                         <option value="14"<?php if($user["time_zone"]==14) echo " selected=\"selected\""; ?>>UTC+14</option>
                     </select>
-                    <input type="submit" value="change" />
-                    <input type="hidden" name="edit" value="zone" />
                 </div>
-            </form>
-
-            <form action="editprofile.php" method="post" enctype="multipart/form-data">
-                <div class="contenttitle">
-                    change your avatar <span class="small">(30px square; gif, jpg, png)</span>
-                </div>
-                <div class="contentbox" style="text-align: center;">
-                    <input type="file" name="avatar" size="28" />
-                    <input type="submit" value="upload" />
-                    <input type="hidden" name="MAX_FILE_SIZE" value="10000" />
-                    <input type="hidden" name="edit" value="avatar" />
-                </div>
-            </form>
-
-            <form action="editprofile.php" method="post">
                 <table cellspacing="1" class="content">
                     <tr>
                         <th colspan="2">change your password</th>
@@ -290,14 +279,13 @@ if (isset($ttf["uid"])) {
                         <td>and again:</td>
                         <td><input type="password" name="password1" maxlength="32" size="16" /></td>
                     </tr>
-                    <tr>
-                        <td>&nbsp;</td>
-                        <td>
-                            <input type="submit" value="change" />
-                            <input type="hidden" name="edit" value="password" />
-                        </td>
-                    </tr>
                 </table>
+                <div class="contenttitle">apply changes</div>
+                <div class="contentbox" style="text-align: center;">
+                        <input type="submit" value="apply" />
+                        <input type="hidden" name="edit" value="bulk" />
+                </div>
+
             </form>
 <?php
     
@@ -312,3 +300,4 @@ if (isset($ttf["uid"])) {
 require_once "include_footer.php";
 
 ?>
+
