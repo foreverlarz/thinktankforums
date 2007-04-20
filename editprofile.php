@@ -9,16 +9,15 @@ $label = "edit your profile";
 $title = $label;
 require_once "include_header.php";
 
-// Grab User info
-$sql = "SELECT * FROM ttf_user WHERE user_id='{$ttf["uid"]}' LIMIT 1";
-if (!$result = mysql_query($sql)) showerror();
-$user = mysql_fetch_array($result);
-mysql_free_result($result);
-
 if (isset($ttf["uid"])) {
-        
-    $arrMessages = array();
 
+    // grab user info
+    $sql = "SELECT * FROM ttf_user WHERE user_id='{$ttf["uid"]}' LIMIT 1";
+    if (!$result = mysql_query($sql)) showerror();
+    $user = mysql_fetch_array($result);
+    mysql_free_result($result);
+
+    $arrMessages = array();
 
     $edit = clean($_POST["edit"]);
     
