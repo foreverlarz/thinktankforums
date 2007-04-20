@@ -17,6 +17,7 @@ mysql_free_result($result);
 
 if (isset($ttf["uid"])) {
         
+    $arrMessages = array();
 
 
     $edit = clean($_POST["edit"]);
@@ -42,20 +43,19 @@ if (isset($ttf["uid"])) {
 
                     } else {
 
-                        message("edit your profile", "success", "your password has been successfully changed.");
+                        $arrMessages[] = "your password has been successfully changed.";
 
                     };
 
                 } else {
 
-                    message("edit your profile", "fatal error",
-                            "your password contained invalid characters and was not changed.");
+                    $arrMessages[] = "<span class=\"error\">your password contained invalid characters and was not changed.</span>";
 
                 };
 
             } else {
 
-                message("edit your profile", "fatal error", "your password did not match and was not changed");
+                $arrMessages[] = "<span class=\"error\">your password did not match and was not changed</span>";
 
             };
 
@@ -73,7 +73,7 @@ if (isset($ttf["uid"])) {
 
             } else {
 
-            message("edit your profile", "success", "your profile has been successfully changed.");
+            $arrMessages[] = "your profile has been successfully changed.";
         
             };
 
@@ -91,7 +91,7 @@ if (isset($ttf["uid"])) {
 
             } else {
 
-                message("edit your profile", "success", "your title has been successfully changed.");
+                $arrMessages[] = "your title has been successfully changed.";
         
             };
 
@@ -109,11 +109,13 @@ if (isset($ttf["uid"])) {
 
             } else {
 
-                message("edit your profile", "success", "your time zone has been successfully changed.");
+                $arrMessages[] = "your time zone has been successfully changed.";
         
             };
 
         };
+
+        
     } else if ($edit == "avatar") {     //////// EDIT AVATAR ////////
         
         if ($_FILES["avatar"]["size"] != 0) {
@@ -138,31 +140,31 @@ if (isset($ttf["uid"])) {
 
                         } else {
 
-                            message("edit your profile", "success", "your avatar has been successfully changed.");
+                            $arrMessages[] = "your avatar has been successfully changed.";
 
                         };
                     
                     } else {
                         
-                        message("edit your profile", "fatal error", "the avatar change was unsuccessful.");
+                        $arrMessages[] = "<span class=\"error\">the avatar change was unsuccessful.</span>";
                         
                     };
                 
                 } else {
                     
-                    message("edit your profile", "fatal error", "image uploaded is not 30x30 pixels.");
+                    $arrMessages[] = "<span class=\"error\">image uploaded is not 30x30 pixels.</span>";
                 
                 };
             
             } else {
                 
-                message("edit your profile", "fatal error", "image uploaded is not a gif, png, or jpeg.");
+                $arrMessages[] = "<span class=\"error\">image uploaded is not a gif, png, or jpeg.</span>";
             
             };
         
         } else {
             
-            message("edit your profile", "fatal error", "no image specified.");
+            $arrMessages[] = "<span class=\"error\">no image specified.</span>";
         
         };
     
@@ -182,20 +184,19 @@ if (isset($ttf["uid"])) {
 
                 } else {
                     
-                    message("edit your profile", "fatal error",
-                            "your e-mail contained invalid characters and was not changed.");
+                    $arrMessages[] = "<span class=\"error\">your e-mail contained invalid characters and was not changed.</span>";
                 
                 };
             
             } else {
                 
-                message("edit your profile", "fatal error", "your e-mail cannot be null and was not changed.");
+                $arrMessages[] = "<span class=\"error\">your e-mail cannot be null and was not changed.</span>";
             
             };
      
         } else {
             
-            message("edit your profile", "fatal error", "your e-mail entries did not match and it was not changed.");
+            $arrMessages[] = "<span class=\"error\">your e-mail entries did not match and it was not changed.</span>";
         
         };
   
@@ -296,6 +297,12 @@ if (isset($ttf["uid"])) {
     message("edit your profile", "fatal error", "you must login before you may edit your profile.");
 
 };
+
+if (!empty($arrMessages)) {
+    
+    message("edit your profile", "information", $arrMessages);
+    
+}
 
 require_once "include_footer.php";
 

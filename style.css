@@ -164,6 +164,9 @@ a, a:active, a:link, a:visited {
     background-color: #00ff33;
 }
 
+.error {
+    color: red;
+}
 
 /****************
  * TABLE STYLES *

@@ -23,10 +23,28 @@ function message($label, $title, $body) {
 
     require_once "include_header.php";
 
-?>
-  <div class="contenttitle"><?php echo $title; ?></div>
-  <div class="contentbox"><?php echo $body; ?></div>
-<?php
+    print("<div class=\"contenttitle\">$title</div>");
+    print("<div class=\"contentbox\">");
+
+        if (is_array($body)) {
+
+            print("<ul>");
+                
+            foreach ($body as $message) {
+
+                print("<li>$message</li>");
+
+            }
+
+            print("</ul>");
+
+        } else {
+
+            print("$body");
+
+        }
+
+    print("</div>");
 
     require_once "include_footer.php";
 
