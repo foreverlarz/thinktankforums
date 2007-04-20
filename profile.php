@@ -73,6 +73,8 @@ if (isset($user["user_id"])) {
                         <td>registered at</td>
                         <td><?php echo formatdate($user["register_date"]); ?></td>
                     </tr>
+                </tbody>
+            </table>
 <?php
     $sql = "SELECT ttf_post.post_id, ttf_post.thread_id, ttf_post.date, ".
            "       ttf_thread.title FROM ttf_post ".
@@ -99,6 +101,7 @@ if (isset($user["user_id"])) {
 <?php
         };
 ?>
+			</tbody>
             </table>
 <?php
 
