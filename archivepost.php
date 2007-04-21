@@ -12,22 +12,23 @@ if (isset($ttf["uid"])) {
 
     if (!empty($post_id)) {
 
-        // find out the thread_id for the given post
-        $sql = "SELECT thread_id FROM ttf_post WHERE post_id=$post_id LIMIT 1";
-        if (!$result = mysql_query($sql)) showerror();
-        list($thread_id) = mysql_fetch_array($result);
-        mysql_free_result($result);
-
-        // hide the post if the user is either an admin or the post's author
-        $sql = "UPDATE ttf_post SET hide='t' WHERE post_id=$post_id";
+        // archive the post if the user is either an admin or the post's author
+        $sql = "UPDATE ttf_post SET archive=UNIX_TIMESTAMP() WHERE post_id=$post_id";
         if ($ttf["perm"] != 'admin') $sql .= " AND author_id='{$ttf["uid"]}'";
         $sql .= " LIMIT 1";
         if (!$result = mysql_query($sql)) showerror();
 
         if (mysql_affected_rows() == 1) {
 
+            // find out the thread_id for the given post
+            $sql = "SELECT thread_id FROM ttf_post WHERE post_id=$post_id LIMIT 1";
+            if (!$result = mysql_query($sql)) showerror();
+            list($thread_id) = mysql_fetch_array($result);
+            mysql_free_result($result);
+        
             // update the thread table, subtracting a post from the count
             // and setting the date to the date of the most recent post in the thread
+            // WORD UP ==> IF THE THREAD HAS NO OTHER POSTS, date->0, listing it last. --jlr *********************
             $sql = "UPDATE ttf_thread SET posts=posts-1, ".
                    "date=(SELECT date FROM ttf_post ".
                    "      WHERE thread_id=$thread_id AND hide='f' ".
@@ -36,7 +37,8 @@ if (isset($ttf["uid"])) {
             if (!$result = mysql_query($sql)) showerror();
 
             // update the forum table, subtracting a post from the count
-            // and setting the date to the dae of the most recent post in the forum
+            // and setting the date to the date of the most recent post in the forum
+            // WORD UP ==> IF THE FORUM HAS NO OTHER POSTS, date->0, listing it last. --jlr **********************
             $sql = "UPDATE ttf_forum SET posts=posts-1, ".
                    "date=(SELECT ttf_post.date FROM ttf_post, ttf_thread ".
                    "      WHERE ttf_thread.thread_id=ttf_post.thread_id ".
@@ -56,6 +58,7 @@ if (isset($ttf["uid"])) {
              * scripts:
              *   => reply.php           UPDATE
              *   => admin_userinfo.php  SELECT
+             *   => profile.php         SELECT
             */
 
             header("Location: thread.php?thread_id=$thread_id");

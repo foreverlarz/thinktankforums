@@ -362,6 +362,41 @@ function clean($input) {
 
 };
 
+
+
+/* build head
+ * ~~~~~~~~~~
+ * this function takes all of the revisions for an
+ * item, starting with rev=0 (base), and patches
+ * them all up to the HEAD revision
+ *
+ * example:
+ *      buildHead(4125, "post");
+ *      is the correct syntax to build the HEAD rev
+ *      for post_id=4125. an array is returned with
+ *      [0] as the actual body, and [1] as the
+ *      current revision number (which is HEAD)
+ */
+function buildHead($ref_id, $type) {
+    require_once "include_diff.php";
+    unset($head);
+    $sql = "SELECT body, num FROM ttf_revision ".
+           "WHERE type='$type' && ref_id='$ref_id' ".
+           "ORDER BY num ASC";
+    if (!$result = mysql_query($sql)) showerror();
+    while ($rev = mysql_fetch_array($result)) {
+        if (empty($head)) {
+            $head = $rev["body"];
+        } else {
+            $head = patch($head, unserialize($rev["body"]));
+        };
+            $lastrev = $rev["num"];
+    };
+    return array($head, $lastrev);
+};
+
+
+
 /* email validation
  * ~~~~~~~~~~~~~~~~~~~~~~~
  * this function should be used on every email address in a script

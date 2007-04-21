@@ -39,26 +39,27 @@ if (isset($thread_title)) {
     };
 
     // create the header label
-    // ** should $forum_name above be run through output()? --jlr **
-    $label = "<a href=\"forum.php?forum_id=$forum_id\">$forum_name</a> &raquo; ".output($thread_title);
-    $title = $forum_name." &raquo; ".output($thread_title);
+    $label = "<a href=\"forum.php?forum_id=$forum_id\">".output($forum_name)."</a> &raquo; ".output($thread_title);
+    $title = output($forum_name)." &raquo; ".output($thread_title);
 
     // let's output a page to the user
     require_once "include_header.php";
 
     // select the posts in this thread
-    $sql = "SELECT ttf_post.post_id, ttf_post.author_id, ttf_post.date, ".
+    $sql = "SELECT ttf_post.post_id, ttf_post.author_id, ttf_post.date, ttf_post.rev, ".
            "ttf_post.body, ttf_user.username, ttf_user.title, ttf_user.avatar_type ".
            "FROM ttf_post, ttf_user ".
            "WHERE ttf_post.author_id = ttf_user.user_id && ttf_post.thread_id = '$thread_id' ";
     if (!isset($_GET["showall"])) {
-        $sql .="&& ttf_post.hide='f' ";
+        $sql .="&& ttf_post.archive IS NULL ";
     };
     $sql .="ORDER BY date ASC";
     if (!$result = mysql_query($sql)) showerror();
 
     // for each post...
     while ($post = mysql_fetch_array($result)) {
+
+        $hasperm = ($ttf["perm"] == 'admin' || $ttf["uid"] == $post["author_id"]) ? TRUE : FALSE;
 
 ?>
 
@@ -75,13 +76,21 @@ if (isset($thread_title)) {
         };
 ?>
                 </div>
-                <div class="userbar_right"><?php echo formatdate($post["date"], "g\:i a, j M y"); ?><?php
-        if ($ttf["perm"] == 'admin' || $ttf["uid"] == $post["author_id"]) {
-?><br />
+                <div class="userbar_right"><?php echo formatdate($post["date"], "g\:i a, j M y"); ?><br />
+<?php
+        if ($post["rev"] > 0) {
+?>
+                    <a class="link" href="revision.php?ref_id=<?php echo $post["post_id"]; ?>&amp;type=post">rev <?php echo $post["rev"]; ?></a><?php if ($hasperm) echo ",\n"; ?>
+<?php
+        };
+        if ($hasperm) {
+?>
+                    <a class="link" href="editpost.php?post_id=<?php echo $post["post_id"]; ?>">edit</a>,
                     <a class="link" href="archivepost.php?post_id=<?php echo $post["post_id"]; ?>" onclick="return confirmaction()">archive</a>
 <?php
         };
 ?>
+
                 </div>
                 <a class="username" href="profile.php?user_id=<?php echo $post["author_id"]; ?>"><?php echo output($post["username"]); ?></a><br />
                 <?php echo output($post["title"])."\n"; ?>

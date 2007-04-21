@@ -67,9 +67,52 @@ if (isset($ttf["uid"])) {
 
         };
 
-        $profile = clean($_POST["profile"]);    //////// EDIT USER PROFILE ////////
+        //$profile = clean($_POST["profile"]);    //////// EDIT USER PROFILE ////////
+        $profile = $_POST["profile"];
 
-        if ($profile != clean($user["profile"])) {
+        if ($profile != $user["profile"]) {
+
+            /* note: this if/then won't work once $user["profile"] is
+             * formatted and $profile is raw user input! we'll have to buildHead()
+             * and compare buildHead() against $_POST["profile"].
+             */
+
+            // let's build our current HEAD revision
+            // if this profile already has revisions
+            list($head, $lastrev) = buildHead($ttf["uid"], 'profile');
+
+            // if it doesn't have revisions (user has
+            // never set a profile), make this one the base
+            if (empty($head)) {
+
+                $profile = clean($profile);
+
+                $sql = "INSERT INTO ttf_revision SET ".
+                       "ref_id='{$ttf["uid"]}', ".
+                       "type='profile', ".
+                       "author_id='{$ttf["uid"]}', ".
+                       "num='0', ".
+                       "date=UNIX_TIMESTAMP(), ".
+                       "ip='{$_SERVER["REMOTE_ADDR"]}', ".
+                       "body='$profile'";
+
+            } else {
+
+                $diff = clean(serialize(diff($head, $profile)));
+                $newrev = $lastrev + 1;
+
+                $sql = "INSERT INTO ttf_revision SET ".
+                       "ref_id='{$ttf["uid"]}', ".
+                       "type='profile', ".
+                       "author_id='{$ttf["uid"]}', ".
+                       "num='$newrev', ".
+                       "date=UNIX_TIMESTAMP(), ".
+                       "ip='{$_SERVER["REMOTE_ADDR"]}', ".
+                       "body='$diff'";
+
+            };
+
+            if (!$result = mysql_query($sql)) showerror();
 
             $sql = "UPDATE ttf_user SET profile='$profile' WHERE user_id='{$ttf["uid"]}'";
         
@@ -79,15 +122,53 @@ if (isset($ttf["uid"])) {
 
             } else {
 
-            $arrMessages[] = "your profile has been successfully changed.";
+                $arrMessages[] = "your profile has been successfully changed.";
             
             };
 
         };
 
-        $title = clean($_POST["title"]);    //////// EDIT USER TITLE ////////
+        //$title = clean($_POST["title"]);    //////// EDIT USER TITLE ////////
+        $title = $_POST["title"];
         
         if ($title != $user["title"]) {
+
+            // let's build our current HEAD revision
+            // if this title already has revisions
+            list($head, $lastrev) = buildHead($ttf["uid"], 'title');
+
+            // if it doesn't have revisions (user has
+            // never set a profile), make this one the base
+            if (empty($head)) {
+
+                $title = clean($title);
+
+                $sql = "INSERT INTO ttf_revision SET ".
+                       "ref_id='{$ttf["uid"]}', ".
+                       "type='title', ".
+                       "author_id='{$ttf["uid"]}', ".
+                       "num='0', ".
+                       "date=UNIX_TIMESTAMP(), ".
+                       "ip='{$_SERVER["REMOTE_ADDR"]}', ".
+                       "body='$title'";
+
+            } else {
+
+                $diff = clean(serialize(diff($head, $title)));
+                $newrev = $lastrev + 1;
+
+                $sql = "INSERT INTO ttf_revision SET ".
+                       "ref_id='{$ttf["uid"]}', ".
+                       "type='title', ".
+                       "author_id='{$ttf["uid"]}', ".
+                       "num='$newrev', ".
+                       "date=UNIX_TIMESTAMP(), ".
+                       "ip='{$_SERVER["REMOTE_ADDR"]}', ".
+                       "body='$diff'";
+
+            };
+
+            if (!$result = mysql_query($sql)) showerror();
                 
             $sql = "UPDATE ttf_user SET title='$title' WHERE user_id='{$ttf["uid"]}'";
 

@@ -1,56 +1,59 @@
+-------------------------------------------------------------------------
+-- use this to create the ttf table structure
+-------------------------------------------------------------------------
+
 CREATE TABLE `ttf_banned` (
   `user_id` mediumint(9) NOT NULL default '0',
-  `ip` varchar(15) NOT NULL default '',
+  `ip` varchar(15) collate utf8_unicode_ci NOT NULL default '',
   UNIQUE KEY `ip` (`ip`)
-) TYPE=MyISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `ttf_config` (
-  `name` varchar(32) default NULL,
-  `value` varchar(128) default NULL
-) TYPE=MyISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+  `name` varchar(32) collate utf8_unicode_ci default NULL,
+  `value` varchar(128) collate utf8_unicode_ci default NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `ttf_forum` (
   `forum_id` tinyint(4) NOT NULL auto_increment,
-  `name` text NOT NULL,
-  `description` text NOT NULL,
+  `name` text collate utf8_unicode_ci NOT NULL,
+  `description` text collate utf8_unicode_ci NOT NULL,
   `threads` mediumint(9) NOT NULL default '0',
   `posts` mediumint(9) NOT NULL default '0',
   `date` int(11) NOT NULL default '0',
   PRIMARY KEY  (`forum_id`)
-) TYPE=MyISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `ttf_forum_new` (
   `user_id` mediumint(9) NOT NULL default '0',
   `forum_id` mediumint(9) NOT NULL default '0',
   `last_view` int(11) NOT NULL default '0',
   PRIMARY KEY  (`user_id`,`forum_id`)
-) TYPE=MyISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `ttf_post` (
   `post_id` mediumint(9) NOT NULL auto_increment,
   `thread_id` mediumint(9) default NULL,
   `author_id` mediumint(9) default NULL,
-  `hide` enum('t','f') NOT NULL default 'f',
+  `rev` smallint(6) NOT NULL default '0',
+  `archive` int(11) default NULL,
   `date` int(11) default NULL,
-  `ip` varchar(15) default NULL,
-  `body` longtext,
+  `body` longtext collate utf8_unicode_ci,
   PRIMARY KEY  (`post_id`),
   KEY `thread_id` (`thread_id`),
   FULLTEXT KEY `body` (`body`)
-) TYPE=MyISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `ttf_revision` (
   `rev_id` int(9) NOT NULL auto_increment,
   `ref_id` mediumint(9) NOT NULL,
   `type` enum('post','profile','title') collate utf8_unicode_ci NOT NULL,
   `author_id` mediumint(9) NOT NULL,
-  `num` smallint(6) NOT NULL default '0',
+  `num` tinyint(4) NOT NULL default '0',
   `date` int(11) NOT NULL,
   `ip` varchar(15) collate utf8_unicode_ci NOT NULL,
   `body` longtext collate utf8_unicode_ci NOT NULL,
   PRIMARY KEY  (`rev_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ;
-
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `ttf_thread` (
   `forum_id` mediumint(9) NOT NULL default '0',
@@ -59,49 +62,55 @@ CREATE TABLE `ttf_thread` (
   `posts` mediumint(9) NOT NULL default '0',
   `views` mediumint(9) NOT NULL default '0',
   `date` int(11) NOT NULL default '0',
-  `title` text NOT NULL,
+  `title` text collate utf8_unicode_ci NOT NULL,
   PRIMARY KEY  (`thread_id`),
   KEY `forum_id` (`forum_id`),
   FULLTEXT KEY `title` (`title`)
-) TYPE=MyISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `ttf_thread_new` (
   `user_id` mediumint(9) NOT NULL default '0',
   `thread_id` mediumint(9) NOT NULL default '0',
   `last_view` int(11) NOT NULL default '0',
   PRIMARY KEY  (`user_id`,`thread_id`)
-) TYPE=MyISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `ttf_user` (
   `user_id` mediumint(9) NOT NULL auto_increment,
-  `username` varchar(16) NOT NULL default '',
-  `password` varchar(40) NOT NULL default '',
-  `perm` enum('admin','user','banned') NOT NULL default 'user',
-  `email` varchar(64) NOT NULL default '',
-  `title` varchar(64) default NULL,
-  `avatar_type` enum('gif','jpg','png') default NULL,
+  `username` varchar(16) collate utf8_unicode_ci NOT NULL default '',
+  `password` varchar(40) collate utf8_unicode_ci NOT NULL default '',
+  `perm` enum('admin','user','banned') collate utf8_unicode_ci NOT NULL default 'user',
+  `email` varchar(64) collate utf8_unicode_ci NOT NULL default '',
+  `title` varchar(64) collate utf8_unicode_ci default NULL,
+  `avatar_type` enum('gif','jpg','png') collate utf8_unicode_ci default NULL,
   `time_zone` float NOT NULL default '-7',
   `register_date` int(11) default NULL,
   `visit_date` int(11) default NULL,
   `post_date` int(11) default NULL,
-  `register_ip` varchar(15) default NULL,
-  `visit_ip` varchar(15) default NULL,
-  `profile` longtext,
+  `register_ip` varchar(15) collate utf8_unicode_ci default NULL,
+  `visit_ip` varchar(15) collate utf8_unicode_ci default NULL,
+  `profile` longtext collate utf8_unicode_ci,
   PRIMARY KEY  (`user_id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`)
-) TYPE=MyISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `ttf_visit` (
   `user_id` mediumint(9) NOT NULL default '0',
-  `ip` varchar(15) NOT NULL default '',
+  `ip` varchar(15) collate utf8_unicode_ci NOT NULL default '',
   `date` int(11) NOT NULL default '0',
   KEY `user_id` (`user_id`)
-) TYPE=MyISAM CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO `ttf_config` (`name`, `value`) VALUES
-('version', 'ttf-dev'),
+-------------------------------------------------------------------------
+-- the following are default configuration values
+-------------------------------------------------------------------------
+
+INSERT INTO `ttf_config` (`name`, `value`) VALUES 
+('version', 'v1-gamma'),
 ('index_title', 'watch next level'),
 ('forum_display', '15'),
 ('maintenance', '0'),
-('online_timeout', '900');
+('online_timeout', '900'),
+('forum_name', 'think tank forums'),
+('email_addy', 'violet@thinktankforums.com');

@@ -14,3 +14,11 @@ ALTER TABLE `ttf_thread` CHANGE `posts` `posts` MEDIUMINT( 9 ) NOT NULL DEFAULT 
 sql changes for r100:
 
 DELETE FROM ttf_config WHERE `name`='server_time_zone' ;
+
+HEAD:
+
+added	ttf_revision.*
+removed ttf_post.hide
+removed ttf_post.ip
+added	ttf_post.rev
+added	ttf_post.archive

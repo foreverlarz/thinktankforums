@@ -24,8 +24,15 @@ if (isset($ttf["uid"])) {
         };
 
         // insert the post into the respective thread
+        // WORD UP ==> THIS SHOULD BE PRE-FORMATTED IN THE FUTURE! --jlr *****************************************
         $sql = "INSERT INTO ttf_post SET thread_id='$thread_id', author_id='{$ttf["uid"]}', ". 
                "date=UNIX_TIMESTAMP(), ip='{$_SERVER["REMOTE_ADDR"]}', body='$body'";
+        if (!$result = mysql_query($sql)) showerror();
+        $post_id = mysql_insert_id();
+
+        // insert the post as a base revision
+        $sql = "INSERT INTO ttf_revision SET ref_id='$post_id', type='post', author_id='{$ttf["uid"]}', ". 
+               "num='0', date=UNIX_TIMESTAMP(), ip='{$_SERVER["REMOTE_ADDR"]}', body='$body'";
         if (!$result = mysql_query($sql)) showerror();
 
         // update the thread's post count and date
@@ -45,11 +52,11 @@ if (isset($ttf["uid"])) {
         $sql = "UPDATE ttf_user SET post_date=UNIX_TIMESTAMP() WHERE user_id='{$ttf["uid"]}'";
         if (!$result = mysql_query($sql)) showerror();
 
-        header("Location: thread.php?thread_id=$thread_id");
+        header("Location: thread.php?thread_id=$thread_id#$post_id");
 
     } else {
 
-        message("post a reply", "fatal error", "either the thread_id or body fields were left empty.");
+        message("post a reply", "fatal error", "you left a field empty.");
 
     };
 
