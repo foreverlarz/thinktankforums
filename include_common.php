@@ -58,63 +58,74 @@ function message($label, $title, $body) {
 function formatdate($timestamp, $format = "M j, Y, g\:i a") {
 
     global $ttf;
+
     $longago = time() - $timestamp;
-    $minute  = 60;                     // (1 minute) * (60 seconds/minute)
-    $hour    = 60 * $minute;
-    $day     = 24 * $hour;
-/*
-    $week    = 7  * $day;
-    $month   = 30 * $day;               // how do you handle a month? 30 * $day? 4 * $week? not sure...
-    $year    = 365 * $day;
-*/
+    $minute  = 60;
+    $hour    = 60       * $minute;
+    $day     = 24       * $hour;
+    $week    = 7        * $day;
+    $month   = 4        * $week;
+    $year    = 365.2422 * $day;
+
     if ($timestamp == 0) {
 
-        $date = "never";
+        $relative = "never";
+
+    } else if ($longago == $minute) {
+
+        $relative = "now";
 
     } else if ($longago < $minute) {
 
-        $date = floor($longago);
-        if ($date != 1) $date .= " seconds ago";
-        else $date .= " second ago";
+        $relative = floor($longago);
+        if ($relative != 1) $relative .= " seconds ago";
+        else $relative .= " second ago";
 
     } else if ($longago < $hour) {
 
-        $date = floor($longago / $minute);
-        if ($date != 1) $date .= " minutes ago";
-        else $date .= " minute ago";
+        $relative = floor($longago / $minute);
+        if ($relative != 1) $relativedate .= " minutes ago";
+        else $relative .= " minute ago";
 
     } else if ($longago < $day) {
 
-        $date = floor($longago / $hour);
-        if ($date != 1) $date .= " hours ago";
-        else $date .= " hour ago";
-        
-/*  
+        $relative = floor($longago / $hour);
+        if ($relative != 1) $relative .= " hours ago";
+        else $relative .= " hour ago";
+
     } else if ($longago < $week) {
 
-        $date = floor($longago / $minute);
-        if ($date != 1) $date .= " days ago";
-        else $date .= " day ago";
+        $relative = floor($longago / $day);
+        if ($relative != 1) $relative .= " days ago";
+        else $relative .= " day ago";
 
     } else if ($longago < $month) {
 
-        $date = floor($longago / $minute);
-        if ($date != 1) $date .= " weeks ago";
-        else $date .= " week ago";
+        $relative = floor($longago / $week);
+        if ($relative != 1) $relative .= " weeks ago";
+        else $relative .= " week ago";
 
     } else if ($longago < $year) {
 
-        $date = floor($longago / $minute);
-        if ($date != 1) $date .= " months ago";
-        else $date .= " month ago";
-*/
+        $relative = floor($longago / $month);
+        if ($relative != 1) $relative .= " months ago";
+        else $relative .= " month ago";
+
     } else {
+
+        $relative = floor($longago / $year);
+        if ($relative != 1) $relative .= " years ago";
+        else $relative .= " year ago";
 
         $date = strtolower(gmdate($format, $timestamp + 3600*$ttf["time_zone"]));
 
     };
 
-    return $date;
+    // need to go through all the other scripts and change how they call formatdate();
+    // $absolute = strtolower(gmdate($format, $timestamp + 3600*$ttf["time_zone"]));
+    // return array($relative, $absolute);
+
+    return $relative;
 
 };
 
