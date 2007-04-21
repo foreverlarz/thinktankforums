@@ -84,7 +84,7 @@ function formatdate($timestamp, $format = "M j, Y, g\:i a") {
     } else if ($longago < $hour) {
 
         $relative = floor($longago / $minute);
-        if ($relative != 1) $relativedate .= " minutes ago";
+        if ($relative != 1) $relative .= " minutes ago";
         else $relative .= " minute ago";
 
     } else if ($longago < $day) {
