@@ -26,7 +26,7 @@ if (isset($ttf["uid"])) {
         // insert the post into the respective thread
         // WORD UP ==> THIS SHOULD BE PRE-FORMATTED IN THE FUTURE! --jlr *****************************************
         $sql = "INSERT INTO ttf_post SET thread_id='$thread_id', author_id='{$ttf["uid"]}', ". 
-               "date=UNIX_TIMESTAMP(), ip='{$_SERVER["REMOTE_ADDR"]}', body='$body'";
+               "date=UNIX_TIMESTAMP(), body='$body'";
         if (!$result = mysql_query($sql)) showerror();
         $post_id = mysql_insert_id();
 
