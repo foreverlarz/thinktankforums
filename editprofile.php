@@ -17,6 +17,9 @@ if (isset($ttf["uid"])) {
     $user = mysql_fetch_array($result);
     mysql_free_result($result);
 
+    list($profile_head, ) = buildHead($ttf["uid"], 'profile');
+    list($title_head, ) = buildHead($ttf["uid"], 'title');
+
     $arrMessages = array();
 
     $edit = clean($_POST["edit"]);
@@ -69,8 +72,6 @@ if (isset($ttf["uid"])) {
 
         $profile = $_POST["profile"];    //////// EDIT USER PROFILE ////////
 
-        list($profile_head, ) = buildHead($ttf["uid"], 'profile');
-        
         if ($profile != $profile_head) {
 
             // if it doesn't have revisions (user has
@@ -102,7 +103,7 @@ if (isset($ttf["uid"])) {
             if (!$result = mysql_query($sql)) showerror();
 
             // this should be ran through outputbody() in the future!
-            $sql = "UPDATE ttf_user SET profile='".clean($profile)."' WHERE user_id='{$ttf["uid"]}'";
+            $sql = "UPDATE ttf_user SET profile='".clean(outputbody($profile))."' WHERE user_id='{$ttf["uid"]}'";
         
             if (!$result = mysql_query($sql)) {
             
@@ -118,8 +119,6 @@ if (isset($ttf["uid"])) {
 
         //$title = clean($_POST["title"]);    //////// EDIT USER TITLE ////////
         $title = $_POST["title"];
-        
-        list($title_head, ) = buildHead($ttf["uid"], 'title');
         
         if ($title != $title_head) {
 
@@ -151,7 +150,7 @@ if (isset($ttf["uid"])) {
 
             if (!$result = mysql_query($sql)) showerror();
                 
-            $sql = "UPDATE ttf_user SET title='".clean($title)."' WHERE user_id='{$ttf["uid"]}'";
+            $sql = "UPDATE ttf_user SET title='".clean(output($title))."' WHERE user_id='{$ttf["uid"]}'";
 
             if (!$result = mysql_query($sql)) {
             
@@ -295,11 +294,11 @@ if (isset($ttf["uid"])) {
                 </div>
                 <div class="contenttitle">edit your actual profile</div>
                 <div class="contentbox" style="text-align: center;">
-                    <textarea class="profile" cols="70" rows="7" name="profile" wrap="virtual"><?php echo output($user["profile"]); ?></textarea><br />
+                    <textarea class="profile" cols="70" rows="7" name="profile" wrap="virtual"><?php echo output($profile_head); ?></textarea><br />
                 </div>
                 <div class="contenttitle">change your user title</div>
                 <div class="contentbox" style="text-align: center;">
-                    <input type="text" name="title" maxlength="96" size="64" value="<?php echo output($user["title"]); ?>" />
+                    <input type="text" name="title" maxlength="96" size="64" value="<?php echo output($title_head); ?>" />
                 </div>
                 <div class="contenttitle">change your time zone</div>
                 <div class="contentbox" style="text-align: center;">

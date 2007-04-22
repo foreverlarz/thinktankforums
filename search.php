@@ -54,7 +54,7 @@ if (!empty($string)) {
         $len = strlen($body);
         $start = max(0, $first - $pad);
         $stop = min($len, $last + $pad);
-        $body = output(substr($body, $start, $stop - $start));
+        $body = substr($body, $start, $stop - $start);
         $print = "";
         if ($start > 0) $print .= "&hellip; ";
         $print .= str_ireplace($string, "<span class=\"highlight\">$string</span>", $body);
@@ -69,7 +69,7 @@ if (!empty($string)) {
         echo "                ".formatdate($post["date"])."\n";
         echo "            </div>\n";
         echo "            <div class=\"contentbox_sm\">\n";
-        echo nl2br($print)."\n";
+        echo $print."\n";
         echo "            </div>\n";
     
     };

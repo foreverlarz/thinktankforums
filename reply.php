@@ -35,10 +35,8 @@ if (empty($forum_id)) {
 };
 
 // insert the post into the respective thread
-// NOTE: ttf_post SHOULD BE STORING PRE-FORMATTED *****************************
-// POSTS, SO ADD outputbody() to $body below. --jlr ***************************
 $sql = "INSERT INTO ttf_post SET thread_id='".clean($thread_id)."', author_id='{$ttf["uid"]}', ". 
-       "date=UNIX_TIMESTAMP(), body='".clean($body)."'";
+       "date=UNIX_TIMESTAMP(), body='".clean(outputbody($body))."'";
 if (!$result = mysql_query($sql)) showerror();
 $post_id = mysql_insert_id();
 

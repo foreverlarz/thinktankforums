@@ -45,10 +45,10 @@ if (isset($user["user_id"])) {
 ?>
                 </div>
                 <span class="username"><?php echo output($user["username"]); ?></span><br />
-                <?php echo output($user["title"])."\n"; ?>
+                <?php echo $user["title"]."\n"; ?>
             </div>
             <div class="contentbox_sm">
-<?php echo outputbody($user["profile"])."\n"; ?>
+<?php echo $user["profile"]."\n"; ?>
             </div>
             <table cellspacing="1" class="content">
                 <thead>

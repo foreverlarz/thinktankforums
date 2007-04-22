@@ -77,10 +77,9 @@ if (!empty($body)) {
            "body='$diff'";
     if (!$result = mysql_query($sql)) showerror();
 
-    // NOTE: ttf_post SHOULD BE STORING PRE-FORMATTED *************************
-    // POSTS, SO ADD outputbody() to $body below. --jlr ***********************
+    // update the formatted ttf_post
     $sql = "UPDATE ttf_post SET rev=rev+1, ".
-           "body='".clean($body)."' WHERE post_id='$post_id'";
+           "body='".clean(outputbody($body))."' WHERE post_id='$post_id'";
             if (!$result = mysql_query($sql)) showerror();
     
     // wow, all of that worked! let's grab the thread_id
@@ -94,6 +93,8 @@ if (!empty($body)) {
 
 } else if (!isset($_POST["body"])) {
     
+    $title = "editing post_id $post_id";
+    $label = $title;
     require_once "include_header.php";
     
     // they need to see a HEAD rev build from scratch
@@ -105,14 +106,12 @@ if (!empty($body)) {
     // want to get this feature working perfectly! --jlr
 ?>
             <form action="editpost.php" method="post">
-            <div class="contenttitle">you're editing <?php echo "post_id $post_id, rev $lastrev"; ?></div>
+            <div class="contenttitle">you're creating revision <?php echo ($lastrev+1); ?></div>
                 <div class="contentbox" style="text-align: center;">
-                    <textarea class="profile" cols="70" rows="15" name="body" wrap="virtual"><?php print $head; ?></textarea><br />
+                    <textarea class="profile" cols="70" rows="15" name="body" wrap="virtual"><?php echo output($head); ?></textarea><br />
                 </div>
-                <div class="contenttitle">apply changes</div>
                 <div class="contentbox" style="text-align: center;">
-                        <input type="submit" value="apply" />
-                        <input type="hidden" name="edit" value="bulk" />
+                        <input type="submit" value="create revision" />
                 </div>
                 <input type="hidden" name="post_id" value="<?php echo $post_id; ?>" />
             </form>

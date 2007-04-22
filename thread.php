@@ -97,12 +97,10 @@ while ($post = mysql_fetch_array($result)) {
 
                 </div>
                 <a class="username" href="profile.php?user_id=<?php echo $post["author_id"]; ?>"><?php echo output($post["username"]); ?></a><br />
-                <?php echo output($post["title"])."\n"; ?>
+                <?php echo $post["title"]."\n"; ?>
             </div>
             <div class="contentbox_sm">
-<?php
-// NOTE: this won't need to be ran through outputbody() in the future. --jlr
-echo outputbody($post["body"])."\n"; ?>
+<?php echo $post["body"]."\n"; ?>
             </div>
 <?php
 };
