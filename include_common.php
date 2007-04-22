@@ -104,7 +104,7 @@ function formatdate($timestamp, $format = "M j, Y, g\:i a") {
 
         $relative = "never";
 
-    } else if ($longago == $minute) {
+    } else if ($longago == 0) {
 
         $relative = "now";
 
