@@ -437,10 +437,13 @@ function deleteAvatar() {
     if (!$result = mysql_query($sql)) showerror();
     list($ext) = mysql_fetch_row($result);
 
-    if (!empty($ext)) {      // if the user has an avatar set
+    if (!empty($ext)) {
+
+        // if the user has an avatar
         
         if (!unlink("avatars/".$ttf["uid"].".".$ext)) {
 
+            // we couldn't delete their avatar
             return FALSE;
         
         } else {
@@ -448,11 +451,13 @@ function deleteAvatar() {
             $sql = "UPDATE ttf_user SET avatar_type=NULL ".
                    "WHERE user_id='{$ttf["uid"]}'";
             if (!$result = mysql_query($sql)) {
-                
+
+                // we couldn't reflect the deletion in the db                
                 showerror();
 
             } else {
 
+                // everything worked
                 return TRUE;
 
             };
@@ -461,7 +466,9 @@ function deleteAvatar() {
    
     } else {
 
-        return FALSE;
+        // there was no avatar to delete,
+        // so we are still happy people
+        return TRUE;
 
     };
 

@@ -99,9 +99,11 @@ if (isset($user["user_id"])) {
                         <td><?php echo formatdate($post["date"]); ?></td>
                     </tr>                                
 <?php
+
         };
+
 ?>
-			</tbody>
+                </tbody>
             </table>
 <?php
 
