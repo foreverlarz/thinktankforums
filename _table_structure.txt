@@ -82,7 +82,7 @@ CREATE TABLE `ttf_user` (
   `email` varchar(64) collate utf8_unicode_ci NOT NULL default '',
   `title` varchar(64) collate utf8_unicode_ci default NULL,
   `avatar_type` enum('gif','jpg','png') collate utf8_unicode_ci default NULL,
-  `time_zone` float NOT NULL default '-7',
+  `time_zone` float NOT NULL default '0',
   `register_date` int(11) default NULL,
   `visit_date` int(11) default NULL,
   `post_date` int(11) default NULL,
