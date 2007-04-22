@@ -54,12 +54,19 @@ if (!empty($body)) {
     // if this post already has revisions
     list($head, ) = buildHead($post_id, 'post');
 
-    // if it doesn't have revisions for some
-    // weird reason, make one and set it as HEAD
     if (empty($head)) {
 
         message("edit a post", "fatal error",
                 "serious error encountered. please contact an admin.");
+        die();
+    
+    };
+
+    if ($body == $head) {
+
+        message("edit a post", "fatal error",
+                "you didn't make any changes.");
+        die();
     
     };
     
