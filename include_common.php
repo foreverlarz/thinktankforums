@@ -245,7 +245,8 @@ function outputbody($input) {
                      "<blockquote>",        "</blockquote>");
     $input = str_replace($search, $replace, $input);
 
-    if (strpos($input, '&lt;pre&gt;') === TRUE) {
+    // why doesn't this work?!
+    //if (strstr($input, '&lt;pre&gt;') === TRUE) {
         $open_split = explode('&lt;pre&gt;', $input);
         foreach ($open_split as $var) {
             $close_split = explode('&lt;/pre&gt;', $var);
@@ -263,9 +264,9 @@ function outputbody($input) {
             };
             $br++;
         };
-    } else {
-        $print = nl2br($input);
-    };
+    //} else {
+    //    $print = nl2br($input);
+    //};
 
     return $print;
 
