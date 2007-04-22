@@ -10,7 +10,7 @@ require_once "include_common.php";
 $post_id = $_REQUEST["post_id"];
 $body = $_POST["body"];
 
-// if the agent is logged in as a valid user
+// if the agent is not logged in as a valid user
 if (!isset($ttf["uid"])) {
 
     message("edit a post", "fatal error",
@@ -19,7 +19,7 @@ if (!isset($ttf["uid"])) {
 
 };
 
-// if a post_id is specified
+// if a post_id is not specified
 if (empty($post_id)) {
 
     message("edit a post", "fatal error",

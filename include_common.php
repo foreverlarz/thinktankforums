@@ -213,11 +213,14 @@ function outputbody($input) {
     $input = htmlspecialchars($input, ENT_COMPAT, 'UTF-8');
 
     // chop links
-    function choplink($link = '') {
+    if (!function_exists('choplink')) {
+        function choplink($link = '') {
 
-        $short = ((strlen($link) > 60) ? substr($link, 0 , 45).' &hellip; '.substr($link, -10) : $link);
+            $short = ((strlen($link) > 60) ? substr($link, 0 , 45).' &hellip; '.substr($link, -10) : $link);
 
-        return ' <a href="'.$link.'">'.$short.'</a> ';
+            return ' <a href="'.$link.'">'.$short.'</a> ';
+
+        };
 
     };
 
