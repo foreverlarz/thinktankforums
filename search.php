@@ -9,7 +9,7 @@ $label = "search ttf posts";
 $title = $label;
 require_once "include_header.php";
 
-$string = clean($_GET["string"]);       
+$string = $_GET["string"];       
 
 ?>
             <div class="contenttitle">punch in a keyword</div>
@@ -25,11 +25,11 @@ if (!empty($string)) {
 
     $sql = "SELECT ttf_post.thread_id, ttf_post.post_id, ttf_post.author_id, ".
            "ttf_post.date, ttf_post.body, ttf_thread.title, ttf_user.username, ".
-           "MATCH(ttf_post.body) AGAINST ('$string') AS score ".
+           "MATCH(ttf_post.body) AGAINST ('".clean($string)."') AS score ".
            "FROM ttf_post ".
            "LEFT JOIN ttf_thread ON ttf_post.thread_id=ttf_thread.thread_id ".
            "LEFT JOIN ttf_user ON ttf_post.author_id=ttf_user.user_id ".
-           "WHERE MATCH(ttf_post.body) AGAINST ('$string') ".
+           "WHERE MATCH(ttf_post.body) AGAINST ('".clean($string)."') ".
            "ORDER BY score DESC";
     if (!$result = mysql_query($sql)) showerror();
 

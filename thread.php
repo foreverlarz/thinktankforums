@@ -21,45 +21,49 @@ mysql_free_result($result);
 
 
 // if this is a valid thread...
-if (isset($thread_title)) {
+if (empty($thread_title)) {
                 
+    message("view thread", "fatal error", "the thread specified is not valid.");
+    die();
 
-    // increment thread views by one
-    $sql = "UPDATE ttf_thread SET views=views+1 WHERE thread_id='$thread_id'";
+};
+
+// increment thread views by one
+$sql = "UPDATE ttf_thread SET views=views+1 WHERE thread_id='$thread_id'";
+if (!$result = mysql_query($sql)) showerror();
+
+// if user is logged in...
+if (isset($ttf["uid"])) {
+
+    // mark this thread as read
+    $sql = "REPLACE INTO ttf_thread_new SET thread_id='$thread_id', ".
+           "user_id='{$ttf["uid"]}', last_view=UNIX_TIMESTAMP()";
     if (!$result = mysql_query($sql)) showerror();
 
-    // if user is logged in...
-    if (isset($ttf["uid"])) {
+};
 
-        // mark this thread as read
-        $sql = "REPLACE INTO ttf_thread_new SET thread_id='$thread_id', ".
-               "user_id='{$ttf["uid"]}', last_view=UNIX_TIMESTAMP()";
-        if (!$result = mysql_query($sql)) showerror();
+// create the header label
+$label = "<a href=\"forum.php?forum_id=$forum_id\">".output($forum_name)."</a> &raquo; ".output($thread_title);
+$title = output($forum_name)." &raquo; ".output($thread_title);
 
-    };
+// let's output a page to the user
+require_once "include_header.php";
 
-    // create the header label
-    $label = "<a href=\"forum.php?forum_id=$forum_id\">".output($forum_name)."</a> &raquo; ".output($thread_title);
-    $title = output($forum_name)." &raquo; ".output($thread_title);
+// select the posts in this thread
+$sql = "SELECT ttf_post.post_id, ttf_post.author_id, ttf_post.date, ttf_post.rev, ".
+       "ttf_post.body, ttf_user.username, ttf_user.title, ttf_user.avatar_type ".
+       "FROM ttf_post, ttf_user ".
+       "WHERE ttf_post.author_id = ttf_user.user_id && ttf_post.thread_id = '$thread_id' ";
+if (!isset($_GET["showall"])) {
+    $sql .="&& ttf_post.archive IS NULL ";
+};
+$sql .="ORDER BY date ASC";
+if (!$result = mysql_query($sql)) showerror();
 
-    // let's output a page to the user
-    require_once "include_header.php";
+// for each post...
+while ($post = mysql_fetch_array($result)) {
 
-    // select the posts in this thread
-    $sql = "SELECT ttf_post.post_id, ttf_post.author_id, ttf_post.date, ttf_post.rev, ".
-           "ttf_post.body, ttf_user.username, ttf_user.title, ttf_user.avatar_type ".
-           "FROM ttf_post, ttf_user ".
-           "WHERE ttf_post.author_id = ttf_user.user_id && ttf_post.thread_id = '$thread_id' ";
-    if (!isset($_GET["showall"])) {
-        $sql .="&& ttf_post.archive IS NULL ";
-    };
-    $sql .="ORDER BY date ASC";
-    if (!$result = mysql_query($sql)) showerror();
-
-    // for each post...
-    while ($post = mysql_fetch_array($result)) {
-
-        $hasperm = ($ttf["perm"] == 'admin' || $ttf["uid"] == $post["author_id"]) ? TRUE : FALSE;
+    $hasperm = ($ttf["perm"] == 'admin' || $ttf["uid"] == $post["author_id"]) ? TRUE : FALSE;
 
 ?>
 
@@ -67,28 +71,28 @@ if (isset($thread_title)) {
             <div class="userbar">
                 <div class="userbar_left">
 <?php
-        if (isset($post["avatar_type"])) {
+    if (isset($post["avatar_type"])) {
 ?>
                     <img src="avatars/<?php echo $post["author_id"].".".$post["avatar_type"]; ?>" alt="av" width="30" height="30" />
 <?php
-        } else {
-            echo "                    &nbsp;\n";
-        };
+    } else {
+        echo "                    &nbsp;\n";
+    };
 ?>
                 </div>
                 <div class="userbar_right"><?php echo formatdate($post["date"], "g\:i a, j M y"); ?><br />
 <?php
-        if ($post["rev"] > 0) {
+    if ($post["rev"] > 0) {
 ?>
                     <a class="link" href="revision.php?ref_id=<?php echo $post["post_id"]; ?>&amp;type=post">rev <?php echo $post["rev"]; ?></a><?php if ($hasperm) echo ",\n"; ?>
 <?php
-        };
-        if ($hasperm) {
+    };
+    if ($hasperm) {
 ?>
                     <a class="link" href="editpost.php?post_id=<?php echo $post["post_id"]; ?>">edit</a>,
                     <a class="link" href="archivepost.php?post_id=<?php echo $post["post_id"]; ?>" onclick="return confirmaction()">archive</a>
 <?php
-        };
+    };
 ?>
 
                 </div>
@@ -96,14 +100,16 @@ if (isset($thread_title)) {
                 <?php echo output($post["title"])."\n"; ?>
             </div>
             <div class="contentbox_sm">
-<?php echo outputbody($post["body"])."\n"; ?>
+<?php
+// NOTE: this won't need to be ran through outputbody() in the future. --jlr
+echo outputbody($post["body"])."\n"; ?>
             </div>
 <?php
-    };
-    mysql_free_result($result);
+};
+mysql_free_result($result);
 
-    // if user is logged in, print a reply box
-    if (isset($ttf["uid"])) {
+// if user is logged in, print a reply box
+if (isset($ttf["uid"])) {
 ?>
             <!-- <br style="clear: left;" />-->
             <form action="reply.php" method="post">
@@ -116,12 +122,6 @@ if (isset($thread_title)) {
                 <input type="hidden" name="thread_id" value="<?php echo $thread_id; ?>" />
             </form>
 <?php
-
-    };
-
-} else {
-
-    message("view thread", "fatal error", "the thread specified is not valid.");
 
 };
 

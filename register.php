@@ -48,13 +48,9 @@ if (!isset($ttf["uid"])) {
             $password .= substr($chars, rand(0, 61), 1);
         };
 
-        // clean and segment the provided username, clean the provided email
-        $username = substr(clean($username), 0, 15);
-        $email = clean($email0);
-        
         // insert the new user into the ttf_user table
         $sql = "INSERT INTO ttf_user SET username='$username', password=SHA1('$password'), ".
-               "email='$email', register_date=UNIX_TIMESTAMP(), register_ip='{$_SERVER["REMOTE_ADDR"]}'";
+               "email='$email0', register_date=UNIX_TIMESTAMP(), register_ip='{$_SERVER["REMOTE_ADDR"]}'";
         if (!$result = mysql_query($sql)) {
 
             // if unsuccessful, a user with the same username probably exists
@@ -170,7 +166,7 @@ if (!isset($ttf["uid"])) {
 
 } else {
 
-    message("register an account", "fatal error", "you already have an account!");
+    message("register an account", "fatal error", "you already have an account.");
 
 };
 

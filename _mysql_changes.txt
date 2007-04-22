@@ -3,22 +3,35 @@ sql changes for r33:
 ALTER TABLE `ttf_user` ADD `perm` ENUM( 'admin', 'user', 'banned' ) NOT NULL DEFAULT 'user' AFTER `password` ;
 ALTER TABLE `ttf_user` DROP `banned` ;
 
+===============================================================================
+
 sql changes for r62:
 
 ALTER TABLE `ttf_post` ADD `hide` ENUM( 't', 'f' ) NOT NULL DEFAULT 'f' AFTER `author_id` ;
+
+===============================================================================
 
 sql changes for r71:
 
 ALTER TABLE `ttf_thread` CHANGE `posts` `posts` MEDIUMINT( 9 ) NOT NULL DEFAULT '0' ;
 
+===============================================================================
+
 sql changes for r100:
 
 DELETE FROM ttf_config WHERE `name`='server_time_zone' ;
 
-HEAD:
+===============================================================================
+
+sql changes for ~r127:
 
 added	ttf_revision.*
 removed ttf_post.hide
 removed ttf_post.ip
 added	ttf_post.rev
 added	ttf_post.archive
+
+please just reference _table_structure.txt and recreate from scratch. if you
+want to preserve data in ttf_post, you need to create a script to migrate
+the data correctly. contact jlr for details.
+

@@ -16,7 +16,7 @@ $time_start = microtime(true);
 /* remove magic quotes
  * ~~~~~~~~~~~~~~~~~~~
  * if i had a tally of the number of hours i spent
- * debugging problem that were caused by magic quotes,
+ * debugging problems that were caused by magic quotes,
  * i'm certain it'd be on the order of 100. before, we
  * used clean() to strip magic slashes and add mysql
  * slashes. but often we want pure user variables
@@ -381,7 +381,8 @@ if (!mysql_query("SET NAMES 'utf8'")) showerror();
  */
 function clean($input) {
 
-    $output = mysql_real_escape_string(trim($input));
+    //$output = mysql_real_escape_string(trim($input));
+    $output = mysql_real_escape_string($input);
 
     return($output);
 
@@ -405,17 +406,26 @@ function clean($input) {
 function buildHead($ref_id, $type) {
     require_once "include_diff.php";
     unset($head);
-    $sql = "SELECT body, num FROM ttf_revision ".
+    $sql = "SELECT body FROM ttf_revision ".
            "WHERE type='$type' && ref_id='$ref_id' ".
-           "ORDER BY num ASC";
+           "ORDER BY date ASC";
     if (!$result = mysql_query($sql)) showerror();
     while ($rev = mysql_fetch_array($result)) {
-        if (empty($head)) {
+        if (!isset($head)) {
             $head = $rev["body"];
+            $lastrev = 0;
         } else {
-            $head = patch($head, unserialize($rev["body"]));
+            $diffarray = unserialize($rev["body"]);
+            if (is_array($diffarray)) {
+                $head = patch($head, $diffarray);
+                $lastrev++;
+            } else {
+                message("think tank forums",
+                        "fatal error",
+                        "there was a patching problem.");
+                die();
+            };
         };
-            $lastrev = $rev["num"];
     };
     return array($head, $lastrev);
 };

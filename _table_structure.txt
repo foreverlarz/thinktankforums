@@ -48,7 +48,6 @@ CREATE TABLE `ttf_revision` (
   `ref_id` mediumint(9) NOT NULL,
   `type` enum('post','profile','title') collate utf8_unicode_ci NOT NULL,
   `author_id` mediumint(9) NOT NULL,
-  `num` tinyint(4) NOT NULL default '0',
   `date` int(11) NOT NULL,
   `ip` varchar(15) collate utf8_unicode_ci NOT NULL,
   `body` longtext collate utf8_unicode_ci NOT NULL,
