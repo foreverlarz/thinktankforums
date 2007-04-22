@@ -4,8 +4,43 @@
  * common.inc.php
  */
 
-// let's time the execution!
+
+
+/* start timing the execution
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~
+ */
 $time_start = microtime(true);
+
+
+
+/* remove magic quotes
+ * ~~~~~~~~~~~~~~~~~~~
+ * if i had a tally of the number of hours i spent
+ * debugging problem that were caused by magic quotes,
+ * i'm certain it'd be on the order of 100. before, we
+ * used clean() to strip magic slashes and add mysql
+ * slashes. but often we want pure user variables
+ * without any slashes.
+ *
+ * so from now on, we will REMOVE ALL MAGIC SLASHES
+ * at the beginning of every request and never think
+ * twice about what magic quotes are. except horrible.
+ *
+ *      signed,
+ *      jlr
+ */
+if (get_magic_quotes_gpc()) {
+	function stripslashes_deep($value) {
+		$value = is_array($value) ?
+			array_map('stripslashes_deep', $value) :
+			stripslashes($value);
+		return $value;
+	};
+	$_POST = array_map('stripslashes_deep', $_POST);
+	$_GET = array_map('stripslashes_deep', $_GET);
+	$_COOKIE = array_map('stripslashes_deep', $_COOKIE);
+	$_REQUEST = array_map('stripslashes_deep', $_REQUEST);
+};
 
 
 
@@ -14,8 +49,6 @@ $time_start = microtime(true);
  * $label is printed in the header of the page
  * $title is printed in the title bar of the content box
  * $body is printed in the body of the content box
- * $header should evaluate to TRUE to include the header include
- * $footer should evaluate to TRUE to include the footer include
  */
 function message($label, $title, $body) {
 
@@ -345,16 +378,8 @@ if (!mysql_query("SET NAMES 'utf8'")) showerror();
  * this function should be used on every variable used in a script
  * coming from $_REQUEST, $_GET, and $_POST. it is extremely
  * important to use it on data used in mysql queries.
- *
- * it also strips magic quote slashes and uses the proper function.
  */
 function clean($input) {
-
-    if (get_magic_quotes_gpc()) {
-
-        $input = stripslashes($input);
-
-    };
 
     $output = mysql_real_escape_string(trim($input));
 
