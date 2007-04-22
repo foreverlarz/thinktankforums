@@ -9,7 +9,7 @@
 /* start timing the execution
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
-$time_start = microtime(true);
+$time_start = microtime(TRUE);
 
 
 
@@ -30,16 +30,16 @@ $time_start = microtime(true);
  *      jlr
  */
 if (get_magic_quotes_gpc()) {
-	function stripslashes_deep($value) {
-		$value = is_array($value) ?
-			array_map('stripslashes_deep', $value) :
-			stripslashes($value);
-		return $value;
-	};
-	$_POST = array_map('stripslashes_deep', $_POST);
-	$_GET = array_map('stripslashes_deep', $_GET);
-	$_COOKIE = array_map('stripslashes_deep', $_COOKIE);
-	$_REQUEST = array_map('stripslashes_deep', $_REQUEST);
+    function stripslashes_deep($value) {
+        $value = is_array($value) ?
+            array_map('stripslashes_deep', $value) :
+            stripslashes($value);
+        return $value;
+    };
+    $_POST = array_map('stripslashes_deep', $_POST);
+    $_GET = array_map('stripslashes_deep', $_GET);
+    $_COOKIE = array_map('stripslashes_deep', $_COOKIE);
+    $_REQUEST = array_map('stripslashes_deep', $_REQUEST);
 };
 
 
@@ -56,28 +56,28 @@ function message($label, $title, $body) {
 
     require_once "include_header.php";
 
-    print("<div class=\"contenttitle\">$title</div>");
-    print("<div class=\"contentbox\">");
+    echo "<div class=\"contenttitle\">$title</div>\n";
+    echo "<div class=\"contentbox\">\n";
 
         if (is_array($body)) {
 
-            print("<ul>");
-                
+            echo "<ul>\n";
+
             foreach ($body as $message) {
 
-                print("<li>$message</li>");
+                echo "<li>$message</li>\n";
 
             }
 
-            print("</ul>");
+            echo "</ul>\n";
 
         } else {
 
-            print("$body");
+            echo "$body\n";
 
         }
 
-    print("</div>");
+    echo "</div>\n";
 
     require_once "include_footer.php";
 
@@ -90,7 +90,7 @@ function message($label, $title, $body) {
  */
 function formatdate($timestamp, $format = "M j, Y, g\:i a") {
 
-    global $ttf;
+    global $ttf;    // pull through to get the user's time zone
 
     $longago = time() - $timestamp;
     $minute  = 60;
@@ -173,7 +173,7 @@ function formatdate($timestamp, $format = "M j, Y, g\:i a") {
  */
 function admin() {
 
-    global $ttf;    // pull through the $ttf array for header.inc.php
+    global $ttf;    // pull through for header.inc.php
 
     if ($ttf["perm"] != 'admin') {
         
@@ -187,56 +187,39 @@ function admin() {
 
 
 
-/* text formatting functions
- * ~~~~~~~~~~~~~~~~~~~~~~~~~
- *
- * the following functions culminate
- * in the use of outputbody().
- *
+/* text formatting
+ * ~~~~~~~~~~~~~~~
  * outputbody() may be used to format text
  * as suitable for posts and profiles:
  *  -> htmlspecialchars(, ENT_COMPAT, 'UTF-8')
  *  -> url linking
- *  * full  (http://www.sld.tld)
- *  * named (ttf:http://www.sld.tld)
- *      ('my page':http://subdomain.sld.tld)
- *  * short (sld.tld)
- *      (subdomain.sld.tld)
+ *     * full  (http://www.sld.tld)
+ *     * named (ttf:http://www.sld.tld)
+ *             ('my page':http://subdomain.sld.tld)
+ *     * short (sld.tld)
+ *             (subdomain.sld.tld)
  *  -> html tag support
- *  * <b> . . . . </b>
- *  * <i> . . . . </i>
- *  * <u> . . . . </u>
- *  * <pre> . . </pre>
- *  * removes <br /> from <pre> . . </pre>
+ *     * <b>
+ *     * <i>
+ *     * <u>
+ *     * <pre>
+ *     * <blockquote>
  *
  * this function is necessary to retain xhtml compliance.
  */
-
-// chop links
-function choplink($link = '') {
-
-    $short = ((strlen($link) > 60) ? substr($link, 0 , 45).' &hellip; '.substr($link, -10) : $link);
-
-    return ' <a href="'.$link.'">'.$short.'</a> ';
-
-};
-
-/*
-// <pre> and </pre> tags drop extra <br /> baggage.
-function unprebr($prestrn = '') {
-
-    $brless = str_replace(array('\s', '\n', '\r'), '', $prestrn);
-
-    return '<pre>'.$brless.'</pre>';
-
-};
- */
-
-// format text output for posts and profiles
 function outputbody($input) {
 
     // convert all special characters to their html equivalent
     $input = htmlspecialchars($input, ENT_COMPAT, 'UTF-8');
+
+    // chop links
+    function choplink($link = '') {
+
+        $short = ((strlen($link) > 60) ? substr($link, 0 , 45).' &hellip; '.substr($link, -10) : $link);
+
+        return ' <a href="'.$link.'">'.$short.'</a> ';
+
+    };
 
     // full url
     $input = preg_replace('@(^|\s)(http(s)?|(s)?ftp):\/\/(([\w\/.\-\=\~\?\&\,\.]*)?[^\s\,\.\)\!\?\:\'\}\]$]+)@ie', 'choplink(\'$2://$5\')', $input);
@@ -259,40 +242,26 @@ function outputbody($input) {
                      "<blockquote>",        "</blockquote>");
     $input = str_replace($search, $replace, $input);
 
-    /*
-    if (preg_match('@&lt;pre&gt;([\w\s\r\n]+)&lt;/pre&gt;@i', $input)) {
-
-        $input = preg_replace('@&lt;pre&gt;([\w\s\r\n]+)&lt;/pre&gt;@ie', 'unprebr(\'$1\')', $input);
-
-    } elseif (preg_match('@<pre>([\w\s\r\n]+)</pre>@i', $input)) {
-
-        return $input;
-
+    if (strpos($input, '&lt;pre&gt;') === TRUE) {
+        $open_split = explode('&lt;pre&gt;', $input);
+        foreach ($open_split as $var) {
+            $close_split = explode('&lt;/pre&gt;', $var);
+            foreach ($close_split as $doubly) {
+                $alternate[] = $doubly;
+            };
+        };
+        $print = '';
+        $br = 1;
+        foreach ($alternate as $finally) {
+            if ($br % 2) {
+                $print .= nl2br($finally);
+            } else {
+                $print .= '<pre>'.$finally.'</pre>';
+            };
+            $br++;
+        };
     } else {
-
-        $input = nl2br($input);
-
-    };
-     */
-
-    // new <pre> code. --jlr
-    // ** only run this if $input contains '&lt;pre&gt;'. --jlr **
-    $open_split = explode('&lt;pre&gt;', $input);
-    foreach ($open_split as $var) {
-        $close_split = explode('&lt;/pre&gt;', $var);
-        foreach ($close_split as $doubly) {
-            $alternate[] = $doubly;
-        };
-    };
-    $print = '';
-    $br = 1;
-    foreach ($alternate as $finally) {
-        if ($br % 2) {
-            $print .= nl2br($finally);
-        } else {
-            $print .= '<pre>'.$finally.'</pre>';
-        };
-        $br++;
+        $print = nl2br($input);
     };
 
     return $print;
@@ -381,7 +350,8 @@ if (!mysql_query("SET NAMES 'utf8'")) showerror();
  */
 function clean($input) {
 
-    //$output = mysql_real_escape_string(trim($input));
+    // do we want to trim?
+    // $output = mysql_real_escape_string(trim($input));
     $output = mysql_real_escape_string($input);
 
     return($output);
@@ -410,12 +380,12 @@ function buildHead($ref_id, $type) {
            "WHERE type='$type' && ref_id='$ref_id' ".
            "ORDER BY date ASC";
     if (!$result = mysql_query($sql)) showerror();
-    while ($rev = mysql_fetch_array($result)) {
+    while (list($body) = mysql_fetch_row($result)) {
         if (!isset($head)) {
-            $head = $rev["body"];
+            $head = $body;
             $lastrev = 0;
         } else {
-            $diffarray = unserialize($rev["body"]);
+            $diffarray = unserialize($body);
             if (is_array($diffarray)) {
                 $head = patch($head, $diffarray);
                 $lastrev++;
@@ -433,12 +403,10 @@ function buildHead($ref_id, $type) {
 
 
 /* email validation
- * ~~~~~~~~~~~~~~~~~~~~~~~
+ * ~~~~~~~~~~~~~~~~
  * this function should be used on every email address in a script
- * coming from $_REQUEST, $_GET, and $_POST. it is extremely
- * important to use it on data used in mysql queries.
+ * coming from $_REQUEST, $_GET, and $_POST.
  */
-
 function validateEmail($email) {
 
     if (!eregi("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$", $email)) {
@@ -450,6 +418,8 @@ function validateEmail($email) {
         return true;
     };
 }
+
+
 
 /* delete a user's avatar
  * ~~~~~~~~~~~~~~~~~~~~~~
@@ -494,6 +464,7 @@ function deleteAvatar() {
 };
 
 
+
 /* forum configuration variables
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * this code pulls in some variables that are used throughout
@@ -530,7 +501,8 @@ while ($ban = mysql_fetch_array($result)) {
 
 /* cookie management
  * ~~~~~~~~~~~~~~~~~
- *
+ * grab the thinktank cookie and get the corresponding user info,
+ * then shove it all into the $ttf array.
  */
 if (isset($_COOKIE["thinktank"])) {
 
@@ -605,13 +577,13 @@ if ($ttf_config["maintenance"] && $ttf["perm"] != 'admin') {
 };
 
 
-/* banuser
- * ~~~~~~~~~~~~~~~~
+
+/* ban a user
+ * ~~~~~~~~~~
  * this code allows the administration to block access to the forums
  * for a specific user, while also banning the register_ip and all 
- * visit_ip's as well. 
+ * visit_ip's as well.
  */
-
 function banUser($user_id) {
     admin();  // I dont think this is necessary
 
@@ -660,8 +632,8 @@ function banUser($user_id) {
             } else {
                 $arrMessage[] = "post ip of ".$user["post_ip"]." was banned";
             };
-	    };
-	    mysql_free_result($result);
+        };
+        mysql_free_result($result);
 
 
         $sql = "SELECT date, ip FROM ttf_visit ".
@@ -676,8 +648,8 @@ function banUser($user_id) {
             } else {
                 $arrMessage[] = "visit ip of ".$visit["ip"]." was banned";
             };
-    	};
-	    mysql_free_result($result);
+        };
+        mysql_free_result($result);
 
 
         $sql = "UPDATE ttf_user SET perm='banned' WHERE user_id='$user_id'";
@@ -705,8 +677,10 @@ function banUser($user_id) {
     }; 
 };
 
-/* unbanuser
- * ~~~~~~~~~~~~~~~~
+
+
+/* unban a user
+ * ~~~~~~~~~~~~
  * this code allows the administration to unblock access to the forums
  * for a specific user, while also unbanning the register_ip and all 
  * visit_ip's as well. 
@@ -763,4 +737,7 @@ function unbanUser($user_id) {
     
     }; 
 };
+
+
+
 ?>
