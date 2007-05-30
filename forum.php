@@ -75,7 +75,7 @@ if (!empty($forum_name)) {
            "LEFT JOIN ttf_user ON ttf_user.user_id=ttf_thread.author_id ".
 	       "LEFT JOIN ttf_thread_new ON ttf_thread_new.thread_id=ttf_thread.thread_id ".
 	       "          && ttf_thread_new.user_id='{$ttf["uid"]}' ".
-           "WHERE ttf_thread.forum_id='$forum_id' ".
+           "WHERE ttf_thread.forum_id='$forum_id' && ttf_thread.posts > 0 ".
            "ORDER BY ttf_thread.date DESC ".
            "LIMIT $offset, {$ttf_config["forum_display"]}";
     if (!$result = mysql_query($sql)) showerror();
