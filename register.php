@@ -66,7 +66,7 @@ if (!isset($ttf["uid"])) {
                        "username: $username\npassword: $password\n\n".
                        "log in at http://www.thinktankforums.com/\n\nthanks,\nviolet";
 
-            if (!mail($email, $subject, $message, "from: ".$fromadd)) {
+            if (!mail($email0, $subject, $message, "from: ".$fromadd)) {
 
                 // uh oh, the mail() function failed
                 message("register an account","fatal error", "sorry, no account was created.");
