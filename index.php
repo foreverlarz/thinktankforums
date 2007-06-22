@@ -26,13 +26,22 @@ require_once "include_header.php";
                 </thead>
                 <tbody>
 <?php
-$sql = "SELECT ttf_forum.*, COUNT( * ) - COUNT( ttf_thread_new.last_view ) AS freshies ".
-       "FROM ttf_forum ".
-       "LEFT JOIN ttf_thread USING ( forum_id ) ".
-       "LEFT JOIN ttf_thread_new ON ( ttf_thread.thread_id = ttf_thread_new.thread_id ".
-       "                              && ttf_thread_new.user_id = '{$ttf["uid"]}' ".
-       "                              && ttf_thread.date <= ttf_thread_new.last_view ) ".
-       "GROUP BY ttf_forum.forum_id";
+$sql = "SELECT ttf_forum.*,                                             ".
+       "COUNT( * ) - COUNT( ttf_thread_new.last_view ) AS freshies,     ".
+       "ttf_forum_new.last_view                                         ".
+       "FROM ttf_forum                                                  ".
+       "LEFT JOIN ttf_thread USING ( forum_id )                         ".
+       "LEFT JOIN ttf_thread_new                                        ".
+       "       ON ( ttf_thread.thread_id = ttf_thread_new.thread_id     ".
+       "            && ttf_thread_new.user_id = '{$ttf["uid"]}'         ".
+// it's amazing what a difference this inequality makes! --jlr
+//     "            && ttf_thread.date < ttf_thread_new.last_view )     ".
+       "            && ttf_thread.date <= ttf_thread_new.last_view )    ".
+       "LEFT JOIN ttf_forum_new                                         ".
+       "       ON ( ttf_forum.forum_id = ttf_forum_new.forum_id         ".
+       "            && ttf_forum_new.user_id = '{$ttf["uid"]}'          ".
+       "            && ttf_forum.date >= ttf_forum_new.last_view )      ".
+       "GROUP BY ttf_forum.forum_id                                     ";
 
 if (!$result = mysql_query($sql)) showerror();
 
@@ -56,7 +65,15 @@ while ($forum = mysql_fetch_array($result)) {
                             <a href="forum.php?forum_id=<?php echo $forum["forum_id"]; ?>"><?php echo $forum["name"]; ?></a><br />
                             <span class="small">&nbsp;&nbsp;&middot; <?php echo $forum["description"]; ?></span>
                         </td>
-<?php if (isset($ttf["uid"])) echo "                        <td>{$forum["freshies"]}</td>\n"; ?>
+<?php
+    if (isset($ttf["uid"])) {
+        echo "                        <td>";
+        echo (empty($forum["last_view"]) ?
+                $forum["freshies"] :
+                "<b>".$forum["freshies"]."</b>");
+        echo "</td>\n";
+    };
+?>
                         <td><?php echo $forum["threads"]; ?></td>
                         <td><?php echo $forum["posts"]; ?></td>
                     </tr>
