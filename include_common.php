@@ -519,6 +519,9 @@ if (isset($_COOKIE["thinktank"])) {
     // pull the data out of the cookie
     list($user_id, $password) = unserialize(stripslashes($_COOKIE["thinktank"]));
 
+    $user_id = clean($user_id);
+    $password = clean($password);
+
     // select the data from ttf_user associated with this user
     $sql = "SELECT user_id, username, perm, avatar_type, time_zone ".
            "FROM ttf_user WHERE user_id='$user_id' AND password='$password'";
