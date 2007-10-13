@@ -69,16 +69,16 @@ function diff($a, $b, $min=3, $i=0)
         return $diff;
     }
     $match = diff_match($a, $b);
-    if(strlen($match) < $min)
+    if(mb_strlen($match) < $min)
     {
         array_push($diff, "$i-".$a);
         array_push($diff, "$i+".$b);
         return $diff;
     }
-    $ap = strpos($a, $match);
-    $bp = strpos($b, $match);
-    $diff = diff(substr($a, 0, $ap), substr($b, 0, $bp), $min, $i);
-    return array_merge($diff, diff(substr($a, $ap+strlen($match)), substr($b, $bp+strlen($match)), $min, $i+$bp+strlen($match)));
+    $ap = mb_strpos($a, $match);
+    $bp = mb_strpos($b, $match);
+    $diff = diff(mb_substr($a, 0, $ap), mb_substr($b, 0, $bp), $min, $i);
+    return array_merge($diff, diff(mb_substr($a, $ap+mb_strlen($match)), mb_substr($b, $bp+mb_strlen($match)), $min, $i+$bp+mb_strlen($match)));
 }
 
 /**
@@ -113,7 +113,7 @@ function diff_match($a, $b, $level="line")
         $answer = "";
         for($i = 0; $i < sizeof($as); $i++)
         {
-            $start+= strlen($as[$i])+1;
+            $start+= mb_strlen($as[$i])+1;
             for($j = 0; $j < sizeof($bs); $j++)
             {
                 if($as[$i] != $bs[$j])
@@ -123,13 +123,13 @@ function diff_match($a, $b, $level="line")
                 else
                 {
                     if(!isset($last[$j-1]))
-                        $next[$j] = strlen($bs[$j]) + 1;
+                        $next[$j] = mb_strlen($bs[$j]) + 1;
                     else
-                        $next[$j] = strlen($bs[$j]) + $last[$j-1] + 1;
+                        $next[$j] = mb_strlen($bs[$j]) + $last[$j-1] + 1;
                     if($next[$j] > $len)
                     {
                         $len = $next[$j];
-                        $answer = substr($a, $start-$len+1, $len);
+                        $answer = mb_substr($a, $start-$len+1, $len);
                     }
                 }
             }
@@ -140,8 +140,8 @@ function diff_match($a, $b, $level="line")
     }
     else
     {
-        $m = strlen($a);
-        $n = strlen($b);
+        $m = mb_strlen($a);
+        $n = mb_strlen($b);
         $last = array();
         $next = array();
         $len = 0;
@@ -163,7 +163,7 @@ function diff_match($a, $b, $level="line")
                     if($next[$j] > $len)
                     {
                         $len = $next[$j];
-                        $answer = substr($a, $i-$len+1, $len);
+                        $answer = mb_substr($a, $i-$len+1, $len);
                     }
                 }
             }
@@ -188,22 +188,22 @@ function patch($text, $diff)
     if(!is_array($diff))
     {
         $n = 0;
-        for($i=0; $i<strlen($diff); $i++)
+        for($i=0; $i<mb_strlen($diff); $i++)
         {
-            $c = substr($diff, $i, 1);
+            $c = mb_substr($diff, $i, 1);
             if($c == "+")
             {
-                $n = substr($diff, 0, $i);
-                $pre = substr($text, 0, $n);
-                $post = substr($text, $n);
-                return $pre.substr($diff, $i+1).$post;
+                $n = mb_substr($diff, 0, $i);
+                $pre = mb_substr($text, 0, $n);
+                $post = mb_substr($text, $n);
+                return $pre.mb_substr($diff, $i+1).$post;
             }
             elseif($c == "-")
             {
-                $n = substr($diff, 0, $i);
-                $pre = substr($text, 0, $n);
-                $post = substr($text, $n);
-                return $pre.substr($post, strlen($diff)-$i-1);
+                $n = mb_substr($diff, 0, $i);
+                $pre = mb_substr($text, 0, $n);
+                $post = mb_substr($text, $n);
+                return $pre.mb_substr($post, mb_strlen($diff)-$i-1);
             }
         }
         return $text;
@@ -226,22 +226,22 @@ function unpatch($text, $diff)
     if(!is_array($diff))
     {
         $n = 0;
-        for($i=0; $i<strlen($diff); $i++)
+        for($i=0; $i<mb_strlen($diff); $i++)
         {
-            $c = substr($diff, $i, 1);
+            $c = mb_substr($diff, $i, 1);
             if($c == "-")
             {
-                $n = substr($diff, 0, $i);
-                $pre = substr($text, 0, $n);
-                $post = substr($text, $n);
-                return $pre.substr($diff, $i+1).$post;
+                $n = mb_substr($diff, 0, $i);
+                $pre = mb_substr($text, 0, $n);
+                $post = mb_substr($text, $n);
+                return $pre.mb_substr($diff, $i+1).$post;
             }
             elseif($c == "+")
             {
-                $n = substr($diff, 0, $i);
-                $pre = substr($text, 0, $n);
-                $post = substr($text, $n);
-                return $pre.substr($post, strlen($diff)-$i-1);
+                $n = mb_substr($diff, 0, $i);
+                $pre = mb_substr($text, 0, $n);
+                $post = mb_substr($text, $n);
+                return $pre.mb_substr($post, mb_strlen($diff)-$i-1);
             }
         }
         return $text;
