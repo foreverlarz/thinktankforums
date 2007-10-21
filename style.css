@@ -19,11 +19,22 @@ body {
     padding-top: 10px;
     padding-left: 25px;
 
+    margin-bottom: -12px;
+
+    font-size: 40pt;
+    font-family: verdana, sans-serif;
+    font-weight: bold;
+    
     width: 600px;
 }
 
 #header img {
     display: block;
+}
+
+#header a {
+    color: white;
+    text-decoration: none;
 }
 
 #title {

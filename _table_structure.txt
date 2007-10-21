@@ -107,6 +107,7 @@ CREATE TABLE `ttf_visit` (
 
 INSERT INTO `ttf_config` (`name`, `value`) VALUES 
 ('version', 'v1-gamma'),
+('forum_name', 'think tank forums'),
 ('index_title', 'watch next level'),
 ('forum_display', '15'),
 ('maintenance', '0'),

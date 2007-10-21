@@ -15,7 +15,7 @@ if (!empty($title)) {
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>think tank forums<?php echo $htmltitle; ?></title>
+        <title><?php echo $ttf_config["forum_name"].$htmltitle; ?></title>
         <script type="text/javascript" src="script_confirm.js"></script>
         <link rel="stylesheet" type="text/css" href="style.css" />
         <!--[if lt IE 7]>
@@ -23,9 +23,7 @@ if (!empty($title)) {
         <![endif]-->
     </head>
     <body>
-        <div id="header">
-            <a href="/"><img src="images/header.gif" width="600" height="46" border="0" alt="think tank forums" /></a>
-        </div>
+        <div id="header"><a href="/"><?php echo $ttf_config["forum_name"]; ?></a></div>
         <div id="title"><?php echo $label; ?></div>
         <div id="enclosure">
             <div class="menu_title">
