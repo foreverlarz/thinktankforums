@@ -7,7 +7,7 @@
 if (isset($_COOKIE["thinktank"])) {
 
     $expire = time() - 3600;
-    
+
     setcookie("thinktank", "", $expire);
 
 };

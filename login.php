@@ -20,7 +20,6 @@ $password = sha1(clean($_POST["password"]));
 $sql = "SELECT user_id, perm FROM ttf_user WHERE username='$username' AND password='$password'";
 if (!$result = mysql_query($sql)) showerror();
 $user = mysql_fetch_array($result);
-mysql_free_result($result);
 
 // if a match was found and they are marked as banned    
 if (isset($user["user_id"]) && $user["perm"] == 'banned') {
