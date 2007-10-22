@@ -109,13 +109,12 @@ mysql_free_result($result);
 // if user is logged in, print a reply box
 if (isset($ttf["uid"])) {
 ?>
-            <!-- <br style="clear: left;" />-->
             <form action="reply.php" method="post">
                 <div id="reply_textarea">
-                    <div id="reply_button">
-                        <input class="reply" type="image" src="images/post.gif" width="25" height="65" border="0" alt="click to post" />
-                    </div>
-                    <textarea class="reply" rows="7" name="body" wrap="virtual"></textarea>
+                    <textarea class="reply" rows="5" name="body" wrap="virtual"></textarea>
+                </div>
+                <div id="reply_button">
+                    <input class="reply" type="submit" value="click to post" />
                 </div>
                 <input type="hidden" name="thread_id" value="<?php echo $thread_id; ?>" />
             </form>
