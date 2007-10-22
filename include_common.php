@@ -2,10 +2,18 @@
 /* think tank forums
  *
  * common.inc.php
+ *
+ * this script ***MUST*** be ran at the beginning of
+ * every request to the ttf installation. ALWAYS!
  */
 
 
+
+/* make php use utf-8
+ * ~~~~~~~~~~~~~~~~~~
+ */
 mb_internal_encoding('UTF-8');
+
 
 
 /* start timing the execution
@@ -54,7 +62,7 @@ if (get_magic_quotes_gpc()) {
  */
 function message($label, $title, $body) {
 
-    global $ttf;    // pull through the $ttf array for include_header.php
+    global $ttf;    // pull through the $ttf array for include_header.php (SMART!)
 
     require_once "include_header.php";
 
