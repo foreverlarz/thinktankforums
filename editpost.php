@@ -4,18 +4,21 @@
  * editpost.php
  */
 
+$label = "edit a post";
+
 require_once "include_common.php";
 
 // pull through the variables
+// note: we don't clean these, because we will want to
+// use $body in its raw-input form
 $post_id = $_REQUEST["post_id"];
 $body = $_POST["body"];
 
 // if the agent is not logged in as a valid user
 if (!isset($ttf["uid"])) {
 
-    message("edit a post", "fatal error",
+    message($label, $error_die_text,
             "you must be logged in to edit a post.");
-
     die();
 
 };
@@ -23,9 +26,8 @@ if (!isset($ttf["uid"])) {
 // if a post_id is not specified
 if (empty($post_id)) {
 
-    message("edit a post", "fatal error",
+    message($label, $error_die_text,
             "you must specify a post to edit.");
-
     die();
 
 };
@@ -37,13 +39,11 @@ if ($ttf["perm"] != "admin") {
            "WHERE post_id='".clean($post_id)."'";
     if (!$result = mysql_query($sql)) showerror();
     list($author_id) = mysql_fetch_array($result);
-    mysql_free_result($result);
 
     if ($ttf["uid"] != $author_id) {
        
-        message("edit a post", "fatal error",
+        message($label, $error_die_text,
                 "you do not have permission to edit this post.");
-
         die();
 
     };
@@ -54,7 +54,6 @@ if ($ttf["perm"] != "admin") {
 if (!empty($body)) {
     
     // let's get our current HEAD revision
-    // if this post already has revisions
 
     $sql = "SELECT body FROM ttf_revision ".
            "WHERE ref_id='".clean($post_id)."' && type='post' ".
@@ -64,18 +63,16 @@ if (!empty($body)) {
 
     if (empty($head)) {
 
-        message("edit a post", "fatal error",
+        message($label, $error_die_text,
                 "serious error encountered. please contact an admin.");
-
         die();
     
     };
 
     if ($body == $head) {
 
-        message("edit a post", "fatal error",
+        message($label, $error_die_text,
                 "you didn't make any changes.");
-
         die();
     
     };
@@ -92,7 +89,7 @@ if (!empty($body)) {
     // update the formatted ttf_post
     $sql = "UPDATE ttf_post SET rev=rev+1, ".
            "body='".clean(outputbody($body))."' WHERE post_id='".clean($post_id)."'";
-            if (!$result = mysql_query($sql)) showerror();
+    if (!$result = mysql_query($sql)) showerror();
     
     // wow, all of that worked! let's grab the thread_id
     // and redirect the user to their edited post
@@ -133,9 +130,8 @@ if (!empty($body)) {
 
 } else {
    
-    message("edit a post", "fatal error",
+    message($label, $error_die_text,
             "you cannot edit a post into inexistence. use the archive feature!");
-
     die();
 
 };

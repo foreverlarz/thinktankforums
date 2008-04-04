@@ -4,20 +4,22 @@
  * archivepost.php
  */
 
+$label = "archive post";
+
 require_once "include_common.php";
 
 $post_id = clean($_GET["post_id"]);
 
 if (!isset($ttf["uid"])) {
 
-    message("archive post", "fatal error", "you must be logged in to use this feature.");
+    message($label, $error_die_text, "you must be logged in.");
     die();
 
 };
 
 if (empty($post_id)) {
 
-    message("archive post", "fatal error", "you must specify a post.");
+    message($label, $error_die_text, "you must specify a post.");
     die();
 
 };
@@ -25,21 +27,19 @@ if (empty($post_id)) {
 // archive the post if the user is either an admin or the post's author
 $sql = "UPDATE ttf_post SET archive=UNIX_TIMESTAMP() WHERE post_id=$post_id";
 if ($ttf["perm"] != 'admin') $sql .= " AND author_id='{$ttf["uid"]}'";
-$sql .= " LIMIT 1";
 if (!$result = mysql_query($sql)) showerror();
 
 if (mysql_affected_rows() != 1) {
 
-    message("archive post", "fatal error", "you don't have permission to do this.");
+    message($label, $error_die_text, "you don't have permission to do this.");
     die();
 
 };
 
 // find out the thread_id for the given post
-$sql = "SELECT thread_id FROM ttf_post WHERE post_id=$post_id LIMIT 1";
+$sql = "SELECT thread_id FROM ttf_post WHERE post_id=$post_id";
 if (!$result = mysql_query($sql)) showerror();
 list($thread_id) = mysql_fetch_array($result);
-mysql_free_result($result);
     
 // update the thread table, subtracting a post from the count
 // and setting the date to the date of the most recent post in the thread
@@ -60,8 +60,7 @@ $sql = "UPDATE ttf_forum SET posts=posts-1, ".
     "      && ttf_thread.forum_id=1 && ttf_post.hide='f' ".
     "      ORDER BY ttf_post.date DESC LIMIT 1) ".
     "WHERE forum_id=(SELECT forum_id FROM ttf_thread ".
-    "                WHERE thread_id=$thread_id LIMIT 1) ".
-    "LIMIT 1";
+    "                WHERE thread_id=$thread_id)";
 if (!$result = mysql_query($sql)) showerror();
 
 /* NOTE: this script does not revert back the author's

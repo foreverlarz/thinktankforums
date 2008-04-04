@@ -4,8 +4,9 @@
  * reply.php
  */
 
+$label = "post reply";
+
 require_once "include_common.php";
-$label = "post a reply";
 
 $thread_id = $_POST["thread_id"];
 $body = $_POST["body"];

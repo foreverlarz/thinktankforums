@@ -7,7 +7,10 @@
  * every request to the ttf installation. ALWAYS!
  */
 
-
+/* constants are fun
+ * ~~~~~~~~~~~~~~~~~
+ */
+$error_die_text = "fatal error";
 
 /* make php use utf-8
  * ~~~~~~~~~~~~~~~~~~
