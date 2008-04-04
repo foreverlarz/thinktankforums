@@ -4,213 +4,196 @@
  * editprofile.php
  */
 
-require_once "include_common.php";    
 $label = "edit your profile";
 $title = $label;
+
+require_once "include_common.php";
 require_once "include_header.php";
 
-if (isset($ttf["uid"])) {
+if (empty($ttf["uid"])) {
 
-    // grab user info
-    $sql = "SELECT * FROM ttf_user WHERE user_id='{$ttf["uid"]}' LIMIT 1";
-    if (!$result = mysql_query($sql)) showerror();
-    $user = mysql_fetch_array($result);
-    mysql_free_result($result);
+    message($label, $error_die_text,
+            "you must login before you may edit your profile.");
+    die();
 
-    list($profile_head, ) = buildHead($ttf["uid"], 'profile');
-    list($title_head, ) = buildHead($ttf["uid"], 'title');
+};
 
-    $arrMessages = array();
+// grab user info
+$sql = "SELECT * FROM ttf_user WHERE user_id='{$ttf["uid"]}'";
+if (!$result = mysql_query($sql)) showerror();
+$user = mysql_fetch_array($result);
 
-    $edit = clean($_POST["edit"]);
-    
-    if ($edit == "bulk") {          
+$sql = "SELECT body FROM ttf_revision ".
+       "WHERE ref_id='{$ttf["uid"]}' && type='profile' ".
+       "ORDER BY date DESC LIMIT 1";
+if (!$result = mysql_query($sql)) showerror();
+list($profile_head) = mysql_fetch_array($result);
 
-        $pass0 = $_POST["password0"];   //////// EDIT PASSWORD ////////
-        $pass1 = $_POST["password1"];
+$sql = "SELECT body FROM ttf_revision ".
+       "WHERE ref_id='{$ttf["uid"]}' && type='title' ".
+       "ORDER BY date DESC LIMIT 1";
+if (!$result = mysql_query($sql)) showerror();
+list($title_head) = mysql_fetch_array($result);
 
-        if (!empty($pass0)) {
+$messages = array();
 
-            if ($pass0 == $pass1) {
+if (isset($_POST["edit"])) {
 
-                if ($pass0 == clean($pass0)) {
+    // change password **********************************************
+
+    $pass0 = $_POST["password0"];
+    $pass1 = $_POST["password1"];
+
+    if (!empty($pass0)) {
+
+        if ($pass0 == $pass1) {
+
+            if ($pass0 == clean($pass0)) {
               
-                    $encrypt = sha1(clean($pass0));
+                $encrypt = sha1(clean($pass0));
 
-                    $sql = "UPDATE ttf_user SET password='$encrypt' WHERE user_id='{$ttf["uid"]}'";
-
-                    if (!$result = mysql_query($sql)) {
-
-                        showerror();
-
-                    } else {
-                        
-                        // sql update is successfull, reset cookie
-                        /* can't set headers after html has been printed to the agent
-                         * i can fix this later. -- jlr
-                        $expire = time() + 31556926;
-                        $cookie = serialize(array($user["user_id"], $encrypt));
-                        setcookie("thinktank", $cookie, $expire);
-                        */
-                        $arrMessages[] = "your password has been successfully changed.";
-
-                    };
-
-                } else {
-
-                    $arrMessages[] = "<span class=\"error\">your password contained invalid characters and was not changed.</span>";
-
-                };
-
-            } else {
-
-                $arrMessages[] = "<span class=\"error\">your password did not match and was not changed</span>";
-
-            };
-
-        };
-
-        $profile = $_POST["profile"];    //////// EDIT USER PROFILE ////////
-
-        if ($profile != $profile_head) {
-
-            // if it doesn't have revisions (user has
-            // never set a profile), make this one the base
-            if (empty($profile_head)) {
-
-                $sql = "INSERT INTO ttf_revision SET ".
-                       "ref_id='{$ttf["uid"]}', ".
-                       "type='profile', ".
-                       "author_id='{$ttf["uid"]}', ".
-                       "date=UNIX_TIMESTAMP(), ".
-                       "ip='{$_SERVER["REMOTE_ADDR"]}', ".
-                       "body='".clean($profile)."'";
-
-            } else {
-
-                $profile_diff = clean(serialize(diff($profile_head, $profile)));
-
-                $sql = "INSERT INTO ttf_revision SET ".
-                       "ref_id='{$ttf["uid"]}', ".
-                       "type='profile', ".
-                       "author_id='{$ttf["uid"]}', ".
-                       "date=UNIX_TIMESTAMP(), ".
-                       "ip='{$_SERVER["REMOTE_ADDR"]}', ".
-                       "body='$profile_diff'";
-
-            };
-
-            if (!$result = mysql_query($sql)) showerror();
-
-            // this should be ran through outputbody() in the future!
-            $sql = "UPDATE ttf_user SET profile='".clean(outputbody($profile))."' WHERE user_id='{$ttf["uid"]}'";
-        
-            if (!$result = mysql_query($sql)) {
-            
-                showerror();
-
-            } else {
-
-                $arrMessages[] = "your profile has been successfully changed.";
-            
-            };
-
-        };
-
-        //$title = clean($_POST["title"]);    //////// EDIT USER TITLE ////////
-        $title = $_POST["title"];
-        
-        if ($title != $title_head) {
-
-            // if it doesn't have revisions (user has
-            // never set a profile), make this one the base
-            if (empty($title_head)) {
-
-                $sql = "INSERT INTO ttf_revision SET ".
-                       "ref_id='{$ttf["uid"]}', ".
-                       "type='title', ".
-                       "author_id='{$ttf["uid"]}', ".
-                       "date=UNIX_TIMESTAMP(), ".
-                       "ip='{$_SERVER["REMOTE_ADDR"]}', ".
-                       "body='".clean($title)."'";
-
-            } else {
-
-                $title_diff = clean(serialize(diff($title_head, $title)));
-
-                $sql = "INSERT INTO ttf_revision SET ".
-                       "ref_id='{$ttf["uid"]}', ".
-                       "type='title', ".
-                       "author_id='{$ttf["uid"]}', ".
-                       "date=UNIX_TIMESTAMP(), ".
-                       "ip='{$_SERVER["REMOTE_ADDR"]}', ".
-                       "body='$title_diff'";
-
-            };
-
-            if (!$result = mysql_query($sql)) showerror();
-                
-            $sql = "UPDATE ttf_user SET title='".clean(output($title))."' WHERE user_id='{$ttf["uid"]}'";
-
-            if (!$result = mysql_query($sql)) {
-            
-                showerror();
-
-            } else {
-
-                $arrMessages[] = "your title has been successfully changed.";
-        
-            };
-
-        };
-
-        $zone = clean($_POST["zone"]);      //////// EDIT TIME-ZONE ////////
-
-        if ($zone != $user["time_zone"]) {
-        
-            $sql = "UPDATE ttf_user SET time_zone='$zone' WHERE user_id='{$ttf["uid"]}'";
-
-            if (!$result = mysql_query($sql)) {
-            
-                showerror();
-
-            } else {
-
-                $arrMessages[] = "your time zone has been successfully changed.";
-        
-            };
-
-        };
-
-        $email = $_POST["email"];           //////// EDIT EMAIL ////////
-
-        if ($email != $user["email"]) {
-
-            if (validateEmail($email) == true) {
-
-                $sql = "UPDATE ttf_user SET email='$email' WHERE user_id='{$ttf["uid"]}'";
+                $sql = "UPDATE ttf_user SET password='$encrypt' WHERE user_id='{$ttf["uid"]}'";
 
                 if (!$result = mysql_query($sql)) {
-            
+
                     showerror();
 
                 } else {
-                    
-                    $arrMessages[] = "your email address has been successfully updated.";
-                                    
-                };
-            
-            } else {
-                
-                $arrMessages[] = "<span class=\"error\">your e-mail is not vailid.</span>";
+                        
+                    // sql update is successfull, reset cookie
+                    /* can't set headers after html has been printed to the agent
+                     * i can fix this later. -- jlr
+                    $expire = time() + 31556926;
+                    $cookie = serialize(array($user["user_id"], $encrypt));
+                    setcookie("thinktank", $cookie, $expire);
+                    */
+                    $messages[] = "your password has been successfully changed.";
 
-           };
+                };
+
+            } else {
+
+                $messages[] = "<span class=\"error\">your password contained invalid characters and was not changed.</span>";
+
+            };
+
+        } else {
+
+            $messages[] = "<span class=\"error\">your password did not match and was not changed.</span>";
 
         };
 
+    };
 
+    // edit profile *************************************************
 
-    } else if ($edit == "avatar") {     //////// EDIT AVATAR ////////
+    $profile = $_POST["profile"];
+
+    if ($profile != $profile_head) {
+
+        $sql = "INSERT INTO ttf_revision SET ".
+               "ref_id='{$ttf["uid"]}', ".
+               "type='profile', ".
+               "author_id='{$ttf["uid"]}', ".
+               "date=UNIX_TIMESTAMP(), ".
+               "ip='{$_SERVER["REMOTE_ADDR"]}', ".
+               "body='".clean($profile)."'";
+        if (!$result = mysql_query($sql)) showerror();
+
+        $sql = "UPDATE ttf_user SET profile='".clean(outputbody($profile))."' WHERE user_id='{$ttf["uid"]}'";
+        
+        if (!$result = mysql_query($sql)) {
+            
+            showerror();
+
+        } else {
+
+            $messages[] = "your profile has been successfully changed.";
+
+        };
+
+    };
+
+    // edit title ***************************************************
+
+    $title = $_POST["title"];
+        
+    if ($title != $title_head) {
+
+        $sql = "INSERT INTO ttf_revision SET ".
+               "ref_id='{$ttf["uid"]}', ".
+               "type='title', ".
+               "author_id='{$ttf["uid"]}', ".
+               "date=UNIX_TIMESTAMP(), ".
+               "ip='{$_SERVER["REMOTE_ADDR"]}', ".
+               "body='".clean($title)."'";
+        if (!$result = mysql_query($sql)) showerror();
+
+        $sql = "UPDATE ttf_user SET title='".clean(output($title))."' WHERE user_id='{$ttf["uid"]}'";
+
+        if (!$result = mysql_query($sql)) {
+            
+            showerror();
+
+        } else {
+
+            $messages[] = "your title has been successfully changed.";
+
+        };
+
+    };
+
+    // change time zone *********************************************
+
+    $zone = $_POST["zone"];
+
+    if ($zone != $user["time_zone"]) {
+
+        $sql = "UPDATE ttf_user SET time_zone='".clean($zone)."' WHERE user_id='{$ttf["uid"]}'";
+
+        if (!$result = mysql_query($sql)) {
+    
+            showerror();
+
+        } else {
+
+            $messages[] = "your time zone has been successfully changed.";
+        
+        };
+
+    };
+
+    // change email *************************************************
+
+    $email = $_POST["email"];
+
+    if ($email != $user["email"]) {
+
+        if (validateEmail($email) == TRUE) {
+
+            $sql = "UPDATE ttf_user SET email='$email' WHERE user_id='{$ttf["uid"]}'";
+
+            if (!$result = mysql_query($sql)) {
+
+                showerror();
+
+            } else {
+
+                $messages[] = "your email address has been successfully updated.";
+
+            };
+
+        } else {
+
+            $messages[] = "<span class=\"error\">your email address is not valid.</span>";
+
+        };
+
+    };
+
+    // change avatar ************************************************
+
+    } else if ($edit == "avatar") {
         
         if ($_FILES["avatar"]["size"] != 0) {
             
@@ -359,20 +342,13 @@ if (isset($ttf["uid"])) {
                 </table>
                 <div class="contenttitle">apply changes</div>
                 <div class="contentbox" style="text-align: center;">
-                        <input type="submit" value="apply" />
-                        <input type="hidden" name="edit" value="bulk" />
+                        <input type="submit" name="edit" value="apply" />
                 </div>
 
             </form>
 <?php
     
     };
-
-} else {
-    
-    message("edit your profile", "fatal error", "you must login before you may edit your profile.");
-
-};
 
 if (!empty($arrMessages)) {
     
