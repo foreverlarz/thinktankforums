@@ -57,7 +57,7 @@ if (!empty($body)) {
     // if this post already has revisions
 
     $sql = "SELECT body FROM ttf_revision ".
-           "WHERE ref_id='".clean($post_id)."', type='post' ".
+           "WHERE ref_id='".clean($post_id)."' && type='post' ".
            "ORDER BY date DESC LIMIT 1";
     if (!$result = mysql_query($sql)) showerror();
     list($head) = mysql_fetch_array($result);
@@ -110,7 +110,7 @@ if (!empty($body)) {
     require_once "include_header.php";
     
     $sql = "SELECT body FROM ttf_revision ".
-           "WHERE ref_id='".clean($post_id)."', type='post' ".
+           "WHERE ref_id='".clean($post_id)."' && type='post' ".
            "ORDER BY date DESC LIMIT 1";
     if (!$result = mysql_query($sql)) showerror();
     list($head) = mysql_fetch_array($result);
