@@ -5,19 +5,24 @@
  */
 
 require_once "include_common.php";
+$label = "post a reply";
 
 $thread_id = $_POST["thread_id"];
 $body = $_POST["body"];
 
 if (!isset($ttf["uid"])) {
-    
-    message("post a reply", "fatal error", "you must be logged in to post.");
+
+    message($label, "fatal error", "you must be logged in to post.");
+
+    die();
 
 };
 
 if (empty($thread_id) || empty($body)) {
 
-    message("post a reply", "fatal error", "you left a field empty.");
+    message($label, "fatal error", "you left a field empty.");
+
+    die();
 
 };
 
@@ -28,7 +33,7 @@ list($forum_id) = mysql_fetch_array($result);
 mysql_free_result($result);
 if (empty($forum_id)) {
     
-    message("post a reply", "fatal error", "the thread specified does not exist.");
+    message($label, "fatal error", "the thread specified does not exist.");
 
     die();
 

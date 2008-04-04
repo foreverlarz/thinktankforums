@@ -17,7 +17,7 @@ if (!isset($ttf["uid"])) {
 
 };
 
-// if both fields aren't blank
+// if each field isn't empty
 if (empty($forum_id) || empty($title)) {
 
     message("create a new thread", "fatal error", "you must enter a thread title and specify a forum.");

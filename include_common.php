@@ -183,7 +183,7 @@ function formatdate($timestamp, $format = "M j, Y, g\:i a") {
  */
 function admin() {
 
-    global $ttf;    // pull through for header.inc.php
+    global $ttf;    // pull through the $ttf array for include_header.php (SMART!)
 
     if ($ttf["perm"] != 'admin') {
         
@@ -373,48 +373,6 @@ function clean($input) {
 
 
 
-/* build head
- * ~~~~~~~~~~
- * this function takes all of the revisions for an
- * item, starting with rev=0 (base), and patches
- * them all up to the HEAD revision
- *
- * example:
- *      buildHead(4125, "post");
- *      is the correct syntax to build the HEAD rev
- *      for post_id=4125. an array is returned with
- *      [0] as the actual body, and [1] as the
- *      current revision number (which is HEAD)
- */
-function buildHead($ref_id, $type) {
-    require_once "include_diff.php";
-    unset($head);
-    $sql = "SELECT body FROM ttf_revision ".
-           "WHERE type='$type' && ref_id='$ref_id' ".
-           "ORDER BY date ASC";
-    if (!$result = mysql_query($sql)) showerror();
-    while (list($body) = mysql_fetch_row($result)) {
-        if (!isset($head)) {
-            $head = $body;
-            $lastrev = 0;
-        } else {
-            $diffarray = unserialize($body);
-            if (is_array($diffarray)) {
-                $head = patch($head, $diffarray);
-                $lastrev++;
-            } else {
-                message("think tank forums",
-                        "fatal error",
-                        "there was a patching problem.");
-                die();
-            };
-        };
-    };
-    return array($head, $lastrev);
-};
-
-
-
 /* email validation
  * ~~~~~~~~~~~~~~~~
  * this function should be used on every email address in a script
@@ -567,7 +525,7 @@ if (isset($_COOKIE["thinktank"])) {
  *
  * it also logs the user_id, date, and ip into the ttf_visit table.
  * this is quite possibly the most ridiculous thing that ttf does. it
- * maintains an excessively table.
+ * maintains an excessively large table.
  */
 if (isset($ttf["uid"])) {
 

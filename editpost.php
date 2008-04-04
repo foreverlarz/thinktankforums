@@ -15,6 +15,7 @@ if (!isset($ttf["uid"])) {
 
     message("edit a post", "fatal error",
             "you must be logged in to edit a post.");
+
     die();
 
 };
@@ -24,6 +25,7 @@ if (empty($post_id)) {
 
     message("edit a post", "fatal error",
             "you must specify a post to edit.");
+
     die();
 
 };
@@ -41,6 +43,7 @@ if ($ttf["perm"] != "admin") {
        
         message("edit a post", "fatal error",
                 "you do not have permission to edit this post.");
+
         die();
 
     };
@@ -50,14 +53,20 @@ if ($ttf["perm"] != "admin") {
 
 if (!empty($body)) {
     
-    // let's build our current HEAD revision
+    // let's get our current HEAD revision
     // if this post already has revisions
-    list($head, ) = buildHead($post_id, 'post');
+
+    $sql = "SELECT body FROM ttf_revision ".
+           "WHERE ref_id='".clean($post_id)."', type='post' ".
+           "ORDER BY date DESC LIMIT 1";
+    if (!$result = mysql_query($sql)) showerror();
+    list($head) = mysql_fetch_array($result);
 
     if (empty($head)) {
 
         message("edit a post", "fatal error",
                 "serious error encountered. please contact an admin.");
+
         die();
     
     };
@@ -66,14 +75,10 @@ if (!empty($body)) {
 
         message("edit a post", "fatal error",
                 "you didn't make any changes.");
+
         die();
     
     };
-    
-    // so now we have the current HEAD as $head;
-    // we need to diff our new $body against $head
-    // and insert a new ttf_revision and ttf_post
-    $diff = clean(serialize(diff($head, $body)));
     
     $sql = "INSERT INTO ttf_revision SET ".
            "ref_id='".clean($post_id)."', ".
@@ -81,12 +86,12 @@ if (!empty($body)) {
            "author_id='{$ttf["uid"]}', ".
            "date=UNIX_TIMESTAMP(), ".
            "ip='{$_SERVER["REMOTE_ADDR"]}', ".
-           "body='$diff'";
+           "body='".clean($body)."'";
     if (!$result = mysql_query($sql)) showerror();
 
     // update the formatted ttf_post
     $sql = "UPDATE ttf_post SET rev=rev+1, ".
-           "body='".clean(outputbody($body))."' WHERE post_id='$post_id'";
+           "body='".clean(outputbody($body))."' WHERE post_id='".clean($post_id)."'";
             if (!$result = mysql_query($sql)) showerror();
     
     // wow, all of that worked! let's grab the thread_id
@@ -104,9 +109,11 @@ if (!empty($body)) {
     $label = $title;
     require_once "include_header.php";
     
-    // they need to see a HEAD rev build from scratch
-    // because ttf_post is formatted, so make it
-    list($head, $lastrev) = buildHead($post_id, 'post');
+    $sql = "SELECT body FROM ttf_revision ".
+           "WHERE ref_id='".clean($post_id)."', type='post' ".
+           "ORDER BY date DESC LIMIT 1";
+    if (!$result = mysql_query($sql)) showerror();
+    list($head) = mysql_fetch_array($result);
 
     // the following html kinda needs some work,
     // but i'm lazy about that right now.. i just
@@ -128,6 +135,8 @@ if (!empty($body)) {
    
     message("edit a post", "fatal error",
             "you cannot edit a post into inexistence. use the archive feature!");
+
+    die();
 
 };
 
