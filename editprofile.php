@@ -193,69 +193,71 @@ if (isset($_POST["edit"])) {
 
     // change avatar ************************************************
 
-    } else if ($edit == "avatar") {
-        
-        if ($_FILES["avatar"]["size"] != 0) {
-            
-            if (exif_imagetype($_FILES["avatar"]["tmp_name"]) == 1) $ext = "gif";
-            if (exif_imagetype($_FILES["avatar"]["tmp_name"]) == 2) $ext = "jpg";
-            if (exif_imagetype($_FILES["avatar"]["tmp_name"]) == 3) $ext = "png";
-            
-            if ($ext == "gif" || $ext == "jpg" || $ext == "png") {
-                
-                list($x, $y) = getimagesize($_FILES["avatar"]["tmp_name"]);
-                
-                if ($x == 30 && $y == 30) {
-                    
-                    if (!deleteAvatar()) {
-                        
-                        $arrMessages[] = "<span class=\"error\">there was an error trying to delete your old avatar.</span>";
-                    
-                    }; 
+    if ($_FILES["avatar"]["size"] != 0) {
 
+        unset($ext);
 
-                    // Upload new avatar
+        if (exif_imagetype($_FILES["avatar"]["tmp_name"]) == IMAGETYPE_GIF) $ext = "gif";
+        if (exif_imagetype($_FILES["avatar"]["tmp_name"]) == IMAGETYPE_JPEG) $ext = "jpg";
+        if (exif_imagetype($_FILES["avatar"]["tmp_name"]) == IMAGETYPE_PNG) $ext = "png";
 
-                    if (move_uploaded_file($_FILES["avatar"]["tmp_name"], "avatars/".$ttf["uid"].".".$ext)) {
+        if (!empty($ext)) {
 
-                        $sql = "UPDATE ttf_user SET avatar_type='$ext' WHERE user_id='{$ttf["uid"]}'";
-                        
-                        if (!$result = mysql_query($sql)) {
+            list($x, $y) = getimagesize($_FILES["avatar"]["tmp_name"]);
 
-                            showerror();
+            if ($x == 30 && $y == 30) {
 
-                        } else {
+                if (!deleteAvatar()) {
 
-                            $arrMessages[] = "your avatar has been successfully changed.";
+                    $messages[] = "<span class=\"error\">there was an error trying to delete your old avatar.</span>";
 
-                        };
-                    
-                    } else {
-                        
-                        $arrMessages[] = "<span class=\"error\">the avatar change was unsuccessful.</span>";
-                        
-                    };
-                
-                } else {
-                    
-                    $arrMessages[] = "<span class=\"error\">image uploaded is not 30x30 pixels.</span>";
-                
                 };
-            
-            } else {
+
+                if (move_uploaded_file($_FILES["avatar"]["tmp_name"], "avatars/".$ttf["uid"].".".$ext)) {
+
+                    $sql = "UPDATE ttf_user SET avatar_type='$ext' WHERE user_id='{$ttf["uid"]}'";
+                        
+                    if (!$result = mysql_query($sql)) {
+
+                        showerror();
+
+                    } else {
+
+                        $messages[] = "your avatar has been successfully changed.";
+
+                    };
+                    
+                } else {
+                        
+                    $messages[] = "<span class=\"error\">the avatar change was unsuccessful.</span>";
+                        
+                };
                 
-                $arrMessages[] = "<span class=\"error\">image uploaded is not a gif, png, or jpeg.</span>";
-            
+            } else {
+                    
+                $messages[] = "<span class=\"error\">the image uploaded is not 30x30 pixels.</span>";
+                
             };
-        
-        } else {
             
-            $arrMessages[] = "<span class=\"error\">no image specified.</span>";
-        
+        } else {
+                
+            $messages[] = "<span class=\"error\">the image uploaded is not a gif, png, or jpeg.</span>";
+            
         };
-    
-    
+
+    };
+
+    if (empty($messages)) {
+
+        message($label, "error", "you didn't make any changes.");
+
     } else {
+
+        message($label, "results", $messages);
+
+    };
+
+} else {
 
 ?>
             <form action="editprofile.php" method="post" enctype="multipart/form-data">
@@ -264,7 +266,6 @@ if (isset($_POST["edit"])) {
                 </div>
                 <div class="contentbox" style="text-align: center;">
                     <input type="file" name="avatar" size="28" />
-                    <input type="submit" value="upload" />
                     <input type="hidden" name="MAX_FILE_SIZE" value="10000" />
                     <input type="hidden" name="edit" value="avatar" />
                 </div>
@@ -342,27 +343,14 @@ if (isset($_POST["edit"])) {
                 </table>
                 <div class="contenttitle">apply changes</div>
                 <div class="contentbox" style="text-align: center;">
-                        <input type="submit" name="edit" value="apply" />
+                    <input type="hidden" name="edit" value="true" />
+                    <input type="submit" value="apply" />
                 </div>
-
             </form>
 <?php
-    
-    };
 
-if (!empty($arrMessages)) {
-    
-    message("edit your profile", "information", $arrMessages);
-    
-} 
-
-if (empty($arrMessages) && !empty($edit)) {
-
-    message("edit your profile", "information", "you didnt make any changes!");
-
-}  
+};
 
 require_once "include_footer.php";
 
 ?>
-
