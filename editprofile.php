@@ -238,7 +238,15 @@ if (isset($_POST["edit"])) {
 
     if (isset($_POST["deleteavatar"])) {
 
-        delete_avatar();
+        if (delete_avatar()) {
+
+            $messages[] = "your avatar has been successfully deleted.";
+
+        } else {
+
+            $messages[] = "<span class=\"error\">there was an error trying to delete your avatar.</span>";
+
+        };
 
     };
 
