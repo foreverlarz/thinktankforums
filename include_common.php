@@ -65,7 +65,8 @@ if (get_magic_quotes_gpc()) {
  */
 function message($label, $title, $body) {
 
-    global $ttf;    // pull through the $ttf array for include_header.php (SMART!)
+    global $ttf;            // pull through the $ttf array for include_header.php (SMART!)
+    global $tttf_config;    // pull through the $ttf_config array (even smarter!)
 
     require_once "include_header.php";
 
