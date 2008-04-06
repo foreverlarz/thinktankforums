@@ -168,11 +168,8 @@ function formatdate($timestamp, $format = "M j, Y, g\:i a") {
 
     };
 
-    // need to go through all the other scripts and change how they call formatdate();
-    // $absolute = strtolower(gmdate($format, $timestamp + 3600*$ttf["time_zone"]));
-    // return array($relative, $absolute);
-
-    return $relative;
+    $absolute = strtolower(gmdate($format, $timestamp + 3600*$ttf["time_zone"]));
+    return array($relative, $absolute);
 
 };
 

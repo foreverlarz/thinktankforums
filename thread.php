@@ -67,16 +67,17 @@ $sql = "SELECT ttf_post.post_id,                    ".
        "FROM ttf_post, ttf_user                     ".
        "WHERE ttf_post.author_id=ttf_user.user_id   ".
        "   && ttf_post.thread_id='$thread_id'       ".
-       "ORDER BY date ASC";
+       "ORDER BY date ASC                           ";
 if (!$result = mysql_query($sql)) showerror();
 
 // for each post...
 while ($post = mysql_fetch_array($result)) {
 
+    $date = formatdate($post["date"], "g\:i a, j M y");
+
     $hasperm = ($ttf["perm"] == 'admin' || $ttf["uid"] == $post["author_id"]) ? TRUE : FALSE;
 
 ?>
-
             <a name="<?php echo $post["post_id"]; ?>"></a>
             <div class="userbar">
                 <div class="userbar_left">
@@ -85,7 +86,7 @@ while ($post = mysql_fetch_array($result)) {
     if (isset($post["avatar_type"])) {
 
 ?>
-                    <img src="avatars/<?php echo $post["author_id"].".".$post["avatar_type"]; ?>" alt="av" width="30" height="30" />
+                    <img src="avatars/<?php echo $post["author_id"].".".$post["avatar_type"]; ?>" alt="<?php echo output($post["username"]); ?>'s avatar" width="30" height="30" />
 <?php
 
     } else {
@@ -96,7 +97,7 @@ while ($post = mysql_fetch_array($result)) {
 
 ?>
                 </div>
-                <div class="userbar_right"><?php echo formatdate($post["date"], "g\:i a, j M y"); ?><br />
+                <div class="userbar_right"><span title="<?php echo $date[1]; ?>"><?php echo $date[0]; ?></span><br />
 <?php
 
     if ($post["rev"] > 0) {
@@ -117,7 +118,6 @@ while ($post = mysql_fetch_array($result)) {
     };
 
 ?>
-
                 </div>
                 <a class="username" href="profile.php?user_id=<?php echo $post["author_id"]; ?>"><?php echo output($post["username"]); ?></a><br />
                 <?php echo $post["title"]."\n"; ?>
@@ -130,7 +130,7 @@ while ($post = mysql_fetch_array($result)) {
 };
 
 // if user is logged in, print a reply box
-if (isset($ttf["uid"])) {
+if (!empty($ttf["uid"])) {
 
 ?>
             <form action="reply.php" method="post">
