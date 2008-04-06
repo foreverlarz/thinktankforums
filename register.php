@@ -43,10 +43,7 @@ if (!isset($ttf["uid"])) {
 
 
         // generate a 12-character password
-        $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        for ($i = 0; $i < 12; $i++) {
-            $password .= substr($chars, rand(0, 61), 1);
-        };
+        $password = generate_string(12);
 
         // insert the new user into the ttf_user table
         $sql = "INSERT INTO ttf_user SET username='$username', password=SHA1('$password'), ".
