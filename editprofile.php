@@ -8,9 +8,8 @@ $ttf_label = "edit your profile";
 $ttf_title = $ttf_label;
 
 require_once "include_common.php";
-require_once "include_header.php";
 
-if (empty($ttf["uid"])) {
+if (!isset($ttf["uid"])) {
 
     message($ttf_label, $error_die_text,
             "you must login before you may edit your profile.");
@@ -60,13 +59,10 @@ if (isset($_POST["edit"])) {
 
                 } else {
                         
-                    // sql update is successfull, reset cookie
-                    /* can't set headers after html has been printed to the agent
-                     * i can fix this later. -- jlr
                     $expire = time() + 31556926;
                     $cookie = serialize(array($user["user_id"], $encrypt));
                     setcookie("thinktank", $cookie, $expire);
-                    */
+
                     $messages[] = "your password has been successfully changed.";
 
                 };
@@ -258,6 +254,8 @@ if (isset($_POST["edit"])) {
     };
 
 } else {
+
+    require_once "include_header.php";
 
 ?>
             <form action="editprofile.php" method="post" enctype="multipart/form-data">
