@@ -56,7 +56,7 @@ if (!empty($passkey)) {
 ?>
             <div class="contenttitle">activate your password</div>
             <div class="contentbox">
-                <form action="recover.php" method="post">
+                <form action="activate.php" method="post">
                     enter your passkey to activate your new password.<br /><br />
                     <input type="text" name="passkey" size="36" /><br /><br />
                     <input type="submit" value="activate" />
