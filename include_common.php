@@ -63,10 +63,10 @@ if (get_magic_quotes_gpc()) {
  * $title is printed in the title bar of the content box
  * $body is printed in the body of the content box
  */
-function message($label, $title, $body) {
+function message($ttf_label, $title, $body) {
 
     global $ttf;            // pull through the $ttf array for include_header.php (SMART!)
-    global $tttf_config;    // pull through the $ttf_config array (even smarter!)
+    global $ttf_config;    // pull through the $ttf_config array (even smarter!)
 
     require_once "include_header.php";
 
@@ -81,7 +81,7 @@ function message($label, $title, $body) {
 
                 echo "<li>$message</li>\n";
 
-            }
+            };
 
             echo "</ul>\n";
 
@@ -89,7 +89,7 @@ function message($label, $title, $body) {
 
             echo "$body\n";
 
-        }
+        };
 
     echo "</div>\n";
 
