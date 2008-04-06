@@ -50,7 +50,8 @@ REATE TABLE `ttf_recover` (
   `user_id` mediumint(9) NOT NULL,
   `password` varchar(16) NOT NULL,
   `passkey` varchar(32) collate utf8_unicode_ci NOT NULL,
-  PRIMARY KEY  (`recover_id`)
+  PRIMARY KEY  (`recover_id`),
+  UNIQUE KEY `passkey` (`passkey`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `ttf_revision` (
