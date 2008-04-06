@@ -107,18 +107,25 @@ if (!empty($body)) {
     $label = $title;
     require_once "include_header.php";
     
-    $sql = "SELECT body FROM ttf_revision ".
-           "WHERE ref_id='".clean($post_id)."' && type='post' ".
-           "ORDER BY date DESC LIMIT 1";
+    $sql = "SELECT SQL_CALC_FOUND_ROWS          ".
+           "       body                         ".
+           "FROM ttf_revision                   ".
+           "WHERE ref_id='".clean($post_id)."'  ".
+           "   && type='post'                   ".
+           "ORDER BY date DESC LIMIT 1          ";
     if (!$result = mysql_query($sql)) showerror();
     list($head) = mysql_fetch_array($result);
+
+    $sql = "SELECT FOUND_ROWS()";
+    if (!$result = mysql_query($sql)) showerror();
+    list($num_revs) = mysql_fetch_array($result);
 
     // the following html kinda needs some work,
     // but i'm lazy about that right now.. i just
     // want to get this feature working perfectly! --jlr
 ?>
             <form action="editpost.php" method="post">
-            <div class="contenttitle">you're creating revision <?php echo ($lastrev+1); ?></div>
+            <div class="contenttitle">you're creating revision <?php echo $num_revs; ?></div>
                 <div class="contentbox" style="text-align: center;">
                     <textarea class="profile" cols="70" rows="15" name="body" wrap="virtual"><?php echo output($head); ?></textarea><br />
                 </div>
