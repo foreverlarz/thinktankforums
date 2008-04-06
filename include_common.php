@@ -102,7 +102,7 @@ function message($label, $title, $body) {
 /* format unix timestamp
  * ~~~~~~~~~~~~~~~~~~~~~
  */
-function formatdate($timestamp, $format = "M j, Y, g\:i a") {
+function formatdate($timestamp, $format = "Y M j, g\:i a") {
 
     global $ttf;    // pull through to get the user's time zone
 

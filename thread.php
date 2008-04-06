@@ -83,7 +83,7 @@ while ($post = mysql_fetch_array($result)) {
                 <div class="userbar_left">
 <?php
 
-    if (isset($post["avatar_type"])) {
+    if (!empty($post["avatar_type"])) {
 
 ?>
                     <img src="avatars/<?php echo $post["author_id"].".".$post["avatar_type"]; ?>" alt="<?php echo output($post["username"]); ?>'s avatar" width="30" height="30" />
@@ -130,7 +130,7 @@ while ($post = mysql_fetch_array($result)) {
 };
 
 // if user is logged in, print a reply box
-if (!empty($ttf["uid"])) {
+if (isset($ttf["uid"])) {
 
 ?>
             <form action="reply.php" method="post">

@@ -47,11 +47,13 @@ if (!$result = mysql_query($sql)) showerror();
 
 while ($rev = mysql_fetch_array($result)) {
 
+    $date = formatdate($rev["date"]);
+
     echo "            <div class=\"contenttitle_sm\">\n";
     echo "                rev $revnum, rev_id {$rev["rev_id"]} by\n";
     echo "                <a class=\"link\" href=\"profile.php?user_id={$rev["author_id"]}\">";
     echo output($rev["username"])."</a> ({$rev["ip"]})\n";
-    echo "                ".formatdate($rev["date"])."\n";
+    echo "                <span title=\"{$date[1]}\">{$date[0]}</span>\n";
     echo "            </div>\n";
     echo "            <div class=\"contentbox_sm\">\n";
     echo nl2br(output($rev["body"]))."\n";
