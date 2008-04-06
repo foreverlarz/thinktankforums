@@ -451,7 +451,7 @@ function deleteAvatar() {
 function generate_string($length) {
     $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     for ($i = 0; $i < $length; $i++) {
-        $string .= substr($chars, rand(0, strlen($chars)-1, 1);
+        $string .= substr($chars, rand(0, strlen($chars)-1), 1);
     };
     return $string;
 };

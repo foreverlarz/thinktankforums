@@ -60,10 +60,11 @@ if (isset($ttf["uid"])) {
                 </form>
             </div>
             <div class="menu_title">
-                lack an account?
+                can't log in?
             </div>
             <div class="menu_body">
                 &middot; <a href="register.php">register an account</a><br />
+                &middot; <a href="recover.php">recover your account</a><br />
                 &middot; <a href="search.php">search the forums</a>
 <?php
 };

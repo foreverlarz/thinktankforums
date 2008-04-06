@@ -43,6 +43,16 @@ CREATE TABLE `ttf_post` (
   FULLTEXT KEY `body` (`body`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+REATE TABLE `ttf_recover` (
+  `recover_id` mediumint(9) NOT NULL auto_increment,
+  `date` int(11) NOT NULL,
+  `ip` varchar(15) NOT NULL,
+  `user_id` mediumint(9) NOT NULL,
+  `password` varchar(16) NOT NULL,
+  `passkey` varchar(32) collate utf8_unicode_ci NOT NULL,
+  PRIMARY KEY  (`recover_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 CREATE TABLE `ttf_revision` (
   `rev_id` int(9) NOT NULL auto_increment,
   `ref_id` mediumint(9) NOT NULL,
