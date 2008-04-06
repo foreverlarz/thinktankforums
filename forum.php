@@ -10,7 +10,7 @@ $ttf_title = $ttf_label;
 require_once "include_common.php";
 
 $forum_id = clean($_GET["forum_id"]);
-$offset   = clean($_GET["offset"]);
+$offset = clean($_GET["offset"]);
 
 $sql = "SELECT name FROM ttf_forum WHERE forum_id='$forum_id'";
 if (!$result = mysql_query($sql)) showerror();
@@ -23,10 +23,12 @@ if (empty($forum_name)) {
 
 };
 
-if (!empty($ttf["uid"])) {
+if (isset($ttf["uid"])) {
 
-    $sql = "REPLACE INTO ttf_forum_new SET forum_id='$forum_id', ".
-           "user_id='{$ttf["uid"]}', last_view=UNIX_TIMESTAMP()";
+    $sql = "REPLACE INTO ttf_forum_new      ".
+           "SET forum_id='$forum_id',       ".
+           "    user_id='{$ttf["uid"]}',    ".
+           "    last_view=UNIX_TIMESTAMP()  ";
     if (!$result = mysql_query($sql)) showerror();
 
 };
@@ -58,8 +60,8 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS                                              
 if (!$result = mysql_query($sql)) showerror();
 
 $sql = "SELECT FOUND_ROWS()";
-if (!$result_a = mysql_query($sql)) showerror();
-list($numrows) = mysql_fetch_array($result_a);
+if (!$result_nested = mysql_query($sql)) showerror();
+list($numrows) = mysql_fetch_array($result_nested);
 
 if ($numrows > ($ttf_config["forum_display"] + $offset)) {
         
@@ -114,13 +116,12 @@ while ($thread = mysql_fetch_array($result)) {
         $mark = "<img src=\"images/arrow.gif\" width=\"11\" height=\"11\" alt=\"new post!\" />";
 
         $sql = "SELECT ttf_post.post_id ".
-               "FROM ttf_post ".	 
+               "FROM ttf_post ".
                "WHERE ttf_post.thread_id='{$thread["thread_id"]}' ".
                "ORDER BY ttf_post.date DESC ".
                "LIMIT 0, 1";
         if (!$result_nested = mysql_query($sql)) showerror();
         list($newpost) = mysql_fetch_array($result_nested);
-        mysql_free_result($result_nested);
         $jump = "<span class=\"small\">&nbsp;&nbsp;&nbsp;(<a href=\"thread.php?thread_id=".
                 $thread["thread_id"]."#$newpost\">jump</a>)</span>";
 
