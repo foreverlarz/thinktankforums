@@ -139,6 +139,14 @@ a, a:active, a:link, a:visited {
     background-color: red;
 }
 
+.tip {
+     border-bottom: 1px dashed black;
+}
+
+.tip:hover {
+    cursor: help;
+}
+
 /****************
  * TABLE STYLES *
  ****************/
@@ -256,15 +264,7 @@ input, select {
     margin: 1px 0;
 }
 
-input.reply {
-    font-family: verdana, sans-serif;
-    border-width: 0;
-    background-color: black;
-    color: white;
-    width: 600px;
-}
-
-input.editpost {
+input.reply, input.editpost, input.editprofile {
     font-family: verdana, sans-serif;
     border-width: 0;
     background-color: black;
@@ -284,6 +284,13 @@ form {
 
 #reply_button, #editpost_button {
     width: 600px;
+    height: 20px;
+    background-color: black;
+}
+
+#editprofile_button {
+    width: 600px;
+    margin-top: 25px;
     height: 20px;
     background-color: black;
 }
