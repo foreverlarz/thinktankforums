@@ -36,8 +36,8 @@ if (empty($forum_name)) {
 };
 
 // now that we have the name of the forum, make a nicer $ttf_label and $ttf_title
-$ttf_label = "<a href=\"forum.php?forum_id=$forum_id\">$forum_name</a> &raquo; create a new thread";
-$ttf_title = "$forum_name &raquo; create a new thread";
+$ttf_label = "<a href=\"forum.php?forum_id=$forum_id\">".output($forum_name)."</a> &raquo; create a new thread";
+$ttf_title = output($forum_name)." &raquo; create a new thread";
 
 // if each field isn't empty, silently and patiently let them fill them! :D
 if (empty($title) || empty($body)) {
