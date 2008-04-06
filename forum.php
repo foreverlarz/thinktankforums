@@ -12,40 +12,64 @@ $offset   = clean($_GET["offset"]);
 $sql = "SELECT name FROM ttf_forum WHERE forum_id='$forum_id'";
 if (!$result = mysql_query($sql)) showerror();
 list($forum_name) = mysql_fetch_array($result);
-mysql_free_result($result);
 
-if (!empty($forum_name)) {
+if (empty($forum_name)) {
 
-    if (isset($ttf["uid"])) {
+    message("view forum", $error_die_text, "not a valid forum.");
+    die();
 
-        $sql = "REPLACE INTO ttf_forum_new SET forum_id='$forum_id', ".
-               "user_id='{$ttf["uid"]}', last_view=UNIX_TIMESTAMP()";
-        if (!$result = mysql_query($sql)) showerror();
+};
 
-    };
+if (!empty($ttf["uid"])) {
 
-    $label = $forum_name; // should this be run through output() ? --jlr
-    $title = $label;
-    
-    require_once "include_header.php";
-    
-    $sql = "SELECT COUNT(thread_id) FROM ttf_thread WHERE forum_id='$forum_id'";
+    $sql = "REPLACE INTO ttf_forum_new SET forum_id='$forum_id', ".
+           "user_id='{$ttf["uid"]}', last_view=UNIX_TIMESTAMP()";
     if (!$result = mysql_query($sql)) showerror();
-    list($numrows) = mysql_fetch_array($result);
-    mysql_free_result($result);
-    
-    if ($numrows > ($ttf_config["forum_display"] + $offset)) {
+
+};
+
+$label = output($forum_name);
+$title = $label;
+
+require_once "include_header.php";
+
+?>
+            <div class="sidebox">
+                <a href="newthread.php?forum_id=<?php echo $forum_id; ?>">create a new thread</a>
+            </div>
+<?php
+
+if (empty($offset)) $offset = 0;
+
+$sql = "SELECT SQL_CALC_FOUND_ROWS                                                  ".
+       "       ttf_thread.thread_id, ttf_thread.author_id,                          ".
+       "       ttf_thread.posts, ttf_thread.views, ttf_thread.date,                 ".
+       "       ttf_thread.title, ttf_user.username, ttf_thread_new.last_view        ".
+       "FROM ttf_thread                                                             ".
+       "LEFT JOIN ttf_user ON ttf_user.user_id=ttf_thread.author_id                 ".
+       "LEFT JOIN ttf_thread_new ON ttf_thread_new.thread_id=ttf_thread.thread_id   ".
+       "          && ttf_thread_new.user_id='{$ttf["uid"]}'                         ".
+       "WHERE ttf_thread.forum_id='$forum_id' && ttf_thread.posts > 0               ".
+       "ORDER BY ttf_thread.date DESC                                               ".
+       "LIMIT $offset, {$ttf_config["forum_display"]}                               ";
+if (!$result = mysql_query($sql)) showerror();
+
+$sql = "SELECT FOUND_ROWS()";
+if (!$result_a = mysql_query($sql)) showerror();
+list($numrows) = mysql_fetch_array($result_a);
+
+if ($numrows > ($ttf_config["forum_display"] + $offset)) {
         
-        $next = $offset + $ttf_config["forum_display"];
-        $left = min($numrows - $offset - $ttf_config["forum_display"], $ttf_config["forum_display"]);
+    $next = $offset + $ttf_config["forum_display"];
+    $left = min($numrows - $offset - $ttf_config["forum_display"], $ttf_config["forum_display"]);
 
 ?>
             <div class="sidebox">
                 <a href="forum.php?forum_id=<?php echo $forum_id; ?>&amp;offset=<?php echo $next; ?>"><strong>next <?php echo $left; ?> threads</strong></a><br />(<?php echo $numrows; ?> total)
             </div>
 <?php
-    
-    };
+
+};
 
 ?>
             <table cellspacing="1" class="content">
@@ -67,49 +91,37 @@ if (!empty($forum_name)) {
                 </thead>
                 <tbody>
 <?php
-    if (empty($offset)) $offset = 0;
-    $sql = "SELECT ttf_thread.thread_id, ttf_thread.author_id, ".
-           "       ttf_thread.posts, ttf_thread.views, ttf_thread.date, ".
-           "       ttf_thread.title, ttf_user.username, ttf_thread_new.last_view ".
-           "FROM ttf_thread ".
-           "LEFT JOIN ttf_user ON ttf_user.user_id=ttf_thread.author_id ".
-	       "LEFT JOIN ttf_thread_new ON ttf_thread_new.thread_id=ttf_thread.thread_id ".
-	       "          && ttf_thread_new.user_id='{$ttf["uid"]}' ".
-           "WHERE ttf_thread.forum_id='$forum_id' && ttf_thread.posts > 0 ".
-           "ORDER BY ttf_thread.date DESC ".
-           "LIMIT $offset, {$ttf_config["forum_display"]}";
-    if (!$result = mysql_query($sql)) showerror();
-    
-    while ($thread = mysql_fetch_array($result)) {
-        /* THERE IS SURELY A MORE EFFICIENT WAY
-	     * TO PRINT A JUMP LINK RATHER THAN TO
-	     * QUERY FOR EACH THREAD!! --JLR
-	     * here's an idea! instead of using dates in the new_thread table,
-	     * use the number of the reply. so reply_id=5 means that they read
-	     * the fifth reply but nothing after that. maybe this would work
-	     * pretty slick! --jlr
-	     */
 
-        // initialize variables
-        $mark = "&nbsp;";
-        unset($jump);
-        
-        if ($thread["last_view"] < $thread["date"] && isset($ttf["uid"])) {
+while ($thread = mysql_fetch_array($result)) {
+    /* THERE IS SURELY A MORE EFFICIENT WAY
+     * TO PRINT A JUMP LINK RATHER THAN TO
+	 * QUERY FOR EACH THREAD!! --JLR
+	 * here's an idea! instead of using dates in the new_thread table,
+	 * use the number of the reply. so reply_id=5 means that they read
+	 * the fifth reply but nothing after that. maybe this would work
+	 * pretty slick! --jlr
+	 */
 
-            $mark = "<img src=\"images/arrow.gif\" width=\"11\" height=\"11\" alt=\"new post!\" />";
+    // initialize variables
+    $mark = "&nbsp;";
+    unset($jump);
 
-            $sql = "SELECT ttf_post.post_id ".
-                   "FROM ttf_post ".	 
-                   "WHERE ttf_post.thread_id='{$thread["thread_id"]}' ".
-                   "ORDER BY ttf_post.date DESC ".
-                   "LIMIT 0, 1";
-            if (!$result_nested = mysql_query($sql)) showerror();
-            list($newpost) = mysql_fetch_array($result_nested);
-            mysql_free_result($result_nested);
-            $jump = "<span class=\"small\">&nbsp;&nbsp;&nbsp;(<a href=\"thread.php?thread_id=".
-                    $thread["thread_id"]."#$newpost\">jump</a>)</span>";
-        
-        };
+    if ($thread["last_view"] < $thread["date"] && isset($ttf["uid"])) {
+
+        $mark = "<img src=\"images/arrow.gif\" width=\"11\" height=\"11\" alt=\"new post!\" />";
+
+        $sql = "SELECT ttf_post.post_id ".
+               "FROM ttf_post ".	 
+               "WHERE ttf_post.thread_id='{$thread["thread_id"]}' ".
+               "ORDER BY ttf_post.date DESC ".
+               "LIMIT 0, 1";
+        if (!$result_nested = mysql_query($sql)) showerror();
+        list($newpost) = mysql_fetch_array($result_nested);
+        mysql_free_result($result_nested);
+        $jump = "<span class=\"small\">&nbsp;&nbsp;&nbsp;(<a href=\"thread.php?thread_id=".
+                $thread["thread_id"]."#$newpost\">jump</a>)</span>";
+
+    };
 
 ?>
                     <tr>
@@ -121,28 +133,12 @@ if (!empty($forum_name)) {
                     </tr>
 <?php
 
-  };
-
-  mysql_free_result($result);
+};
 
 ?>
                 </tbody>
             </table>
-            <div class="contenttitle">start a new thread</div>
-            <div class="contentbox" style="text-align: center;">
-                <form action="newthread.php" method="post">
-                    <input type="text" name="title" maxlength="64" size="64" />
-                    <input type="submit" value="insert" />
-                    <input type="hidden" name="forum_id" value="<?php echo $forum_id; ?>" />
-                </form>
-            </div>
 <?php
-
-} else {
-
-    message("view forum", "fatal error", "not a valid forum.");
-
-};
 
 require_once "include_footer.php";
 
