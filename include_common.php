@@ -467,19 +467,11 @@ if (isset($_COOKIE["thinktank"])) {
 /* user statistics
  * ~~~~~~~~~~~~~~~
  * this code updates the visit_date field if the agent is a valid user.
- *
- * it also logs the user_id, date, and ip into the ttf_visit table.
- * this is quite possibly the most ridiculous thing that ttf does. it
- * maintains an excessively large table.
  */
 if (isset($ttf["uid"])) {
 
     $sql = "UPDATE ttf_user SET visit_date=UNIX_TIMESTAMP(), ".
            "visit_ip='{$_SERVER["REMOTE_ADDR"]}' WHERE user_id='{$ttf["uid"]}'";
-    if (!$result = mysql_query($sql)) showerror();
-
-    $sql = "INSERT INTO ttf_visit SET user_id='{$ttf["uid"]}', ".
-           "ip='{$_SERVER["REMOTE_ADDR"]}', date=UNIX_TIMESTAMP()";
     if (!$result = mysql_query($sql)) showerror();
 
 };

@@ -105,13 +105,6 @@ CREATE TABLE `ttf_user` (
   UNIQUE KEY `email` (`email`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-CREATE TABLE `ttf_visit` (
-  `user_id` mediumint(9) NOT NULL default '0',
-  `ip` varchar(15) collate utf8_unicode_ci NOT NULL default '',
-  `date` int(11) NOT NULL default '0',
-  KEY `user_id` (`user_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
 -- --------------------------------------------------------
 -- the following are default configuration values
 -- --------------------------------------------------------
