@@ -125,12 +125,13 @@ if (!empty($body)) {
     // want to get this feature working perfectly! --jlr
 ?>
             <form action="editpost.php" method="post">
-            <div class="contenttitle">you're creating revision <?php echo $num_revs; ?></div>
-                <div class="contentbox" style="text-align: center;">
-                    <textarea class="profile" cols="70" rows="15" name="body" wrap="virtual"><?php echo output($head); ?></textarea><br />
+                <div class="contenttitle">you're creating revision <?php echo $num_revs; ?> of post <?php echo $post_id; ?></div>
+
+                <div id="editpost_textarea">
+                    <textarea class="editpost" rows="20" name="body" wrap="virtual"><?php echo output($head); ?></textarea>
                 </div>
-                <div class="contentbox" style="text-align: center;">
-                        <input type="submit" value="create revision" />
+                <div id="editpost_button">
+                    <input class="editpost" type="submit" value="submit revision" />
                 </div>
                 <input type="hidden" name="post_id" value="<?php echo $post_id; ?>" />
             </form>

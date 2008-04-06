@@ -227,6 +227,16 @@ textarea.reply {
     margin: 5px;
 }
 
+textarea.editpost {
+    font-family: verdana, sans-serif;
+    width: 590px;
+    height: 240px;
+    color: black;
+    font-size: 11px;
+    background-color: white;
+    margin: 5px;
+}
+
 textarea.profile {
     font-family: verdana, sans-serif;
     width: 588px;
@@ -254,6 +264,14 @@ input.reply {
     width: 600px;
 }
 
+input.editpost {
+    font-family: verdana, sans-serif;
+    border-width: 0;
+    background-color: black;
+    color: white;
+    width: 600px;
+}
+
 form {
     font-family: verdana, sans-serif;
     margin: 0;
@@ -264,7 +282,7 @@ form {
  * REPLY BOX STYLES *
  ********************/
 
-#reply_button {
+#reply_button, #editpost_button {
     width: 600px;
     height: 20px;
     background-color: black;
@@ -274,6 +292,12 @@ form {
     margin-top: 25px;
     width: 600px;
     height: 150px;
+    background-color: white;
+}
+
+#editpost_textarea {
+    width: 600px;
+    height: 250px;
     background-color: white;
 }
 
