@@ -17,6 +17,52 @@ if (!isset($ttf["uid"])) {
 
 };
 
+// awesome function for avatar deletion
+function delete_avatar() {
+
+    global $ttf;
+
+    $sql = "SELECT avatar_type FROM ttf_user WHERE user_id='{$ttf["uid"]}'";
+    if (!$result = mysql_query($sql)) showerror();
+    list($ext) = mysql_fetch_row($result);
+
+    if (!empty($ext)) {
+
+        // if the user has an avatar
+        
+        if (!unlink("avatars/".$ttf["uid"].".".$ext)) {
+
+            // we couldn't delete their avatar
+            return FALSE;
+        
+        } else {
+            
+            $sql = "UPDATE ttf_user SET avatar_type=NULL ".
+                   "WHERE user_id='{$ttf["uid"]}'";
+            if (!$result = mysql_query($sql)) {
+
+                // we couldn't reflect the deletion in the db                
+                showerror();
+
+            } else {
+
+                // everything worked
+                return TRUE;
+
+            };
+
+        };
+   
+    } else {
+
+        // there was no avatar to delete,
+        // so we are still happy people
+        return TRUE;
+
+    };
+
+};
+
 // grab user info
 $sql = "SELECT * FROM ttf_user WHERE user_id='{$ttf["uid"]}'";
 if (!$result = mysql_query($sql)) showerror();
@@ -37,49 +83,6 @@ list($title_head) = mysql_fetch_array($result);
 $messages = array();
 
 if (isset($_POST["edit"])) {
-
-    // change password **********************************************
-
-    $pass0 = $_POST["password0"];
-    $pass1 = $_POST["password1"];
-
-    if (!empty($pass0)) {
-
-        if ($pass0 == $pass1) {
-
-            if ($pass0 == clean($pass0)) {
-              
-                $encrypt = sha1(clean($pass0));
-
-                $sql = "UPDATE ttf_user SET password='$encrypt' WHERE user_id='{$ttf["uid"]}'";
-
-                if (!$result = mysql_query($sql)) {
-
-                    showerror();
-
-                } else {
-                        
-                    $expire = time() + 31556926;
-                    $cookie = serialize(array($user["user_id"], $encrypt));
-                    setcookie("thinktank", $cookie, $expire);
-
-                    $messages[] = "your password has been successfully changed.";
-
-                };
-
-            } else {
-
-                $messages[] = "<span class=\"error\">your password contained invalid characters and was not changed.</span>";
-
-            };
-
-        } else {
-
-            $messages[] = "<span class=\"error\">your password did not match and was not changed.</span>";
-
-        };
-
-    };
 
     // edit profile *************************************************
 
@@ -105,6 +108,50 @@ if (isset($_POST["edit"])) {
         } else {
 
             $messages[] = "your profile has been successfully changed.";
+
+        };
+
+    };
+
+    
+    // change password **********************************************
+
+    $pass0 = $_POST["password0"];
+    $pass1 = $_POST["password1"];
+
+    if (!empty($pass0)) {
+
+        if ($pass0 == $pass1) {
+
+            if ($pass0 == clean($pass0)) {
+              
+                $encrypt = sha1(clean($pass0));
+
+                $sql = "UPDATE ttf_user SET password='$encrypt' WHERE user_id='{$ttf["uid"]}'";
+
+                if (!$result = mysql_query($sql)) {
+
+                    showerror();
+
+                } else {
+                        
+                    $expire = time() + 31556926;
+                    $cookie = serialize(array($user["user_id"], $encrypt));
+                    setcookie("thinktank", $cookie, $expire);
+
+                    $messages[] = "your password has been successfully changed. your cookie has been updated.";
+
+                };
+
+            } else {
+
+                $messages[] = "<span class=\"error\">your password contained invalid characters and was not changed.</span>";
+
+            };
+
+        } else {
+
+            $messages[] = "<span class=\"error\">your password did not match and was not changed.</span>";
 
         };
 
@@ -165,7 +212,7 @@ if (isset($_POST["edit"])) {
 
     if ($email != $user["email"]) {
 
-        if (validateEmail($email) == TRUE) {
+        if (eregi("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$", $email)) {
 
             $sql = "UPDATE ttf_user SET email='$email' WHERE user_id='{$ttf["uid"]}'";
 
@@ -187,6 +234,14 @@ if (isset($_POST["edit"])) {
 
     };
 
+    // delete avatar ************************************************
+
+    if (isset($_POST["deleteavatar"])) {
+
+        delete_avatar();
+
+    };
+
     // change avatar ************************************************
 
     if ($_FILES["avatar"]["size"] != 0) {
@@ -203,7 +258,7 @@ if (isset($_POST["edit"])) {
 
             if ($x == 30 && $y == 30) {
 
-                if (!deleteAvatar()) {
+                if (!delete_avatar()) {
 
                     $messages[] = "<span class=\"error\">there was an error trying to delete your old avatar.</span>";
 
@@ -268,11 +323,11 @@ if (isset($_POST["edit"])) {
                         <th colspan="2">change your password</th>
                     </tr>
                     <tr>
-                        <td>type once:</td>
+                        <td>enter your new password:</td>
                         <td><input type="password" name="password0" maxlength="32" size="16" /></td>
                     </tr>
                     <tr>
-                        <td>and again:</td>
+                        <td>corfirm the new password:</td>
                         <td><input type="password" name="password1" maxlength="32" size="16" /></td>
                     </tr>
                 </table>
@@ -292,8 +347,7 @@ if (isset($_POST["edit"])) {
                         <td><span class="tip" title="your new avatar must be 30px square, and it must be a jpg, gif, or png.">new avatar</span></td>
                         <td>
                             <input type="file" name="avatar" size="48" />
-                            <input type="hidden" name="MAX_FILE_SIZE" value="10000" />
-                            <input type="hidden" name="edit" value="avatar" />
+                            <input type="hidden" name="MAX_FILE_SIZE" value="64000" />
                         </td>
                     </tr>
                     <tr>
