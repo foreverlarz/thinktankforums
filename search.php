@@ -5,8 +5,8 @@
  */
 
 require_once "include_common.php";
-$label = "search ttf posts";
-$title = $label;
+$ttf_label = "search ttf posts";
+$ttf_title = $ttf_label;
 require_once "include_header.php";
 
 $string = $_GET["string"];       
@@ -36,7 +36,7 @@ if (!empty($string)) {
     // if no results are returned...
     if (mysql_num_rows($result) == 0) {
 
-        message("search ttf posts", "search results", "no results returned.<br /><br />".
+        message($ttf_label, "search results", "no results returned.<br /><br />".
                 "either the keyword you entered is <i>very</i> common or non-existent.");
 
     };
@@ -78,7 +78,7 @@ if (!empty($string)) {
 } else if (isset($_GET["string"])) {
 
     // if a blank string was entered
-    message("search ttf posts", "fatal error", "you must enter search terms.");
+    message($ttf_label, "error", "you must enter search terms.");
 
 };
 

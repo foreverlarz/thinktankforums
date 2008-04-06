@@ -4,40 +4,40 @@
  * newthread.php
  */
 
-$label = "create a new thread";
-$title = $label;
+$ttf_label = "create a new thread";
+$ttf_title = $ttf_label;
 
 require_once "include_common.php";
 
 // if the agent is not logged in
 if (empty($ttf["uid"])) {
 
-    message($label, $error_die_text, "you must login before you may create a new thread.");
+    message($ttf_label, $error_die_text, "you must login before you may create a new thread.");
     die();
 
 };
 
-$forum_id = clean($_POST["forum_id"]);
+$forum_id = clean($_REQUEST["forum_id"]);
 // don't clean $title and $body, we might output them!
 $title = $_POST["title"];
 $body = $_POST["body"];
 
 // grab the name of the specified forum
-$sql = "SELECT name FROM ttf_forum WHERE forum_id=$forum_id";
+$sql = "SELECT name FROM ttf_forum WHERE forum_id='$forum_id'";
 if (!$result = mysql_query($sql)) showerror();
 list($forum_name) = mysql_fetch_array($result);
 
 // if a valid forum_id was supplied
 if (empty($forum_name)) {
 
-    message($label, $error_die_text, "you must specify a valid forum.");
+    message($ttf_label, $error_die_text, "you must specify a valid forum.");
     die();
 
 };
 
-// now that we have the name of the forum, make a nicer label and title
-$label = "<a href=\"forum.php?forum_id=$forum_id\">$forum_name</a> &raquo; create a new thread";
-$title = "$forum_name &raquo; create a new thread";
+// now that we have the name of the forum, make a nicer $ttf_label and $ttf_title
+$ttf_label = "<a href=\"forum.php?forum_id=$forum_id\">$forum_name</a> &raquo; create a new thread";
+$ttf_title = "$forum_name &raquo; create a new thread";
 
 // if each field isn't empty, silently and patiently let them fill them! :D
 if (empty($title) || empty($body)) {

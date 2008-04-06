@@ -4,7 +4,8 @@
  * editpost.php
  */
 
-$label = "edit a post";
+$ttf_label = "edit a post";
+$ttf_title = $ttf_label;
 
 require_once "include_common.php";
 
@@ -17,7 +18,7 @@ $body = $_POST["body"];
 // if the agent is not logged in as a valid user
 if (!isset($ttf["uid"])) {
 
-    message($label, $error_die_text,
+    message($ttf_label, $error_die_text,
             "you must be logged in to edit a post.");
     die();
 
@@ -26,7 +27,7 @@ if (!isset($ttf["uid"])) {
 // if a post_id is not specified
 if (empty($post_id)) {
 
-    message($label, $error_die_text,
+    message($ttf_label, $error_die_text,
             "you must specify a post to edit.");
     die();
 
@@ -42,7 +43,7 @@ if ($ttf["perm"] != "admin") {
 
     if ($ttf["uid"] != $author_id) {
        
-        message($label, $error_die_text,
+        message($ttf_label, $error_die_text,
                 "you do not have permission to edit this post.");
         die();
 
@@ -63,7 +64,7 @@ if (!empty($body)) {
 
     if (empty($head)) {
 
-        message($label, $error_die_text,
+        message($ttf_label, $error_die_text,
                 "serious error encountered. please contact an admin.");
         die();
     
@@ -71,7 +72,7 @@ if (!empty($body)) {
 
     if ($body == $head) {
 
-        message($label, $error_die_text,
+        message($ttf_label, $error_die_text,
                 "you didn't make any changes.");
         die();
     
@@ -130,7 +131,7 @@ if (!empty($body)) {
 
 } else {
    
-    message($label, $error_die_text,
+    message($ttf_label, $error_die_text,
             "you cannot edit a post into inexistence. use the archive feature!");
     die();
 

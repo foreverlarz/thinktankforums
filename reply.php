@@ -4,7 +4,8 @@
  * reply.php
  */
 
-$label = "post reply";
+$ttf_label = "post a reply";
+$ttf_title = $ttf_label;
 
 require_once "include_common.php";
 
@@ -13,7 +14,7 @@ $body = $_POST["body"];
 
 if (!isset($ttf["uid"])) {
 
-    message($label, "fatal error", "you must be logged in to post.");
+    message($ttf_label, "fatal error", "you must be logged in to post.");
 
     die();
 
@@ -21,7 +22,7 @@ if (!isset($ttf["uid"])) {
 
 if (empty($thread_id) || empty($body)) {
 
-    message($label, "fatal error", "you left a field empty.");
+    message($ttf_label, "fatal error", "you left a field empty.");
 
     die();
 
@@ -34,7 +35,7 @@ list($forum_id) = mysql_fetch_array($result);
 mysql_free_result($result);
 if (empty($forum_id)) {
     
-    message($label, "fatal error", "the thread specified does not exist.");
+    message($ttf_label, "fatal error", "the thread specified does not exist.");
 
     die();
 

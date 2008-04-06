@@ -5,8 +5,8 @@
  */
 
 require_once "include_common.php"; 
-$label = "user profile";
-$title = $label;
+$ttf_label = "user profile";
+$ttf_title = $ttf_label;
 require_once "include_header.php";     
 
 $user_id = clean($_GET["user_id"]);

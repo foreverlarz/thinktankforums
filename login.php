@@ -4,12 +4,15 @@
  * login.php
  */
 
+$ttf_label = "log in";
+$ttf_title = $ttf_label;
+
 require_once "include_common.php";
 
 // if the user isn't logged in and provided a username and password
 if (isset($ttf["uid"]) || !isset($_POST["username"]) || !isset($_POST["password"])) {
 
-    message("log in", "fatal error", "you must be logged out and provide credentials.");
+    message($ttf_label, $error_die_text, "you must be logged out and provide credentials.");
     die();
 
 };
@@ -34,7 +37,7 @@ if (isset($user["user_id"]) && $user["perm"] == 'banned') {
     if (!$result = mysql_query($sql)) showerror();
 
     // print an error
-    message("log in", "fatal error", "you are banned.");
+    message($ttf_label, $error_die_text, "you are banned.");
 
 // if a match was found (and they aren't banned)    
 } else if (isset($user["user_id"])) {
@@ -49,7 +52,7 @@ if (isset($user["user_id"]) && $user["perm"] == 'banned') {
     
 } else {
 
-    message("log in", "fatal error", "invalid username and/or password.");
+    message($ttf_label, $error_die_text, "invalid username and/or password.");
     
 };
 

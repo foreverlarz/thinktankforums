@@ -17,8 +17,6 @@ if (!$result = mysql_query($sql)) showerror();
 
 list($forum_id, $thread_title, $forum_name) = mysql_fetch_array($result);
 
-mysql_free_result($result);
-
 
 // if this is a valid thread...
 if (empty($thread_title)) {
@@ -43,8 +41,8 @@ if (isset($ttf["uid"])) {
 };
 
 // create the header label
-$label = "<a href=\"forum.php?forum_id=$forum_id\">".output($forum_name)."</a> &raquo; ".output($thread_title);
-$title = output($forum_name)." &raquo; ".output($thread_title);
+$ttf_label = "<a href=\"forum.php?forum_id=$forum_id\">".output($forum_name)."</a> &raquo; ".output($thread_title);
+$ttf_title = output($forum_name)." &raquo; ".output($thread_title);
 
 // let's output a page to the user
 require_once "include_header.php";
@@ -104,7 +102,6 @@ while ($post = mysql_fetch_array($result)) {
             </div>
 <?php
 };
-mysql_free_result($result);
 
 // if user is logged in, print a reply box
 if (isset($ttf["uid"])) {

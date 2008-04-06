@@ -5,7 +5,7 @@
  */
 
 require_once "include_common.php";
-$label = $ttf_config["index_title"];
+$ttf_label = $ttf_config["index_title"];
 require_once "include_header.php";
 
 ?>

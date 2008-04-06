@@ -4,6 +4,9 @@
  * forum.php
  */
 
+$ttf_label = "view a forum";
+$ttf_title = $ttf_label;
+
 require_once "include_common.php";
 
 $forum_id = clean($_GET["forum_id"]);
@@ -15,7 +18,7 @@ list($forum_name) = mysql_fetch_array($result);
 
 if (empty($forum_name)) {
 
-    message("view forum", $error_die_text, "not a valid forum.");
+    message($ttf_label, $error_die_text, "not a valid forum.");
     die();
 
 };
@@ -28,8 +31,8 @@ if (!empty($ttf["uid"])) {
 
 };
 
-$label = output($forum_name);
-$title = $label;
+$ttf_label = output($forum_name);
+$ttf_title = $ttf_label;
 
 require_once "include_header.php";
 

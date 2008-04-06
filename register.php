@@ -5,8 +5,8 @@
  */
 
 require_once "include_common.php";   
-$label = "register an account";
-$title = $label;
+$ttf_label = "register an account";
+$ttf_title = $ttf_label;
 require_once "include_header.php";
 
 // if the agent isn't already logged in

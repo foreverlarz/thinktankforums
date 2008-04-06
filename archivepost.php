@@ -4,7 +4,8 @@
  * archivepost.php
  */
 
-$label = "archive post";
+$ttf_label = "archive a post";
+$ttf_title = $ttf_label;
 
 require_once "include_common.php";
 
@@ -12,14 +13,14 @@ $post_id = clean($_GET["post_id"]);
 
 if (!isset($ttf["uid"])) {
 
-    message($label, $error_die_text, "you must be logged in.");
+    message($ttf_label, $error_die_text, "you must be logged in.");
     die();
 
 };
 
 if (empty($post_id)) {
 
-    message($label, $error_die_text, "you must specify a post.");
+    message($ttf_label, $error_die_text, "you must specify a post.");
     die();
 
 };
@@ -31,7 +32,7 @@ if (!$result = mysql_query($sql)) showerror();
 
 if (mysql_affected_rows() != 1) {
 
-    message($label, $error_die_text, "you don't have permission to do this.");
+    message($ttf_label, $error_die_text, "you don't have permission to do this.");
     die();
 
 };

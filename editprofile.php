@@ -4,15 +4,15 @@
  * editprofile.php
  */
 
-$label = "edit your profile";
-$title = $label;
+$ttf_label = "edit your profile";
+$ttf_title = $ttf_label;
 
 require_once "include_common.php";
 require_once "include_header.php";
 
 if (empty($ttf["uid"])) {
 
-    message($label, $error_die_text,
+    message($ttf_label, $error_die_text,
             "you must login before you may edit your profile.");
     die();
 
@@ -249,11 +249,11 @@ if (isset($_POST["edit"])) {
 
     if (empty($messages)) {
 
-        message($label, "error", "you didn't make any changes.");
+        message($ttf_label, "error", "you didn't make any changes.");
 
     } else {
 
-        message($label, "results", $messages);
+        message($ttf_label, "results", $messages);
 
     };
 
