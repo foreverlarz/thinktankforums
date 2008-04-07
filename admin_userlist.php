@@ -58,9 +58,9 @@ while ($user = mysql_fetch_array($result)) {
     // make actions to show or use
     unset($actions);
     if ($user["perm"] == 'user') {
-        $actions .= "<a href=\"admin_banuser.php?action=ban&amp;user_id=".$user["user_id"]."\">ban</a>";
+        $actions .= "<a href=\"admin_userban.php?action=ban&amp;user_id=".$user["user_id"]."\">ban</a>";
     } else if ($user["perm"] == 'banned') {
-        $actions .= "<a href=\"admin_banuser.php?action=unban&amp;user_id=".$user["user_id"]."\">unban</a>";
+        $actions .= "<a href=\"admin_userban.php?action=unban&amp;user_id=".$user["user_id"]."\">unban</a>";
     };
 
 ?>
