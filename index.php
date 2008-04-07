@@ -5,7 +5,7 @@
  */
 
 require_once "include_common.php";
-$ttf_label = $ttf_config["index_title"];
+$ttf_label = (empty($ttf_config["index_title"])) ? 'welcome' : output($ttf_config["index_title"]);
 require_once "include_header.php";
 
 ?>
@@ -26,22 +26,22 @@ require_once "include_header.php";
                 </thead>
                 <tbody>
 <?php
-$sql = "SELECT ttf_forum.*,                                             ".
-       "COUNT( * ) - COUNT( ttf_thread_new.last_view ) AS freshies,     ".
-       "ttf_forum_new.last_view                                         ".
-       "FROM ttf_forum                                                  ".
-       "LEFT JOIN ttf_thread USING ( forum_id )                         ".
-       "LEFT JOIN ttf_thread_new                                        ".
-       "       ON ( ttf_thread.thread_id = ttf_thread_new.thread_id     ".
-       "            && ttf_thread_new.user_id = '{$ttf["uid"]}'         ".
-// it's amazing what a difference this inequality makes! --jlr
-//     "            && ttf_thread.date < ttf_thread_new.last_view )     ".
-       "            && ttf_thread.date <= ttf_thread_new.last_view )    ".
-       "LEFT JOIN ttf_forum_new                                         ".
-       "       ON ( ttf_forum.forum_id = ttf_forum_new.forum_id         ".
-       "            && ttf_forum_new.user_id = '{$ttf["uid"]}'          ".
-       "            && ttf_forum.date >= ttf_forum_new.last_view )      ".
-       "GROUP BY ttf_forum.forum_id                                     ";
+$sql = "SELECT ttf_forum.*,                                                 ".
+       "       COUNT( * ) - COUNT( ttf_thread_new.last_view ) AS freshies,  ".
+       "       ttf_forum_new.last_view                                      ".
+       "FROM ttf_forum                                                      ".
+       "LEFT JOIN ttf_thread USING ( forum_id )                             ".
+       "LEFT JOIN ttf_thread_new                                            ".
+       "       ON (    ttf_thread.thread_id = ttf_thread_new.thread_id      ".
+       "            && ttf_thread_new.user_id = '{$ttf["uid"]}'             ".
+// it's amazing what a difference this inequality makes!
+//     "            && ttf_thread.date < ttf_thread_new.last_view )         ".
+       "            && ttf_thread.date <= ttf_thread_new.last_view )        ".
+       "LEFT JOIN ttf_forum_new                                             ".
+       "       ON (    ttf_forum.forum_id = ttf_forum_new.forum_id          ".
+       "            && ttf_forum_new.user_id = '{$ttf["uid"]}'              ".
+       "            && ttf_forum.date >= ttf_forum_new.last_view )          ".
+       "GROUP BY ttf_forum.forum_id                                         ";
 
 if (!$result = mysql_query($sql)) showerror();
 
@@ -52,25 +52,21 @@ $tot_posts = 0;
 
 while ($forum = mysql_fetch_array($result)) {
 
-    // add the forum's count to the total
+    // add this forum's count to the total
     $tot_freshies += $forum["freshies"];
     $tot_threads += $forum["threads"];
     $tot_posts += $forum["posts"];
-    
-    // ** should forum name and description be run through output() ? --jlr **
 
 ?>
                     <tr>
                         <td>
-                            <a href="forum.php?forum_id=<?php echo $forum["forum_id"]; ?>"><?php echo $forum["name"]; ?></a><br />
-                            <span class="small">&nbsp;&nbsp;&middot; <?php echo $forum["description"]; ?></span>
+                            <a href="forum.php?forum_id=<?php echo $forum["forum_id"]; ?>"><?php echo output($forum["name"]); ?></a><br />
+                            <span class="small">&nbsp;&nbsp;&middot; <?php echo output($forum["description"]); ?></span>
                         </td>
 <?php
     if (isset($ttf["uid"])) {
         echo "                        <td>";
-        echo (empty($forum["last_view"]) ?
-                $forum["freshies"] :
-                "<b>".$forum["freshies"]."</b>");
+        echo (empty($forum["last_view"]) ? $forum["freshies"] : "<b>".$forum["freshies"]."</b>");
         echo "</td>\n";
     };
 ?>
@@ -82,9 +78,10 @@ while ($forum = mysql_fetch_array($result)) {
 };
 
 // let's find out if anyone is online
-$sql = "SELECT user_id, username, perm FROM ttf_user ".
+$sql = "SELECT user_id, username, perm                                      ".
+       "FROM ttf_user                                                       ".
        "WHERE visit_date > UNIX_TIMESTAMP()-{$ttf_config["online_timeout"]} ".
-       "ORDER BY username";
+       "ORDER BY username                                                   ";
 if (!$result = mysql_query($sql)) showerror();
 
 // initialize $i
