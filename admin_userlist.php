@@ -70,7 +70,6 @@ while ($user = mysql_fetch_array($result)) {
                         <td><a href="mailto:<?php echo $user["email"]; ?>"><?php echo $user["email"]; ?></a></td>
                         <td<?php echo $visithl; ?>><span title="<?php echo $date[1]; ?>"><?php echo $date[0]; ?></span></td>
                         <td><?php echo $actions; ?></td>
-                            
                     </tr>
 <?php
 
