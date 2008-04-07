@@ -30,6 +30,33 @@ $visit_date = formatdate($user["visit_date"]);
 $post_date = formatdate($user["post_date"]);
 $rev_date = formatdate($user["rev_date"]);
 
+$sql = "SELECT COUNT(*)         ".
+       "FROM ttf_revision       ".
+       "WHERE ref_id='$user_id' ".
+       "   && type='profile'    ";
+if (!$result = mysql_query($sql)) showerror();
+list($profilerev) = mysql_fetch_array($result);
+
+$sql = "SELECT COUNT(*)         ".
+       "FROM ttf_revision       ".
+       "WHERE ref_id='$user_id' ".
+       "   && type='title'      ";
+if (!$result = mysql_query($sql)) showerror();
+list($titlerev) = mysql_fetch_array($result);
+
+$sql = "SELECT COUNT(*)             ".
+       "FROM ttf_post               ".
+       "WHERE author_id='$user_id'  ".
+       "   && archive IS NULL       ";
+if (!$result = mysql_query($sql)) showerror();
+list($numposts) = mysql_fetch_array($result);
+
+$sql = "SELECT COUNT(*)             ".
+       "FROM ttf_thread             ".
+       "WHERE author_id='$user_id'  ";
+if (!$result = mysql_query($sql)) showerror();
+list($numthreads) = mysql_fetch_array($result);
+
 ?>
             <table cellspacing="1" class="content">
                 <thead>
@@ -98,6 +125,22 @@ $rev_date = formatdate($user["rev_date"]);
                     <tr>
                         <td>visit_ip</td>
                         <td><?php echo $user["visit_ip"]; ?></td>
+                    </tr>
+                    <tr>
+                        <td>num_threads</td>
+                        <td><?php echo $numthreads; ?></td>
+                    </tr>
+                    <tr>
+                        <td>num_posts</td>
+                        <td><?php echo $numposts; ?></td>
+                    </tr>
+                    <tr>
+                        <td><a href="revision.php?type=title&amp;ref_id=<?php echo $user["user_id"]; ?>">title revisions</a></td>
+                        <td><?php echo $titlerev; ?></td>
+                    </tr>
+                    <tr>
+                        <td><a href="revision.php?type=profile&amp;ref_id=<?php echo $user["user_id"]; ?>">profile revisions</a></td>
+                        <td><?php echo $profilerev; ?></td>
                     </tr>
                     <tr>
                         <td>profile</td>
