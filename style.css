@@ -274,10 +274,11 @@ input.reply, input.editpost, input.editprofile, input.newthread_button {
 
 input.newthread_title {
     font-family: verdana, sans-serif;
-    border-width: 1;
+    border-width: 0px;
     background-color: white;
     color: black;
-    width: 598px;
+    width: 596px;
+    margin: 2px;
 }
 
 form {
@@ -305,7 +306,6 @@ form {
 
 #newthread_title {
     width: 600px;
-    height: 20px;
     background-color: white;
 }
 
