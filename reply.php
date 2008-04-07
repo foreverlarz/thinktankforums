@@ -69,6 +69,12 @@ if (!$result = mysql_query($sql)) showerror();
 $sql = "UPDATE ttf_user SET post_date=UNIX_TIMESTAMP() WHERE user_id='{$ttf["uid"]}'";
 if (!$result = mysql_query($sql)) showerror();
 
+// update the user's last rev date
+$sql = "UPDATE ttf_user                 ".
+       "SET rev_date=UNIX_TIMESTAMP()  ".
+       "WHERE user_id={$ttf["uid"]}     ";
+if (!$result = mysql_query($sql)) showerror();
+
 header("Location: thread.php?thread_id=$thread_id#$post_id");
 
 ?>

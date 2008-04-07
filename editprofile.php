@@ -99,6 +99,12 @@ if (isset($_POST["edit"])) {
                "body='".clean($profile)."'";
         if (!$result = mysql_query($sql)) showerror();
 
+        // update the user's last rev date
+        $sql = "UPDATE ttf_user                 ".
+               "SET rev_date=UNIX_TIMESTAMP()  ".
+               "WHERE user_id={$ttf["uid"]}     ";
+        if (!$result = mysql_query($sql)) showerror();
+
         $sql = "UPDATE ttf_user SET profile='".clean(outputbody($profile))."' WHERE user_id='{$ttf["uid"]}'";
         
         if (!$result = mysql_query($sql)) {
@@ -170,6 +176,12 @@ if (isset($_POST["edit"])) {
                "date=UNIX_TIMESTAMP(), ".
                "ip='{$_SERVER["REMOTE_ADDR"]}', ".
                "body='".clean($title)."'";
+        if (!$result = mysql_query($sql)) showerror();
+
+        // update the user's last rev date
+        $sql = "UPDATE ttf_user                 ".
+               "SET rev_date=UNIX_TIMESTAMP()  ".
+               "WHERE user_id={$ttf["uid"]}     ";
         if (!$result = mysql_query($sql)) showerror();
 
         $sql = "UPDATE ttf_user SET title='".clean(output($title))."' WHERE user_id='{$ttf["uid"]}'";

@@ -111,6 +111,12 @@ if (!empty($body)) {
            "body='".clean(outputbody($body))."' WHERE post_id='".clean($post_id)."'";
     if (!$result = mysql_query($sql)) showerror();
 
+    // update the user's last rev date
+    $sql = "UPDATE ttf_user                 ".
+           "SET rev_date=UNIX_TIMESTAMP()  ".
+           "WHERE user_id={$ttf["uid"]}     ";
+    if (!$result = mysql_query($sql)) showerror();
+
     // wow, all of that worked! let's grab the thread_id
     // and redirect the user to their edited post
     $sql = "SELECT thread_id FROM ttf_post ".

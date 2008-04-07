@@ -97,6 +97,7 @@ CREATE TABLE `ttf_user` (
   `register_date` int(11) default NULL,
   `visit_date` int(11) default NULL,
   `post_date` int(11) default NULL,
+  `rev_date` int(11) default NULL,
   `register_ip` varchar(15) collate utf8_unicode_ci default NULL,
   `visit_ip` varchar(15) collate utf8_unicode_ci default NULL,
   `profile` longtext collate utf8_unicode_ci,
