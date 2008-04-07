@@ -67,6 +67,7 @@ $sql = "SELECT ttf_post.post_id,                    ".
        "FROM ttf_post, ttf_user                     ".
        "WHERE ttf_post.author_id=ttf_user.user_id   ".
        "   && ttf_post.thread_id='$thread_id'       ".
+       "   && ttf_post.archive IS NULL              ".
        "ORDER BY date ASC                           ";
 if (!$result = mysql_query($sql)) showerror();
 
