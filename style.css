@@ -225,7 +225,7 @@ textarea {
     border-width: 0;
 }
 
-textarea.reply {
+textarea.reply, textarea.newthread {
     font-family: verdana, sans-serif;
     width: 590px;
     height: 140px;
@@ -264,12 +264,20 @@ input, select {
     margin: 1px 0;
 }
 
-input.reply, input.editpost, input.editprofile {
+input.reply, input.editpost, input.editprofile, input.newthread_button {
     font-family: verdana, sans-serif;
     border-width: 0;
     background-color: black;
     color: white;
     width: 600px;
+}
+
+input.newthread_title {
+    font-family: verdana, sans-serif;
+    border-width: 1;
+    background-color: white;
+    color: black;
+    width: 598px;
 }
 
 form {
@@ -282,7 +290,7 @@ form {
  * REPLY BOX STYLES *
  ********************/
 
-#reply_button, #editpost_button {
+#reply_button, #editpost_button, #newthread_button {
     width: 600px;
     height: 20px;
     background-color: black;
@@ -295,7 +303,13 @@ form {
     background-color: black;
 }
 
-#reply_textarea {
+#newthread_title {
+    width: 600px;
+    height: 20px;
+    background-color: white;
+}
+
+#reply_textarea, #newthread_textarea {
     margin-top: 25px;
     width: 600px;
     height: 150px;

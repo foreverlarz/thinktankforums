@@ -46,14 +46,18 @@ if (empty($title) || empty($body)) {
 
 ?>
             <form action="newthread.php" method="post">
-                <div class="contenttitle">punch in a new thread</div>
-                <div class="contentbox">
-                    title:<br />
-                    <input type="text" name="title" maxlength="128" size="48" value="<?php echo output($title); ?>" /><br /><br />
-                    body:<br />
-                    <textarea class="medium" cols="70" rows="15" name="body" wrap="virtual"><?php echo output($body); ?></textarea><br /><br />
-                    <input type="submit" value="create" />
+                <div class="contenttitle">title your thread</div>
+                <div id="newthread_title">
+                    <input class="newthread_title" type="text" name="title" value="<?php echo output($title); ?>" />
                 </div>
+                <div id="newthread_textarea">
+                    <textarea class="newthread" rows="20" name="body" wrap="virtual"><?php echo output($body); ?></textarea>
+                </div>
+                <div id="newthread_button">
+                    <input class="newthread_button" type="submit" value="create thread" />
+                </div>
+
+
                 <input type="hidden" name="forum_id" value="<?php echo $forum_id; ?>" />
             </form>
 <?php
