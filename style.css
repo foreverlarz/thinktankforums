@@ -326,22 +326,15 @@ form {
  * USERBAR STYLES *
  ******************/
 
-.avatar {
-    border: 0;
-    margin: 1px;
-    padding: 0;
-    display: block;
-}
-
 .userbar {
-    width: 596px;
+    width: 598px;
     margin-top: 25px;
-    padding: 2px;
+    padding: 1px;
     background-color: black;
     color: white;
     font-size: 8pt;
     line-height: 12pt;
-    height: 30px;
+    height: 32px;
     overflow: hidden;
 }
 
@@ -349,21 +342,14 @@ form {
     float: left;
     width: 30px;
     height: 30px;
-    margin-right: 4px;
+    padding: 1px 4px 1px 1px;
 }
 
 .userbar_right {
     float: right;
-    height: 30px;
-    margin: 0 4px 0 10px;
-    margin-top: auto;
-    margin-bottom: auto;
-    margin-right: 2px;
-    margin-left: 10px;
+    height: 32px;
+    padding: 0px 3px 0px 10px;
     text-align: right;
-    /* these statements do not effectively center the text vertically! */
-    display: table-cell;
-    vertical-align: middle;
 }
 
 .username {
