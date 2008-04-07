@@ -69,8 +69,7 @@ while ($user = mysql_fetch_array($result)) {
                         <td<?php echo $userhl; ?>><a href="admin_userinfo.php?user_id=<?php echo $user["user_id"]; ?>"><?php echo output($user["username"]); ?></a></td>
                         <td><a href="mailto:<?php echo $user["email"]; ?>"><?php echo $user["email"]; ?></a></td>
                         <td<?php echo $visithl; ?>><span title="<?php echo $date[1]; ?>"><?php echo $date[0]; ?></span></td>
-                        <td>
-                        </td>
+                        <td><?php echo $actions; ?></td>
                             
                     </tr>
 <?php
