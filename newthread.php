@@ -56,8 +56,6 @@ if (empty($title) || empty($body)) {
                 <div id="newthread_button">
                     <input class="newthread_button" type="submit" value="create thread" />
                 </div>
-
-
                 <input type="hidden" name="forum_id" value="<?php echo $forum_id; ?>" />
             </form>
 <?php
