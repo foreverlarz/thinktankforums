@@ -352,7 +352,7 @@ if (isset($_POST["edit"])) {
                         <td><input type="text" name="email" maxlength="96" size="48" value="<?php echo output($user["email"]); ?>" /></td>
                     </tr>
                     <tr>
-                        <td><span class="tip" title="your new avatar must be 30px square, and it must be a jpg, gif, or png.">new avatar:</span></td>
+                        <td><span class="tip" title="your new avatar must be 30px square, and it must be a jpg, gif, or png.">new avatar</span>:</td>
                         <td>
                             <input type="file" name="avatar" size="48" />
                             <input type="hidden" name="MAX_FILE_SIZE" value="64000" />
