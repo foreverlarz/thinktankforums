@@ -113,7 +113,7 @@ while ($thread = mysql_fetch_array($result)) {
 
     if ($thread["last_view"] < $thread["date"] && isset($ttf["uid"])) {
 
-        $mark = "<img src=\"images/arrow.gif\" width=\"11\" height=\"11\" alt=\"new post!\" />";
+        $mark = "&#9658;";
 
         $sql = "SELECT ttf_post.post_id ".
                "FROM ttf_post ".
