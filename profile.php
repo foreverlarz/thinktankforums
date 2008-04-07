@@ -34,14 +34,14 @@ if (empty($user["user_id"])) {
 $visit_date = formatdate($user["visit_date"]);
 $register_date = formatdate($user["register_date"]);
 
-$sql = "SELECT COUNT(*)-1       ".
+$sql = "SELECT COUNT(*)         ".
        "FROM ttf_revision       ".
        "WHERE ref_id='$user_id' ".
        "   && type='profile'    ";
 if (!$result = mysql_query($sql)) showerror();
 list($profilerev) = mysql_fetch_array($result);
 
-$sql = "SELECT COUNT(*)-1       ".
+$sql = "SELECT COUNT(*)         ".
        "FROM ttf_revision       ".
        "WHERE ref_id='$user_id' ".
        "   && type='title'      ";
