@@ -6,10 +6,10 @@
 
 require_once "include_common.php";
 
-// if an admin isn't logged in, then die()!
 admin();
 
-$label = "administration &raquo; user info";
+$ttf_label = "administration &raquo; user info";
+$ttf_title = $ttf_label;
 
 require_once "include_header.php";
 
@@ -19,12 +19,18 @@ $sql = "SELECT * FROM ttf_user WHERE user_id='$user_id'";
 if (!$result = mysql_query($sql)) showerror();
 $user = mysql_fetch_array($result);
 
-if (isset($user["user_id"])) {
- 
+if (empty($user["user_id"])) {
+
+    message($ttf_label, $error_die_text, "you must specify a valid user.");
+
+};
+
+$register_date = formatdate($user["register_date"]);
+$visit_date = formatdate($user["visit_date"]);
+$post_date = formatdate($user["post_date"]);
+$rev_date = formatdate($user["rev_date"]);
+
 ?>
-
-            <div class="sidebox"><a href="admin_ban.php?user_id=<?php echo $user["user_id"]; ?>"><strong>BAN THIS USER</strong></a></div>
-
             <table cellspacing="1" class="content">
                 <thead>
                     <tr>
@@ -71,15 +77,19 @@ if (isset($user["user_id"])) {
                     </tr>
                     <tr>
                         <td>date_reg</td>
-                        <td><?php echo formatdate($user["register_date"]); ?></td>
+                        <td><span title="<?php echo $register_date[1]; ?>"><?php echo $register_date[0]; ?></span></td>
                     </tr>
                     <tr>
                         <td>date_visit</td>
-                        <td><?php echo formatdate($user["visit_date"]); ?></td>
+                        <td><span title="<?php echo $visit_date[1]; ?>"><?php echo $visit_date[0]; ?></span></td>
                     </tr>
                     <tr>
                         <td>date_post</td>
-                        <td><?php echo formatdate($user["post_date"]); ?></td>
+                        <td><span title="<?php echo $post_date[1]; ?>"><?php echo $post_date[0]; ?></span></td>
+                    </tr>
+                    <tr>
+                        <td>date_revision</td>
+                        <td><span title="<?php echo date_rev[1]; ?>"><?php echo date_rev[0]; ?></span></td>
                     </tr>
                     <tr>
                         <td>register_ip</td>
@@ -98,56 +108,32 @@ if (isset($user["user_id"])) {
             <table cellspacing="1" class="float" style="float: left;">
                 <thead>
                     <tr>
-                        <th>post ips</th>
+                        <th>revision ips</th>
                         <th>last used at</th>
                     </tr>
                 </thead>
                 <tbody>
 <?php
-    $sql = "SELECT ip, MAX(date) AS maxdate FROM ttf_post WHERE author_id = '$user_id' AND ip != 'NULL' GROUP BY ip ORDER BY maxdate DESC";
-    if (!$result = mysql_query($sql)) showerror();
-	while ($post = mysql_fetch_array($result)) {
+$sql = "SELECT ip, MAX(date) AS maxdate ".
+       "FROM ttf_revision               ".
+       "WHERE author_id='$user_id'      ".
+       "   && ip IS NOT NULL            ".
+       "GROUP BY ip                     ".
+       "ORDER BY maxdate DESC           ";
+if (!$result = mysql_query($sql)) showerror();
+while ($rev = mysql_fetch_array($result)) {
+    $date = formatdate($rev["maxdate"]);
 ?>
                     <tr>
-                        <td><?php echo $post["ip"]; ?></td>
-                        <td><?php echo formatdate($post["maxdate"]); ?></td>
+                        <td><?php echo $rev["ip"]; ?></td>
+                        <td><span title="<?php echo $date[1]; ?>"><?php echo $date[0]; ?></span></td>
                     </tr>
 <?php
-	};
-	mysql_free_result($result);
-?>
-                </tbody>
-            </table>
-            <table cellspacing="1" class="float" style="margin-left: 24px;">
-                <thead>
-                    <tr>
-                        <th>visit ips</th>
-                        <th>last used at</th>
-                    </tr>
-                </thead>
-                <tbody>
-<?php
-	$sql = "SELECT ip, MAX(date) AS maxdate FROM ttf_visit WHERE user_id = '$user_id' GROUP BY ip ORDER BY maxdate DESC";
-	$result = mysql_query($sql);
-	while ($visit = mysql_fetch_array($result)) {
-?>
-                    <tr>
-                        <td><?php echo $visit["ip"]; ?></td>
-                        <td><?php echo formatdate($visit["maxdate"]); ?></td>
-                    </tr>
-<?php
-	};
-	mysql_free_result($result);
-?>
-                </tbody>
-            </table>
-<?php
-
-} else {
-
-    message("user profile","fatal error","you must specify a valid user.");
-
 };
+?>
+                </tbody>
+            </table>
+<?php
 
 require_once "include_footer.php";
 
