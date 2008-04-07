@@ -1,7 +1,7 @@
 <?php
 /* think tank forums
  *
- * admin_user.php
+ * admin_userlist.php
  */
 
 require_once "include_common.php";

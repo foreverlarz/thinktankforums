@@ -44,7 +44,7 @@ if (isset($ttf["uid"])) {
             </div>
             <div class="menu_title">administrate</div>
             <div class="menu_body">
-                &middot; <a href="admin_user.php">manage users</a><br />
+                &middot; <a href="admin_userlist.php">user list</a><br />
                 &middot; <a href="http://code.google.com/p/thinktankforums/">ttf development</a>
 <?php
     };
