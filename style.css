@@ -135,6 +135,10 @@ a, a:active, a:link, a:visited {
     background-color: #00ff33;
 }
 
+.lowlight {
+    background-color: #ff0033;
+}
+
 .error {
     background-color: red;
 }
