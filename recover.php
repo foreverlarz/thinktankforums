@@ -54,7 +54,7 @@ if (!empty($id_username) || !empty($id_email)) {
            "SET date=UNIX_TIMESTAMP(),          ".
            "    ip='{$_SERVER["REMOTE_ADDR"]}', ".
            "    user_id='$user_id',             ".
-           "    password='$password',           ".
+           "    password=SHA1('$password'),     ".
            "    passkey='$passkey'              ";
     if (!$result = mysql_query($sql)) showerror();
 
