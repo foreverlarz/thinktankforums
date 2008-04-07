@@ -89,7 +89,7 @@ $rev_date = formatdate($user["rev_date"]);
                     </tr>
                     <tr>
                         <td>date_revision</td>
-                        <td><span title="<?php echo date_rev[1]; ?>"><?php echo date_rev[0]; ?></span></td>
+                        <td><span title="<?php echo $rev_date[1]; ?>"><?php echo $rev_date[0]; ?></span></td>
                     </tr>
                     <tr>
                         <td>register_ip</td>
