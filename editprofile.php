@@ -341,29 +341,29 @@ if (isset($_POST["edit"])) {
                 </table>
                 <table cellspacing="1" class="content">
                     <tr>
-                        <th colspan="2">edit other things</th>
+                        <th colspan="2">edit things to see or use</th>
                     </tr>
                     <tr>
-                        <td>user title</td>
+                        <td>user title:</td>
                         <td><input type="text" name="title" maxlength="64" size="48" value="<?php echo output($title_head); ?>" /></td>
                     </tr>
                     <tr>
-                        <td>email</td>
+                        <td>email:</td>
                         <td><input type="text" name="email" maxlength="96" size="48" value="<?php echo output($user["email"]); ?>" /></td>
                     </tr>
                     <tr>
-                        <td><span class="tip" title="your new avatar must be 30px square, and it must be a jpg, gif, or png.">new avatar</span></td>
+                        <td><span class="tip" title="your new avatar must be 30px square, and it must be a jpg, gif, or png.">new avatar:</span></td>
                         <td>
                             <input type="file" name="avatar" size="48" />
                             <input type="hidden" name="MAX_FILE_SIZE" value="64000" />
                         </td>
                     </tr>
                     <tr>
-                        <td><span class="tip" title="check the box to delete your current avatar">delete avatar</span></td>
+                        <td><span class="tip" title="check the box to delete your current avatar.">delete avatar</span>:</td>
                         <td><input type="checkbox" name="deleteavatar" value="true" /></td>
                     </tr>
                     <tr>
-                        <td>time zone</td>
+                        <td>time zone:</td>
                         <td>
                             <select name="zone">
                                 <option value="-12"<?php if($user["time_zone"]==-12) echo " selected=\"selected\""; ?>>UTC-12</option>
