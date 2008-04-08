@@ -292,7 +292,7 @@ function generate_string($length) {
 
 function kill_guests() {
     global $ttf; global $ttf_label; global $ttf_msg; global $ttf_cfg;
-    if (empty($ttf_label)) { $ttf_label = $ttf_cfg["forum_name"] };
+    if (empty($ttf_label)) { $ttf_label = $ttf_cfg["forum_name"]; };
     if (!isset($ttf["uid"])) {
         message($ttf_label, $ttf_msg["fatal_error"], $ttf_msg["notloggedin"]);
         die();
@@ -303,7 +303,7 @@ function kill_guests() {
 
 function kill_users() {
     global $ttf; global $ttf_label; global $ttf_msg; global $ttf_cfg;
-    if (empty($ttf_label)) { $ttf_label = $ttf_cfg["forum_name"] };
+    if (empty($ttf_label)) { $ttf_label = $ttf_cfg["forum_name"]; };
     if (isset($ttf["uid"])) {
         message($ttf_label, $ttf_msg["fatal_error"], $ttf_msg["loggedin"]);
         die();
@@ -314,7 +314,7 @@ function kill_users() {
 
 function kill_nonadmin() {
     global $ttf; global $ttf_label; global $ttf_msg; global $ttf_cfg;
-    if (empty($ttf_label)) { $ttf_label = $ttf_cfg["forum_name"] };
+    if (empty($ttf_label)) { $ttf_label = $ttf_cfg["forum_name"]; };
     if ($ttf["perm"] != 'admin') {
         message($ttf_label, $ttf_msg["fatal_error"], $ttf_msg["noperm"]);
         die();
