@@ -12,12 +12,7 @@ require_once "include_common.php";
 $thread_id = $_POST["thread_id"];
 $body = $_POST["body"];
 
-if (!isset($ttf["uid"])) {
-
-    message($ttf_label, $ttf_msg["fatal_error"], $ttf_msg["notloggedin"]);
-    die();
-
-};
+kill_guests();
 
 if (empty($thread_id) || empty($body)) {
 

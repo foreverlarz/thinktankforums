@@ -36,6 +36,7 @@ $ttf_msg["fatal_error"] = "Fatal Error";
 $ttf_msg["maint_title"] = "Maintenance Mode";
 $ttf_msg["successtitl"] = "Success";
 $ttf_msg["ip_banned"]   = "Sorry, but your IP is banned.";
+$ttf_msg["user_banned"] = "Sorry, but your user account is banned.";
 $ttf_msg["cookie_inv"]  = "Sorry, but your cookie is invalid. Please try logging out and logging in again.";
 $ttf_msg["maint_body"]  = "Sorry, but the forum is offline for maintenance.<br /><br />We are most likely ".
                           "updating scripts and adding new features. Please come back soon!";
@@ -47,6 +48,8 @@ $ttf_msg["loggedin"]    = "You can't do this if you are logged in. You account i
 $ttf_msg["nomatchuser"] = "Sorry, but we couldn't find a matching user.";
 $ttf_msg["mailedinfo"]  = "We have emailed you the account information. Please check your email!";
 $ttf_msg["btnpost"]     = "Click to Post";
+$ttf_msg["badcredpair"] = "Sorry, but the username and password pair that you provided does not match any user record.";
+
 
 
 
@@ -106,10 +109,10 @@ while ($ban = mysql_fetch_array($result)) {
 
 
 // cookie management
-if (isset($_COOKIE["thinktank"])) {
+if (isset($_COOKIE["{$ttf_cfg["cookie_name"]}"])) {
 
     // pull the data out of the cookie
-    list($uid, $pwd) = unserialize(stripslashes($_COOKIE["thinktank"]));
+    list($uid, $pwd) = unserialize(stripslashes($_COOKIE["{$ttf_cfg["cookie_name"]}"]));
 
     // select the data from ttf_user associated with this user
     $sql = "SELECT user_id,                     ".

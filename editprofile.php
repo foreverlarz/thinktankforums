@@ -4,18 +4,12 @@
  * editprofile.php
  */
 
-$ttf_label = "edit your profile";
+$ttf_label = "Edit Your Profile";
 $ttf_title = $ttf_label;
 
 require_once "include_common.php";
 
-if (!isset($ttf["uid"])) {
-
-    message($ttf_label, $ttf_msg["fatal_error"],
-            "you must login before you may edit your profile.");
-    die();
-
-};
+kill_guests();
 
 // awesome function for avatar deletion
 function delete_avatar() {
@@ -141,9 +135,9 @@ if (isset($_POST["edit"])) {
 
                 } else {
                         
-                    $expire = time() + 31556926;
+                    $expire = time() + $ttf_cfg["cookie_time"];
                     $cookie = serialize(array($user["user_id"], $encrypt));
-                    setcookie("thinktank", $cookie, $expire);
+                    setcookie($ttf_cfg["cookie_name"], $cookie, $expire);
 
                     $messages[] = "your password has been successfully changed. your cookie has been updated.";
 

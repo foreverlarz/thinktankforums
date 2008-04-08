@@ -9,13 +9,7 @@ $ttf_label = "activate a password";
 $ttf_title = $ttf_label;
 require_once "include_header.php";
 
-// if the agent isn't already logged in
-if (isset($ttf["uid"])) {
-
-    message($ttf_label, $ttf_msg["fatal_error"], "your account is working.");
-    die();
-
-};
+kill_users();
 
 $passkey = clean($_POST["passkey"]);
 

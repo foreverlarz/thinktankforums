@@ -4,14 +4,16 @@
  * logout.php
  */
 
-if (isset($_COOKIE["thinktank"])) {
+require_once "include_common.php";
+
+if (isset($_COOKIE["{$ttf_cfg["cookie_name"]}"])) {
 
     $expire = time() - 3600;
 
-    setcookie("thinktank", "", $expire);
+    setcookie($ttf_cfg["cookie_name"], "", $expire);
 
 };
 
-header("Location: ".$_SERVER["HTTP_REFERER"]);
+header("Location: http://".$ttf_cfg["address"]."/");
 
 ?>

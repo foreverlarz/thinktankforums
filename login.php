@@ -9,10 +9,11 @@ $ttf_title = $ttf_label;
 
 require_once "include_common.php";
 
-// if the user isn't logged in and provided a username and password
-if (isset($ttf["uid"]) || !isset($_POST["username"]) || !isset($_POST["password"])) {
+kill_users();
 
-    message($ttf_label, $ttf_msg["fatal_error"], "you must be logged out and provide credentials.");
+if (empty($_POST["username"]) || empty($_POST["password"])) {
+
+    message($ttf_label, $ttf_msg["fatal_error"], $ttf_msg["field_empty"]);
     die();
 
 };
@@ -37,22 +38,21 @@ if (isset($user["user_id"]) && $user["perm"] == 'banned') {
     if (!$result = mysql_query($sql)) showerror();
 
     // print an error
-    message($ttf_label, $ttf_msg["fatal_error"], "you are banned.");
+    message($ttf_label, $ttf_msg["fatal_error"], $ttf_msg["user_banned"]);
 
 // if a match was found (and they aren't banned)    
 } else if (isset($user["user_id"])) {
 
     // give them a cookie        
-    $expire = time() + 31556926;
+    $expire = time() + $ttf_cfg["cookie_time"];
     $cookie = serialize(array($user["user_id"], $password));
-    setcookie("thinktank", $cookie, $expire);
+    setcookie($ttf_cfg["cookie_name"], $cookie, $expire);
 
-    // take them back from where they came
-    header("Location: ".$_SERVER["HTTP_REFERER"]);
+    header("Location: http://".$ttf_cfg["address"]."/");
     
 } else {
 
-    message($ttf_label, $ttf_msg["fatal_error"], "invalid username and/or password.");
+    message($ttf_label, $ttf_msg["fatal_error"], $ttf_msg["badcredpair"]);
     
 };
 

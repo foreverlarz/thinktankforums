@@ -314,4 +314,26 @@ function generate_string($length) {
     return $string;
 };
 
+
+
+// kill guests
+function kill_guests() {
+    global $ttf; global $ttf_label; global $ttf_msg;
+    if (!isset($ttf["uid"])) {
+        message($ttf_label, $ttf_msg["fatal_error"], $ttf_msg["notloggedin"]);
+        die();
+    };
+};
+
+
+
+// kill users
+function kill_users() {
+    global $ttf; global $ttf_label; global $ttf_msg;
+    if (isset($ttf["uid"])) {
+        message($ttf_label, $ttf_msg["fatal_error"], $ttf_msg["loggedin"]);
+        die();
+    };
+};
+
 ?>

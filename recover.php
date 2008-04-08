@@ -9,13 +9,7 @@ $ttf_label = "Recover Your Account";
 $ttf_title = $ttf_label;
 require_once "include_header.php";
 
-// if the agent isn't already logged in
-if (isset($ttf["uid"])) {
-
-    message($ttf_label, $ttf_msg["fatal_error"], $ttf_msg["loggedin"]);
-    die();
-
-};
+kill_users();
 
 $id_username = clean($_POST["id_username"]);
 $id_email = clean($_POST["id_email"]);
