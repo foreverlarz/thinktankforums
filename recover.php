@@ -5,14 +5,14 @@
  */
 
 require_once "include_common.php";   
-$ttf_label = "recover an account";
+$ttf_label = "Recover Your Account";
 $ttf_title = $ttf_label;
 require_once "include_header.php";
 
 // if the agent isn't already logged in
 if (isset($ttf["uid"])) {
 
-    message($ttf_label, $ttf_msg["fatal_error"], "your account is working.");
+    message($ttf_label, $ttf_msg["fatal_error"], $ttf_msg["loggedin"]);
     die();
 
 };
@@ -39,7 +39,7 @@ if (!empty($id_username) || !empty($id_email)) {
 
     if (mysql_num_rows($result) !== 1) {
 
-        message($ttf_label, $ttf_msg["fatal_error"], "we couldn't find a matching user.");
+        message($ttf_label, $ttf_msg["fatal_error"], $ttf_msg["nomatchuser"]);
         die();
 
     };
@@ -58,25 +58,23 @@ if (!empty($id_username) || !empty($id_email)) {
            "    passkey='$passkey'              ";
     if (!$result = mysql_query($sql)) showerror();
 
-    $subject = "think tank forums account recovery info";
-    $fromadd = "violet@thinktankforums.com";
-    $message = "hi--\n\nhere is your account recovery information for think tank forums:\n\n".
-               "username: $username\npassword: $password\npasskey: $passkey\n\n".
-               "to begin using this new password on ttf, ".
-               "you'll need to activate it using the passkey.".
-               "visit http://www.thinktankforums.com/activate.php\n\nthanks,\nviolet\n\n\n".
-               "p.s. do not reply to this email address; it is not checked.";
+    $subject = "{$ttf_cfg["forum_name"]} Account Recovery Information";
+    $message = "Hello,\n\nHere is your account recovery information for {$ttf_cfg["forum_name"]}:\n\n".
+               "Username: $username\nPassword: $password\nPasskey: $passkey\n\n".
+               "To begin using this new password, you'll need to activate it using the passkey. ".
+               "Visit http://{$ttf_cfg["address"]}/activate.php\n\nThanks,\n{$ttf_cfg["bot_name"]}\n\n\n".
+               "P.S. Do not reply to this email address; it is not checked.";
 
-    if (!mail($email, $subject, $message, "from: ".$fromadd)) {
+    if (!mail($email, $subject, $message, "from: ".$ttf_cfg["bot_email"])) {
 
         // uh oh, the mail() function failed
-        message($ttf_label, $ttf_msg["fatal_error"], "sorry, we couldn't mail your password and passkey.");
+        message($ttf_label, $ttf_msg["fatal_error"], $ttf_msg["cantmail"]);
         die();
 
     } else {
 
         // it worked!
-        message($ttf_label, "success", "please check your email to complete this process.");
+        message($ttf_label, $ttf_msg["successtitl"], $ttf_msg["mailedinfo"]);
         die();
 
     };
@@ -84,19 +82,18 @@ if (!empty($id_username) || !empty($id_email)) {
 };
 
 ?>
-            <div class="contenttitle">recover your account</div>
+            <div class="contenttitle">Recover Your Account</div>
             <div class="contentbox">
                 <form action="recover.php" method="post">
-                    which account are you claiming as yours?
-                    identify it in one way below.<br /><br />
-                    username:<br />
+                    Which account are you claiming as yours?
+                    Identify it in one way below.<br /><br />
+                    Username:<br />
                     <input type="text" name="id_username" /><br /><br />
-                    email:<br />
+                    Email:<br />
                     <input type="text" name="id_email" /><br /><br />
-                    send a new password to your email address, along with a
-                    passkey to activate it. tough luck if you gave us a fake
-                    email address.<br />
-                    <input type="submit" value="let's do this" />
+                    We will send a new password to your email address, 
+                    along with a passkey to activate it.<br />
+                    <input type="submit" value="Submit" />
                 </form>
             </div>
 <?php

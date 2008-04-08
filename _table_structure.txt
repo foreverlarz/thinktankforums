@@ -117,4 +117,8 @@ INSERT INTO `ttf_config` (`name`, `value`) VALUES
 ('forum_display', '15'),
 ('maintenance', '0'),
 ('online_timeout', '900'),
-('email_addy', 'violet@thinktankforums.com');
+('bot_email', 'violet@thinktankforums.com'),
+('bot_name', 'Violet'),
+('admin_email', 'trashbin@ttfproject.com'),
+('admin_name', 'Lucas Reddinger'),
+('address', 'www.thinktankforums.com');

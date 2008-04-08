@@ -31,17 +31,24 @@ require "include_credentials.php";
 
 
 
-// constants are fun
+// messages are fun
 $ttf_msg["fatal_error"] = "Fatal Error";
+$ttf_msg["maint_title"] = "Maintenance Mode";
+$ttf_msg["successtitl"] = "Success";
 $ttf_msg["ip_banned"]   = "Sorry, but your IP is banned.";
 $ttf_msg["cookie_inv"]  = "Sorry, but your cookie is invalid. Please try logging out and logging in again.";
-$ttf_msg["maint_title"] = "Maintenance Mode";
 $ttf_msg["maint_body"]  = "Sorry, but the forum is offline for maintenance.<br /><br />We are most likely ".
                           "updating scripts and adding new features. Please come back soon!";
 $ttf_msg["field_empty"] = "Sorry, but you left a field empty.";
 $ttf_msg["notloggedin"] = "Sorry, but you must be logged in to do this.";
 $ttf_msg["thread_dne"]  = "Sorry, but the thread you specified does not exist.";
 $ttf_msg["noitemspec"]  = "Sorry, but you must specify an item to view.";
+$ttf_msg["loggedin"]    = "You can't do this if you are logged in. You account is working fine!";
+$ttf_msg["nomatchuser"] = "Sorry, but we couldn't find a matching user.";
+$ttf_msg["mailedinfo"]  = "We have emailed you the account information. Please check your email!";
+$ttf_msg["btnpost"]     = "Click to Post";
+
+
 
 // make php use utf-8
 mb_internal_encoding('UTF-8');
@@ -77,6 +84,12 @@ if (!$result = mysql_query($sql)) showerror();
 while ($cfg = mysql_fetch_array($result)) {
     $ttf_cfg["{$cfg["name"]}"] = $cfg["value"];
 };
+
+
+
+// some messages have to be defined down here
+$ttf_msg["cantmail"]    = "Sorry, but we couldn't email the information. Please contact the forum".
+                          "administrator, {$ttf_cfg["admin_name"]}, at {$ttf_cfg["admin_email"]}";
 
 
 

@@ -4,7 +4,7 @@
  * thread.php
  */
 
-$ttf_label = "view a thread";
+$ttf_label = "View a Thread";
 
 require_once "include_common.php";
 
@@ -22,10 +22,9 @@ if (!$result = mysql_query($sql)) showerror();
 list($forum_id, $thread_title, $forum_name) = mysql_fetch_array($result);
 
 
-// if this is a valid thread...
-if (empty($thread_title)) {
+if (empty($forum_id)) {
                 
-    message($ttf_label, $ttf_msg["fatal_error"], "the thread specified is not valid.");
+    message($ttf_label, $ttf_msg["fatal_error"], $ttf_msg["thread_dne"]);
     die();
 
 };
@@ -87,7 +86,7 @@ while ($post = mysql_fetch_array($result)) {
     if (!empty($post["avatar_type"])) {
 
 ?>
-                    <img src="avatars/<?php echo $post["author_id"].".".$post["avatar_type"]; ?>" alt="<?php echo output($post["username"]); ?>'s avatar" width="30" height="30" />
+                    <img src="avatars/<?php echo $post["author_id"].".".$post["avatar_type"]; ?>" alt="<?php echo output($post["username"]); ?>'s Avatar" width="30" height="30" />
 <?php
 
     } else {
@@ -139,7 +138,7 @@ if (isset($ttf["uid"])) {
                     <textarea class="reply" rows="5" name="body" wrap="virtual"></textarea>
                 </div>
                 <div id="reply_button">
-                    <input class="reply" type="submit" value="click to post" />
+                    <input class="reply" type="submit" value="<?php echo $ttf_msg["btnpost"]; ?>" />
                 </div>
                 <input type="hidden" name="thread_id" value="<?php echo $thread_id; ?>" />
             </form>
