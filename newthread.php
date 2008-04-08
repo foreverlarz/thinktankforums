@@ -12,7 +12,7 @@ require_once "include_common.php";
 // if the agent is not logged in
 if (empty($ttf["uid"])) {
 
-    message($ttf_label, $error_die_text, "you must login before you may create a new thread.");
+    message($ttf_label, $ttf_msg["fatal_error"], "you must login before you may create a new thread.");
     die();
 
 };
@@ -30,7 +30,7 @@ list($forum_name) = mysql_fetch_array($result);
 // if a valid forum_id was supplied
 if (empty($forum_name)) {
 
-    message($ttf_label, $error_die_text, "you must specify a valid forum.");
+    message($ttf_label, $ttf_msg["fatal_error"], "you must specify a valid forum.");
     die();
 
 };

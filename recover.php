@@ -12,7 +12,7 @@ require_once "include_header.php";
 // if the agent isn't already logged in
 if (isset($ttf["uid"])) {
 
-    message($ttf_label, $error_die_text, "your account is working.");
+    message($ttf_label, $ttf_msg["fatal_error"], "your account is working.");
     die();
 
 };
@@ -39,7 +39,7 @@ if (!empty($id_username) || !empty($id_email)) {
 
     if (mysql_num_rows($result) !== 1) {
 
-        message($ttf_label, $error_die_text, "we couldn't find a matching user.");
+        message($ttf_label, $ttf_msg["fatal_error"], "we couldn't find a matching user.");
         die();
 
     };
@@ -70,7 +70,7 @@ if (!empty($id_username) || !empty($id_email)) {
     if (!mail($email, $subject, $message, "from: ".$fromadd)) {
 
         // uh oh, the mail() function failed
-        message($ttf_label, $error_die_text, "sorry, we couldn't mail your password and passkey.");
+        message($ttf_label, $ttf_msg["fatal_error"], "sorry, we couldn't mail your password and passkey.");
         die();
 
     } else {

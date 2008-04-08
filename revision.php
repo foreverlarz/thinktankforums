@@ -15,7 +15,7 @@ $type   = clean($_GET["type"]);
 // if either of the variables is empty
 if (empty($ref_id) || empty($type)) {
 
-    message($ttf_label, $error_die_text,
+    message($ttf_label, $ttf_msg["fatal_error"],
             "you must specify an item to view.");
 
     die();

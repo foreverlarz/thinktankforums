@@ -13,14 +13,14 @@ $post_id = clean($_GET["post_id"]);
 
 if (!isset($ttf["uid"])) {
 
-    message($ttf_label, $error_die_text, "you must be logged in.");
+    message($ttf_label, $ttf_msg["fatal_error"], "you must be logged in.");
     die();
 
 };
 
 if (empty($post_id)) {
 
-    message($ttf_label, $error_die_text, "you must specify a post.");
+    message($ttf_label, $ttf_msg["fatal_error"], "you must specify a post.");
     die();
 
 };
@@ -34,7 +34,7 @@ if (!$result = mysql_query($sql)) showerror();
 
 if (mysql_affected_rows() != 1) {
 
-    message($ttf_label, $error_die_text, "you don't have permission to do this.");
+    message($ttf_label, $ttf_msg["fatal_error"], "you don't have permission to do this.");
     die();
 
 };

@@ -11,7 +11,7 @@ require_once "include_common.php";
 
 if (!isset($ttf["uid"])) {
 
-    message($ttf_label, $error_die_text,
+    message($ttf_label, $ttf_msg["fatal_error"],
             "you must login before you may edit your profile.");
     die();
 

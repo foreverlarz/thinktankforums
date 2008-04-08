@@ -19,7 +19,7 @@ $rev_num = $_POST["rev_num"];
 // if the agent is not logged in as a valid user
 if (!isset($ttf["uid"])) {
 
-    message($ttf_label, $error_die_text,
+    message($ttf_label, $ttf_msg["fatal_error"],
             "you must be logged in to edit a post.");
     die();
 
@@ -28,7 +28,7 @@ if (!isset($ttf["uid"])) {
 // if a post is not specified
 if (empty($post_id)) {
 
-    message($ttf_label, $error_die_text,
+    message($ttf_label, $ttf_msg["fatal_error"],
             "you must specify a post to edit.");
     die();
 
@@ -44,7 +44,7 @@ if ($ttf["perm"] != 'admin') {
 
     if ($ttf["uid"] != $author_id) {
 
-        message($ttf_label, $error_die_text,
+        message($ttf_label, $ttf_msg["fatal_error"],
                 "you do not have permission to edit this post.");
         die();
 
@@ -73,7 +73,7 @@ if (!empty($body)) {
 
     if (empty($head) || empty($num_revs)) {
 
-        message($ttf_label, $error_die_text,
+        message($ttf_label, $ttf_msg["fatal_error"],
                 "serious error encountered. please contact an admin.");
         die();
 
@@ -81,7 +81,7 @@ if (!empty($body)) {
 
     if ($rev_num != $num_revs) {
 
-        message($ttf_label, $error_die_text,
+        message($ttf_label, $ttf_msg["fatal_error"],
             "while you were editing the post, someone else committed a revision. ".
             "please go back, save your changes, reload the edit page, then merge ".
             "in your changes with the current version by hand.");
@@ -91,7 +91,7 @@ if (!empty($body)) {
 
     if ($body == $head) {
 
-        message($ttf_label, $error_die_text,
+        message($ttf_label, $ttf_msg["fatal_error"],
                 "you didn't make any changes.");
         die();
 
@@ -148,7 +148,7 @@ if (!empty($body)) {
 
 } else {
    
-    message($ttf_label, $error_die_text,
+    message($ttf_label, $ttf_msg["fatal_error"],
             "you cannot edit a post into inexistence. use the archive feature!");
     die();
 

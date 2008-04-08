@@ -5,7 +5,7 @@
  */
 
 require_once "include_common.php";
-$ttf_label = (empty($ttf_config["index_title"])) ? 'welcome' : output($ttf_config["index_title"]);
+$ttf_label = (empty($ttf_cfg["index_title"])) ? 'welcome' : output($ttf_cfg["index_title"]);
 require_once "include_header.php";
 
 ?>
@@ -80,7 +80,7 @@ while ($forum = mysql_fetch_array($result)) {
 // let's find out if anyone is online
 $sql = "SELECT user_id, username, perm                                      ".
        "FROM ttf_user                                                       ".
-       "WHERE visit_date > UNIX_TIMESTAMP()-{$ttf_config["online_timeout"]} ".
+       "WHERE visit_date > UNIX_TIMESTAMP()-{$ttf_cfg["online_timeout"]} ".
        "ORDER BY username                                                   ";
 if (!$result = mysql_query($sql)) showerror();
 

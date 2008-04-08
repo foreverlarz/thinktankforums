@@ -25,7 +25,7 @@ list($forum_id, $thread_title, $forum_name) = mysql_fetch_array($result);
 // if this is a valid thread...
 if (empty($thread_title)) {
                 
-    message($ttf_label, $error_die_text, "the thread specified is not valid.");
+    message($ttf_label, $ttf_msg["fatal_error"], "the thread specified is not valid.");
     die();
 
 };

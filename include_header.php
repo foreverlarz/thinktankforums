@@ -15,12 +15,12 @@ if (!empty($ttf_title)) {
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title><?php echo $ttf_config["forum_name"].$ttf_htmltitle; ?></title>
+        <title><?php echo $ttf_cfg["forum_name"].$ttf_htmltitle; ?></title>
         <script type="text/javascript" src="script_confirm.js"></script>
         <link rel="stylesheet" type="text/css" href="style.css" />
     </head>
     <body>
-        <div id="header"><a href="/"><?php echo $ttf_config["forum_name"]; ?></a></div>
+        <div id="header"><a href="/"><?php echo $ttf_cfg["forum_name"]; ?></a></div>
         <div id="title"><?php echo $ttf_label; ?></div>
         <div id="enclosure">
             <div class="menu_title">

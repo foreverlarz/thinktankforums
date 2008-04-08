@@ -21,7 +21,7 @@ $user = mysql_fetch_array($result);
 
 if (empty($user["user_id"])) {
 
-    message($ttf_label, $error_die_text, "you must specify a valid user.");
+    message($ttf_label, $ttf_msg["fatal_error"], "you must specify a valid user.");
 
 };
 

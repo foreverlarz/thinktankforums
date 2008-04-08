@@ -18,7 +18,7 @@ list($forum_name) = mysql_fetch_array($result);
 
 if (empty($forum_name)) {
 
-    message($ttf_label, $error_die_text, "not a valid forum.");
+    message($ttf_label, $ttf_msg["fatal_error"], "not a valid forum.");
     die();
 
 };
@@ -56,17 +56,17 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS                                              
        "          && ttf_thread_new.user_id='{$ttf["uid"]}'                         ".
        "WHERE ttf_thread.forum_id='$forum_id' && ttf_thread.posts > 0               ".
        "ORDER BY ttf_thread.date DESC                                               ".
-       "LIMIT $offset, {$ttf_config["forum_display"]}                               ";
+       "LIMIT $offset, {$ttf_cfg["forum_display"]}                               ";
 if (!$result = mysql_query($sql)) showerror();
 
 $sql = "SELECT FOUND_ROWS()";
 if (!$result_nested = mysql_query($sql)) showerror();
 list($numrows) = mysql_fetch_array($result_nested);
 
-if ($numrows > ($ttf_config["forum_display"] + $offset)) {
+if ($numrows > ($ttf_cfg["forum_display"] + $offset)) {
         
-    $next = $offset + $ttf_config["forum_display"];
-    $left = min($numrows - $offset - $ttf_config["forum_display"], $ttf_config["forum_display"]);
+    $next = $offset + $ttf_cfg["forum_display"];
+    $left = min($numrows - $offset - $ttf_cfg["forum_display"], $ttf_cfg["forum_display"]);
 
 ?>
             <div class="sidebox">

@@ -119,7 +119,7 @@ if ($_GET["action"] == "ban") {
 } else if ($_GET["action"] == "unban") {
     message($ttf_label, "results", unban_user($user_id));
 } else {
-    message($ttf_label, $error_die_text, "no action specified.");
+    message($ttf_label, $ttf_msg["fatal_error"], "no action specified.");
 };
 
 require_once "include_footer.php";
