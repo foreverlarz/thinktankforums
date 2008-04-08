@@ -38,7 +38,9 @@ $ttf_msg["cookie_inv"]  = "Sorry, but your cookie is invalid. Please try logging
 $ttf_msg["maint_title"] = "Maintenance Mode";
 $ttf_msg["maint_body"]  = "Sorry, but the forum is offline for maintenance.<br /><br />We are most likely ".
                           "updating scripts and adding new features. Please come back soon!";
-
+$ttf_msg["field_empty"] = "Sorry, but you left a field empty.";
+$ttf_msg["notloggedin"] = "Sorry, but you must be logged in to do this.";
+$ttf_msg["thread_dne"]  = "Sorry, but the thread you specified does not exist.";
 
 // make php use utf-8
 mb_internal_encoding('UTF-8');
