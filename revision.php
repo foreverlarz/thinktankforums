@@ -4,7 +4,7 @@
  * revision.php
  */
 
-$ttf_label = "revision browser";
+$ttf_label = "Revision Browser";
 
 require_once "include_common.php";
 
@@ -15,22 +15,20 @@ $type   = clean($_GET["type"]);
 // if either of the variables is empty
 if (empty($ref_id) || empty($type)) {
 
-    message($ttf_label, $ttf_msg["fatal_error"],
-            "you must specify an item to view.");
-
+    message($ttf_label, $ttf_msg["fatal_error"], $ttf_msg["noitemspec"]);
     die();
 
 };
 
 switch ($type) {
 case 'post':
-    $ttf_label .= " &raquo; post_id $ref_id";
+    $ttf_label .= " &raquo; Post for pid $ref_id";
     break;
 case 'profile':
-    $ttf_label .= " &raquo; profile for user_id $ref_id";
+    $ttf_label .= " &raquo; Profile for uid $ref_id";
     break;
 case 'title':
-    $ttf_label .= " &raquo; title for user_id $ref_id";
+    $ttf_label .= " &raquo; Title for uid $ref_id";
     break;
 };
 $ttf_title = $ttf_label;

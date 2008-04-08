@@ -41,6 +41,7 @@ $ttf_msg["maint_body"]  = "Sorry, but the forum is offline for maintenance.<br /
 $ttf_msg["field_empty"] = "Sorry, but you left a field empty.";
 $ttf_msg["notloggedin"] = "Sorry, but you must be logged in to do this.";
 $ttf_msg["thread_dne"]  = "Sorry, but the thread you specified does not exist.";
+$ttf_msg["noitemspec"]  = "Sorry, but you must specify an item to view.";
 
 // make php use utf-8
 mb_internal_encoding('UTF-8');
