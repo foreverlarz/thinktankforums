@@ -6,9 +6,9 @@
 
 require_once "include_common.php";
 
-admin();
+kill_nonadmin();
 
-$ttf_label = "administration &raquo; ban or unban a user";
+$ttf_label = "Administration &raquo; Ban or Unban a User";
 $ttf_title = $ttf_label;
 
 
@@ -31,10 +31,10 @@ function ban_user($user_id) {
             if (!$result = mysql_query($sql)) {
                 showerror();
             } else {
-                $messages[] = "register ip of " .$user["register_ip"]." is banned.";
+                $messages[] = "The register IP of " .$user["register_ip"]." is banned.";
             };
         } else {
-            $messages[] = "<span class=\"error\">no register ip for this user.</span>";
+            $messages[] = "<span class=\"error\">There is no register IP for this user.</span>";
         };
         if (!empty($user["visit_ip"])) {
             $sql = "REPLACE INTO ttf_banned ".
@@ -42,10 +42,10 @@ function ban_user($user_id) {
             if (!$result = mysql_query($sql)) {
                 showerror();
             } else {
-                $messages[] = "visit ip of ".$user["visit_ip"]." is banned.";
+                $messages[] = "The visit IP of ".$user["visit_ip"]." is banned.";
             };
         } else {
-            $messages[] = "<span class=\"error\">no visit ip for this user.</span>";
+            $messages[] = "<span class=\"error\">There is no visit IP for this user.</span>";
         };
         $sql = "SELECT ip FROM ttf_revision ".
                "WHERE author_id='$user_id'  ".
@@ -57,7 +57,7 @@ function ban_user($user_id) {
             if (!$result_nested = mysql_query($sql)) {
                 showerror();
             } else {
-                $messages[] = "revision ip of ".$rev["ip"]." is banned.";
+                $messages[] = "The revision IP of ".$rev["ip"]." is banned.";
             };
         };
         $sql = "UPDATE ttf_user SET perm='banned' WHERE user_id='$user_id'";
@@ -67,9 +67,9 @@ function ban_user($user_id) {
             $messages[] = $user["username"] ." is now banned.";
         };
     } else if ($user["perm"] == 'banned') {
-        $messages[] = "<span class=\"error\">this user is already banned.</span>";
+        $messages[] = "<span class=\"error\">This user is already banned.</span>";
     } else {
-        $messages[] = "<span class=\"error\">this user is invalid.</span>";
+        $messages[] = "<span class=\"error\">This user is invalid.</span>";
     };
     return $messages;
 };
@@ -92,7 +92,7 @@ function unban_user($user_id) {
         if (!$result = mysql_query($sql)) {
             showerror();
         } else {
-            $messages[] = "all associated ips were removed from the banned list.";
+            $messages[] = "All associated IPs were removed from the banned list.";
         };
         $sql = "UPDATE ttf_user SET perm='user' WHERE user_id='$user_id'";
         if (!$result = mysql_query($sql)) {
@@ -101,9 +101,9 @@ function unban_user($user_id) {
             $messages[] = $user["username"] ." is now unbanned.";
         };
     } else if ($user["perm"] != 'banned') {
-        $messages[] = "<span class=\"error\">this user is not banned.</span>";
+        $messages[] = "<span class=\"error\">This user is not banned.</span>";
     } else {
-        $messages[] = "<span class=\"error\">this user is invalid.</span>";
+        $messages[] = "<span class=\"error\">This user is invalid.</span>";
     };
     return $messages;
 };
@@ -115,11 +115,11 @@ require_once "include_header.php";
 $user_id = clean($_GET["user_id"]);
 
 if ($_GET["action"] == "ban") {
-    message($ttf_label, "results", ban_user($user_id));
+    message($ttf_label, $ttf_msg["resultstitl"], ban_user($user_id));
 } else if ($_GET["action"] == "unban") {
-    message($ttf_label, "results", unban_user($user_id));
+    message($ttf_label, $ttf_msg["resultstitl"], unban_user($user_id));
 } else {
-    message($ttf_label, $ttf_msg["fatal_error"], "no action specified.");
+    message($ttf_label, $ttf_msg["fatal_error"], $ttf_msg["noactnspec"]);
 };
 
 require_once "include_footer.php";

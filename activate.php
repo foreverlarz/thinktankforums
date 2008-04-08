@@ -5,7 +5,7 @@
  */
 
 require_once "include_common.php";   
-$ttf_label = "activate a password";
+$ttf_label = "Activate Your Password";
 $ttf_title = $ttf_label;
 require_once "include_header.php";
 
@@ -25,7 +25,7 @@ if (!empty($passkey)) {
 
     if (mysql_num_rows($result) !== 1) {
 
-        message($ttf_label, $ttf_msg["fatal_error"], "we couldn't find the passkey specified.");
+        message($ttf_label, $ttf_msg["fatal_error"], $ttf_msg["passkeydne"]);
         die();
 
     };
@@ -42,18 +42,18 @@ if (!empty($passkey)) {
     $sql = "DELETE FROM ttf_recover WHERE passkey='$passkey'";
     if (!$result = mysql_query($sql)) showerror();
 
-    message($ttf_label, "success", "looks like it worked! try to login with your new password.");
+    message($ttf_label, $ttf_msg["successtitl"], $ttf_msg["pwdchanged"]);
     die();
 
 };
 
 ?>
-            <div class="contenttitle">activate your password</div>
+            <div class="contenttitle">Activate Your Password</div>
             <div class="contentbox">
                 <form action="activate.php" method="post">
-                    enter your passkey to activate your new password.<br /><br />
+                    Enter your passkey to activate your new password.<br /><br />
                     <input type="text" name="passkey" size="36" /><br /><br />
-                    <input type="submit" value="activate" />
+                    <input type="submit" value="Activate" />
                 </form>
             </div>
 <?php

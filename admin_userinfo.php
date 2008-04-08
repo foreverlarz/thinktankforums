@@ -6,7 +6,7 @@
 
 require_once "include_common.php";
 
-admin();
+kill_nonadmin();
 
 $ttf_label = "administration &raquo; user info";
 $ttf_title = $ttf_label;

@@ -35,6 +35,7 @@ require "include_credentials.php";
 $ttf_msg["fatal_error"] = "Fatal Error";
 $ttf_msg["maint_title"] = "Maintenance Mode";
 $ttf_msg["successtitl"] = "Success";
+$ttf_msg["resultstitl"] = "Results";
 $ttf_msg["ip_banned"]   = "Sorry, but your IP is banned.";
 $ttf_msg["user_banned"] = "Sorry, but your user account is banned.";
 $ttf_msg["cookie_inv"]  = "Sorry, but your cookie is invalid. Please try logging out and logging in again.";
@@ -49,8 +50,10 @@ $ttf_msg["nomatchuser"] = "Sorry, but we couldn't find a matching user.";
 $ttf_msg["mailedinfo"]  = "We have emailed you the account information. Please check your email!";
 $ttf_msg["btnpost"]     = "Click to Post";
 $ttf_msg["badcredpair"] = "Sorry, but the username and password pair that you provided does not match any user record.";
-
-
+$ttf_msg["passkeydne"]  = "Sorry, but the passkey that you specified does not exist.";
+$ttf_msg["pwdchanged"]  = "Your password has been changed successfully.";
+$ttf_msg["noperm"]      = "Sorry, but you don't have the proper permission.";
+$ttf_msg["noactnspec"]  = "Sorry, but you must specify an action.";
 
 
 // make php use utf-8

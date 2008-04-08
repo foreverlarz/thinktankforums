@@ -126,29 +126,6 @@ function formatdate($timestamp, $format = "Y M j, g\:i a") {
 
 
 
-/* administrative permission validation
- * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- * this function should be run at the beginning of any script that
- * should only be accessed by administrators. if the user accessing
- * the page does not have admin priviledges, an error will be printed
- * and the script will exit.
- */
-function admin() {
-
-    global $ttf;    // pull through the $ttf array for include_header.php (SMART!)
-
-    if ($ttf["perm"] != 'admin') {
-        
-        message("think tank forums", "fatal error", "you do not have permission to access this page.");
-
-        die();
-
-    };
-
-};
-
-
-
 /* text formatting
  * ~~~~~~~~~~~~~~~
  * outputbody() may be used to format text
@@ -302,10 +279,7 @@ function clean($input) {
 
 
 
-/* generate random string
- * ~~~~~~~~~~~~~~~~~~~~~~
- * used for password and passkey generation
- */
+// generate random string
 function generate_string($length) {
     $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     for ($i = 0; $i < $length; $i++) {
@@ -316,9 +290,9 @@ function generate_string($length) {
 
 
 
-// kill guests
 function kill_guests() {
-    global $ttf; global $ttf_label; global $ttf_msg;
+    global $ttf; global $ttf_label; global $ttf_msg; global $ttf_cfg;
+    if (empty($ttf_label)) { $ttf_label = $ttf_cfg["forum_name"] };
     if (!isset($ttf["uid"])) {
         message($ttf_label, $ttf_msg["fatal_error"], $ttf_msg["notloggedin"]);
         die();
@@ -327,11 +301,22 @@ function kill_guests() {
 
 
 
-// kill users
 function kill_users() {
-    global $ttf; global $ttf_label; global $ttf_msg;
+    global $ttf; global $ttf_label; global $ttf_msg; global $ttf_cfg;
+    if (empty($ttf_label)) { $ttf_label = $ttf_cfg["forum_name"] };
     if (isset($ttf["uid"])) {
         message($ttf_label, $ttf_msg["fatal_error"], $ttf_msg["loggedin"]);
+        die();
+    };
+};
+
+
+
+function kill_nonadmin() {
+    global $ttf; global $ttf_label; global $ttf_msg; global $ttf_cfg;
+    if (empty($ttf_label)) { $ttf_label = $ttf_cfg["forum_name"] };
+    if ($ttf["perm"] != 'admin') {
+        message($ttf_label, $ttf_msg["fatal_error"], $ttf_msg["noperm"]);
         die();
     };
 };
