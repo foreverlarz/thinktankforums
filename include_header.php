@@ -37,17 +37,15 @@ if (isset($ttf["uid"])) {
             <div class="menu_body">
                 &middot; <a href="search.php">search</a><br />
                 &middot; <a href="editprofile.php">edit your profile</a><br />
-                &middot; <a href="logout.php">log out</a>
 <?php
     if ($ttf["perm"] == 'admin') {
 ?>
-            </div>
-            <div class="menu_title">administrate</div>
-            <div class="menu_body">
                 &middot; <a href="admin_userlist.php">user list</a><br />
-                &middot; <a href="http://code.google.com/p/thinktankforums/">ttf development</a>
 <?php
     };
+?>
+                &middot; <a href="logout.php">log out</a>
+<?php
 } else {
 ?>
                 log in to ttf
