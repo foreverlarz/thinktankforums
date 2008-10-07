@@ -112,15 +112,15 @@ CREATE TABLE `ttf_user` (
 
 INSERT INTO `ttf_config` (`name`, `value`) VALUES 
 ('version', 'v1-alpha'),
-('forum_name', 'Think Tank Forums'),
-('index_title', 'Eminating Passion'),
+('forum_name', 'think tank forums'),
+('index_title', 'eminating passion'),
 ('forum_display', '15'),
 ('maintenance', '0'),
 ('online_timeout', '900'),
 ('bot_email', 'violet@thinktankforums.com'),
-('bot_name', 'Violet'),
+('bot_name', 'violet'),
 ('admin_email', 'trashbin@ttfproject.com'),
-('admin_name', 'Lucas Reddinger'),
+('admin_name', 'lucas reddinger'),
 ('address', 'www.thinktankforums.com'),
 ('cookie_name', 'thinktank'),
 ('cookie_time', '31556926');
