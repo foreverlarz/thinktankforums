@@ -39,15 +39,15 @@ $ttf_msg["resultstitl"] = "results";
 $ttf_msg["ip_banned"]   = "sorry, but your IP is banned.";
 $ttf_msg["user_banned"] = "sorry, but your user account is banned.";
 $ttf_msg["cookie_inv"]  = "sorry, but your cookie is invalid. please try logging out and logging in again.";
-$ttf_msg["maint_body"]  = "sorry, but the forum is offline for maintenance.<br /><br />we are most likely ".
-                          "updating scripts and adding new features. please come back soon!";
+$ttf_msg["maint_body"]  = "sorry, but the forum is offline for maintenance. we are most likely ".
+                          "updating scripts and adding new features. please come back soon.";
 $ttf_msg["field_empty"] = "sorry, but you left a field empty.";
 $ttf_msg["notloggedin"] = "sorry, but you must be logged in to do this.";
 $ttf_msg["thread_dne"]  = "sorry, but the thread you specified does not exist.";
 $ttf_msg["noitemspec"]  = "sorry, but you must specify an item to view.";
 $ttf_msg["loggedin"]    = "sorry, but you can't do this if you are logged in. your account is working fine!";
 $ttf_msg["nomatchuser"] = "sorry, but we couldn't find a matching user.";
-$ttf_msg["mailedinfo"]  = "we have emailed you the account information. please check your email!";
+$ttf_msg["mailedinfo"]  = "we have emailed you the account information. please check your email.";
 $ttf_msg["btnpost"]     = "click to post";
 $ttf_msg["badcredpair"] = "sorry, but the username and password pair that you provided does not match any user record.";
 $ttf_msg["passkeydne"]  = "sorry, but the passkey that you specified does not exist.";
@@ -94,7 +94,7 @@ while ($cfg = mysql_fetch_array($result)) {
 
 
 // some messages have to be defined down here
-$ttf_msg["cantmail"]    = "Sorry, but we couldn't email the information. Please contact the forum".
+$ttf_msg["cantmail"]    = "sorry, but we couldn't email the information. please contact the forum".
                           "administrator, {$ttf_cfg["admin_name"]}, at {$ttf_cfg["admin_email"]}";
 
 
