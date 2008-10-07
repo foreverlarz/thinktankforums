@@ -20,7 +20,7 @@ if (!empty($ttf_title)) {
         <link rel="stylesheet" type="text/css" href="style.css" />
     </head>
     <body>
-        <div id="header"><a href="/"><?php echo $ttf_cfg["forum_name"]; ?></a></div>
+        <div id="header"><a href="./"><?php echo $ttf_cfg["forum_name"]; ?></a></div>
         <div id="title"><?php echo $ttf_label; ?></div>
         <div id="enclosure">
             <div class="menu_title">
