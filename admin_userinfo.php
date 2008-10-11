@@ -4,32 +4,45 @@
  * admin_userinfo.php
  */
 
+$ttf_title = $ttf_label = "administration &raquo; user info";
+
 require_once "include_common.php";
 
+// this is an admin-only script--kill everyone else
 kill_nonadmin();
-
-$ttf_label = "administration &raquo; user info";
-$ttf_title = $ttf_label;
 
 require_once "include_header.php";
 
 $user_id = clean($_GET["user_id"]);
 
+
+
+// select info for the specified user
 $sql = "SELECT * FROM ttf_user WHERE user_id='$user_id'";
 if (!$result = mysql_query($sql)) showerror();
 $user = mysql_fetch_array($result);
 
+
+
+// if a row wasn't returned, we better die
 if (empty($user["user_id"])) {
 
     message($ttf_label, $ttf_msg["fatal_error"], "you must specify a valid user.");
+    die();
 
 };
 
+
+
+// format all of the dates
 $register_date = formatdate($user["register_date"]);
 $visit_date = formatdate($user["visit_date"]);
 $post_date = formatdate($user["post_date"]);
 $rev_date = formatdate($user["rev_date"]);
 
+
+
+// count revisions, posts, threads
 $sql = "SELECT COUNT(*)         ".
        "FROM ttf_revision       ".
        "WHERE ref_id='$user_id' ".
@@ -72,31 +85,31 @@ list($numthreads) = mysql_fetch_array($result);
                     </tr>
                     <tr>
                         <td>username</td>
-                        <td><?php echo $user["username"]; ?></td>
+                        <td><?php echo output($user["username"]); ?></td>
                     </tr>
                     <tr>
                         <td>password</td>
-                        <td><?php echo $user["password"]; ?></td>
+                        <td><?php echo output($user["password"]); ?></td>
                     </tr>
                     <tr>
                         <td>permissions</td>
-                        <td><?php echo $user["perm"]; ?></td>
+                        <td><?php echo output($user["perm"]); ?></td>
                     </tr>
                     <tr>
                         <td>email</td>
-                        <td><?php echo $user["email"]; ?></td>
+                        <td><?php echo output($user["email"]); ?></td>
                     </tr>
                     <tr>
                         <td>title</td>
-                        <td><?php echo $user["title"]; ?></td>
+                        <td><?php echo output($user["title"]); ?></td>
                     </tr>
                     <tr>
                         <td>avatar</td>
-                        <td><?php if (isset($user["avatar_type"])) echo "<img src=\"avatars/".$user["user_id"].".".$user["avatar_type"]."\" alt=\"av\" width=\"30\" height=\"30\" />"; ?></td>
+                        <td><?php if (isset($user["avatar_type"])) echo "<img src=\"avatars/".$user["user_id"].".".$user["avatar_type"]."\" alt=\"avatar\" width=\"30\" height=\"30\" />"; ?></td>
                     </tr>
                     <tr>
                         <td>avatar_type</td>
-                        <td><?php echo $user["avatar_type"]; ?></td>
+                        <td><?php echo output($user["avatar_type"]); ?></td>
                     </tr>
                     <tr>
                         <td>time_zone</td>
@@ -144,7 +157,7 @@ list($numthreads) = mysql_fetch_array($result);
                     </tr>
                     <tr>
                         <td>profile</td>
-                        <td class="small"><?php echo outputbody($user["profile"]); ?></td>
+                        <td class="small"><?php echo $user["profile"]; ?></td>
                     </tr>
                 </tbody>
             </table>
@@ -157,6 +170,8 @@ list($numthreads) = mysql_fetch_array($result);
                 </thead>
                 <tbody>
 <?php
+
+// select all of the revision IPs (unique) with its respective highest timestamp
 $sql = "SELECT ip, MAX(date) AS maxdate ".
        "FROM ttf_revision               ".
        "WHERE author_id='$user_id'      ".
@@ -164,15 +179,21 @@ $sql = "SELECT ip, MAX(date) AS maxdate ".
        "GROUP BY ip                     ".
        "ORDER BY maxdate DESC           ";
 if (!$result = mysql_query($sql)) showerror();
+
 while ($rev = mysql_fetch_array($result)) {
+
+    // format the date
     $date = formatdate($rev["maxdate"]);
+
 ?>
                     <tr>
                         <td><?php echo $rev["ip"]; ?></td>
                         <td><span title="<?php echo $date[1]; ?>"><?php echo $date[0]; ?></span></td>
                     </tr>
 <?php
+
 };
+
 ?>
                 </tbody>
             </table>

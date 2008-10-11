@@ -4,12 +4,12 @@
  * admin_userlist.php
  */
 
+$ttf_title = $ttf_label = "administration &raquo; user list";
+
 require_once "include_common.php";
 
+// this is an admin-only script--kill everyone else
 kill_nonadmin();
-
-$ttf_label = "administration &raquo; user list";
-$ttf_title = $ttf_label;
 
 require_once "include_header.php";
 
@@ -52,7 +52,8 @@ while ($user = mysql_fetch_array($result)) {
     } else if ($user["perm"] == 'banned') {
         $userhl = " class=\"lowlight\"";
     };
-    
+
+    // format the visit date
     $date = formatdate($user["visit_date"]);
 
     // make actions to show or use

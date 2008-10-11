@@ -6,19 +6,22 @@
 
 require_once "include_common.php";
 
+$ttf_title = $ttf_label = "administration &raquo; (un)ban a user";
+
+// this is an admin-only script--kill everyone else
 kill_nonadmin();
 
-$ttf_label = "Administration &raquo; Ban or Unban a User";
-$ttf_title = $ttf_label;
+require_once "include_header.php";
+
+$user_id = clean($_GET["user_id"]);
 
 
 
-/* ban a user
- * ~~~~~~~~~~
- * this code allows the administration to block access to the forums
- * for a specific user, while also banning the register_ip and all 
- * visit_ip's as well.
- */
+///////////////////////////////////////////////////////////////////////////////
+//
+// this is a mess.. clean it up!
+//
+///////////////////////////////////////////////////////////////////////////////
 function ban_user($user_id) {
     $sql = "SELECT username, perm, register_ip, visit_ip ".
            "FROM ttf_user WHERE user_id='$user_id'";
@@ -74,14 +77,6 @@ function ban_user($user_id) {
     return $messages;
 };
 
-
-
-/* unban a user
- * ~~~~~~~~~~~~
- * this code allows the administration to unblock access to the forums
- * for a specific user, while also unbanning the register_ip and all 
- * visit_ip's as well. 
- */
 function unban_user($user_id) {
     $sql = "SELECT username, perm, register_ip, visit_ip ".
            "FROM ttf_user WHERE user_id='$user_id'";
@@ -108,12 +103,6 @@ function unban_user($user_id) {
     return $messages;
 };
 
-
-
-require_once "include_header.php";
-
-$user_id = clean($_GET["user_id"]);
-
 if ($_GET["action"] == "ban") {
     message($ttf_label, $ttf_msg["resultstitl"], ban_user($user_id));
 } else if ($_GET["action"] == "unban") {
@@ -121,6 +110,13 @@ if ($_GET["action"] == "ban") {
 } else {
     message($ttf_label, $ttf_msg["fatal_error"], $ttf_msg["noactnspec"]);
 };
+///////////////////////////////////////////////////////////////////////////////
+//
+// this is a mess.. clean it up!
+//
+///////////////////////////////////////////////////////////////////////////////
+
+
 
 require_once "include_footer.php";
 
