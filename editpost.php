@@ -147,8 +147,10 @@ if (!empty($body)) {
                 <div id="editpost_button">
                     <input class="editpost" type="submit" value="submit revision" />
                 </div>
-                <input type="hidden" name="post_id" value="<?php echo $post_id; ?>" />
-                <input type="hidden" name="rev_num" value="<?php echo $num_revs; ?>" />
+                <div>
+                    <input type="hidden" name="post_id" value="<?php echo $post_id; ?>" />
+                    <input type="hidden" name="rev_num" value="<?php echo $num_revs; ?>" />
+                </div>
             </form>
 <?php
 
