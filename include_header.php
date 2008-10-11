@@ -52,9 +52,11 @@ if (isset($ttf["uid"])) {
             </div>
             <div class="menu_body">
                 <form action="login.php" method="post">
-                    <input type="text" name="username" maxlength="16" size="16" /><br />
-                    <input type="password" name="password" maxlength="32" size="16" /><br />
-                    <input type="submit" value="let's go!" />
+                    <div>
+                        <input type="text" name="username" maxlength="16" size="16" /><br />
+                        <input type="password" name="password" maxlength="32" size="16" /><br />
+                        <input type="submit" value="let's go!" />
+                    </div>
                 </form>
             </div>
             <div class="menu_title">
