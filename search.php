@@ -5,8 +5,9 @@
  */
 
 require_once "include_common.php";
-$ttf_label = "search ttf posts";
-$ttf_title = $ttf_label;
+
+$ttf_title = $ttf_label = "search posts";
+
 require_once "include_header.php";
 
 $string = $_GET["string"];       
