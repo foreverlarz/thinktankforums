@@ -357,7 +357,7 @@ if (isset($_POST["edit"])) {
             <form action="editprofile.php" method="post" enctype="multipart/form-data">
                 <div class="contenttitle">edit your actual profile</div>
                 <div class="contentbox" style="text-align: center;">
-                    <textarea class="profile" cols="70" rows="7" name="profile" wrap="virtual"><?php echo output($profile_head); ?></textarea><br />
+                    <textarea class="profile" cols="70" rows="7" name="profile"><?php echo output($profile_head); ?></textarea><br />
                 </div>
                 <table cellspacing="1" class="content">
                     <tr>
@@ -445,7 +445,7 @@ if (isset($_POST["edit"])) {
                 <div id="editprofile_button">
                     <input class="editprofile" type="submit" value="apply changes" />
                 </div>
-                <input type="hidden" name="edit" value="true" />
+                <div><input type="hidden" name="edit" value="true" /></div>
             </form>
 <?php
 
