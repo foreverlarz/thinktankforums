@@ -4,11 +4,12 @@
  * recover.php
  */
 
+$ttf_title = $ttf_label = "recover your account";
+
 require_once "include_common.php";   
-$ttf_label = "Recover Your Account";
-$ttf_title = $ttf_label;
 require_once "include_header.php";
 
+// users don't need to recover an account
 kill_users();
 
 $id_username = clean($_POST["id_username"]);
@@ -52,12 +53,12 @@ if (!empty($id_username) || !empty($id_email)) {
            "    passkey='$passkey'              ";
     if (!$result = mysql_query($sql)) showerror();
 
-    $subject = "{$ttf_cfg["forum_name"]} Account Recovery Information";
-    $message = "Hello,\n\nHere is your account recovery information for {$ttf_cfg["forum_name"]}:\n\n".
-               "Username: $username\nPassword: $password\nPasskey: $passkey\n\n".
-               "To begin using this new password, you'll need to activate it using the passkey. ".
-               "Visit http://{$ttf_cfg["address"]}/activate.php\n\nThanks,\n{$ttf_cfg["bot_name"]}\n\n\n".
-               "P.S. Do not reply to this email address; it is not checked.";
+    $subject = "{$ttf_cfg["forum_name"]} account recovery information";
+    $message = "hello,\n\nhere is your account recovery information for {$ttf_cfg["forum_name"]}:\n\n".
+               "username: $username\npassword: $password\npasskey: $passkey\n\n".
+               "to begin using this new password, you'll need to activate it using the passkey. ".
+               "visit http://{$ttf_cfg["address"]}/activate.php\n\nthanks,\n{$ttf_cfg["bot_name"]}\n\n\n".
+               "p.s. do not reply to this email address; it is not checked.";
 
     if (!mail($email, $subject, $message, "from: ".$ttf_cfg["bot_email"])) {
 
@@ -76,18 +77,18 @@ if (!empty($id_username) || !empty($id_email)) {
 };
 
 ?>
-            <div class="contenttitle">Recover Your Account</div>
+            <div class="contenttitle">recover your account</div>
             <div class="contentbox">
                 <form action="recover.php" method="post">
-                    Which account are you claiming as yours?
-                    Identify it in one way below.<br /><br />
-                    Username:<br />
+                    which account are you claiming as yours?
+                    identify it in one way below.<br /><br />
+                    username:<br />
                     <input type="text" name="id_username" /><br /><br />
-                    Email:<br />
+                    email:<br />
                     <input type="text" name="id_email" /><br /><br />
-                    We will send a new password to your email address, 
+                    we will send a new password to your email address, 
                     along with a passkey to activate it.<br />
-                    <input type="submit" value="Submit" />
+                    <input type="submit" value="submit" />
                 </form>
             </div>
 <?php
