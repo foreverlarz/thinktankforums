@@ -321,4 +321,62 @@ function kill_nonadmin() {
     };
 };
 
+
+
+/* reformat text bodies
+ * ~~~~~~~~~~~~~~~~~~~~
+ * ttf stores raw user input in the `ttf_revision` table.
+ * ttf stores fully formatted text in places like `ttf_post.body`,
+ * `ttf_user.title`, and `ttf_user.profile` for quick retreival.
+ *
+ * suppose that you have modified how we format our text. then we
+ * need to pull the raw input from `ttf_revision`, reformat it,
+ * and update where the formatted versions are stored.
+ */
+function reformat_bodies() {
+
+    $sql = "SELECT rev_id,      ".
+           "       ref_id,      ".
+           "       type,        ".
+           "       body         ".
+           "FROM ttf_revision   ".
+           "ORDER BY rev_id ASC ";
+    if (!$result = mysql_query($sql)) showerror();
+
+    while ($rev = mysql_fetch_array($result)) {
+
+        if ($rev["type"] === "post") {
+
+            $sql = "UPDATE `ttf_post`                                   ".
+                   "SET `body`='".clean(outputbody($rev["body"]))."'    ".
+                   "WHERE `post_id`='{$rev["ref_id"]}'                  ";
+
+        } else if ($rev["type"] === "profile") {
+
+            $sql = "UPDATE `ttf_user`                                   ".
+                   "SET `profile`='".clean(outputbody($rev["body"]))."' ".
+                   "WHERE `user_id`='{$rev["ref_id"]}'                  ";
+
+        } else if ($rev["type"] === "title") {
+
+            $sql = "UPDATE `ttf_user`                                   ".
+                   "SET `title`='".clean(output($rev["body"]))."'       ".
+                   "WHERE `user_id`='{$rev["ref_id"]}'                  ";
+
+        };
+
+        if (!$result_nested = mysql_query($sql)) {
+        
+            showerror();
+
+        } else {
+
+            echo "successfully reformatted rev_id={$rev["rev_id"]} ({$rev["type"]}={$rev["ref_id"]}).<br />\n";
+
+        };
+
+    };
+
+};
+
 ?>
