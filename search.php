@@ -16,8 +16,10 @@ $string = $_GET["string"];
             <div class="contenttitle">punch in a keyword</div>
             <div class="contentbox" style="text-align: center;">
                 <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="get">
-                    <input size="32" type="text" name="string" value="<?php echo output($string); ?>" />
-                    <input type="submit" value="search" />
+                    <div>
+                        <input size="32" type="text" name="string" value="<?php echo output($string); ?>" />
+                        <input type="submit" value="search" />
+                    </div>
                 </form>
             </div>
 <?php
