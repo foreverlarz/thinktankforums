@@ -4,12 +4,14 @@
  * editprofile.php
  */
 
-$ttf_label = "Edit Your Profile";
-$ttf_title = $ttf_label;
+$ttf_title = $ttf_label = "edit your profile";
 
 require_once "include_common.php";
 
+// people must be logged in to use this script
 kill_guests();
+
+
 
 // awesome function for avatar deletion
 function delete_avatar() {
@@ -20,19 +22,20 @@ function delete_avatar() {
     if (!$result = mysql_query($sql)) showerror();
     list($ext) = mysql_fetch_row($result);
 
+    // if the user has an avatar
     if (!empty($ext)) {
 
-        // if the user has an avatar
-        
+        // delete the avatar
         if (!unlink("avatars/".$ttf["uid"].".".$ext)) {
 
-            // we couldn't delete their avatar
+            // it wasn't deleted
             return FALSE;
-        
+
         } else {
-            
-            $sql = "UPDATE ttf_user SET avatar_type=NULL ".
-                   "WHERE user_id='{$ttf["uid"]}'";
+
+            // if successful, remove it from the user row
+            $sql = "UPDATE ttf_user SET avatar_type=NULL    ".
+                   "WHERE user_id='{$ttf["uid"]}'           ";
             if (!$result = mysql_query($sql)) {
 
                 // we couldn't reflect the deletion in the db                
@@ -57,24 +60,37 @@ function delete_avatar() {
 
 };
 
-// grab user info
+
+
+// select user info
 $sql = "SELECT * FROM ttf_user WHERE user_id='{$ttf["uid"]}'";
 if (!$result = mysql_query($sql)) showerror();
 $user = mysql_fetch_array($result);
 
-$sql = "SELECT body FROM ttf_revision ".
-       "WHERE ref_id='{$ttf["uid"]}' && type='profile' ".
-       "ORDER BY date DESC LIMIT 1";
+
+
+// select the current profile
+$sql = "SELECT body FROM ttf_revision                   ".
+       "WHERE ref_id='{$ttf["uid"]}' && type='profile'  ".
+       "ORDER BY date DESC LIMIT 1                      ";
 if (!$result = mysql_query($sql)) showerror();
 list($profile_head) = mysql_fetch_array($result);
 
-$sql = "SELECT body FROM ttf_revision ".
-       "WHERE ref_id='{$ttf["uid"]}' && type='title' ".
-       "ORDER BY date DESC LIMIT 1";
+
+
+// select the current user title
+$sql = "SELECT body FROM ttf_revision                   ".
+       "WHERE ref_id='{$ttf["uid"]}' && type='title'    ".
+       "ORDER BY date DESC LIMIT 1                      ";
 if (!$result = mysql_query($sql)) showerror();
 list($title_head) = mysql_fetch_array($result);
 
+
+
+// create an empty array of messages
 $messages = array();
+
+
 
 if (isset($_POST["edit"])) {
 
@@ -82,27 +98,31 @@ if (isset($_POST["edit"])) {
 
     $profile = $_POST["profile"];
 
-    if ($profile != $profile_head) {
+    if (strcmp($profile, $profile_head) != 0) {
 
-        $sql = "INSERT INTO ttf_revision SET ".
-               "ref_id='{$ttf["uid"]}', ".
-               "type='profile', ".
-               "author_id='{$ttf["uid"]}', ".
-               "date=UNIX_TIMESTAMP(), ".
+        // insert the profile as a new revision
+        $sql = "INSERT INTO ttf_revision SET    ".
+               "ref_id='{$ttf["uid"]}',         ".
+               "type='profile',                 ".
+               "author_id='{$ttf["uid"]}',      ".
+               "date=UNIX_TIMESTAMP(),          ".
                "ip='{$_SERVER["REMOTE_ADDR"]}', ".
-               "body='".clean($profile)."'";
+               "body='".clean($profile)."'      ";
         if (!$result = mysql_query($sql)) showerror();
 
         // update the user's last rev date
         $sql = "UPDATE ttf_user                 ".
-               "SET rev_date=UNIX_TIMESTAMP()  ".
+               "SET rev_date=UNIX_TIMESTAMP()   ".
                "WHERE user_id={$ttf["uid"]}     ";
         if (!$result = mysql_query($sql)) showerror();
 
-        $sql = "UPDATE ttf_user SET profile='".clean(outputbody($profile))."' WHERE user_id='{$ttf["uid"]}'";
-        
+        // update the user's profile with a formatted version
+        $sql = "UPDATE ttf_user                                 ".
+               "SET profile='".clean(outputbody($profile))."'   ".
+               "WHERE user_id='{$ttf["uid"]}'                   ";
+
         if (!$result = mysql_query($sql)) {
-            
+
             showerror();
 
         } else {
@@ -113,19 +133,18 @@ if (isset($_POST["edit"])) {
 
     };
 
-    
     // change password **********************************************
 
     $pass0 = $_POST["password0"];
     $pass1 = $_POST["password1"];
 
-    if (!empty($pass0)) {
+    if (!empty($pass0) || !empty($pass1)) {
 
-        if ($pass0 == $pass1) {
+        if (strcmp($pass0, $pass1) == 0) {
 
-            if ($pass0 == clean($pass0)) {
-              
-                $encrypt = sha1(clean($pass0));
+            if (strcmp($pass0, clean($pass0)) == 0) {
+
+                $encrypt = sha1(clean($pass0));     // this line should be reconsidered. --jlr
 
                 $sql = "UPDATE ttf_user SET password='$encrypt' WHERE user_id='{$ttf["uid"]}'";
 
@@ -134,7 +153,7 @@ if (isset($_POST["edit"])) {
                     showerror();
 
                 } else {
-                        
+
                     $expire = time() + $ttf_cfg["cookie_time"];
                     $cookie = serialize(array($user["user_id"], $encrypt));
                     setcookie($ttf_cfg["cookie_name"], $cookie, $expire);
@@ -160,28 +179,32 @@ if (isset($_POST["edit"])) {
     // edit title ***************************************************
 
     $title = $_POST["title"];
-        
-    if ($title != $title_head) {
 
-        $sql = "INSERT INTO ttf_revision SET ".
-               "ref_id='{$ttf["uid"]}', ".
-               "type='title', ".
-               "author_id='{$ttf["uid"]}', ".
-               "date=UNIX_TIMESTAMP(), ".
+    if (strcmp($title, $title_head) != 0) {
+
+        // insert the profile as a new revision
+        $sql = "INSERT INTO ttf_revision SET    ".
+               "ref_id='{$ttf["uid"]}',         ".
+               "type='title',                   ".
+               "author_id='{$ttf["uid"]}',      ".
+               "date=UNIX_TIMESTAMP(),          ".
                "ip='{$_SERVER["REMOTE_ADDR"]}', ".
-               "body='".clean($title)."'";
+               "body='".clean($title)."'        ";
         if (!$result = mysql_query($sql)) showerror();
 
         // update the user's last rev date
         $sql = "UPDATE ttf_user                 ".
-               "SET rev_date=UNIX_TIMESTAMP()  ".
+               "SET rev_date=UNIX_TIMESTAMP()   ".
                "WHERE user_id={$ttf["uid"]}     ";
         if (!$result = mysql_query($sql)) showerror();
 
-        $sql = "UPDATE ttf_user SET title='".clean(output($title))."' WHERE user_id='{$ttf["uid"]}'";
+        // update the user's title with a formatted version
+        $sql = "UPDATE ttf_user                         ".
+               "SET title='".clean(output($title))."'   ".
+               "WHERE user_id='{$ttf["uid"]}'           ";
 
         if (!$result = mysql_query($sql)) {
-            
+
             showerror();
 
         } else {
@@ -196,18 +219,20 @@ if (isset($_POST["edit"])) {
 
     $zone = $_POST["zone"];
 
-    if ($zone != $user["time_zone"]) {
+    if (strcmp($zone, $user["time_zone"]) != 0) {
 
-        $sql = "UPDATE ttf_user SET time_zone='".clean($zone)."' WHERE user_id='{$ttf["uid"]}'";
+        $sql = "UPDATE ttf_user                     ".
+               "SET time_zone='".clean($zone)."'    ".
+               "WHERE user_id='{$ttf["uid"]}'       ";
 
         if (!$result = mysql_query($sql)) {
-    
+
             showerror();
 
         } else {
 
             $messages[] = "your time zone has been successfully changed.";
-        
+
         };
 
     };
@@ -216,11 +241,13 @@ if (isset($_POST["edit"])) {
 
     $email = $_POST["email"];
 
-    if ($email != $user["email"]) {
+    if (strcmp($email, $user["email"]) != 0) {
 
         if (eregi("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$", $email)) {
 
-            $sql = "UPDATE ttf_user SET email='$email' WHERE user_id='{$ttf["uid"]}'";
+            $sql = "UPDATE ttf_user                 ".
+                   "SET email='".clean($email)."'   ".
+                   "WHERE user_id='{$ttf["uid"]}'   ";
 
             if (!$result = mysql_query($sql)) {
 
@@ -262,9 +289,9 @@ if (isset($_POST["edit"])) {
 
         unset($ext);
 
-        if (exif_imagetype($_FILES["avatar"]["tmp_name"]) == IMAGETYPE_GIF) $ext = "gif";
+        if (exif_imagetype($_FILES["avatar"]["tmp_name"]) == IMAGETYPE_GIF ) $ext = "gif";
         if (exif_imagetype($_FILES["avatar"]["tmp_name"]) == IMAGETYPE_JPEG) $ext = "jpg";
-        if (exif_imagetype($_FILES["avatar"]["tmp_name"]) == IMAGETYPE_PNG) $ext = "png";
+        if (exif_imagetype($_FILES["avatar"]["tmp_name"]) == IMAGETYPE_PNG ) $ext = "png";
 
         if (!empty($ext)) {
 
