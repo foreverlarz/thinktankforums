@@ -4,13 +4,15 @@
  * thread.php
  */
 
-$ttf_label = "View a Thread";
+$ttf_title = $ttf_label = "view a thread";
 
 require_once "include_common.php";
 
 $thread_id = clean($_GET["thread_id"]);
 
-// get basic information about this thread: forum_id, thread title, forum name
+
+
+// get basic information about this thread
 $sql = "SELECT ttf_thread.forum_id,                     ".
        "       ttf_thread.title,                        ".
        "       ttf_forum.name                           ".
@@ -19,21 +21,30 @@ $sql = "SELECT ttf_thread.forum_id,                     ".
        "   && thread_id='$thread_id'                    ";
 if (!$result = mysql_query($sql)) showerror();
 
-list($forum_id, $thread_title, $forum_name) = mysql_fetch_array($result);
 
 
-if (empty($forum_id)) {
-                
+// kill the agent if the thread doesn't exist
+if (mysql_num_rows($result) !== 1) {
+
     message($ttf_label, $ttf_msg["fatal_error"], $ttf_msg["thread_dne"]);
     die();
 
 };
 
+
+
+// grab the row and stick it into awesomely-named variables
+list($forum_id, $thread_title, $forum_name) = mysql_fetch_array($result);
+
+
+
 // increment thread views by one
-$sql = "UPDATE ttf_thread           ".
-       "SET views=views+1           ".
-       "WHERE thread_id='$thread_id'";
+$sql = "UPDATE ttf_thread               ".
+       "SET views=views+1               ".
+       "WHERE thread_id='$thread_id'    ";
 if (!$result = mysql_query($sql)) showerror();
+
+
 
 // if user is logged in...
 if (isset($ttf["uid"])) {
@@ -47,12 +58,18 @@ if (isset($ttf["uid"])) {
 
 };
 
+
+
 // create the header label
 $ttf_label = "<a href=\"forum.php?forum_id=$forum_id\">".output($forum_name)."</a> &raquo; ".output($thread_title);
 $ttf_title = output($forum_name)." &raquo; ".output($thread_title);
 
+
+
 // let's output a page to the user
 require_once "include_header.php";
+
+
 
 // select the posts in this thread
 $sql = "SELECT ttf_post.post_id,                    ".
@@ -70,6 +87,8 @@ $sql = "SELECT ttf_post.post_id,                    ".
        "ORDER BY date ASC                           ";
 if (!$result = mysql_query($sql)) showerror();
 
+
+
 // for each post...
 while ($post = mysql_fetch_array($result)) {
 
@@ -86,7 +105,7 @@ while ($post = mysql_fetch_array($result)) {
     if (!empty($post["avatar_type"])) {
 
 ?>
-                    <img src="avatars/<?php echo $post["author_id"].".".$post["avatar_type"]; ?>" alt="<?php echo output($post["username"]); ?>'s Avatar" width="30" height="30" />
+                    <img src="avatars/<?php echo $post["author_id"].".".$post["avatar_type"]; ?>" alt="<?php echo output($post["username"]); ?>'s avatar" width="30" height="30" />
 <?php
 
     } else {
@@ -129,6 +148,8 @@ while ($post = mysql_fetch_array($result)) {
 
 };
 
+
+
 // if user is logged in, print a reply box
 if (isset($ttf["uid"])) {
 
@@ -145,6 +166,8 @@ if (isset($ttf["uid"])) {
 <?php
 
 };
+
+
 
 require_once "include_footer.php";
 
