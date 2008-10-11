@@ -80,15 +80,17 @@ if (!empty($id_username) || !empty($id_email)) {
             <div class="contenttitle">recover your account</div>
             <div class="contentbox">
                 <form action="recover.php" method="post">
-                    which account are you claiming as yours?
-                    identify it in one way below.<br /><br />
-                    username:<br />
-                    <input type="text" name="id_username" /><br /><br />
-                    email:<br />
-                    <input type="text" name="id_email" /><br /><br />
-                    we will send a new password to your email address, 
-                    along with a passkey to activate it.<br />
-                    <input type="submit" value="submit" />
+                    <div>
+                        which account are you claiming as yours?
+                        identify it in one way below.<br /><br />
+                        username:<br />
+                        <input type="text" name="id_username" /><br /><br />
+                        email:<br />
+                        <input type="text" name="id_email" /><br /><br />
+                        we will send a new password to your email address, 
+                        along with a passkey to activate it.<br />
+                        <input type="submit" value="submit" />
+                    </div>
                 </form>
             </div>
 <?php
