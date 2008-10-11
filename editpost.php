@@ -142,7 +142,7 @@ if (!empty($body)) {
             <form action="editpost.php" method="post">
                 <div class="contenttitle">you're creating revision <?php echo $num_revs; ?> of post <?php echo $post_id; ?></div>
                 <div id="editpost_textarea">
-                    <textarea class="editpost" rows="20" name="body" wrap="virtual"><?php echo output($head); ?></textarea>
+                    <textarea class="editpost" cols="12" rows="20" name="body"><?php echo output($head); ?></textarea>
                 </div>
                 <div id="editpost_button">
                     <input class="editpost" type="submit" value="submit revision" />
@@ -161,5 +161,7 @@ if (!empty($body)) {
     die();
 
 };
+
+require_once "include_footer.php";
 
 ?>
