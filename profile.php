@@ -4,9 +4,9 @@
  * profile.php
  */
 
+$ttf_title = $ttf_label = "user profile";
+
 require_once "include_common.php"; 
-$ttf_label = "user profile";
-$ttf_title = $ttf_label;
 require_once "include_header.php";
 
 $user_id = clean($_GET["user_id"]);
