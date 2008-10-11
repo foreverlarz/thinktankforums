@@ -4,8 +4,7 @@
  * login.php
  */
 
-$ttf_label = "log in";
-$ttf_title = $ttf_label;
+$ttf_title = $ttf_label = "log in";
 
 require_once "include_common.php";
 
