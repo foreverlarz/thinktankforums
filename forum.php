@@ -4,15 +4,16 @@
  * forum.php
  */
 
-$ttf_label = "view a forum";
-$ttf_title = $ttf_label;
+$ttf_title = $ttf_label = "view a forum";
 
 require_once "include_common.php";
 
 $forum_id = clean($_GET["forum_id"]);
 $offset = clean($_GET["offset"]);
 
-$sql = "SELECT name FROM ttf_forum WHERE forum_id='$forum_id'";
+$sql = "SELECT name                 ".
+       "FROM ttf_forum              ".
+       "WHERE forum_id='$forum_id'  ";
 if (!$result = mysql_query($sql)) showerror();
 list($forum_name) = mysql_fetch_array($result);
 
@@ -33,8 +34,7 @@ if (isset($ttf["uid"])) {
 
 };
 
-$ttf_label = output($forum_name);
-$ttf_title = $ttf_label;
+$ttf_title = $ttf_label = output($forum_name);
 
 require_once "include_header.php";
 
@@ -56,7 +56,7 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS                                              
        "          && ttf_thread_new.user_id='{$ttf["uid"]}'                         ".
        "WHERE ttf_thread.forum_id='$forum_id' && ttf_thread.posts > 0               ".
        "ORDER BY ttf_thread.date DESC                                               ".
-       "LIMIT $offset, {$ttf_cfg["forum_display"]}                               ";
+       "LIMIT $offset, {$ttf_cfg["forum_display"]}                                  ";
 if (!$result = mysql_query($sql)) showerror();
 
 $sql = "SELECT FOUND_ROWS()";
@@ -100,7 +100,8 @@ if ($numrows > ($ttf_cfg["forum_display"] + $offset)) {
 while ($thread = mysql_fetch_array($result)) {
     /* THERE IS SURELY A MORE EFFICIENT WAY
      * TO PRINT A JUMP LINK RATHER THAN TO
-	 * QUERY FOR EACH THREAD!! --JLR
+     * QUERY FOR EACH THREAD!! --JLR
+     *
 	 * here's an idea! instead of using dates in the new_thread table,
 	 * use the number of the reply. so reply_id=5 means that they read
 	 * the fifth reply but nothing after that. maybe this would work
