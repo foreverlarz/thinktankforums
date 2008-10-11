@@ -4,28 +4,25 @@
  * editpost.php
  */
 
-$ttf_label = "edit a post";
-$ttf_title = $ttf_label;
+$ttf_title = $ttf_label = "edit a post";
 
 require_once "include_common.php";
 
+// people must be logged in to use this script
+kill_guests();
+
+
 // pull through the variables
-// note: we don't clean these, because we will want to
+// note: we don't clean these here,
+// because we will want to
 // use $body in its raw-input form
 $post_id = $_REQUEST["post_id"];
 $body = $_POST["body"];
 $rev_num = $_POST["rev_num"];
 
-// if the agent is not logged in as a valid user
-if (!isset($ttf["uid"])) {
 
-    message($ttf_label, $ttf_msg["fatal_error"],
-            "you must be logged in to edit a post.");
-    die();
 
-};
-
-// if a post is not specified
+// if a post is not specified, kill agent
 if (empty($post_id)) {
 
     message($ttf_label, $ttf_msg["fatal_error"],
@@ -34,7 +31,9 @@ if (empty($post_id)) {
 
 };
 
-// let's check some permissions (either admin or author)
+
+
+// let's check some permissions (must be either admin or author)
 if ($ttf["perm"] != 'admin') {
 
     $sql = "SELECT author_id FROM ttf_post ".
@@ -51,6 +50,7 @@ if ($ttf["perm"] != 'admin') {
     };
 
 };
+
 
 
 // get the $head of the post
@@ -89,7 +89,7 @@ if (!empty($body)) {
 
     };
 
-    if ($body == $head) {
+    if (strcmp($body, $head) === 0) {
 
         message($ttf_label, $ttf_msg["fatal_error"],
                 "you didn't make any changes.");
@@ -106,16 +106,22 @@ if (!empty($body)) {
            "body='".clean($body)."'";
     if (!$result = mysql_query($sql)) showerror();
 
+
+
     // update the formatted ttf_post
     $sql = "UPDATE ttf_post SET rev=rev+1, ".
            "body='".clean(outputbody($body))."' WHERE post_id='".clean($post_id)."'";
     if (!$result = mysql_query($sql)) showerror();
+
+
 
     // update the user's last rev date
     $sql = "UPDATE ttf_user                 ".
            "SET rev_date=UNIX_TIMESTAMP()  ".
            "WHERE user_id={$ttf["uid"]}     ";
     if (!$result = mysql_query($sql)) showerror();
+
+
 
     // wow, all of that worked! let's grab the thread_id
     // and redirect the user to their edited post
@@ -128,8 +134,8 @@ if (!empty($body)) {
 
 } else if (!isset($_POST["body"])) {
 
-    $title = "editing post_id $post_id";
-    $label = $title;
+    $title = $label = "editing post $post_id";
+
     require_once "include_header.php";
 
 ?>
