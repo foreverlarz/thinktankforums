@@ -4,8 +4,7 @@
  * reply.php
  */
 
-$ttf_label = "Post a Reply";
-$ttf_title = $ttf_label;
+$ttf_title = $ttf_label = "post a reply";
 
 require_once "include_common.php";
 
