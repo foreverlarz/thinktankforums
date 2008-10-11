@@ -56,6 +56,7 @@ $ttf_msg["noperm"]      = "sorry, but you don't have the proper permission.";
 $ttf_msg["noactnspec"]  = "sorry, but you must specify an action.";
 
 
+
 // make php use utf-8
 mb_internal_encoding('UTF-8');
 
@@ -142,7 +143,6 @@ if (isset($_COOKIE["{$ttf_cfg["cookie_name"]}"])) {
 
         // or print an error and exit
         message($ttf_cfg["forum_name"], $ttf_msg["fatal_error"], $ttf_msg["cookie_inv"]);
-
         die();
 
     };
