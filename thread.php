@@ -97,8 +97,7 @@ while ($post = mysql_fetch_array($result)) {
     $hasperm = ($ttf["perm"] == 'admin' || $ttf["uid"] == $post["author_id"]) ? TRUE : FALSE;
 
 ?>
-            <a name="<?php echo $post["post_id"]; ?>"></a>
-            <div class="userbar">
+            <div class="userbar" id="<?php echo $post["post_id"]; ?>">
                 <div class="userbar_left">
 <?php
 
