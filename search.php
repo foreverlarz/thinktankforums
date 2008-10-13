@@ -55,8 +55,7 @@ if (!empty($string)) {
 
         $date = formatdate($post["date"]);
 
-        $body = htmlspecialchars($post["body"]);
-        $body = str_ireplace($search_terms, $highlight_terms, $body);
+        $body = str_ireplace($search_terms, $highlight_terms, $post["body"]);
 
         echo "            <div class=\"contenttitle_sm\">\n";
         echo "                <span title=\"post id\">{$post["post_id"]}</span> in\n";
