@@ -141,6 +141,9 @@ while ($thread = mysql_fetch_array($result)) {
 };
 
 ?>
+                    <tr>
+                        <th colspan="5">&nbsp;</th>
+                    </tr>
                 </tbody>
             </table>
 <?php
