@@ -40,7 +40,7 @@ require_once "include_header.php";
 
 ?>
             <div class="sidebox">
-                <a href="newthread.php?forum_id=<?php echo $forum_id; ?>">create a new thread</a>
+                <strong><a href="newthread.php?forum_id=<?php echo $forum_id; ?>">create a new thread</a></strong>
             </div>
 <?php
 
@@ -70,7 +70,7 @@ if ($numrows > ($ttf_cfg["forum_display"] + $offset)) {
 
 ?>
             <div class="sidebox">
-                <a href="forum.php?forum_id=<?php echo $forum_id; ?>&amp;offset=<?php echo $next; ?>"><strong>next <?php echo $left; ?> threads</strong></a><br />(<?php echo $numrows; ?> total)
+                <strong><a href="forum.php?forum_id=<?php echo $forum_id; ?>&amp;offset=<?php echo $next; ?>">next <?php echo $left; ?> threads</a></strong><br /><span class="small"><?php echo $numrows; ?> total</span>
             </div>
 <?php
 
