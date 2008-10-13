@@ -44,35 +44,30 @@ if (!empty($string)) {
 
     };
 
+    $search_terms = explode(" ", $string);
+    $highlight_terms = array();
+    foreach ($search_terms as $word) {
+        $highlight_terms[] = "<span class=\"highlight\">".$word."</span>";
+    };
+
     // print the results (if there are any)
     while ($post = mysql_fetch_array($result)) {
 
-        // shorten the selection
-        // NOTE: THIS IS NOT UTF-8 COMPATIBLE. WE NEED TO USE MULTI-BYTE SAFE
-        //       STRING FUNCTIONS HERE. --jlr
-        $body = $post["body"];
-        $first = strpos($body, $string);
-        $last = strrpos($body, $string);
-        $pad = 256; // chars
-        $len = strlen($body);
-        $start = max(0, $first - $pad);
-        $stop = min($len, $last + $pad);
-        $body = substr($body, $start, $stop - $start);
-        $print = "";
-        if ($start > 0) $print .= "&hellip; ";
-        $print .= str_ireplace($string, "<span class=\"highlight\">$string</span>", $body);
-        if ($stop < $len) $print .= " &hellip;";
+        $date = formatdate($post["date"]);
+
+        $body = htmlspecialchars($post["body"]);
+        $body = str_ireplace($search_terms, $highlight_terms, $body);
 
         echo "            <div class=\"contenttitle_sm\">\n";
-        echo "                [{$post["post_id"]}] in\n";
+        echo "                <span title=\"post id\">{$post["post_id"]}</span> in\n";
         echo "                <a class=\"link\" href=\"thread.php?thread_id=";
         echo "{$post["thread_id"]}#{$post["post_id"]}\">".output($post["title"])."</a> by\n";
         echo "                <a class=\"link\" href=\"profile.php?user_id={$post["author_id"]}\">";
-        echo output($post["username"])."</a> on\n";
-        echo "                ".formatdate($post["date"])."\n";
+        echo output($post["username"])."</a>\n";
+        echo "                <span title=\"{$date[1]}\">{$date[0]}</span>\n";
         echo "            </div>\n";
         echo "            <div class=\"contentbox_sm\">\n";
-        echo $print."\n";
+        echo $body."\n";
         echo "            </div>\n";
     
     };
