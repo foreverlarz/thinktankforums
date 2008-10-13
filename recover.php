@@ -88,7 +88,7 @@ if (!empty($id_username) || !empty($id_email)) {
                         email:<br />
                         <input type="text" name="id_email" /><br /><br />
                         we will send a new password to your email address, 
-                        along with a passkey to activate it.<br />
+                        along with a passkey to activate it.<br /><br />
                         <input type="submit" value="submit" />
                     </div>
                 </form>
