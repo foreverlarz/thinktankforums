@@ -13,12 +13,17 @@ $thread_id = clean($_GET["thread_id"]);
 
 
 // get basic information about this thread
-$sql = "SELECT ttf_thread.forum_id,                     ".
-       "       ttf_thread.title,                        ".
-       "       ttf_forum.name                           ".
-       "FROM ttf_thread, ttf_forum                      ".
-       "WHERE ttf_thread.forum_id=ttf_forum.forum_id    ".
-       "   && thread_id='$thread_id'                    ";
+$sql = "SELECT ttf_thread.forum_id,                             ".
+       "       ttf_thread.title,                                ".
+       "       ttf_forum.name,                                  ".
+       "       ttf_thread_new.last_view                         ".
+       "FROM ttf_thread                                         ".
+       "LEFT JOIN ttf_forum                                     ".
+       "       ON ttf_thread.forum_id=ttf_forum.forum_id        ".
+       "LEFT JOIN ttf_thread_new                                ".
+       "       ON ttf_thread.thread_id=ttf_thread_new.thread_id ".
+       "       && ttf_thread_new.user_id='{$ttf["uid"]}'        ".
+       "WHERE ttf_thread.thread_id='$thread_id'                 ";
 if (!$result = mysql_query($sql)) showerror();
 
 
@@ -34,7 +39,7 @@ if (mysql_num_rows($result) !== 1) {
 
 
 // grab the row and stick it into awesomely-named variables
-list($forum_id, $thread_title, $forum_name) = mysql_fetch_array($result);
+list($forum_id, $thread_title, $forum_name, $last_view) = mysql_fetch_array($result);
 
 
 
@@ -95,6 +100,16 @@ while ($post = mysql_fetch_array($result)) {
     $date = formatdate($post["date"], "g\:i a, j M y");
 
     $hasperm = ($ttf["perm"] == 'admin' || $ttf["uid"] == $post["author_id"]) ? TRUE : FALSE;
+
+    if ($post["date"] > $last_view && !empty($last_view)) { 
+
+?>
+            <a id="fresh"></a>
+<?php
+
+        $last_view = FALSE;     // don't print another fresh anchor id
+
+    };
 
 ?>
             <div class="userbar" id="<?php echo $post["post_id"]; ?>">

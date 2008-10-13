@@ -38,11 +38,15 @@ $ttf_title = $ttf_label = output($forum_name);
 
 require_once "include_header.php";
 
+if (isset($ttf["uid"])) {
+
 ?>
             <div class="sidebox">
                 <strong><a href="newthread.php?forum_id=<?php echo $forum_id; ?>">create a new thread</a></strong>
             </div>
 <?php
+
+};
 
 if (empty($offset)) $offset = 0;
 
@@ -98,33 +102,17 @@ if ($numrows > ($ttf_cfg["forum_display"] + $offset)) {
 <?php
 
 while ($thread = mysql_fetch_array($result)) {
-    /* THERE IS SURELY A MORE EFFICIENT WAY
-     * TO PRINT A JUMP LINK RATHER THAN TO
-     * QUERY FOR EACH THREAD!! --JLR
-     *
-	 * here's an idea! instead of using dates in the new_thread table,
-	 * use the number of the reply. so reply_id=5 means that they read
-	 * the fifth reply but nothing after that. maybe this would work
-	 * pretty slick! --jlr
-	 */
-
-    // initialize variables
-    $mark = "&nbsp;";
-    unset($jump);
 
     if ($thread["last_view"] < $thread["date"] && isset($ttf["uid"])) {
 
         $mark = "&#9658;";
-
-        $sql = "SELECT ttf_post.post_id ".
-               "FROM ttf_post ".
-               "WHERE ttf_post.thread_id='{$thread["thread_id"]}' ".
-               "ORDER BY ttf_post.date DESC ".
-               "LIMIT 0, 1";
-        if (!$result_nested = mysql_query($sql)) showerror();
-        list($newpost) = mysql_fetch_array($result_nested);
         $jump = "<span class=\"small\">&nbsp;&nbsp;&nbsp;(<a href=\"thread.php?thread_id=".
-                $thread["thread_id"]."#$newpost\">jump</a>)</span>";
+                $thread["thread_id"]."#fresh\">jump</a>)</span>";
+
+    } else {
+
+        $mark = "&nbsp;";
+        unset($jump);
 
     };
 
