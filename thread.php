@@ -170,12 +170,14 @@ if (isset($ttf["uid"])) {
 ?>
             <form action="reply.php" method="post">
                 <div id="reply_textarea">
-                    <textarea class="reply" rows="5" name="body" wrap="virtual"></textarea>
+                    <textarea class="reply" cols="72" rows="12" name="body" wrap="virtual"></textarea>
                 </div>
                 <div id="reply_button">
                     <input class="reply" type="submit" value="<?php echo $ttf_msg["btnpost"]; ?>" />
                 </div>
-                <input type="hidden" name="thread_id" value="<?php echo $thread_id; ?>" />
+                <div>
+                    <input type="hidden" name="thread_id" value="<?php echo $thread_id; ?>" />
+                </div>
             </form>
 <?php
 

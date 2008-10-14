@@ -46,12 +46,14 @@ if (empty($title) || empty($body)) {
                     <input class="newthread_title" type="text" name="title" value="<?php echo output($title); ?>" />
                 </div>
                 <div id="newthread_textarea">
-                    <textarea class="newthread" cols="12" rows="20" name="body"><?php echo output($body); ?></textarea>
+                    <textarea class="newthread" cols="72" rows="20" name="body"><?php echo output($body); ?></textarea>
                 </div>
                 <div id="newthread_button">
                     <input class="newthread_button" type="submit" value="create thread" />
                 </div>
-                <div><input type="hidden" name="forum_id" value="<?php echo $forum_id; ?>" /></div>
+                <div>
+                    <input type="hidden" name="forum_id" value="<?php echo $forum_id; ?>" />
+                </div>
             </form>
 <?php
 

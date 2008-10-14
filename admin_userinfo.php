@@ -161,7 +161,7 @@ list($numthreads) = mysql_fetch_array($result);
                     </tr>
                 </tbody>
             </table>
-            <table cellspacing="1" class="float" style="float: left;">
+            <table cellspacing="1" class="float">
                 <thead>
                     <tr>
                         <th>revision ips</th>

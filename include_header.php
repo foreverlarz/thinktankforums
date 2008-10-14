@@ -28,7 +28,7 @@ if (!empty($ttf_title)) {
 if (isset($ttf["uid"])) {
     if (isset($ttf["avatar_type"])) {
 ?>
-                <img src="avatars/<?php echo $ttf["uid"].".".$ttf["avatar_type"]; ?>" alt="av" width="30" height="30" />
+                <img src="avatars/<?php echo $ttf["uid"].".".$ttf["avatar_type"]; ?>" alt="your avatar" width="30" height="30" class="avatar" />
 <?php
     };
 ?>

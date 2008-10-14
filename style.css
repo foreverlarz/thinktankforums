@@ -53,7 +53,7 @@ body {
     font-weight: bold;
 }
 
-.menu_title img {
+.menu_title img.avatar {
     vertical-align: middle;
 }
 
@@ -114,6 +114,10 @@ body {
     font-size: 8pt;
 }
 
+ul {
+    margin: 0 0;
+}
+
 
 /***************
  * FONT STYLES *
@@ -135,20 +139,20 @@ a, a:active, a:link, a:visited {
     background-color: #00ff33;
 }
 
-.lowlight {
+.lowlight .error {
     background-color: #ff0033;
 }
 
-.error {
-    background-color: red;
-}
-
 .tip {
-     border-bottom: 1px dashed black;
+    border-bottom: 1px dashed black;
 }
 
 .tip:hover {
     cursor: help;
+}
+
+.center {
+    text-align: center;
 }
 
 /****************
@@ -162,7 +166,7 @@ table.content {
 
 table.float {
     margin-top: 24px;
-    width: 288px;
+    float: left;
 }
 
 col#mark {
@@ -201,10 +205,6 @@ col#views {
     width: 65px;
 }
 
-col#bold {
-    font-weight: bold;
-}
-
 th {
     padding: 2px;
     color: white;
@@ -229,20 +229,9 @@ textarea {
     border-width: 0;
 }
 
-textarea.reply, textarea.newthread {
+textarea.reply, textarea.newthread, textarea.editpost {
     font-family: verdana, sans-serif;
     width: 590px;
-    height: 140px;
-    color: black;
-    font-size: 11px;
-    background-color: white;
-    margin: 5px;
-}
-
-textarea.editpost {
-    font-family: verdana, sans-serif;
-    width: 590px;
-    height: 240px;
     color: black;
     font-size: 11px;
     background-color: white;
@@ -291,9 +280,9 @@ form {
 }
 
 
-/********************
- * REPLY BOX STYLES *
- ********************/
+/************************
+ * PAGE-SPECIFIC STYLES *
+ ************************/
 
 #reply_button, #editpost_button, #newthread_button {
     width: 600px;
@@ -316,15 +305,14 @@ form {
 #reply_textarea, #newthread_textarea {
     margin-top: 25px;
     width: 600px;
-    height: 150px;
     background-color: white;
 }
 
 #editpost_textarea {
     width: 600px;
-    height: 250px;
     background-color: white;
 }
+
 
 /******************
  * USERBAR STYLES *
@@ -366,6 +354,11 @@ a.link, a.link:link, a.link:active, a.link:visited {
     color: white;
 }
 
+
+/***************
+ * POST STYLES *
+ ***************/
+
 pre, blockquote {
 	overflow: auto;
 	margin: 10px 0 0 0;
@@ -373,3 +366,4 @@ pre, blockquote {
 	border-top: 1px solid black;
 	border-left: 5px solid black;
 }
+

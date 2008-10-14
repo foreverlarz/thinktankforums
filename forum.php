@@ -83,7 +83,7 @@ if ($numrows > ($ttf_cfg["forum_display"] + $offset)) {
 ?>
             <table cellspacing="1" class="content">
                 <colgroup>
-                    <col id="mark" align="center" />
+                    <col id="mark" />
                     <col id="thread" />
                     <col id="author" />
                     <col id="posts" />
@@ -118,7 +118,7 @@ while ($thread = mysql_fetch_array($result)) {
 
 ?>
                     <tr>
-                        <td><?php echo $mark; ?></td>
+                        <td class="center"><?php echo $mark; ?></td>
                         <td><a href="thread.php?thread_id=<?php echo $thread["thread_id"]; ?>"><?php echo output($thread["title"]); ?></a><?php echo $jump; ?></td>
                         <td><a href="profile.php?user_id=<?php echo $thread["author_id"]; ?>"><?php echo output($thread["username"]); ?></a></td>
                         <td><?php echo $thread["posts"]; ?></td>
