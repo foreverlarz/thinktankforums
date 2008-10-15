@@ -60,7 +60,7 @@ if (!empty($string)) {
         echo "            <div class=\"contenttitle_sm\">\n";
         echo "                <span title=\"post id\">{$post["post_id"]}</span> in\n";
         echo "                <a class=\"link\" href=\"thread.php?thread_id=";
-        echo "{$post["thread_id"]}#{$post["post_id"]}\">".output($post["title"])."</a> by\n";
+        echo "{$post["thread_id"]}#post-{$post["post_id"]}\">".output($post["title"])."</a> by\n";
         echo "                <a class=\"link\" href=\"profile.php?user_id={$post["author_id"]}\">";
         echo output($post["username"])."</a>\n";
         echo "                <span title=\"{$date[1]}\">{$date[0]}</span>\n";

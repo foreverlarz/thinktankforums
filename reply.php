@@ -66,6 +66,6 @@ $sql = "UPDATE ttf_user                 ".
        "WHERE user_id={$ttf["uid"]}     ";
 if (!$result = mysql_query($sql)) showerror();
 
-header("Location: thread.php?thread_id=$thread_id#$post_id");
+header("Location: thread.php?thread_id=$thread_id#post-$post_id");
 
 ?>

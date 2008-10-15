@@ -112,7 +112,7 @@ while ($post = mysql_fetch_array($result)) {
     };
 
 ?>
-            <div class="userbar" id="<?php echo $post["post_id"]; ?>">
+            <div class="userbar" id="post-<?php echo $post["post_id"]; ?>">
                 <div class="userbar_left">
 <?php
 

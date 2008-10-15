@@ -151,7 +151,7 @@ if (mysql_num_rows($result) != 0) {
 
 ?>
                     <tr>
-                        <td><a href="thread.php?thread_id=<?php echo $post["thread_id"]."#".$post["post_id"]."\">".$post["title"]; ?></a></td>
+                        <td><a href="thread.php?thread_id=<?php echo $post["thread_id"]."#post-".$post["post_id"]."\">".$post["title"]; ?></a></td>
                         <td><span title="<?php echo $date[1]; ?>"><?php echo $date[0]; ?></span></td>
                     </tr>                                
 <?php
