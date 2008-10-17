@@ -4,7 +4,6 @@
  * footer.inc.php
  */
 ?>
-            <!-- **** **** begin footer.inc.php **** **** -->
             <br style="clear: both;" />
         </div>
     </body>

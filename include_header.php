@@ -70,4 +70,3 @@ if (isset($ttf["uid"])) {
 };
 ?>
             </div>
-            <!-- **** **** end header.inc.php **** **** -->
