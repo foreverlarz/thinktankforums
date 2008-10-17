@@ -181,7 +181,7 @@ function outputbody($input) {
     $replace = array("<b>",                 "</b>",
                      "<i>",                 "</i>",
                      "<u>",                 "</u>",
-                     "<blockquote>",        "</blockquote>");
+                     "<blockquote><p>",     "</p></blockquote>");
     $input = str_replace($search, $replace, $input);
 
     if (strpos($input, '&lt;pre&gt;') !== FALSE) {
@@ -333,7 +333,7 @@ function kill_nonadmin() {
  * need to pull the raw input from `ttf_revision`, reformat it,
  * and update where the formatted versions are stored.
  */
-function reformat_bodies() {
+function reformat_caches() {
 
     $sql = "SELECT rev_id,      ".
            "       ref_id,      ".
