@@ -180,7 +180,7 @@ function outputbody($input) {
                      "&lt;blockquote&gt;",   "&lt;/blockquote&gt;");
     $replace = array("<b>",                 "</b>",
                      "<i>",                 "</i>",
-                     "<u>",                 "</u>",
+                     "<span style=\"text-decoration: underline;\">", "</span>",
                      "<blockquote><p>",     "</p></blockquote>");
     $input = str_replace($search, $replace, $input);
 
