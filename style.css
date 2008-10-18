@@ -18,20 +18,21 @@ body {
     font-family: verdana, sans-serif;
 }
 
-#header {
+h1 {
     padding-left: 25px;
     margin-bottom: -0.2em;
     font-size: 36pt;
     font-weight: bold;
     width: 600px;
+    color: white;
 }
 
-#header a {
+h1 a, h1 a:active, h1 a:link, h1 a:visited {
     color: white;
     text-decoration: none;
 }
 
-#title {
+h2 {
     padding-top: 3px;
     padding-bottom: 3px;
     padding-left: 25px;
