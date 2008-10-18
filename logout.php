@@ -10,7 +10,7 @@ if (isset($_COOKIE["{$ttf_cfg["cookie_name"]}"])) {
 
     $expire = time() - 3600;
 
-    setcookie($ttf_cfg["cookie_name"], "", $expire);
+    setcookie($ttf_cfg["cookie_name"], "", $expire, $ttf_cfg["cookie_path"], $ttf_cfg["cookie_domain"]);
 
 };
 

@@ -122,5 +122,7 @@ INSERT INTO `ttf_config` (`name`, `value`) VALUES
 ('admin_email', 'trashbin@ttfproject.com'),
 ('admin_name', 'lucas reddinger'),
 ('address', 'www.thinktankforums.com'),
+('cookie_domain', '.thinktankforums.com'),
 ('cookie_name', 'thinktank'),
+('cookie_path', '/'),
 ('cookie_time', '31556926');

@@ -156,7 +156,7 @@ if (isset($_POST["edit"])) {
 
                     $expire = time() + $ttf_cfg["cookie_time"];
                     $cookie = serialize(array($user["user_id"], $encrypt));
-                    setcookie($ttf_cfg["cookie_name"], $cookie, $expire);
+                    setcookie($ttf_cfg["cookie_name"], $cookie, $expire, $ttf_cfg["cookie_path"], $ttf_cfg["cookie_domain"]);
 
                     $messages[] = "your password has been successfully changed. your cookie has been updated.";
 
