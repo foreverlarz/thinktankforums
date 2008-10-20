@@ -4,6 +4,13 @@
  * include_config.php
  */
 
+$ttf_dbms = array(
+    'host' => 'localhost',
+    'user' => 'root',
+    'pass' => '',
+    'db'   => 'ttf'
+);
+
 $ttf_cfg = array(
     'version'           => 'v1-alpha',
     'forum_name'        => 'think tank forums',
@@ -22,7 +29,7 @@ $ttf_cfg = array(
     'cookie_time'       => '31556926'
 );
 
-$ttf_msg  =array(
+$ttf_msg = array(
     "fatal_error"       => "fatal error",
     "maint_title"       => "maintenance mode",
     "successtitl"       => "success",

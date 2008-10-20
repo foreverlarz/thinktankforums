@@ -19,18 +19,6 @@ mb_internal_encoding('UTF-8');
 
 
 
-/* database variables
- * ~~~~~~~~~~~~~~~~~~
- *
- * let $dbms_host be the hostname
- *     $dbms_user be the username
- *     $dbms_pass be the password
- *     $dbms_db   be the database
- */
-require "include_credentials.php";
-
-
-
 // include configuration variables
 require "include_config.php";
 
@@ -58,8 +46,8 @@ if (get_magic_quotes_gpc()) {
 
 
 // mysql dbms connection
-if (!($dbms_cnx = @mysql_pconnect($dbms_host, $dbms_user, $dbms_pass))) showerror();
-if (!mysql_select_db($dbms_db)) showerror();
+if (!($dbms_cnx = @mysql_pconnect($ttf_dbms['host'], $ttf_dbms['user'], $ttf_dbms['pass']))) showerror();
+if (!mysql_select_db($ttf_dbms['db'])) showerror();
 if (!mysql_query("SET NAMES 'utf8'")) showerror();
 
 
