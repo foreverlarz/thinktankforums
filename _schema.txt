@@ -1,5 +1,5 @@
 -- --------------------------------------------------------
--- use this to create the ttf table structure
+-- use this to create the ttf tables
 -- --------------------------------------------------------
 
 CREATE TABLE `ttf_banned` (
@@ -105,3 +105,5 @@ CREATE TABLE `ttf_user` (
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
