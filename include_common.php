@@ -14,6 +14,11 @@ $time_start = microtime(TRUE);
 
 
 
+// include configuration variables
+require "include_config.php";
+
+
+
 // include widely-used functions
 require "include_functions.php";
 
@@ -82,15 +87,6 @@ if (get_magic_quotes_gpc()) {
 if (!($dbms_cnx = @mysql_pconnect($dbms_host, $dbms_user, $dbms_pass))) showerror();
 if (!mysql_select_db($dbms_db)) showerror();
 if (!mysql_query("SET NAMES 'utf8'")) showerror();
-
-
-
-// forum configuration variables
-$sql = "SELECT * FROM ttf_config";
-if (!$result = mysql_query($sql)) showerror();
-while ($cfg = mysql_fetch_array($result)) {
-    $ttf_cfg["{$cfg["name"]}"] = $cfg["value"];
-};
 
 
 
