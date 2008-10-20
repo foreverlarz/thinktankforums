@@ -14,13 +14,8 @@ $time_start = microtime(TRUE);
 
 
 
-// include configuration variables
-require "include_config.php";
-
-
-
-// include widely-used functions
-require "include_functions.php";
+// make php use utf-8
+mb_internal_encoding('UTF-8');
 
 
 
@@ -36,34 +31,13 @@ require "include_credentials.php";
 
 
 
-// messages are fun
-$ttf_msg["fatal_error"] = "fatal error";
-$ttf_msg["maint_title"] = "maintenance mode";
-$ttf_msg["successtitl"] = "success";
-$ttf_msg["resultstitl"] = "results";
-$ttf_msg["ip_banned"]   = "sorry, but your IP is banned.";
-$ttf_msg["user_banned"] = "sorry, but your user account is banned.";
-$ttf_msg["cookie_inv"]  = "sorry, but your cookie is invalid. please try logging out and logging in again.";
-$ttf_msg["maint_body"]  = "sorry, but the forum is offline for maintenance. we are most likely ".
-                          "updating scripts and adding new features. please come back soon.";
-$ttf_msg["field_empty"] = "sorry, but you left a field empty.";
-$ttf_msg["notloggedin"] = "sorry, but you must be logged in to do this.";
-$ttf_msg["thread_dne"]  = "sorry, but the thread you specified does not exist.";
-$ttf_msg["noitemspec"]  = "sorry, but you must specify an item to view.";
-$ttf_msg["loggedin"]    = "sorry, but you can't do this if you are logged in. your account is working fine!";
-$ttf_msg["nomatchuser"] = "sorry, but we couldn't find a matching user.";
-$ttf_msg["mailedinfo"]  = "we have emailed you the account information. please check your email.";
-$ttf_msg["btnpost"]     = "click to post";
-$ttf_msg["badcredpair"] = "sorry, but the username and password pair that you provided does not match any user record.";
-$ttf_msg["passkeydne"]  = "sorry, but the passkey that you specified does not exist.";
-$ttf_msg["pwdchanged"]  = "your password has been changed successfully.";
-$ttf_msg["noperm"]      = "sorry, but you don't have the proper permission.";
-$ttf_msg["noactnspec"]  = "sorry, but you must specify an action.";
+// include configuration variables
+require "include_config.php";
 
 
 
-// make php use utf-8
-mb_internal_encoding('UTF-8');
+// include widely-used functions
+require "include_functions.php";
 
 
 
@@ -87,12 +61,6 @@ if (get_magic_quotes_gpc()) {
 if (!($dbms_cnx = @mysql_pconnect($dbms_host, $dbms_user, $dbms_pass))) showerror();
 if (!mysql_select_db($dbms_db)) showerror();
 if (!mysql_query("SET NAMES 'utf8'")) showerror();
-
-
-
-// some messages have to be defined down here
-$ttf_msg["cantmail"]    = "sorry, but we couldn't email the information. please contact the forum".
-                          "administrator, {$ttf_cfg["admin_name"]}, at {$ttf_cfg["admin_email"]}";
 
 
 
