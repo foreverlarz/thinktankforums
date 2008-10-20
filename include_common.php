@@ -1,9 +1,9 @@
 <?php
 /* think tank forums
  *
- * common.inc.php
+ * include_common.php
  *
- * this script ***MUST*** be run at the beginning of
+ * this script *MUST* be run at the beginning of
  * every request to the ttf installation. ALWAYS!
  */
 

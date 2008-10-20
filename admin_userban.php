@@ -1,7 +1,7 @@
 <?php
 /* think tank forums
  *
- * admin_ban.php
+ * admin_userban.php
  */
 
 require_once "include_common.php";

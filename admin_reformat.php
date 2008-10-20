@@ -1,7 +1,7 @@
 <?php
 /* think tank forums
  *
- * admin_reformatbodies.php
+ * admin_reformat.php
  */
 
 require_once "include_common.php";

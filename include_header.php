@@ -1,7 +1,7 @@
 <?php
 /* think tank forums
  *
- * header.inc.php
+ * include_header.php
  */
 
 header('Content-Type: text/html; charset=utf-8');

@@ -2,8 +2,6 @@
 /* think tank forums
  *
  * include_functions.php
- *
- * this is required by include_common.php
  */
 
 

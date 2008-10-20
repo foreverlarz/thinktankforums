@@ -1,7 +1,7 @@
 <?php
 /* think tank forums
  *
- * footer.inc.php
+ * include_footer.php
  */
 ?>
             <br style="clear: both;" />
