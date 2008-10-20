@@ -29,6 +29,16 @@ require "include_functions.php";
 
 
 
+// kill if in maintenance mode
+if ($ttf_cfg["maintenance"]) {
+
+    message($ttf_msg["fatal_error"], $ttf_msg["maint_title"], $ttf_msg["maint_body"]);
+    die();
+
+};
+
+
+
 // remove magic quotes (from php.net docs)
 if (get_magic_quotes_gpc()) {
     function stripslashes_deep($value) {
@@ -98,16 +108,6 @@ if (isset($_COOKIE["{$ttf_cfg["cookie_name"]}"])) {
         die();
 
     };
-
-};
-
-
-
-// kill if in maintenance mode and not an admin
-if ($ttf_cfg["maintenance"] && $ttf["perm"] != 'admin') {
-
-    message($ttf_msg["fatal_error"], $ttf_msg["maint_title"], $ttf_msg["maint_body"]);
-    die();
 
 };
 
