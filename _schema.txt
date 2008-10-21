@@ -8,11 +8,6 @@ CREATE TABLE `ttf_banned` (
   UNIQUE KEY `ip` (`ip`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-CREATE TABLE `ttf_config` (
-  `name` varchar(32) collate utf8_unicode_ci default NULL,
-  `value` varchar(128) collate utf8_unicode_ci default NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
 CREATE TABLE `ttf_forum` (
   `forum_id` tinyint(4) NOT NULL auto_increment,
   `name` text collate utf8_unicode_ci NOT NULL,
@@ -105,5 +100,3 @@ CREATE TABLE `ttf_user` (
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------

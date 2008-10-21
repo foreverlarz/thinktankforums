@@ -12,21 +12,23 @@ $ttf_dbms = array(
 );
 
 $ttf_cfg = array(
-    'version'           => 'v1-alpha',
     'forum_name'        => 'think tank forums',
-    'index_title'       => 'eminating passion',
-    'forum_display'     => '15',
-    'maintenance'       => '0',
-    'online_timeout'    => '900',
-    'bot_email'         => 'violet@thinktankforums.com',
-    'bot_name'          => 'violet',
-    'admin_email'       => 'trashbin@ttfproject.com',
-    'admin_name'        => 'lucas reddinger',
     'address'           => 'www.thinktankforums.com',
-    'cookie_domain'     => '.thinktankforums.com',
+    'version'           => 'v1-beta',
+    'maintenance'       => FALSE,
+    'index_title'       => 'eminating passion',
+    'online_timeout'    => 300,
+    'forum_display'     => 15,
+
+    'admin_name'        => 'lucas reddinger',
+    'admin_email'       => 'trashbin@ttfproject.com',
+    'bot_name'          => 'violet',
+    'bot_email'         => 'violet@thinktankforums.com',
+
     'cookie_name'       => 'thinktank',
+    'cookie_time'       => 31556926,
     'cookie_path'       => '/',
-    'cookie_time'       => '31556926'
+    'cookie_domain'     => '.thinktankforums.com'
 );
 
 $ttf_msg = array(
