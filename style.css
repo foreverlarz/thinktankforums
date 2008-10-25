@@ -263,7 +263,7 @@ input, select {
     margin: 1px 0;
 }
 
-input.reply, input.editpost, input.editprofile, input.newthread_button {
+input.reply, input.archivepost, input.editpost, input.editprofile, input.newthread_button {
     font-family: verdana, sans-serif;
     border-width: 0;
     background-color: black;
@@ -296,7 +296,7 @@ form {
     background-color: black;
 }
 
-#editprofile_button {
+#editprofile_button, #archivepost_button {
     width: 600px;
     margin-top: 25px;
     height: 20px;
@@ -366,10 +366,10 @@ a.link, a.link:link, a.link:active, a.link:visited {
  ***************/
 
 pre, blockquote {
-	overflow: auto;
-	margin: 10px 0 0 0;
-	padding: 2px;
-	border-top: 1px solid black;
-	border-left: 5px solid black;
+    overflow: auto;
+    margin: 10px 0 0 0;
+    padding: 2px;
+    border-top: 1px solid black;
+    border-left: 5px solid black;
 }
 

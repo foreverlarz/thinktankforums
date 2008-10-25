@@ -4,23 +4,42 @@
  * archivepost.php
  */
 
-$ttf_label = "archive a post";
-$ttf_title = $ttf_label;
+$ttf_title = $ttf_label = "archive a post";
 
 require_once "include_common.php";
 
-$post_id = clean($_GET["post_id"]);
+kill_guests();
 
-if (!isset($ttf["uid"])) {
+if (empty($_REQUEST["post_id"])) {
 
-    message($ttf_label, $ttf_msg["fatal_error"], "you must be logged in.");
+    message($ttf_label, $ttf_msg["fatal_error"], "you must specify a post.");
     die();
 
 };
 
-if (empty($post_id)) {
+$post_id = clean($_REQUEST["post_id"]);
 
-    message($ttf_label, $ttf_msg["fatal_error"], "you must specify a post.");
+if (!empty($_GET["post_id"])) {
+
+    $title = $label = "archiving post $post_id";
+
+    require_once "include_header.php";
+
+?>
+            <form action="archivepost.php" method="post">
+                <div class="contenttitle">you're archiving post <?php echo $post_id; ?></div>
+                <div class="contentbox">are you sure you wish to archive this post?</div>
+                <div id="archivepost_button">
+                    <input class="archivepost" type="submit" value="yes. archive!" />
+                </div>
+                <div>
+                    <input type="hidden" name="post_id" value="<?php echo $post_id; ?>" />
+                </div>
+            </form>
+<?php
+
+    require_once "include_footer.php";
+
     die();
 
 };
@@ -32,7 +51,7 @@ $sql = "UPDATE ttf_post                 ".
 if ($ttf["perm"] != 'admin') $sql .= " AND author_id='{$ttf["uid"]}'";
 if (!$result = mysql_query($sql)) showerror();
 
-if (mysql_affected_rows() != 1) {
+if (mysql_affected_rows() !== 1) {
 
     message($ttf_label, $ttf_msg["fatal_error"], "you don't have permission to do this.");
     die();
