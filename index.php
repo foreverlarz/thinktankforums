@@ -34,9 +34,7 @@ $sql = "SELECT ttf_forum.*,                                                 ".
        "LEFT JOIN ttf_thread_new                                            ".
        "       ON (    ttf_thread.thread_id = ttf_thread_new.thread_id      ".
        "            && ttf_thread_new.user_id = '{$ttf["uid"]}'             ".
-// it's amazing what a difference this inequality makes!
-//     "            && ttf_thread.date < ttf_thread_new.last_view )         ".
-       "            && ttf_thread.date <= ttf_thread_new.last_view )        ".
+       "            && ttf_thread.date < ttf_thread_new.last_view )         ".
        "LEFT JOIN ttf_forum_new                                             ".
        "       ON (    ttf_forum.forum_id = ttf_forum_new.forum_id          ".
        "            && ttf_forum_new.user_id = '{$ttf["uid"]}'              ".

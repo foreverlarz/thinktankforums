@@ -103,7 +103,7 @@ if ($numrows > ($ttf_cfg["forum_display"] + $offset)) {
 
 while ($thread = mysql_fetch_array($result)) {
 
-    if ($thread["last_view"] < $thread["date"] && isset($ttf["uid"])) {
+    if ($thread["last_view"] <= $thread["date"] && isset($ttf["uid"])) {
 
         $mark = "&#9658;";
         $jump = "<span class=\"small\">&nbsp;&nbsp;&nbsp;(<a href=\"thread.php?thread_id=".
