@@ -31,11 +31,6 @@ if (isset($user["user_id"]) && $user["perm"] == 'banned') {
     $sql = "INSERT INTO ttf_banned SET user_id='{$user["user_id"]}', ip='{$_SERVER["REMOTE_ADDR"]}'";
     if (!$result = mysql_query($sql)) showerror(); 
 
-    // mark this visit
-    $sql = "INSERT INTO ttf_visit SET user_id='{$ttf["uid"]}', ".
-           "ip='{$_SERVER["REMOTE_ADDR"]}', date=UNIX_TIMESTAMP()";
-    if (!$result = mysql_query($sql)) showerror();
-
     // print an error
     message($ttf_label, $ttf_msg["fatal_error"], $ttf_msg["user_banned"]);
 
