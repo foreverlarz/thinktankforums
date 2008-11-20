@@ -11,7 +11,7 @@
 <?php
 $time_end = microtime(true);
 $time = $time_end - $time_start;
-echo "<!-- page generated in $time seconds\n";
-echo "     by think tank forums {$ttf_cfg["version"]}\n";
-echo "     visit http://www.ttfproject.com/ -->\n";
 ?>
+<!-- page generated in $time seconds
+     by think tank forums <?php echo $ttf_cfg["version"]."\n"; ?>
+     visit http://www.ttfproject.com/ -->

@@ -13,6 +13,7 @@ $ttf_dbms = array(
 
 $ttf_cfg = array(
     'forum_name'        => 'think tank forums',
+    'forum_shortname'   => 'ttf',
     'address'           => 'www.thinktankforums.com',
     'version'           => 'v1-beta',
     'maintenance'       => FALSE,

@@ -6,48 +6,53 @@
 
 header('Content-Type: text/html; charset=utf-8');
 
-if (!empty($ttf_title)) {
-    $ttf_htmltitle = " &raquo; ".$ttf_title;
+if (empty($ttf_title)) {
+    $ttf_htmltitle = $ttf_cfg["forum_name"];
+} else {
+    $ttf_htmltitle = $ttf_cfg["forum_name"]." &raquo; ".$ttf_title;
 };
 
-?>
+echo <<<EOF
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title><?php echo $ttf_cfg["forum_name"].$ttf_htmltitle; ?></title>
+        <title>$ttf_htmltitle</title>
         <link rel="stylesheet" type="text/css" href="style.css" />
     </head>
     <body>
-        <h1><a href="./"><?php echo $ttf_cfg["forum_name"]; ?></a></h1>
-        <h2><?php echo $ttf_label; ?></h2>
+        <h1><a href="./">{$ttf_cfg["forum_name"]}</a></h1>
+        <h2>$ttf_label</h2>
         <div id="enclosure">
             <div class="menu_title">
-<?php
+
+EOF;
+
 if (isset($ttf["uid"])) {
+
     if (isset($ttf["avatar_type"])) {
-?>
-                <img src="avatars/<?php echo $ttf["uid"].".".$ttf["avatar_type"]; ?>" alt="your avatar" width="30" height="30" class="avatar" />
-<?php
+        echo '                <img src="avatars/'.$ttf["uid"].'.'.$ttf["avatar_type"].'" alt="your avatar" width="30" height="30" class="avatar" />'."\n";
     };
-?>
-                hi, <?php echo $ttf["username"]; ?>!
+
+    echo <<<EOF
+                hi, {$ttf["username"]}!
             </div>
             <div class="menu_body">
                 &middot; <a href="search.php">search</a><br />
                 &middot; <a href="editprofile.php">edit your profile</a><br />
-<?php
+
+EOF;
+
     if ($ttf["perm"] == 'admin') {
-?>
-                &middot; <a href="admin_userlist.php">user list</a><br />
-<?php
+        echo '                &middot; <a href="admin_userlist.php">user list</a><br />'."\n";
     };
-?>
-                &middot; <a href="logout.php">log out</a>
-<?php
+
+    echo '                &middot; <a href="logout.php">log out</a>'."\n";
+
 } else {
-?>
-                log in to ttf
+
+    echo <<<EOF
+                log in to {$ttf_cfg["forum_shortname"]}
             </div>
             <div class="menu_body">
                 <form action="login.php" method="post">
@@ -65,7 +70,10 @@ if (isset($ttf["uid"])) {
                 &middot; <a href="register.php">register an account</a><br />
                 &middot; <a href="recover.php">recover your account</a><br />
                 &middot; <a href="search.php">search the forums</a>
-<?php
+
+EOF;
+
 };
+
 ?>
             </div>
