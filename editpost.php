@@ -130,7 +130,7 @@ if (!empty($body)) {
     if (!$result = mysql_query($sql)) showerror();
     list($thread_id) = mysql_fetch_array($result);
 
-    header("Location: thread.php?thread_id=".$thread_id."#post-".$post_id);
+    header("Location: $ttf_protocol://{$ttf_cfg["address"]}/thread.php?thread_id=".$thread_id."#post-".$post_id);
 
 } else if (!isset($_POST["body"])) {
 

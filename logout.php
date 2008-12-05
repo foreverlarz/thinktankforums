@@ -14,6 +14,6 @@ if (isset($_COOKIE["{$ttf_cfg["cookie_name"]}"])) {
 
 };
 
-header("Location: http://".$ttf_cfg["address"]."/");
+header("Location: $ttf_protocol://{$ttf_cfg["address"]}/");
 
 ?>

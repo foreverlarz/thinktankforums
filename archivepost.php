@@ -111,6 +111,6 @@ if (!$result = mysql_query($sql)) showerror();
  *   => profile.php         SELECT
  */
   
-header("Location: thread.php?thread_id=$thread_id");
+header("Location: $ttf_protocol://{$ttf_cfg["address"]}/thread.php?thread_id=$thread_id");
 
 ?>

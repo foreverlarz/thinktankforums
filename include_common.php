@@ -19,6 +19,11 @@ mb_internal_encoding('UTF-8');
 
 
 
+// set the protocol used
+$ttf_protocol = empty($_SERVER["HTTPS"]) ? 'http' : 'https';
+
+
+
 // include configuration variables
 require "include_config.php";
 

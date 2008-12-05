@@ -58,13 +58,13 @@ if ($_POST["action"] == "register") {
     } else {
 
         // if successful, send the email with the login information
-        $subject = "think tank forums account information";
-        $fromadd = "violet@thinktankforums.com";
-        $message = "hi--\n\nhere is your account information for think tank forums:\n\n".
+        $subject = "{$ttf_cfg["forum_name"]} account information";
+        $message = "hi--\n\nhere is your account information for {$ttf_cfg["forum_name"]}:\n\n".
                    "username: $username\npassword: $password\n\n".
-                   "log in at http://www.thinktankforums.com/\n\nthanks,\nviolet";
+                   "log in at $ttf_protocol://{$ttf_cfg["address"]}/\n\n".
+                   "thanks,\n{$ttf_cfg["bot_name"]}";
 
-        if (!mail($email0, $subject, $message, "from: ".$fromadd)) {
+        if (!mail($email0, $subject, $message, "from: ".$ttf_cfg["bot_email"])) {
 
             // uh oh, the mail() function failed
             message("register an account","fatal error", "sorry, no account was created.");

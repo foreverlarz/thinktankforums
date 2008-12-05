@@ -119,6 +119,6 @@ $sql = "UPDATE ttf_user                 ".
 if (!$result = mysql_query($sql)) showerror();
 
 // redirect to the new thread
-header("Location: thread.php?thread_id=".$thread_id);
+header("Location: $ttf_protocol://{$ttf_cfg["address"]}/thread.php?thread_id=$thread_id");
 
 ?>

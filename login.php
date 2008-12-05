@@ -42,7 +42,7 @@ if (isset($user["user_id"]) && $user["perm"] == 'banned') {
     $cookie = serialize(array($user["user_id"], $password));
     setcookie($ttf_cfg["cookie_name"], $cookie, $expire, $ttf_cfg["cookie_path"], $ttf_cfg["cookie_domain"]);
 
-    header("Location: http://".$ttf_cfg["address"]."/");
+    header("Location: $ttf_protocol://{$ttf_cfg["address"]}/");
     
 } else {
 

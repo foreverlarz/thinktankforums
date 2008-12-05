@@ -57,7 +57,7 @@ if (!empty($id_username) || !empty($id_email)) {
     $message = "hello,\n\nhere is your account recovery information for {$ttf_cfg["forum_name"]}:\n\n".
                "username: $username\npassword: $password\npasskey: $passkey\n\n".
                "to begin using this new password, you'll need to activate it using the passkey. ".
-               "visit http://{$ttf_cfg["address"]}/activate.php\n\nthanks,\n{$ttf_cfg["bot_name"]}\n\n\n".
+               "visit $ttf_protocol://{$ttf_cfg["address"]}/activate.php\n\nthanks,\n{$ttf_cfg["bot_name"]}\n\n\n".
                "p.s. do not reply to this email address; it is not checked.";
 
     if (!mail($email, $subject, $message, "from: ".$ttf_cfg["bot_email"])) {
