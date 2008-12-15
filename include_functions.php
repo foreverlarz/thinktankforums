@@ -146,6 +146,12 @@ function formatdate($timestamp, $format = "Y M j, g\:i a") {
  */
 function outputbody($input) {
 
+    if ($input === NULL) {
+
+        return '<div class="archivedpost">this post has been archived.</div>';
+
+    };
+
     // convert all special characters to their html equivalent
     $input = htmlspecialchars($input, ENT_COMPAT, 'UTF-8');
 

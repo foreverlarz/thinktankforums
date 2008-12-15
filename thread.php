@@ -144,8 +144,7 @@ while ($post = mysql_fetch_array($result)) {
     if ($hasperm) {
 
 ?>
-                    <a class="link" href="editpost.php?post_id=<?php echo $post["post_id"]; ?>">edit</a>,
-                    <a class="link" href="archivepost.php?post_id=<?php echo $post["post_id"]; ?>">archive</a>
+                    <a class="link" href="revise.php?post_id=<?php echo $post["post_id"]; ?>">revise</a>
 <?php
 
     };
