@@ -30,7 +30,6 @@ CREATE TABLE `ttf_post` (
   `thread_id` mediumint(9) default NULL,
   `author_id` mediumint(9) default NULL,
   `rev` smallint(6) NOT NULL default '0',
-  `archive` int(11) default NULL,
   `date` int(11) default NULL,
   `body` longtext collate utf8_unicode_ci,
   PRIMARY KEY  (`post_id`),
