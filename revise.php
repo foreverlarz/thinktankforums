@@ -1,7 +1,7 @@
 <?php
 /* think tank forums
  *
- * editpost.php
+ * revise.php
  */
 
 $ttf_title = $ttf_label = "revise a post";
