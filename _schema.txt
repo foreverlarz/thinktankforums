@@ -55,7 +55,7 @@ CREATE TABLE `ttf_revision` (
   `type` enum('post','profile','title') collate utf8_unicode_ci NOT NULL,
   `author_id` mediumint(9) NOT NULL,
   `date` int(11) NOT NULL,
-  `ip` varchar(15) collate utf8_unicode_ci NOT NULL,
+  `ip` varchar(15) collate utf8_unicode_ci default NULL,
   `body` longtext collate utf8_unicode_ci default NULL,
   PRIMARY KEY  (`rev_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
