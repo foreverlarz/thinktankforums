@@ -6,7 +6,7 @@
 
 $ttf_dbms = array(
     'host' => 'localhost',
-    'user' => 'root',
+    'user' => 'ttf',
     'pass' => '',
     'db'   => 'ttf'
 );
@@ -15,9 +15,9 @@ $ttf_cfg = array(
     'forum_name'        => 'think tank forums',
     'forum_shortname'   => 'ttf',
     'address'           => 'www.thinktankforums.com',
-    'version'           => 'v1-beta',
+    'version'           => '',
     'maintenance'       => FALSE,
-    'index_title'       => 'eminating passion',
+    'index_title'       => 'welcome',
     'online_timeout'    => 300,
     'forum_display'     => 15,
 
