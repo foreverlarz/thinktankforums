@@ -59,8 +59,7 @@ list($titlerev) = mysql_fetch_array($result);
 
 $sql = "SELECT COUNT(*)             ".
        "FROM ttf_post               ".
-       "WHERE author_id='$user_id'  ".
-       "   && archive IS NULL       ";
+       "WHERE author_id='$user_id'  ";
 if (!$result = mysql_query($sql)) showerror();
 list($numposts) = mysql_fetch_array($result);
 
