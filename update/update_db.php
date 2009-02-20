@@ -123,17 +123,16 @@ echo <<<EOF
 </tr>
 EOF;
 
-//add sticky and archive fields to ttf_threads
+//add archive field to ttf_threads
 $sql =<<<EOS
 	ALTER TABLE `ttf_thread`
 	ADD	`archive` int(11) default NULL,
-  ADD `sticky` enum('false','true') collate utf8_unicode_ci NOT NULL default 'false'
 EOS;
 if (!$result = mysql_query($sql)) showerror();
 echo <<<EOF
 <tr>
 	<td>
-		archive and sticky fields added to ttf_thread
+		archive field added to ttf_thread
 	</td>
 	<td>
 		&#10003

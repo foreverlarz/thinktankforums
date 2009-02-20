@@ -59,9 +59,6 @@ EOS;
 		<tr>
 			<td>
 				<span class="icon">
-					<a href="threadtools.php?action=sticky&thread_id={$cur_thread['thread_id']}" title="stickify!">
-						<img src="img/star.png">
-					</a>
 					<a onclick="javascript:displayRow(document.getElementById('move{$cur_thread['thread_id']}'))" title="move to another forum">
 						&#10021;
 					</a>
@@ -88,13 +85,6 @@ EOF;
 			//set color to red if thread is archived
 			echo <<<EOF
 				<span style="color: #ff0000" title="thread id: {$cur_thread['thread_id']}">
-					{$cur_thread['title']}
-				</span>
-EOF;
-		} elseif ($cur_thread['sticky'] == "true") {
-			//set color to green if thread is sticky
-			echo <<<EOF
-				<span style="color: #55AE3A" title="thread id: {$cur_thread['thread_id']}">
 					{$cur_thread['title']}
 				</span>
 EOF;
@@ -132,7 +122,7 @@ EOF;
 		</tr>
 EOF;
 
-//move form
+		//move form
 	echo <<<EOF
 		<tr id="move{$cur_thread['thread_id']}" style="display:none">
 		<td>
@@ -165,6 +155,7 @@ EOF;
 		</tbody>
 		</table>
 EOF;
+// pages of threads
 /* if ($numrows > ($ttf_cfg["forum_display"] + $offset)) {
         
     $next = $offset + $ttf_cfg["forum_display"];

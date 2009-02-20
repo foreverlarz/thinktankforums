@@ -54,14 +54,14 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS                                              
        "       ttf_thread.thread_id, ttf_thread.author_id, ttf_thread.archive,      ".
        "       ttf_thread.posts, ttf_thread.views, ttf_thread.date,                 ".
        "       ttf_thread.title, ttf_user.username, ttf_thread_new.last_view,       ".
-			 "       ttf_thread.sticky, ttf_thread.rev                                    ".
+			 "       ttf_thread.rev                                                       ".
        "FROM ttf_thread                                                             ".
        "LEFT JOIN ttf_user ON ttf_user.user_id=ttf_thread.author_id                 ".
        "LEFT JOIN ttf_thread_new ON ttf_thread_new.thread_id=ttf_thread.thread_id   ".
        "          && ttf_thread_new.user_id='{$ttf["uid"]}'                         ".
        "WHERE ttf_thread.forum_id='{$forum_id}' && ttf_thread.posts > 0             ".
 			 "   && ttf_thread.archive IS NULL                                            ".
-       "ORDER BY ttf_thread.sticky DESC, ttf_thread.date DESC                       ".
+       "ORDER BY ttf_thread.date DESC                       ".
        "LIMIT {$offset}, {$ttf_cfg["forum_display"]}                                ";
 if (!$result = mysql_query($sql)) showerror();
 
@@ -111,12 +111,10 @@ while ($thread = mysql_fetch_array($result)) {
         $mark = "&#9658;";
         $jump = "<span class=\"small\">&nbsp;&nbsp;&nbsp;(<a href=\"thread.php?thread_id=".
                 $thread["thread_id"]."#fresh\">jump</a>)</span>";
-				$mark .= ($thread["sticky"] == 'true') ? "&#9650;" : ""; //just in case something is both sticky and fresh!!!!
 								
 		} else {
 
         $mark = "&nbsp;";
-				$mark .= ($thread["sticky"] == 'true') ? "&#9650;" : ""; //just sticky
         unset($jump);
 
     };

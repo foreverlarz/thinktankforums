@@ -32,7 +32,6 @@ EOS;
 		if (!$result = mysql_query($sql)) showerror();
         
 		// update ttf_thread
-		//not sure how this code works so in the interim i'm replacing the 'SET rev = 'to a sub query
 		$sql =<<<EOS
 			UPDATE ttf_thread
 			SET rev = rev+1,
@@ -114,33 +113,6 @@ EOS;
 		if (!$result = mysql_query($sql)) showerror();
 		
 		//go back to the management page
-		header("Location: http://".$ttf_cfg['address']."/admin_managethread.php?forum_id=".$thread_data['forum_id']);
-		break;
-	case "sticky":
-	//make thread sticky (stays at the top of the forum)
-		$thread_id = clean($_GET['thread_id']);
-		$sql =<<<EOS
-			SELECT `sticky`, `forum_id`
-			FROM `ttf_thread`
-			WHERE `thread_id` = '{$thread_id}'
-EOS;
-		if (!$result = mysql_query($sql)) showerror();
-		$thread_data = mysql_fetch_array($result);
-		//toggle stickyness
-		if($thread_data['sticky'] == 'false') {
-			$sql =<<<EOS
-				UPDATE `ttf_thread`
-				SET `sticky` = 'true'
-				WHERE `thread_id` = '{$thread_id}'
-EOS;
-		} else {
-			$sql =<<<EOS
-				UPDATE `ttf_thread`
-				SET `sticky` = 'false'
-				WHERE `thread_id` = '{$thread_id}'
-EOS;
-		}
-		if (!$result = mysql_query($sql)) showerror();
 		header("Location: http://".$ttf_cfg['address']."/admin_managethread.php?forum_id=".$thread_data['forum_id']);
 		break;
 	case "move":
