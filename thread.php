@@ -77,6 +77,14 @@ $ttf_title = output($forum_name)." &raquo; ".output($thread_title);
 // let's output a page to the user
 require_once "include_header.php";
 
+// sidebox for thread revisions
+if ($ttf["perm"] == 'admin') {
+	echo <<<EOF
+			<div class="sidebox">
+				<strong><a href="revisethread.php?thread_id={$thread_id}">revise thread name</a></strong>
+			</div>
+EOF;
+}
 
 
 // select the posts in this thread
