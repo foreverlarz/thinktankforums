@@ -39,7 +39,7 @@ EOS;
 			WHERE thread_id='{$thread_id}'
 EOS;
 		if (!$result = mysql_query($sql)) showerror();
-		header("Location: http://".$ttf_cfg['address']."/admin_managethread.php?forum_id=".$thread_data['forum_id']);
+		header("Location: $ttf_protocol://".$ttf_cfg['address']."/admin_managethread.php?forum_id=".$thread_data['forum_id']);
 		break;
 	case "archive":
 	//archive given thread and all posts associated with it
@@ -113,7 +113,7 @@ EOS;
 		if (!$result = mysql_query($sql)) showerror();
 		
 		//go back to the management page
-		header("Location: http://".$ttf_cfg['address']."/admin_managethread.php?forum_id=".$thread_data['forum_id']);
+		header("Location: $ttf_protocol://".$ttf_cfg['address']."/admin_managethread.php?forum_id=".$thread_data['forum_id']);
 		break;
 	case "move":
 		//move the thread to another forum
@@ -125,7 +125,7 @@ EOS;
 			WHERE `thread_id` = '{$thread_id}'
 EOS;
 		if (!$result = mysql_query($sql)) showerror();
-		header("Location: http://".$ttf_cfg['address']."/admin_managethread.php?forum_id=".$forum_id);
+		header("Location: $ttf_protocol://".$ttf_cfg['address']."/admin_managethread.php?forum_id=".$forum_id);
 		break;
 	case "restore":
 	//restore the thread from the archives
@@ -147,11 +147,11 @@ EOS;
 			WHERE `thread_id` = '{$thread_id}'
 EOS;
 		if (!$result = mysql_query($sql)) showerror();
-		header("Location: http://".$ttf_cfg['address']."/admin_managethread.php?forum_id=".$thread_data['forum_id']);
+		header("Location: $ttf_protocol://".$ttf_cfg['address']."/admin_managethread.php?forum_id=".$thread_data['forum_id']);
 		break;
 	default:
 		//what are you doing here?
-		header("Location: http://".$ttf_cfg['address']."/admin_managethread.php");
+		header("Location: $ttf_protocol://".$ttf_cfg['address']."/admin_managethread.php");
 		break;
 }
 
