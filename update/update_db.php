@@ -126,7 +126,7 @@ EOF;
 //add archive field to ttf_threads
 $sql =<<<EOS
 	ALTER TABLE `ttf_thread`
-	ADD	`archive` int(11) default NULL,
+	ADD	`archive` int(11) default NULL
 EOS;
 if (!$result = mysql_query($sql)) showerror();
 echo <<<EOF
