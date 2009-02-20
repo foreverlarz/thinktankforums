@@ -15,6 +15,7 @@ CREATE TABLE `ttf_forum` (
   `threads` mediumint(9) NOT NULL default '0',
   `posts` mediumint(9) NOT NULL default '0',
   `date` int(11) NOT NULL default '0',
+  `position` tinyint(4) NOT NULL,
   PRIMARY KEY  (`forum_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -51,7 +52,7 @@ CREATE TABLE `ttf_recover` (
 CREATE TABLE `ttf_revision` (
   `rev_id` int(9) NOT NULL auto_increment,
   `ref_id` mediumint(9) NOT NULL,
-  `type` enum('post','profile','title') collate utf8_unicode_ci NOT NULL,
+  `type` enum('post','profile','title','thread') collate utf8_unicode_ci NOT NULL,
   `author_id` mediumint(9) NOT NULL,
   `date` int(11) NOT NULL,
   `ip` varchar(15) collate utf8_unicode_ci default NULL,
@@ -67,6 +68,8 @@ CREATE TABLE `ttf_thread` (
   `views` mediumint(9) NOT NULL default '0',
   `date` int(11) NOT NULL default '0',
   `title` text collate utf8_unicode_ci NOT NULL,
+  `archive` int(11) default NULL,
+  `rev` smallint(6) NOT NULL default '0',
   PRIMARY KEY  (`thread_id`),
   KEY `forum_id` (`forum_id`),
   FULLTEXT KEY `title` (`title`)
