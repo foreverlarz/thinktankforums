@@ -15,6 +15,8 @@ $thread_id = clean($_GET["thread_id"]);
 // get basic information about this thread
 $sql = "SELECT ttf_thread.forum_id,                             ".
        "       ttf_thread.title,                                ".
+			 "       ttf_thread.rev,                                  ".
+			 "       ttf_thread.thread_id,                            ".
        "       ttf_forum.name,                                  ".
        "       ttf_thread_new.last_view                         ".
        "FROM ttf_thread                                         ".
@@ -39,7 +41,7 @@ if (mysql_num_rows($result) !== 1) {
 
 
 // grab the row and stick it into awesomely-named variables
-list($forum_id, $thread_title, $forum_name, $last_view) = mysql_fetch_array($result);
+list($forum_id, $thread_title, $thread_rev, $thread_id, $forum_name, $last_view) = mysql_fetch_array($result);
 
 
 
@@ -67,8 +69,9 @@ if (isset($ttf["uid"])) {
 
 // create the header label
 $ttf_label = "<a href=\"forum.php?forum_id=$forum_id\">".output($forum_name)."</a> &raquo; ".output($thread_title);
+// check for thread revisions
+$ttf_label .= ($thread_rev > 0) ? "&nbsp;&nbsp;<i><a href=\"revision.php?ref_id={$thread_id}&type=thread\">r{$thread_rev}</a></i>" : "";
 $ttf_title = output($forum_name)." &raquo; ".output($thread_title);
-
 
 
 // let's output a page to the user

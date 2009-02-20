@@ -54,7 +54,7 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS                                              
        "       ttf_thread.thread_id, ttf_thread.author_id, ttf_thread.archive,      ".
        "       ttf_thread.posts, ttf_thread.views, ttf_thread.date,                 ".
        "       ttf_thread.title, ttf_user.username, ttf_thread_new.last_view,       ".
-			 "       ttf_thread.sticky                                                    ".
+			 "       ttf_thread.sticky, ttf_thread.rev                                    ".
        "FROM ttf_thread                                                             ".
        "LEFT JOIN ttf_user ON ttf_user.user_id=ttf_thread.author_id                 ".
        "LEFT JOIN ttf_thread_new ON ttf_thread_new.thread_id=ttf_thread.thread_id   ".
@@ -124,7 +124,7 @@ while ($thread = mysql_fetch_array($result)) {
 ?>
                     <tr>
                         <td class="center"><?php echo $mark; ?></td>
-                        <td><a href="thread.php?thread_id=<?php echo $thread["thread_id"]; ?>"><?php echo output($thread["title"]); ?></a><?php echo $jump; ?></td>
+                        <td><a href="thread.php?thread_id=<?php echo $thread["thread_id"]; ?>"><?php echo output($thread["title"]); ?></a><?php echo $jump; ?><?php echo ($thread["rev"] > 0) ? "&nbsp;&nbsp;<i><a href=\"revision.php?ref_id={$thread["thread_id"]}&type=thread\">r{$thread["rev"]}</a></i>" : "";?></td>
                         <td><a href="profile.php?user_id=<?php echo $thread["author_id"]; ?>"><?php echo output($thread["username"]); ?></a></td>
                         <td><?php echo $thread["posts"]; ?></td>
                         <td><?php echo $thread["views"]; ?></td>
