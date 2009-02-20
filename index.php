@@ -40,7 +40,8 @@ $sql = "SELECT ttf_forum.*,                                                 ".
        "       ON (    ttf_forum.forum_id = ttf_forum_new.forum_id          ".
        "            && ttf_forum_new.user_id = '{$ttf["uid"]}'              ".
        "            && ttf_forum.date >= ttf_forum_new.last_view )          ".
-       "GROUP BY ttf_forum.forum_id                                         ";
+       "GROUP BY ttf_forum.forum_id                                         ".
+			 "ORDER BY ttf_forum.position                                         ";
 
 if (!$result = mysql_query($sql)) showerror();
 

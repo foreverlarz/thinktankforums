@@ -35,6 +35,9 @@ case 'profile':
 case 'title':
     $ttf_label .= " &raquo; title for user $ref_id";
     break;
+case 'thread':
+		$ttf_label .= " &raquo; thread $ref_id";
+		break;
 };
 
 $ttf_title = $ttf_label;

@@ -72,6 +72,16 @@ $sql = "INSERT INTO ttf_thread          ".
 if (!$result = mysql_query($sql)) showerror();
 $thread_id = mysql_insert_id();
 
+// insert the new thread into ttf_revision
+$sql = "INSERT INTO ttf_revision            ".
+       "SET ref_id=$thread_id,                ".
+       "    type='thread',                    ".
+       "    author_id={$ttf["uid"]},        ". 
+       "    date=UNIX_TIMESTAMP(),          ".
+       "    ip='{$_SERVER["REMOTE_ADDR"]}', ".
+       "    body='".clean($title)."'         ";
+if (!$result = mysql_query($sql)) showerror();
+
 // insert the post into the respective thread
 $sql = "INSERT INTO ttf_post                    ".
        "SET thread_id=$thread_id,               ".

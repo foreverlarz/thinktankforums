@@ -19,6 +19,7 @@ echo <<<EOF
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>$ttf_htmltitle</title>
         <link rel="stylesheet" type="text/css" href="style.css" />
+				<script type="text/javascript" src="js/ttf.js"></script>
     </head>
     <body>
         <h1><a href="./">{$ttf_cfg["forum_name"]}</a></h1>
@@ -44,7 +45,9 @@ if (isset($ttf["uid"])) {
 EOF;
 
     if ($ttf["perm"] == 'admin') {
-        echo '                &middot; <a href="admin_userlist.php">user list</a><br />'."\n";
+        print "&middot; <a href=\"admin_userlist.php\">user list</a><br />";
+				print "&middot; <a href=\"admin_manageforum.php\">manage forums</a><br />";
+				print "&middot; <a href=\"admin_managethread.php\">manage threads</a><br />";
     };
 
     echo '                &middot; <a href="logout.php">log out</a>'."\n";

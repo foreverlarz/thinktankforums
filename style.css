@@ -141,6 +141,17 @@ a, a:active, a:link, a:visited {
     font-size: 10pt;
 }
 
+.icon A:link {
+  text-decoration: none
+}
+
+.icon A:visited {
+  text-decoration: none
+}
+
+.icon A:active {
+  text-decoration: none
+}
 .highlight {
     background-color: #00ff33;
 }
@@ -247,6 +258,15 @@ textarea.reply, textarea.newthread, textarea.editpost {
 textarea.profile {
     font-family: verdana, sans-serif;
     width: 588px;
+    color: black;
+    font-size: 11px;
+    background-color: white;
+    margin: 3px;
+}
+
+textarea.forum_desc {
+  font-family: verdana, sans-serif;
+    width: 500px;
     color: black;
     font-size: 11px;
     background-color: white;
