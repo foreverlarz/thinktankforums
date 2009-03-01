@@ -35,7 +35,7 @@ $ttf_label = "<a href=\"forum.php?forum_id=$forum_id\">".output($forum_name)."</
 $ttf_title = output($forum_name)." &raquo; create a new thread";
 
 // if each field isn't empty, silently and patiently let them fill them! :D
-if (empty($title) || empty($body)) {
+if (trim($title) == "" || trim($body) == "") {
 
     require_once "include_header.php";
 

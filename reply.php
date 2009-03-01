@@ -13,7 +13,7 @@ $body = $_POST["body"];
 
 kill_guests();
 
-if (empty($thread_id) || empty($body)) {
+if (empty($thread_id) || trim($body) = "") {
 
     message($ttf_label, $ttf_msg["fatal_error"], $ttf_msg["field_empty"]);
     die();
