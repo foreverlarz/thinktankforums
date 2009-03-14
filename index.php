@@ -108,7 +108,7 @@ while ($user = mysql_fetch_array($result)) {
 };
 
 // if no users were printed, say so
-if ($i == 0) $code = "noone is online.";
+if ($i == 0) $code = "no one is online.";
 
 if (isset($ttf["uid"])) $tot_span = 3; else $tot_span = 2;
 
