@@ -224,37 +224,40 @@ if (isset($_POST["post_id"])) {
 
     if ($archived === FALSE) {
 
-?>
+        echo <<<EOF
                 <div class="contenttitle">archive the post</div>
                 <div id="editpost_archive">
                     <input type="checkbox" name="archive" value="TRUE" />
                     don't bother with editing; simply don't display this post.
                 </div>
-<?php
+
+EOF;
 
     } else {
 
-?>
+        echo <<<EOF
                 <div class="contenttitle">notice</div>
                 <div id="editpost_archive">
                     <input type="hidden" name="unarchive" value="TRUE" />
                     <i>this post is currently archived.</i>
                     by submitting this form, the post will be un-archived.
                 </div>
-<?php
+
+EOF;
 
     };
 
-?>
+    echo <<<EOF
                 <div id="editpost_button">
                     <input class="editpost" type="submit" value="submit revision" />
                 </div>
                 <div>
-                    <input type="hidden" name="post_id" value="<?php echo $post_id; ?>" />
-                    <input type="hidden" name="rev_num" value="<?php echo $num_revs; ?>" />
+                    <input type="hidden" name="post_id" value="{$post_id}" />
+                    <input type="hidden" name="rev_num" value="{$num_revs}" />
                 </div>
             </form>
-<?php
+
+EOF;
 
 };
 

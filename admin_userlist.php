@@ -13,7 +13,7 @@ kill_nonadmin();
 
 require_once "include_header.php";
 
-?>
+echo <<<EOF
             <table cellspacing="1" class="content">
                 <thead>
                     <tr>
@@ -25,7 +25,8 @@ require_once "include_header.php";
                     </tr>
                 </thead>
                 <tbody>
-<?php
+
+EOF;
 
 $timeout = 60*60*24*7*2; // two weeks of seconds (s*m*h*d*w)
 

@@ -68,11 +68,13 @@ while ($forum = mysql_fetch_array($result)) {
         echo (empty($forum["last_view"]) ? $forum["freshies"] : "<b>".$forum["freshies"]."</b>");
         echo "</td>\n";
     };
-?>
-                        <td><?php echo $forum["threads"]; ?></td>
-                        <td><?php echo $forum["posts"]; ?></td>
+
+    echo <<<EOF
+                        <td>{$forum["threads"]}</td>
+                        <td>{$forum["posts"]}</td>
                     </tr>
-<?php
+
+EOF;
 
 };
 

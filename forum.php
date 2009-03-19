@@ -40,11 +40,12 @@ require_once "include_header.php";
 
 if (isset($ttf["uid"])) {
 
-?>
+    echo <<<EOF
             <div class="sidebox">
-                <strong><a href="newthread.php?forum_id=<?php echo $forum_id; ?>">create a new thread</a></strong>
+                <strong><a href="newthread.php?forum_id={$forum_id}">create a new thread</a></strong>
             </div>
-<?php
+
+EOF;
 
 };
 
@@ -72,15 +73,16 @@ if ($numrows > ($ttf_cfg["forum_display"] + $offset)) {
     $next = $offset + $ttf_cfg["forum_display"];
     $left = min($numrows - $offset - $ttf_cfg["forum_display"], $ttf_cfg["forum_display"]);
 
-?>
+    echo <<<EOF
             <div class="sidebox">
-                <strong><a href="forum.php?forum_id=<?php echo $forum_id; ?>&amp;offset=<?php echo $next; ?>">next <?php echo $left; ?> threads</a></strong><br /><span class="small"><?php echo $numrows; ?> total</span>
+                <strong><a href="forum.php?forum_id={$forum_id}&amp;offset={$next}">next {$left} threads</a></strong><br /><span class="small">{$numrows} total</span>
             </div>
-<?php
+
+EOF;
 
 };
 
-?>
+echo <<<EOF
             <table cellspacing="1" class="content">
                 <colgroup>
                     <col id="mark" />
@@ -99,7 +101,8 @@ if ($numrows > ($ttf_cfg["forum_display"] + $offset)) {
                     </tr>
                 </thead>
                 <tbody>
-<?php
+
+EOF;
 
 while ($thread = mysql_fetch_array($result)) {
 
@@ -129,13 +132,14 @@ while ($thread = mysql_fetch_array($result)) {
 
 };
 
-?>
+echo <<<EOF
                     <tr>
                         <th colspan="5">&nbsp;</th>
                     </tr>
                 </tbody>
             </table>
-<?php
+
+EOF;
 
 require_once "include_footer.php";
 

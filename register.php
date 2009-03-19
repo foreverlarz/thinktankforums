@@ -59,10 +59,19 @@ if ($_POST["action"] == "register") {
 
         // if successful, send the email with the login information
         $subject = "{$ttf_cfg["forum_name"]} account information";
-        $message = "hi--\n\nhere is your account information for {$ttf_cfg["forum_name"]}:\n\n".
-                   "username: $username\npassword: $password\n\n".
-                   "log in at $ttf_protocol://{$ttf_cfg["address"]}/\n\n".
-                   "thanks,\n{$ttf_cfg["bot_name"]}";
+        $message =<<<EOF
+hi--
+
+here is your account information for {$ttf_cfg["forum_name"]}:
+
+username: {$username}
+password: {$password}
+
+log in at {$ttf_protocol}://{$ttf_cfg["address"]}/
+
+thanks,
+{$ttf_cfg["bot_name"]}
+EOF;
 
         if (!mail($email0, $subject, $message, "from: ".$ttf_cfg["bot_email"])) {
 
@@ -131,7 +140,7 @@ if ($_POST["action"] == "register") {
 
 } else {
 
-?>
+    echo <<<EOF
             <form action="register.php" method="post">
                 <table cellspacing="1" class="content">
                     <tr>
@@ -158,7 +167,8 @@ if ($_POST["action"] == "register") {
                     </tr>
                 </table>
             </form>
-<?php
+
+EOF;
 
 };
 

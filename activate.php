@@ -65,7 +65,7 @@ if (!empty($passkey)) {
 
 };
 
-?>
+echo <<<EOF
             <div class="contenttitle">activate your password</div>
             <div class="contentbox">
                 <form action="activate.php" method="post">
@@ -76,7 +76,8 @@ if (!empty($passkey)) {
                     </div>
                 </form>
             </div>
-<?php
+
+EOF;
 
 require_once "include_footer.php";
 

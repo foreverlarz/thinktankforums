@@ -17,12 +17,12 @@ echo <<<EOF
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>$ttf_htmltitle</title>
+        <title>{$ttf_htmltitle}</title>
         <link rel="stylesheet" type="text/css" href="style.css" />
     </head>
     <body>
         <h1><a href="./">{$ttf_cfg["forum_name"]}</a></h1>
-        <h2>$ttf_label</h2>
+        <h2>{$ttf_label}</h2>
         <div id="enclosure">
             <div class="menu_title">
 

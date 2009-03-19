@@ -67,9 +67,7 @@ list($numthreads) = mysql_fetch_array($result);
 
 if (isset($user["avatar_type"])) {
 
-?>
-                    <img src="avatars/<?php echo $user["user_id"].".".$user["avatar_type"]; ?>" alt="av" width="30" height="30" />
-<?php
+    echo "                    <img src=\"avatars/{$user["user_id"]}.{$user["avatar_type"]}\" alt=\"av\" width=\"30\" height=\"30\" />";
 
 } else {
 
@@ -80,10 +78,12 @@ if (isset($user["avatar_type"])) {
 ?>
                 </div>
                 <span class="username"><?php echo output($user["username"]); ?></span><br />
-                <?php echo $user["title"]."\n"; ?>
+<?php
+echo <<<EOF
+                {$user["title"]}
             </div>
             <div class="contentbox_sm">
-<?php echo $user["profile"]."\n"; ?>
+                {$user["profile"]}
             </div>
             <table cellspacing="1" class="content">
                 <thead>
@@ -94,35 +94,37 @@ if (isset($user["avatar_type"])) {
                 <tbody>
                     <tr>
                         <td>
-                            <a href="revision.php?type=title&amp;ref_id=<?php echo $user["user_id"]; ?>">title revisions</a>
+                            <a href="revision.php?type=title&amp;ref_id={$user["user_id"]}">title revisions</a>
                         </td>
-                        <td><?php echo $titlerev; ?></td>
+                        <td>{$titlerev}</td>
                     </tr>
                     <tr>
                         <td>
-                            <a href="revision.php?type=profile&amp;ref_id=<?php echo $user["user_id"]; ?>">profile revisions</a>
+                            <a href="revision.php?type=profile&amp;ref_id={$user["user_id"]}">profile revisions</a>
                         </td>
-                        <td><?php echo $profilerev; ?></td>
+                        <td>{$profilerev}</td>
                     </tr>
                     <tr>
                         <td>number of posts</td>
-                        <td><?php echo $numposts; ?></td>
+                        <td>{$numposts}</td>
                     </tr>
                     <tr>
                         <td>number of threads</td>
-                        <td><?php echo $numthreads; ?></td>
+                        <td>{$numthreads}</td>
                     </tr>
                     <tr>
                         <td>last visited</td>
-                        <td><span title="<?php echo $visit_date[1]; ?>"><?php echo $visit_date[0]; ?></span></td>
+                        <td><span title="{$visit_date[1]}">{$visit_date[0]}</span></td>
                     </tr>
                     <tr>
                         <td>account registered</td>
-                        <td><span title="<?php echo $register_date[1]; ?>"><?php echo $register_date[0]; ?></span></td>
+                        <td><span title="{$register_date[1]}">{$register_date[0]}</span></td>
                     </tr>
                 </tbody>
             </table>
-<?php
+
+EOF;
+
 $sql = "SELECT ttf_post.post_id,                        ".
        "       ttf_post.thread_id,                      ".
        "       ttf_post.date,                           ".
@@ -134,7 +136,8 @@ $sql = "SELECT ttf_post.post_id,                        ".
        "ORDER BY date DESC LIMIT 5                      ";
 if (!$result = mysql_query($sql)) showerror();
 if (mysql_num_rows($result) != 0) {
-?>
+
+    echo <<<EOF
             <table cellspacing="1" class="content">
                 <thead>
                     <tr>
@@ -142,24 +145,28 @@ if (mysql_num_rows($result) != 0) {
                     </tr>
                 </thead>
                 <tbody>
-<?php
+
+EOF;
+
     while ($post = mysql_fetch_array($result)) {
 
         $date = formatdate($post["date"]);
 
-?>
+        echo <<<EOF
                     <tr>
-                        <td><a href="thread.php?thread_id=<?php echo $post["thread_id"]."#post-".$post["post_id"]."\">".$post["title"]; ?></a></td>
-                        <td><span title="<?php echo $date[1]; ?>"><?php echo $date[0]; ?></span></td>
-                    </tr>                                
-<?php
+                        <td><a href="thread.php?thread_id={$post["thread_id"]}#post-{$post["post_id"]}">{$post["title"]}</a></td>
+                        <td><span title="{$date[1]}">{$date[0]}</span></td>
+                    </tr>
+
+EOF;
 
     };
 
-?>
+    echo <<<EOF
                 </tbody>
             </table>
-<?php
+
+EOF;
 
 };
 

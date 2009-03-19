@@ -110,10 +110,11 @@ while ($post = mysql_fetch_array($result)) {
 
     };
 
-?>
-            <div class="userbar" id="post-<?php echo $post["post_id"]; ?>">
+    echo <<<EOF
+            <div class="userbar" id="post-{$post["post_id"]}">
                 <div class="userbar_left">
-<?php
+
+EOF;
 
     if (!empty($post["avatar_type"])) {
 
@@ -127,10 +128,11 @@ while ($post = mysql_fetch_array($result)) {
 
     };
 
-?>
+    echo <<<EOF
                 </div>
-                <div class="userbar_right"><span title="<?php echo $date[1]; ?>"><?php echo $date[0]; ?></span><br />
-<?php
+                <div class="userbar_right"><span title="{$date[1]}">{$date[0]}</span><br />
+
+EOF;
 
     if ($post["rev"] > 0) {
 
@@ -142,9 +144,7 @@ while ($post = mysql_fetch_array($result)) {
 
     if ($hasperm) {
 
-?>
-                    <a class="link" href="revise.php?post_id=<?php echo $post["post_id"]; ?>">revise</a>
-<?php
+        echo "                    <a class=\"link\" href=\"revise.php?post_id={$post["post_id"]}\">revise</a>";
 
     };
 
@@ -165,19 +165,20 @@ while ($post = mysql_fetch_array($result)) {
 // if user is logged in, print a reply box
 if (isset($ttf["uid"])) {
 
-?>
+    echo <<<EOF
             <form action="reply.php" method="post">
                 <div id="reply_textarea">
                     <textarea class="reply" cols="72" rows="12" name="body" wrap="virtual"></textarea>
                 </div>
                 <div id="reply_button">
-                    <input class="reply" type="submit" value="<?php echo $ttf_msg["btnpost"]; ?>" />
+                    <input class="reply" type="submit" value="{$ttf_msg["btnpost"]}" />
                 </div>
                 <div>
-                    <input type="hidden" name="thread_id" value="<?php echo $thread_id; ?>" />
+                    <input type="hidden" name="thread_id" value="{$thread_id}" />
                 </div>
             </form>
-<?php
+
+EOF;
 
 };
 

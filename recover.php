@@ -54,11 +54,24 @@ if (!empty($id_username) || !empty($id_email)) {
     if (!$result = mysql_query($sql)) showerror();
 
     $subject = "{$ttf_cfg["forum_name"]} account recovery information";
-    $message = "hello,\n\nhere is your account recovery information for {$ttf_cfg["forum_name"]}:\n\n".
-               "username: $username\npassword: $password\npasskey: $passkey\n\n".
-               "to begin using this new password, you'll need to activate it using the passkey. ".
-               "visit $ttf_protocol://{$ttf_cfg["address"]}/activate.php\n\nthanks,\n{$ttf_cfg["bot_name"]}\n\n\n".
-               "p.s. do not reply to this email address; it is not checked.";
+    $message =<<<EOF
+hello,
+
+here is your account recovery information for {$ttf_cfg["forum_name"]}:
+
+username: {$username}
+password: {$password}
+passkey: {$passkey}
+
+to begin using this new password, you'll need to activate it using the passkey.
+visit {$ttf_protocol}://{$ttf_cfg["address"]}/activate.php
+
+thanks,
+{$ttf_cfg["bot_name"]}
+
+
+p.s. do not reply to this email address; it is not checked.
+EOF;
 
     if (!mail($email, $subject, $message, "from: ".$ttf_cfg["bot_email"])) {
 
@@ -76,7 +89,7 @@ if (!empty($id_username) || !empty($id_email)) {
 
 };
 
-?>
+echo <<<EOF
             <div class="contenttitle">recover your account</div>
             <div class="contentbox">
                 <form action="recover.php" method="post">
@@ -93,7 +106,8 @@ if (!empty($id_username) || !empty($id_email)) {
                     </div>
                 </form>
             </div>
-<?php
+
+EOF;
 
 require_once "include_footer.php";
 
