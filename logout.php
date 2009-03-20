@@ -10,7 +10,8 @@ if (isset($_COOKIE["{$ttf_cfg["cookie_name"]}"])) {
 
     $expire = time() - 3600;
 
-    setcookie($ttf_cfg["cookie_name"], "", $expire, $ttf_cfg["cookie_path"], $ttf_cfg["cookie_domain"], $ttf_cfg["cookie_secure"]);
+    setcookie($ttf_cfg["cookie_name"].'-pair', '', $expire, $ttf_cfg["cookie_path"], $ttf_cfg["cookie_domain"], $ttf_cfg["cookie_secure"]);
+    setcookie($ttf_cfg["cookie_name"].'-user', '', $expire, $ttf_cfg["cookie_path"], $ttf_cfg["cookie_domain"], FALSE);
 
 };
 

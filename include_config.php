@@ -26,7 +26,7 @@ $ttf_cfg = array(
     'bot_name'          => 'violet',
     'bot_email'         => 'violet@thinktankforums.com',
 
-    'cookie_name'       => 'thinktank',
+    'cookie_name'       => 'ttf',
     'cookie_time'       => 31556926,
     'cookie_path'       => '/',
     'cookie_domain'     => 'www.thinktankforums.com',

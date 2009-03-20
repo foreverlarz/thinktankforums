@@ -34,6 +34,28 @@ require "include_functions.php";
 
 
 
+// if we only allow secure cookies,
+// and the agent is trying http,
+// and the agent is a ttf user,
+// and the agent is using the GET method,
+// THEN redirect them to the https equivalent.
+if ( $ttf_cfg['cookie_secure'] == TRUE
+     && $ttf_protocol == 'http'
+     && $_COOKIE["{$ttf_cfg['cookie_name']}-user"] == 'TRUE'
+     && $_SERVER['REQUEST_METHOD'] == 'GET'
+     && !empty($_SERVER['HTTP_HOST'])
+     && !empty($_SERVER['PHP_SELF'])) {
+
+    $p = ($_SERVER['PHP_SELF'] == '/index.php') ? '/' : $_SERVER['PHP_SELF'];
+    $q = empty($_SERVER['QUERY_STRING']) ? '' : '?'.$_SERVER['QUERY_STRING'];
+
+    header('Location: https://'.$_SERVER['HTTP_HOST'].$p.$q);
+    die();
+
+};
+
+
+
 // kill if in maintenance mode
 if ($ttf_cfg["maintenance"]) {
 
@@ -80,10 +102,10 @@ while ($ban = mysql_fetch_array($result)) {
 
 
 // cookie management
-if (isset($_COOKIE["{$ttf_cfg["cookie_name"]}"])) {
+if (isset($_COOKIE["{$ttf_cfg["cookie_name"]}-pair"])) {
 
     // pull the data out of the cookie
-    list($uid, $pwd) = unserialize(stripslashes($_COOKIE["{$ttf_cfg["cookie_name"]}"]));
+    list($uid, $pwd) = unserialize(stripslashes($_COOKIE["{$ttf_cfg["cookie_name"]}-pair"]));
 
     // select the data from ttf_user associated with this user
     $sql = "SELECT user_id,                     ".
