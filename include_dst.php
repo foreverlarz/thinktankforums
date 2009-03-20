@@ -3,6 +3,8 @@
 /************************************************************************************************
 $ttf_epoch_year = 2004;
 
+
+
 function ttf_conceptual_date($ordinal, $day_of_week, $month, $year, $h=0, $m=0, $s=0) {
     if ($ordinal === 0) {
         for ($day = gmdate('t', gmmktime($h,$m,$s,$month,0,$year));
@@ -45,6 +47,10 @@ for ($year = 2007, $now = gmdate('Y'); $year <= $now; $year++) {
 };
 
 
+// CANADA DST SCHEME
+$ttf_dst['canada'] = $ttf_dst['usa'];
+
+
 // EXPORT $ttf_dst
 var_export($ttf_dst);
 *************************************************************************************************/
@@ -58,6 +64,45 @@ array (
   array (
   ),
   'usa' => 
+  array (
+    0 => 
+    array (
+      'begin' => 1081044000,
+      'end' => 1098583200,
+      'adj' => 3600,
+    ),
+    1 => 
+    array (
+      'begin' => 1112493600,
+      'end' => 1130637600,
+      'adj' => 3600,
+    ),
+    2 => 
+    array (
+      'begin' => 1143943200,
+      'end' => 1162087200,
+      'adj' => 3600,
+    ),
+    3 => 
+    array (
+      'begin' => 1173578400,
+      'end' => 1194141600,
+      'adj' => 3600,
+    ),
+    4 => 
+    array (
+      'begin' => 1205028000,
+      'end' => 1225591200,
+      'adj' => 3600,
+    ),
+    5 => 
+    array (
+      'begin' => 1236477600,
+      'end' => 1257040800,
+      'adj' => 3600,
+    ),
+  ),
+  'canada' => 
   array (
     0 => 
     array (
