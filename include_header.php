@@ -51,11 +51,13 @@ EOF;
 
 } else {
 
+    $force_https = $ttf_cfg["cookie_secure"] ? 'https://'.$ttf_cfg["address"].'/' : '';
+
     echo <<<EOF
                 log in to {$ttf_cfg["forum_shortname"]}
             </div>
             <div class="menu_body">
-                <form action="login.php" method="post">
+                <form action="{$force_https}login.php" method="post">
                     <div>
                         <input type="text" name="username" maxlength="16" size="16" /><br />
                         <input type="password" name="password" maxlength="32" size="16" /><br />
