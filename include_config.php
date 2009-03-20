@@ -29,7 +29,8 @@ $ttf_cfg = array(
     'cookie_name'       => 'thinktank',
     'cookie_time'       => 31556926,
     'cookie_path'       => '/',
-    'cookie_domain'     => '.thinktankforums.com'
+    'cookie_domain'     => 'www.thinktankforums.com',
+    'cookie_secure'     => FALSE
 );
 
 $ttf_msg = array(
