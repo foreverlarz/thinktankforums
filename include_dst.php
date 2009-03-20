@@ -2,6 +2,7 @@
 
 /************************************************************************************************
 $ttf_epoch_year = 2004;
+$dst_end_year   = 2020;
 
 
 
@@ -40,7 +41,7 @@ for ($year = $ttf_epoch_year; $year <= 2006; $year++) {
                               'adj'   => 1*60*60);
 };
 // 2007 to now  --- second sunday in march until first sunday in november --- +1 hour @ 02:00:00
-for ($year = 2007, $now = gmdate('Y'); $year <= $now; $year++) {
+for ($year = 2007; $year <= $dst_end_year; $year++) {
     $ttf_dst['usa'][] = array('begin' => ttf_conceptual_date(2, 0,  3, $year, 2),
                               'end'   => ttf_conceptual_date(1, 0, 11, $year, 2),
                               'adj'   => 1*60*60);
@@ -54,7 +55,7 @@ $ttf_dst['canada'] = $ttf_dst['usa'];
 // EUROPE DST SCHEME
 $ttf_dst['europe'] = array();
 // 1998 to now  --- last sunday in march until last sunday in october     --- +1 hour @ 01:00:00
-for ($year = $ttf_epoch_year, $now = gmdate('Y'); $year <= $now; $year++) {
+for ($year = $ttf_epoch_year; $year <= $dst_end_year; $year++) {
     $ttf_dst['europe'][] = array('begin' => ttf_conceptual_date(0, 0,  3, $year, 1),
                                  'end'   => ttf_conceptual_date(0, 0, 10, $year, 1),
                                  'adj'   => 1*60*60);
@@ -111,6 +112,72 @@ array (
       'end' => 1257040800,
       'adj' => 3600,
     ),
+    6 => 
+    array (
+      'begin' => 1268532000,
+      'end' => 1289095200,
+      'adj' => 3600,
+    ),
+    7 => 
+    array (
+      'begin' => 1299981600,
+      'end' => 1320544800,
+      'adj' => 3600,
+    ),
+    8 => 
+    array (
+      'begin' => 1331431200,
+      'end' => 1351994400,
+      'adj' => 3600,
+    ),
+    9 => 
+    array (
+      'begin' => 1362880800,
+      'end' => 1383444000,
+      'adj' => 3600,
+    ),
+    10 => 
+    array (
+      'begin' => 1394330400,
+      'end' => 1414893600,
+      'adj' => 3600,
+    ),
+    11 => 
+    array (
+      'begin' => 1425780000,
+      'end' => 1446343200,
+      'adj' => 3600,
+    ),
+    12 => 
+    array (
+      'begin' => 1457834400,
+      'end' => 1478397600,
+      'adj' => 3600,
+    ),
+    13 => 
+    array (
+      'begin' => 1489284000,
+      'end' => 1509847200,
+      'adj' => 3600,
+    ),
+    14 => 
+    array (
+      'begin' => 1520733600,
+      'end' => 1541296800,
+      'adj' => 3600,
+    ),
+    15 => 
+    array (
+      'begin' => 1552183200,
+      'end' => 1572746400,
+      'adj' => 3600,
+    ),
+    16 => 
+    array (
+      'begin' => 1583632800,
+      'end' => 1604196000,
+      'adj' => 3600,
+    ),
   ),
   'canada' => 
   array (
@@ -150,6 +217,72 @@ array (
       'end' => 1257040800,
       'adj' => 3600,
     ),
+    6 => 
+    array (
+      'begin' => 1268532000,
+      'end' => 1289095200,
+      'adj' => 3600,
+    ),
+    7 => 
+    array (
+      'begin' => 1299981600,
+      'end' => 1320544800,
+      'adj' => 3600,
+    ),
+    8 => 
+    array (
+      'begin' => 1331431200,
+      'end' => 1351994400,
+      'adj' => 3600,
+    ),
+    9 => 
+    array (
+      'begin' => 1362880800,
+      'end' => 1383444000,
+      'adj' => 3600,
+    ),
+    10 => 
+    array (
+      'begin' => 1394330400,
+      'end' => 1414893600,
+      'adj' => 3600,
+    ),
+    11 => 
+    array (
+      'begin' => 1425780000,
+      'end' => 1446343200,
+      'adj' => 3600,
+    ),
+    12 => 
+    array (
+      'begin' => 1457834400,
+      'end' => 1478397600,
+      'adj' => 3600,
+    ),
+    13 => 
+    array (
+      'begin' => 1489284000,
+      'end' => 1509847200,
+      'adj' => 3600,
+    ),
+    14 => 
+    array (
+      'begin' => 1520733600,
+      'end' => 1541296800,
+      'adj' => 3600,
+    ),
+    15 => 
+    array (
+      'begin' => 1552183200,
+      'end' => 1572746400,
+      'adj' => 3600,
+    ),
+    16 => 
+    array (
+      'begin' => 1583632800,
+      'end' => 1604196000,
+      'adj' => 3600,
+    ),
   ),
   'europe' => 
   array (
@@ -187,6 +320,72 @@ array (
     array (
       'begin' => 1237683600,
       'end' => 1256432400,
+      'adj' => 3600,
+    ),
+    6 => 
+    array (
+      'begin' => 1269738000,
+      'end' => 1287882000,
+      'adj' => 3600,
+    ),
+    7 => 
+    array (
+      'begin' => 1301187600,
+      'end' => 1319936400,
+      'adj' => 3600,
+    ),
+    8 => 
+    array (
+      'begin' => 1332637200,
+      'end' => 1351386000,
+      'adj' => 3600,
+    ),
+    9 => 
+    array (
+      'begin' => 1364086800,
+      'end' => 1382835600,
+      'adj' => 3600,
+    ),
+    10 => 
+    array (
+      'begin' => 1395536400,
+      'end' => 1414285200,
+      'adj' => 3600,
+    ),
+    11 => 
+    array (
+      'begin' => 1426986000,
+      'end' => 1445734800,
+      'adj' => 3600,
+    ),
+    12 => 
+    array (
+      'begin' => 1459040400,
+      'end' => 1477789200,
+      'adj' => 3600,
+    ),
+    13 => 
+    array (
+      'begin' => 1490490000,
+      'end' => 1509238800,
+      'adj' => 3600,
+    ),
+    14 => 
+    array (
+      'begin' => 1521939600,
+      'end' => 1540688400,
+      'adj' => 3600,
+    ),
+    15 => 
+    array (
+      'begin' => 1553389200,
+      'end' => 1572138000,
+      'adj' => 3600,
+    ),
+    16 => 
+    array (
+      'begin' => 1585443600,
+      'end' => 1603587600,
       'adj' => 3600,
     ),
   ),
