@@ -51,6 +51,16 @@ for ($year = 2007, $now = gmdate('Y'); $year <= $now; $year++) {
 $ttf_dst['canada'] = $ttf_dst['usa'];
 
 
+// EUROPE DST SCHEME
+$ttf_dst['europe'] = array();
+// 1998 to now  --- last sunday in march until last sunday in october     --- +1 hour @ 01:00:00
+for ($year = $ttf_epoch_year, $now = gmdate('Y'); $year <= $now; $year++) {
+    $ttf_dst['europe'][] = array('begin' => ttf_conceptual_date(0, 0,  3, $year, 1),
+                                 'end'   => ttf_conceptual_date(0, 0, 10, $year, 1),
+                                 'adj'   => 1*60*60);
+};
+
+
 // EXPORT $ttf_dst
 var_export($ttf_dst);
 *************************************************************************************************/
@@ -138,6 +148,45 @@ array (
     array (
       'begin' => 1236477600,
       'end' => 1257040800,
+      'adj' => 3600,
+    ),
+  ),
+  'europe' => 
+  array (
+    0 => 
+    array (
+      'begin' => 1080435600,
+      'end' => 1098579600,
+      'adj' => 3600,
+    ),
+    1 => 
+    array (
+      'begin' => 1111885200,
+      'end' => 1130634000,
+      'adj' => 3600,
+    ),
+    2 => 
+    array (
+      'begin' => 1143334800,
+      'end' => 1162083600,
+      'adj' => 3600,
+    ),
+    3 => 
+    array (
+      'begin' => 1174784400,
+      'end' => 1193533200,
+      'adj' => 3600,
+    ),
+    4 => 
+    array (
+      'begin' => 1206234000,
+      'end' => 1224982800,
+      'adj' => 3600,
+    ),
+    5 => 
+    array (
+      'begin' => 1237683600,
+      'end' => 1256432400,
       'adj' => 3600,
     ),
   ),
