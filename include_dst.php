@@ -93,12 +93,12 @@ for ($year = 2007; $year <= $dst_end_year; $year++) {
 
 
 // EUROPE DST SCHEME
-$ttf_dst['europe'] = array();
+$ttf_dst['eu'] = array();
 // 1998 to now  --- last sunday in march until last sunday in october     --- +1 hour @ 01:00:00 UTC
 for ($year = $ttf_epoch_year; $year <= $dst_end_year; $year++) {
-    $ttf_dst['europe'][] = array('begin' => ttf_conceptual_date(0, 0,  3, $year, 1),
-                                 'end'   => ttf_conceptual_date(0, 0, 10, $year, 1),
-                                 'adj'   => 1*60*60);
+    $ttf_dst['eu'][] = array('begin' => ttf_conceptual_date(0, 0,  3, $year, 1),
+                             'end'   => ttf_conceptual_date(0, 0, 10, $year, 1),
+                             'adj'   => 1*60*60);
 };
 
 
@@ -531,7 +531,7 @@ array (
       'adj' => 3600,
     ),
   ),
-  'europe' => 
+  'eu' => 
   array (
     0 => 
     array (
