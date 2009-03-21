@@ -6,7 +6,7 @@
 
 require_once "include_common.php";
 
-if (isset($_COOKIE["{$ttf_cfg["cookie_name"]}"])) {
+if (isset($_COOKIE["{$ttf_cfg["cookie_name"]}-pair"]) || isset($_COOKIE["{$ttf_cfg["cookie_name"]}-user"])) {
 
     $expire = time() - 3600;
 
