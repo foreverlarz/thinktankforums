@@ -142,6 +142,15 @@ if (isset($_COOKIE["{$ttf_cfg["cookie_name"]}-pair"])) {
 
 
 
+// if the user plays dst, load it up
+if (!empty($ttf["dst_scheme"])) {
+
+    require "include_dst.php";
+
+};
+
+
+
 // update the user's visit_date and visit_ip
 if (isset($ttf["uid"])) {
 

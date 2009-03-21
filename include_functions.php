@@ -53,7 +53,8 @@ function message($ttf_label, $title, $body) {
  */
 function formatdate($timestamp, $format = "Y M j, g\:i a") {
 
-    global $ttf;    // pull through to get the user's time zone
+    global $ttf;        // pull through to get the user's time zone
+    global $ttf_dst;    // pull through to get the dst transitions
 
     $longago = time() - $timestamp;
     $minute  = 60;
@@ -115,28 +116,24 @@ function formatdate($timestamp, $format = "Y M j, g\:i a") {
 
     };
 
-    $adj_timestamp = $timestamp + 3600*$ttf["time_zone"];
-
     if (!empty($ttf["dst_scheme"])) {
 
-        require_once "include_dst.php";
-
-        $y = gmdate('Y', $adj_timestamp);
+        $y = gmdate('Y', $timestamp);
 
         if (isset($ttf_dst[$ttf['dst_scheme']][$y])) {
 
-            if (    $adj_timestamp >= $ttf_dst[$ttf['dst_scheme']][$y]['begin']
-                 && $adj_timestamp <  $ttf_dst[$ttf['dst_scheme']][$y]['end']) {
+            if (    $timestamp >= $ttf_dst[$ttf['dst_scheme']][$y]['begin']
+                 && $timestamp <  $ttf_dst[$ttf['dst_scheme']][$y]['end']) {
 
-                $adj_timestamp = $adj_timestamp + $ttf_dst[$ttf['dst_scheme']][$y]['adj'];
-
+                $timestamp = $timestamp + $ttf_dst[$ttf['dst_scheme']][$y]['adj'];
             };
 
         };
 
     };
 
-    $absolute = strtolower(gmdate($format, $adj_timestamp));
+    $timestamp = $timestamp + 3600*$ttf["time_zone"];
+    $absolute = strtolower(gmdate($format, $timestamp));
     return array($relative, $absolute);
 
 };
