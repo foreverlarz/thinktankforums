@@ -113,8 +113,6 @@ function formatdate($timestamp, $format = "Y M j, g\:i a") {
         if ($relative != 1) $relative .= " years ago";
         else $relative .= " year ago";
 
-        $date = strtolower(gmdate($format, $timestamp + 3600*$ttf["time_zone"]));
-
     };
 
     $absolute = strtolower(gmdate($format, $timestamp + 3600*$ttf["time_zone"]));
