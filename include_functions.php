@@ -121,6 +121,8 @@ function formatdate($timestamp, $format = "Y M j, g\:i a") {
 
     } else {
 
+        require_once "include_dst.php";
+
         $adj_timestamp = $timestamp + 3600*$ttf["time_zone"];
 
     };
