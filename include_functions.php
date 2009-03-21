@@ -115,15 +115,24 @@ function formatdate($timestamp, $format = "Y M j, g\:i a") {
 
     };
 
-    if (empty($ttf["dst_scheme"])) {
+    $adj_timestamp = $timestamp + 3600*$ttf["time_zone"];
 
-        $adj_timestamp = $timestamp + 3600*$ttf["time_zone"];
-
-    } else {
+    if (!empty($ttf["dst_scheme"])) {
 
         require_once "include_dst.php";
 
-        $adj_timestamp = $timestamp + 3600*$ttf["time_zone"];
+        $y = gmdate('Y', $adj_timestamp);
+
+        if (isset($ttf_dst[$ttf['dst_scheme']][$y])) {
+
+            if (    $adj_timestamp >= $ttf_dst[$ttf['dst_scheme']][$y]['begin']
+                 && $adj_timestamp <  $ttf_dst[$ttf['dst_scheme']][$y]['end']) {
+
+                $adj_timestamp = $adj_timestamp + $ttf_dst[$ttf['dst_scheme']][$y]['adj'];
+
+            };
+
+        };
 
     };
 
