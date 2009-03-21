@@ -112,7 +112,8 @@ if (isset($_COOKIE["{$ttf_cfg["cookie_name"]}-pair"])) {
            "       username,                    ".
            "       perm,                        ".
            "       avatar_type,                 ".
-           "       time_zone                    ".
+           "       time_zone,                   ".
+           "       dst_scheme                   ".
            "FROM ttf_user                       ".
            "WHERE user_id='".clean($uid)."'     ".
            "   && password='".clean($pwd)."'    ";
@@ -126,7 +127,8 @@ if (isset($_COOKIE["{$ttf_cfg["cookie_name"]}-pair"])) {
              $ttf["username"],
              $ttf["perm"],
              $ttf["avatar_type"],
-             $ttf["time_zone"]) = mysql_fetch_array($result);
+             $ttf["time_zone"],
+             $ttf["dst_scheme"]) = mysql_fetch_array($result);
 
     } else {
 
