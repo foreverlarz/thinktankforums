@@ -115,7 +115,17 @@ function formatdate($timestamp, $format = "Y M j, g\:i a") {
 
     };
 
-    $absolute = strtolower(gmdate($format, $timestamp + 3600*$ttf["time_zone"]));
+    if (empty($ttf["dst_scheme"])) {
+
+        $adj_timestamp = $timestamp + 3600*$ttf["time_zone"];
+
+    } else {
+
+        $adj_timestamp = $timestamp + 3600*$ttf["time_zone"];
+
+    };
+
+    $absolute = strtolower(gmdate($format, $adj_timestamp));
     return array($relative, $absolute);
 
 };
