@@ -137,7 +137,7 @@ EOF;
     if ($post["rev"] > 0) {
 
 ?>
-                    <a class="link" href="revision.php?ref_id=<?php echo $post["post_id"]; ?>&amp;type=post">rev <?php echo $post["rev"]; ?></a><?php if ($hasperm) echo ",\n"; ?>
+                    <a class="link" href="revision.php?ref_id=<?php echo $post["post_id"]; ?>&amp;type=post">r<?php echo $post["rev"]; ?></a><?php if ($hasperm) echo ",\n"; ?>
 <?php
 
     };
