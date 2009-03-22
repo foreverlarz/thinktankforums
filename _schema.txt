@@ -88,7 +88,7 @@ CREATE TABLE `ttf_user` (
   `title` varchar(64) collate utf8_unicode_ci default NULL,
   `avatar_type` enum('gif','jpg','png') collate utf8_unicode_ci default NULL,
   `time_zone` float NOT NULL default '0',
-  `dst_scheme` enum('eu','na_pdt','na_mdt','na_cdt','na_edt') collate utf8_unicode_ci default NULL,
+  `dst_scheme` enum('eu','na_akdt','na_pdt','na_mdt','na_cdt','na_edt','na_adt','na_mx3','na_mx2','na_mx1') collate utf8_unicode_ci default NULL,
   `register_date` int(11) default NULL,
   `visit_date` int(11) default NULL,
   `post_date` int(11) default NULL,

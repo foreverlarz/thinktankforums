@@ -471,10 +471,15 @@ if (isset($_POST["edit"])) {
                             <select name="dst">
                                 <option value=""<?php if($user["dst_scheme"]=="") echo " selected=\"selected\""; ?>>none</option>
                                 <option value="eu"<?php if($user["dst_scheme"]=="eu") echo " selected=\"selected\""; ?>>europe</option>
+                                <option value="na_akdt"<?php if($user["dst_scheme"]=="na_akdt") echo " selected=\"selected\""; ?>>na akdt</option>
                                 <option value="na_pdt"<?php if($user["dst_scheme"]=="na_pdt") echo " selected=\"selected\""; ?>>na pdt</option>
                                 <option value="na_mdt"<?php if($user["dst_scheme"]=="na_mdt") echo " selected=\"selected\""; ?>>na mdt</option>
                                 <option value="na_cdt"<?php if($user["dst_scheme"]=="na_cdt") echo " selected=\"selected\""; ?>>na cdt</option>
                                 <option value="na_edt"<?php if($user["dst_scheme"]=="na_edt") echo " selected=\"selected\""; ?>>na edt</option>
+                                <option value="na_adt"<?php if($user["dst_scheme"]=="na_adt") echo " selected=\"selected\""; ?>>na adt</option>
+                                <option value="na_mx3"<?php if($user["dst_scheme"]=="na_mx3") echo " selected=\"selected\""; ?>>na mx3</option>
+                                <option value="na_mx2"<?php if($user["dst_scheme"]=="na_mx2") echo " selected=\"selected\""; ?>>na mx2</option>
+                                <option value="na_mx1"<?php if($user["dst_scheme"]=="na_mx1") echo " selected=\"selected\""; ?>>na mx1</option>
                             </select>
                         </td>
                     </tr>

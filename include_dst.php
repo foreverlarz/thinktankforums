@@ -28,6 +28,22 @@ function ttf_conceptual_date($ordinal, $day_of_week, $month, $year, $h=0, $m=0, 
 $ttf_dst = array();
 
 
+// NA_AKDT DST SCHEME
+$ttf_dst['na_akdt'] = array();
+// 1987 to 2006 --- first sunday in april until last sunday in october    --- +1 hour @ 02:00:00 LOCAL TIME
+for ($year = $ttf_epoch_year; $year <= 2006; $year++) {
+    $ttf_dst['na_akdt'][$year] = array('begin' => ttf_conceptual_date(1, 0,  4, $year, 11),
+                                       'end'   => ttf_conceptual_date(0, 0, 10, $year, 10),
+                                       'adj'   => 1*60*60);
+};
+// 2007 to now  --- second sunday in march until first sunday in november --- +1 hour @ 02:00:00 LOCAL TIME
+for ($year = 2007; $year <= $dst_end_year; $year++) {
+    $ttf_dst['na_akdt'][$year] = array('begin' => ttf_conceptual_date(2, 0,  3, $year, 11),
+                                       'end'   => ttf_conceptual_date(1, 0, 11, $year, 10),
+                                       'adj'   => 1*60*60);
+};
+
+
 // NA_PDT DST SCHEME
 $ttf_dst['na_pdt'] = array();
 // 1987 to 2006 --- first sunday in april until last sunday in october    --- +1 hour @ 02:00:00 LOCAL TIME
@@ -92,6 +108,52 @@ for ($year = 2007; $year <= $dst_end_year; $year++) {
 };
 
 
+// NA_ADT DST SCHEME
+$ttf_dst['na_adt'] = array();
+// 1987 to 2006 --- first sunday in april until last sunday in october    --- +1 hour @ 02:00:00 LOCAL TIME
+for ($year = $ttf_epoch_year; $year <= 2006; $year++) {
+    $ttf_dst['na_adt'][$year] = array('begin' => ttf_conceptual_date(1, 0,  4, $year, 6),
+                                      'end'   => ttf_conceptual_date(0, 0, 10, $year, 5),
+                                      'adj'   => 1*60*60);
+};
+// 2007 to now  --- second sunday in march until first sunday in november --- +1 hour @ 02:00:00 LOCAL TIME
+for ($year = 2007; $year <= $dst_end_year; $year++) {
+    $ttf_dst['na_adt'][$year] = array('begin' => ttf_conceptual_date(2, 0,  3, $year, 6),
+                                      'end'   => ttf_conceptual_date(1, 0, 11, $year, 5),
+                                      'adj'   => 1*60*60);
+};
+
+
+// NA_MX3 DST SCHEME
+$ttf_dst['na_mx3'] = array();
+// 1996 to now  --- first sunday in april until last sunday in october    --- +1 hour @ 02:00:00 LOCAL TIME
+for ($year = $ttf_epoch_year; $year <= $dst_end_year; $year++) {
+    $ttf_dst['na_pdt'][$year] = array('begin' => ttf_conceptual_date(1, 0,  4, $year, 10),
+                                      'end'   => ttf_conceptual_date(0, 0, 10, $year,  9),
+                                      'adj'   => 1*60*60);
+};
+
+
+// NA_MX2 DST SCHEME
+$ttf_dst['na_mx2'] = array();
+// 1996 to now  --- first sunday in april until last sunday in october    --- +1 hour @ 02:00:00 LOCAL TIME
+for ($year = $ttf_epoch_year; $year <= $dst_end_year; $year++) {
+    $ttf_dst['na_mdt'][$year] = array('begin' => ttf_conceptual_date(1, 0,  4, $year, 9),
+                                      'end'   => ttf_conceptual_date(0, 0, 10, $year, 8),
+                                      'adj'   => 1*60*60);
+};
+
+
+// NA_MX1 DST SCHEME
+$ttf_dst['na_mx1'] = array();
+// 1996 to now  --- first sunday in april until last sunday in october    --- +1 hour @ 02:00:00 LOCAL TIME
+for ($year = $ttf_epoch_year; $year <= $dst_end_year; $year++) {
+    $ttf_dst['na_cdt'][$year] = array('begin' => ttf_conceptual_date(1, 0,  4, $year, 8),
+                                      'end'   => ttf_conceptual_date(0, 0, 10, $year, 7),
+                                      'adj'   => 1*60*60);
+};
+
+
 // EUROPE DST SCHEME
 $ttf_dst['eu'] = array();
 // 1998 to now  --- last sunday in march until last sunday in october     --- +1 hour @ 01:00:00 UTC
@@ -111,6 +173,111 @@ var_export($ttf_dst);
 $ttf_dst = // add the exported code below.
 
 array (
+  'na_akdt' => 
+  array (
+    2004 => 
+    array (
+      'begin' => 1081076400,
+      'end' => 1098612000,
+      'adj' => 3600,
+    ),
+    2005 => 
+    array (
+      'begin' => 1112526000,
+      'end' => 1130666400,
+      'adj' => 3600,
+    ),
+    2006 => 
+    array (
+      'begin' => 1143975600,
+      'end' => 1162116000,
+      'adj' => 3600,
+    ),
+    2007 => 
+    array (
+      'begin' => 1173610800,
+      'end' => 1194170400,
+      'adj' => 3600,
+    ),
+    2008 => 
+    array (
+      'begin' => 1205060400,
+      'end' => 1225620000,
+      'adj' => 3600,
+    ),
+    2009 => 
+    array (
+      'begin' => 1236510000,
+      'end' => 1257069600,
+      'adj' => 3600,
+    ),
+    2010 => 
+    array (
+      'begin' => 1268564400,
+      'end' => 1289124000,
+      'adj' => 3600,
+    ),
+    2011 => 
+    array (
+      'begin' => 1300014000,
+      'end' => 1320573600,
+      'adj' => 3600,
+    ),
+    2012 => 
+    array (
+      'begin' => 1331463600,
+      'end' => 1352023200,
+      'adj' => 3600,
+    ),
+    2013 => 
+    array (
+      'begin' => 1362913200,
+      'end' => 1383472800,
+      'adj' => 3600,
+    ),
+    2014 => 
+    array (
+      'begin' => 1394362800,
+      'end' => 1414922400,
+      'adj' => 3600,
+    ),
+    2015 => 
+    array (
+      'begin' => 1425812400,
+      'end' => 1446372000,
+      'adj' => 3600,
+    ),
+    2016 => 
+    array (
+      'begin' => 1457866800,
+      'end' => 1478426400,
+      'adj' => 3600,
+    ),
+    2017 => 
+    array (
+      'begin' => 1489316400,
+      'end' => 1509876000,
+      'adj' => 3600,
+    ),
+    2018 => 
+    array (
+      'begin' => 1520766000,
+      'end' => 1541325600,
+      'adj' => 3600,
+    ),
+    2019 => 
+    array (
+      'begin' => 1552215600,
+      'end' => 1572775200,
+      'adj' => 3600,
+    ),
+    2020 => 
+    array (
+      'begin' => 1583665200,
+      'end' => 1604224800,
+      'adj' => 3600,
+    ),
+  ),
   'na_pdt' => 
   array (
     2004 => 
@@ -133,86 +300,86 @@ array (
     ),
     2007 => 
     array (
-      'begin' => 1173607200,
-      'end' => 1194166800,
+      'begin' => 1175421600,
+      'end' => 1193562000,
       'adj' => 3600,
     ),
     2008 => 
     array (
-      'begin' => 1205056800,
-      'end' => 1225616400,
+      'begin' => 1207476000,
+      'end' => 1225011600,
       'adj' => 3600,
     ),
     2009 => 
     array (
-      'begin' => 1236506400,
-      'end' => 1257066000,
+      'begin' => 1238925600,
+      'end' => 1256461200,
       'adj' => 3600,
     ),
     2010 => 
     array (
-      'begin' => 1268560800,
-      'end' => 1289120400,
+      'begin' => 1270375200,
+      'end' => 1287910800,
       'adj' => 3600,
     ),
     2011 => 
     array (
-      'begin' => 1300010400,
-      'end' => 1320570000,
+      'begin' => 1301824800,
+      'end' => 1319965200,
       'adj' => 3600,
     ),
     2012 => 
     array (
-      'begin' => 1331460000,
-      'end' => 1352019600,
+      'begin' => 1333274400,
+      'end' => 1351414800,
       'adj' => 3600,
     ),
     2013 => 
     array (
-      'begin' => 1362909600,
-      'end' => 1383469200,
+      'begin' => 1365328800,
+      'end' => 1382864400,
       'adj' => 3600,
     ),
     2014 => 
     array (
-      'begin' => 1394359200,
-      'end' => 1414918800,
+      'begin' => 1396778400,
+      'end' => 1414314000,
       'adj' => 3600,
     ),
     2015 => 
     array (
-      'begin' => 1425808800,
-      'end' => 1446368400,
+      'begin' => 1428228000,
+      'end' => 1445763600,
       'adj' => 3600,
     ),
     2016 => 
     array (
-      'begin' => 1457863200,
-      'end' => 1478422800,
+      'begin' => 1459677600,
+      'end' => 1477818000,
       'adj' => 3600,
     ),
     2017 => 
     array (
-      'begin' => 1489312800,
-      'end' => 1509872400,
+      'begin' => 1491127200,
+      'end' => 1509267600,
       'adj' => 3600,
     ),
     2018 => 
     array (
-      'begin' => 1520762400,
-      'end' => 1541322000,
+      'begin' => 1522576800,
+      'end' => 1540717200,
       'adj' => 3600,
     ),
     2019 => 
     array (
-      'begin' => 1552212000,
-      'end' => 1572771600,
+      'begin' => 1554631200,
+      'end' => 1572166800,
       'adj' => 3600,
     ),
     2020 => 
     array (
-      'begin' => 1583661600,
-      'end' => 1604221200,
+      'begin' => 1586080800,
+      'end' => 1603616400,
       'adj' => 3600,
     ),
   ),
@@ -238,86 +405,86 @@ array (
     ),
     2007 => 
     array (
-      'begin' => 1173603600,
-      'end' => 1194163200,
+      'begin' => 1175418000,
+      'end' => 1193558400,
       'adj' => 3600,
     ),
     2008 => 
     array (
-      'begin' => 1205053200,
-      'end' => 1225612800,
+      'begin' => 1207472400,
+      'end' => 1225008000,
       'adj' => 3600,
     ),
     2009 => 
     array (
-      'begin' => 1236502800,
-      'end' => 1257062400,
+      'begin' => 1238922000,
+      'end' => 1256457600,
       'adj' => 3600,
     ),
     2010 => 
     array (
-      'begin' => 1268557200,
-      'end' => 1289116800,
+      'begin' => 1270371600,
+      'end' => 1287907200,
       'adj' => 3600,
     ),
     2011 => 
     array (
-      'begin' => 1300006800,
-      'end' => 1320566400,
+      'begin' => 1301821200,
+      'end' => 1319961600,
       'adj' => 3600,
     ),
     2012 => 
     array (
-      'begin' => 1331456400,
-      'end' => 1352016000,
+      'begin' => 1333270800,
+      'end' => 1351411200,
       'adj' => 3600,
     ),
     2013 => 
     array (
-      'begin' => 1362906000,
-      'end' => 1383465600,
+      'begin' => 1365325200,
+      'end' => 1382860800,
       'adj' => 3600,
     ),
     2014 => 
     array (
-      'begin' => 1394355600,
-      'end' => 1414915200,
+      'begin' => 1396774800,
+      'end' => 1414310400,
       'adj' => 3600,
     ),
     2015 => 
     array (
-      'begin' => 1425805200,
-      'end' => 1446364800,
+      'begin' => 1428224400,
+      'end' => 1445760000,
       'adj' => 3600,
     ),
     2016 => 
     array (
-      'begin' => 1457859600,
-      'end' => 1478419200,
+      'begin' => 1459674000,
+      'end' => 1477814400,
       'adj' => 3600,
     ),
     2017 => 
     array (
-      'begin' => 1489309200,
-      'end' => 1509868800,
+      'begin' => 1491123600,
+      'end' => 1509264000,
       'adj' => 3600,
     ),
     2018 => 
     array (
-      'begin' => 1520758800,
-      'end' => 1541318400,
+      'begin' => 1522573200,
+      'end' => 1540713600,
       'adj' => 3600,
     ),
     2019 => 
     array (
-      'begin' => 1552208400,
-      'end' => 1572768000,
+      'begin' => 1554627600,
+      'end' => 1572163200,
       'adj' => 3600,
     ),
     2020 => 
     array (
-      'begin' => 1583658000,
-      'end' => 1604217600,
+      'begin' => 1586077200,
+      'end' => 1603612800,
       'adj' => 3600,
     ),
   ),
@@ -343,86 +510,86 @@ array (
     ),
     2007 => 
     array (
-      'begin' => 1173600000,
-      'end' => 1194159600,
+      'begin' => 1175414400,
+      'end' => 1193554800,
       'adj' => 3600,
     ),
     2008 => 
     array (
-      'begin' => 1205049600,
-      'end' => 1225609200,
+      'begin' => 1207468800,
+      'end' => 1225004400,
       'adj' => 3600,
     ),
     2009 => 
     array (
-      'begin' => 1236499200,
-      'end' => 1257058800,
+      'begin' => 1238918400,
+      'end' => 1256454000,
       'adj' => 3600,
     ),
     2010 => 
     array (
-      'begin' => 1268553600,
-      'end' => 1289113200,
+      'begin' => 1270368000,
+      'end' => 1287903600,
       'adj' => 3600,
     ),
     2011 => 
     array (
-      'begin' => 1300003200,
-      'end' => 1320562800,
+      'begin' => 1301817600,
+      'end' => 1319958000,
       'adj' => 3600,
     ),
     2012 => 
     array (
-      'begin' => 1331452800,
-      'end' => 1352012400,
+      'begin' => 1333267200,
+      'end' => 1351407600,
       'adj' => 3600,
     ),
     2013 => 
     array (
-      'begin' => 1362902400,
-      'end' => 1383462000,
+      'begin' => 1365321600,
+      'end' => 1382857200,
       'adj' => 3600,
     ),
     2014 => 
     array (
-      'begin' => 1394352000,
-      'end' => 1414911600,
+      'begin' => 1396771200,
+      'end' => 1414306800,
       'adj' => 3600,
     ),
     2015 => 
     array (
-      'begin' => 1425801600,
-      'end' => 1446361200,
+      'begin' => 1428220800,
+      'end' => 1445756400,
       'adj' => 3600,
     ),
     2016 => 
     array (
-      'begin' => 1457856000,
-      'end' => 1478415600,
+      'begin' => 1459670400,
+      'end' => 1477810800,
       'adj' => 3600,
     ),
     2017 => 
     array (
-      'begin' => 1489305600,
-      'end' => 1509865200,
+      'begin' => 1491120000,
+      'end' => 1509260400,
       'adj' => 3600,
     ),
     2018 => 
     array (
-      'begin' => 1520755200,
-      'end' => 1541314800,
+      'begin' => 1522569600,
+      'end' => 1540710000,
       'adj' => 3600,
     ),
     2019 => 
     array (
-      'begin' => 1552204800,
-      'end' => 1572764400,
+      'begin' => 1554624000,
+      'end' => 1572159600,
       'adj' => 3600,
     ),
     2020 => 
     array (
-      'begin' => 1583654400,
-      'end' => 1604214000,
+      'begin' => 1586073600,
+      'end' => 1603609200,
       'adj' => 3600,
     ),
   ),
@@ -530,6 +697,120 @@ array (
       'end' => 1604210400,
       'adj' => 3600,
     ),
+  ),
+  'na_adt' => 
+  array (
+    2004 => 
+    array (
+      'begin' => 1081058400,
+      'end' => 1098594000,
+      'adj' => 3600,
+    ),
+    2005 => 
+    array (
+      'begin' => 1112508000,
+      'end' => 1130648400,
+      'adj' => 3600,
+    ),
+    2006 => 
+    array (
+      'begin' => 1143957600,
+      'end' => 1162098000,
+      'adj' => 3600,
+    ),
+    2007 => 
+    array (
+      'begin' => 1173592800,
+      'end' => 1194152400,
+      'adj' => 3600,
+    ),
+    2008 => 
+    array (
+      'begin' => 1205042400,
+      'end' => 1225602000,
+      'adj' => 3600,
+    ),
+    2009 => 
+    array (
+      'begin' => 1236492000,
+      'end' => 1257051600,
+      'adj' => 3600,
+    ),
+    2010 => 
+    array (
+      'begin' => 1268546400,
+      'end' => 1289106000,
+      'adj' => 3600,
+    ),
+    2011 => 
+    array (
+      'begin' => 1299996000,
+      'end' => 1320555600,
+      'adj' => 3600,
+    ),
+    2012 => 
+    array (
+      'begin' => 1331445600,
+      'end' => 1352005200,
+      'adj' => 3600,
+    ),
+    2013 => 
+    array (
+      'begin' => 1362895200,
+      'end' => 1383454800,
+      'adj' => 3600,
+    ),
+    2014 => 
+    array (
+      'begin' => 1394344800,
+      'end' => 1414904400,
+      'adj' => 3600,
+    ),
+    2015 => 
+    array (
+      'begin' => 1425794400,
+      'end' => 1446354000,
+      'adj' => 3600,
+    ),
+    2016 => 
+    array (
+      'begin' => 1457848800,
+      'end' => 1478408400,
+      'adj' => 3600,
+    ),
+    2017 => 
+    array (
+      'begin' => 1489298400,
+      'end' => 1509858000,
+      'adj' => 3600,
+    ),
+    2018 => 
+    array (
+      'begin' => 1520748000,
+      'end' => 1541307600,
+      'adj' => 3600,
+    ),
+    2019 => 
+    array (
+      'begin' => 1552197600,
+      'end' => 1572757200,
+      'adj' => 3600,
+    ),
+    2020 => 
+    array (
+      'begin' => 1583647200,
+      'end' => 1604206800,
+      'adj' => 3600,
+    ),
+  ),
+  'na_mx3' => 
+  array (
+  ),
+  'na_mx2' => 
+  array (
+  ),
+  'na_mx1' => 
+  array (
   ),
   'eu' => 
   array (
