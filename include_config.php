@@ -40,7 +40,8 @@ $ttf_msg = array(
     "resultstitl"       => "results",
     "ip_banned"         => "sorry, but your IP is banned.",
     "user_banned"       => "sorry, but your user account is banned.",
-    "cookie_inv"        => "sorry, but your cookie is invalid. please try logging out and logging in again.",
+    "cookie_inv"        => 'sorry, but your cookie is invalid. please <a href="/logout.php">click here to delete all ttf cookies</a>,'.
+                           'restart your browser, and then try to log-in again.',
     "maint_body"        => "sorry, but the forum is offline for maintenance. we are most likely ".
                            "updating scripts and adding new features. please come back soon.",
     "field_empty"       => "sorry, but you left a field empty.",
