@@ -6,9 +6,6 @@
 
 require_once "include_common.php";
 
-$channel_titl = $ttf_cfg['forum_shortname']." -- latest revisions";
-$channel_link = "http://".$ttf_cfg['address']."/rss.php";
-
 $sql = "SELECT `ttf_revision`.*, `ttf_user`.`username`          ".
        "FROM `ttf_revision`                                     ".
        "LEFT JOIN `ttf_user`                                    ".
@@ -16,42 +13,32 @@ $sql = "SELECT `ttf_revision`.*, `ttf_user`.`username`          ".
        "ORDER BY `date` DESC                                    ".
        "LIMIT 20                                                ";
 
+if (!$result = mysql_query($sql)) showerror();
+
 header("Content-Type: application/xml; charset=utf-8");
 
-?>
+    echo <<<EOF
 <?xml version="1.0" encoding="utf-8" ?>
 <rss version="2.0"> 
     <channel> 
-        <title><?php echo $channel_titl; ?></title>
-        <link><?php echo $channel_link; ?></link>
-<?php
+        <title>{$ttf_cfg['forum_shortname']} -- latest revisions</title>
+        <link>http://{$ttf_cfg['address']}/rss.php</link>
+        <description>latest revisions</description>
 
-if (!$result = mysql_query($sql)) showerror();
+EOF;
 
 while ($rev = mysql_fetch_array($result)) {
 
-    switch ($rev["type"]) {
-    case 'post':
-        $title = "post ".$rev["ref_id"];
-        $type = "post";
-        break;
-    case 'profile':
-        $title = "user profile ".$rev["ref_id"];
-        $type = "profile";
-        break;
-    case 'title':
-        $title = "user title ".$rev["ref_id"];
-        $type = "title";
-        break;
-    };
-
-    $title .=  ", rid {$rev["rev_id"]} by ".output($rev["username"]);
+    $title = outputxml("{$rev["type"]} {$rev["ref_id"]}, rid {$rev["rev_id"]} by {$rev["username"]}");
+    $link = outputxml("http://{$ttf_cfg['address']}/revision.php?type={$rev["type"]}&ref_id={$rev['ref_id']}");
+    $description = outputxml(nl2br($rev["body"]));
 
     echo <<<EOF
         <item>
             <title>{$title}</title>
-            <link>http://{$ttf_cfg['address']}/revision.php?type={$type}&amp;ref_id={$rev['ref_id']}</link>
-            <description>{$rev["body"]}</description>
+            <link>{$link}</link>
+            <guid isPermaLink="false">{$ttf_cfg['address']}-{$rev["rev_id"]}</guid>
+            <description>{$description}</description>
         </item>
 
 EOF;

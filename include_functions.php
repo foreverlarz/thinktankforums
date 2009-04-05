@@ -249,6 +249,18 @@ function output($input) {
 
 
 
+// xml output (used for rss)
+function outputxml($input) {
+
+    $search  = array('&',    '<',   '>',   '"'     );
+    $replace = array('&amp;','&lt;','&gt;','&quot;');
+
+    return str_replace($search, $replace, $input);
+
+};
+
+
+
 /* mysql error printing
  * ~~~~~~~~~~~~~~~~~~~~
  * this function should be used with any call to a mysql function.
