@@ -11,7 +11,7 @@ $sql = "SELECT `ttf_revision`.*, `ttf_user`.`username`          ".
        "LEFT JOIN `ttf_user`                                    ".
        "  ON `ttf_revision`.`author_id`=`ttf_user`.`user_id`    ".
        "ORDER BY `date` DESC                                    ".
-       "LIMIT 20                                                ";
+       "LIMIT 100                                               ";
 
 if (!$result = mysql_query($sql)) showerror();
 
@@ -29,15 +29,15 @@ EOF;
 
 while ($rev = mysql_fetch_array($result)) {
 
-    $title = outputxml("{$rev["type"]} {$rev["ref_id"]}, rid {$rev["rev_id"]} by {$rev["username"]}");
-    $link = outputxml("http://{$ttf_cfg['address']}/revision.php?type={$rev["type"]}&ref_id={$rev['ref_id']}");
-    $description = outputxml(nl2br($rev["body"]));
+    $title = outputxml("{$rev['type']} {$rev['ref_id']}, rid {$rev['rev_id']} by {$rev['username']}");
+    $link = outputxml("http://{$ttf_cfg['address']}/revision.php?type={$rev['type']}&ref_id={$rev['ref_id']}");
+    $description = outputxml(nl2br($rev['body']));
 
     echo <<<EOF
         <item>
             <title>{$title}</title>
             <link>{$link}</link>
-            <guid isPermaLink="false">{$ttf_cfg['address']}-{$rev["rev_id"]}</guid>
+            <guid isPermaLink="false">{$ttf_cfg['address']}-{$rev['rev_id']}</guid>
             <description>{$description}</description>
         </item>
 
