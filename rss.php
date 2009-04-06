@@ -22,7 +22,7 @@ header("Content-Type: application/xml; charset=utf-8");
 <rss version="2.0"> 
     <channel> 
         <title>{$ttf_cfg['forum_shortname']} -- latest revisions</title>
-        <link>http://{$ttf_cfg['address']}/rss.php</link>
+        <link>http://{$ttf_cfg['address']}/latest.php</link>
         <description>latest revisions</description>
 
 EOF;
