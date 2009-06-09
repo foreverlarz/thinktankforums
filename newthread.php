@@ -34,7 +34,7 @@ list($forum_name) = mysql_fetch_array($result);
 $ttf_label = "<a href=\"forum.php?forum_id=$forum_id\">".output($forum_name)."</a> &raquo; create a new thread";
 $ttf_title = output($forum_name)." &raquo; create a new thread";
 
-// if each field isn't empty, silently and patiently let them fill them! :D
+// if any field is empty, silently and patiently let them fill them! :D
 if (trim($title) == "" || trim($body) == "") {
 
     require_once "include_header.php";
