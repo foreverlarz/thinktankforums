@@ -263,7 +263,7 @@ input, select {
     margin: 1px 0;
 }
 
-input.reply, input.archivepost, input.editpost, input.editprofile, input.newthread_button {
+input.reply, input.archivepost, input.editpost, input.editprofile, input.newthread_button, input.newtest_button {
     font-family: verdana, sans-serif;
     border-width: 0;
     background-color: black;
@@ -271,7 +271,7 @@ input.reply, input.archivepost, input.editpost, input.editprofile, input.newthre
     width: 600px;
 }
 
-input.newthread_title {
+input.newthread_title, input.newtest_question, input.newtest_answer {
     font-family: verdana, sans-serif;
     border-width: 0px;
     background-color: white;
@@ -296,14 +296,14 @@ form {
     background-color: black;
 }
 
-#editprofile_button, #editpost_button {
+#editprofile_button, #editpost_button, #newtest_button {
     width: 600px;
     margin-top: 25px;
     height: 20px;
     background-color: black;
 }
 
-#newthread_title {
+#newthread_title, #newtest_question, #newtest_answer {
     width: 600px;
     background-color: white;
 }
