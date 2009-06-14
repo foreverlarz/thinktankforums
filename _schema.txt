@@ -40,22 +40,22 @@ CREATE TABLE `ttf_post` (
 CREATE TABLE `ttf_recover` (
   `recover_id` mediumint(9) NOT NULL auto_increment,
   `date` int(11) NOT NULL,
-  `ip` varchar(15) NOT NULL,
+  `ip` varchar(15) collate utf8_unicode_ci NOT NULL,
   `user_id` mediumint(9) NOT NULL,
-  `password` varchar(40) NOT NULL,
+  `password` varchar(40) collate utf8_unicode_ci NOT NULL,
   `passkey` varchar(32) collate utf8_unicode_ci NOT NULL,
   PRIMARY KEY  (`recover_id`),
   UNIQUE KEY `passkey` (`passkey`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `ttf_revision` (
   `rev_id` int(9) NOT NULL auto_increment,
   `ref_id` mediumint(9) NOT NULL,
-  `type` enum('post','profile','title') collate utf8_unicode_ci NOT NULL,
+  `type` enum('post','thread','profile','title') collate utf8_unicode_ci NOT NULL,
   `author_id` mediumint(9) NOT NULL,
   `date` int(11) NOT NULL,
   `ip` varchar(15) collate utf8_unicode_ci default NULL,
-  `body` longtext collate utf8_unicode_ci default NULL,
+  `body` longtext collate utf8_unicode_ci,
   PRIMARY KEY  (`rev_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -63,6 +63,7 @@ CREATE TABLE `ttf_thread` (
   `forum_id` mediumint(9) NOT NULL default '0',
   `thread_id` mediumint(9) NOT NULL auto_increment,
   `author_id` mediumint(9) NOT NULL default '0',
+  `rev` smallint(6) NOT NULL default '0',
   `posts` mediumint(9) NOT NULL default '0',
   `views` mediumint(9) NOT NULL default '0',
   `date` int(11) NOT NULL default '0',

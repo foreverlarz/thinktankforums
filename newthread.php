@@ -81,11 +81,21 @@ $sql = "INSERT INTO ttf_post                    ".
 if (!$result = mysql_query($sql)) showerror();
 $post_id = mysql_insert_id();
 
+// insert the thread as a base revision
+$sql = "INSERT INTO ttf_revision            ".
+       "SET ref_id=$thread_id,              ".
+       "    type='thread',                  ".
+       "    author_id={$ttf["uid"]},        ".
+       "    date=UNIX_TIMESTAMP(),          ".
+       "    ip='{$_SERVER["REMOTE_ADDR"]}', ".
+       "    body='".clean($title)."'        ";
+if (!$result = mysql_query($sql)) showerror();
+
 // insert the post as a base revision
 $sql = "INSERT INTO ttf_revision            ".
        "SET ref_id=$post_id,                ".
        "    type='post',                    ".
-       "    author_id={$ttf["uid"]},        ". 
+       "    author_id={$ttf["uid"]},        ".
        "    date=UNIX_TIMESTAMP(),          ".
        "    ip='{$_SERVER["REMOTE_ADDR"]}', ".
        "    body='".clean($body)."'         ";
@@ -114,7 +124,7 @@ if (!$result = mysql_query($sql)) showerror();
 
 // update the user's last rev date
 $sql = "UPDATE ttf_user                 ".
-       "SET rev_date=UNIX_TIMESTAMP()  ".
+       "SET rev_date=UNIX_TIMESTAMP()   ".
        "WHERE user_id={$ttf["uid"]}     ";
 if (!$result = mysql_query($sql)) showerror();
 
