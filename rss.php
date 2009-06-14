@@ -10,7 +10,7 @@ $sql = "SELECT `ttf_revision`.*, `ttf_user`.`username`          ".
        "FROM `ttf_revision`                                     ".
        "LEFT JOIN `ttf_user`                                    ".
        "  ON `ttf_revision`.`author_id`=`ttf_user`.`user_id`    ".
-       "ORDER BY `date` DESC                                    ".
+       "ORDER BY `date` DESC, `rev_id` DESC                     ".
        "LIMIT 100                                               ";
 
 if (!$result = mysql_query($sql)) showerror();
