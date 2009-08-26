@@ -34,7 +34,14 @@ if (isset($ttf["uid"])) {
 
 };
 
-$ttf_title = $ttf_label = output($forum_name);
+$ttf_title = output($forum_name);
+
+if (empty($offset)) {
+    $ttf_label = $ttf_title;
+    $offset = 0;
+} else {
+    $ttf_label = "<a href=\"forum.php?forum_id=$forum_id\">$ttf_title</a>";
+};
 
 require_once "include_header.php";
 
@@ -48,8 +55,6 @@ if (isset($ttf["uid"])) {
 EOF;
 
 };
-
-if (empty($offset)) $offset = 0;
 
 $sql = "SELECT SQL_CALC_FOUND_ROWS                                                  ".
        "       ttf_thread.thread_id, ttf_thread.author_id,                          ".
