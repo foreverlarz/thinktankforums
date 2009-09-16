@@ -61,8 +61,8 @@ function formatdate($timestamp, $format = "Y M j, g\:i a") {
     $hour    = 60       * $minute;
     $day     = 24       * $hour;
     $week    = 7        * $day;
-    $month   = 4        * $week;
-    $year    = 365.2422 * $day;
+    $year    = 365.25   * $day;
+    $month   = (1 / 12) * $year;
 
     if ($timestamp == 0) {
 
