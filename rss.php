@@ -50,8 +50,6 @@ while ($rev = mysql_fetch_array($result)) {
     $link = outputxml("http://{$ttf_cfg['address']}/revision.php?type={$rev['type']}&ref_id={$rev['ref_id']}");
     $description = outputxml(nl2br($rev['body']."\n\n<hr \>".$bonus));
 
-
-
     echo <<<EOF
         <item>
             <title>{$title}</title>
