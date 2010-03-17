@@ -142,23 +142,8 @@ function formatdate($timestamp, $format = "Y M j, g\:i a") {
 
 /* text formatting
  * ~~~~~~~~~~~~~~~
- * outputbody() may be used to format text
- * as suitable for posts and profiles:
- *  -> htmlspecialchars(, ENT_COMPAT, 'UTF-8')
- *  -> url linking
- *     * full  (http://www.sld.tld)
- *     * named (ttf:http://www.sld.tld)
- *             ('my page':http://subdomain.sld.tld)
- *     * short (sld.tld)
- *             (subdomain.sld.tld)
- *  -> html tag support
- *     * <b>
- *     * <i>
- *     * <u>
- *     * <pre>
- *     * <blockquote>
  *
- * this function is necessary to retain xhtml compliance.
+ * we use modified textile. <http://textile.thresholdstate.com/>
  */
 function outputbody($input) {
 
@@ -168,65 +153,9 @@ function outputbody($input) {
 
     };
 
-    // convert all special characters to their html equivalent
-    $input = htmlspecialchars($input, ENT_COMPAT, 'UTF-8');
-
-    // chop links
-    if (!function_exists('choplink')) {
-        function choplink($link = '') {
-
-            $short = ((strlen($link) > 60) ? substr($link, 0 , 45).' &hellip; '.substr($link, -10) : $link);
-
-            return ' <a href="'.$link.'">'.$short.'</a> ';
-
-        };
-
-    };
-
-    // full url
-    $input = preg_replace('@(^|\s)(http(s)?|(s)?ftp):\/\/(([\w\/.\-\=\~\?\&\,\.]*)?[^\s\,\.\)\!\?\:\'\}\]$]+)@ie', 'choplink(\'$2://$5\')', $input);
-
-    // named url
-    $input = preg_replace('@(((\'([\w\s.?\!?\@?\:?\-?]+)\')?([\w.?\!?\@?\:?\-?]+)?:))(http(s)?|(s)?ftp(s)?):\/\/(([\w\/.\-\=\~\?\&]*)?[^\s\,\.\)\!\?\:\'\}\]$]+)@i', '<a href="$6://$10">$4$5</a>', $input);
-
-    // short url
-    $input = preg_replace('@(^|\s)(\w+)\.(com|net|org|edu|gov)($|\s)@i', ' <a href="http://$2.$3">$2.$3</a> ', $input);
-    $input = preg_replace('@(^|\s)(\w+)\.(\w+)\.(com|net|org|edu|gov)($|\s)@i', ' <a href="http://$2.$3.$4">$2.$3.$4</a> ', $input);
-
-    // converts some html entities to tags
-    $search =  array("&lt;b&gt;",            "&lt;/b&gt;",
-                     "&lt;i&gt;",            "&lt;/i&gt;",
-                     "&lt;u&gt;",            "&lt;/u&gt;",
-                     "&lt;blockquote&gt;",   "&lt;/blockquote&gt;");
-    $replace = array("<b>",                 "</b>",
-                     "<i>",                 "</i>",
-                     "<span style=\"text-decoration: underline;\">", "</span>",
-                     "<blockquote><p>",     "</p></blockquote>");
-    $input = str_replace($search, $replace, $input);
-
-    if (strpos($input, '&lt;pre&gt;') !== FALSE) {
-        $open_split = explode('&lt;pre&gt;', $input);
-        foreach ($open_split as $var) {
-            $close_split = explode('&lt;/pre&gt;', $var);
-            foreach ($close_split as $doubly) {
-                $alternate[] = $doubly;
-            };
-        };
-        $print = '';
-        $br = 1;
-        foreach ($alternate as $finally) {
-            if ($br % 2) {
-                $print .= nl2br($finally);
-            } else {
-                $print .= '<pre>'.$finally.'</pre>';
-            };
-            $br++;
-        };
-    } else {
-        $print = nl2br($input);
-    };
-
-    return $print;
+    require_once "include_textile.php";
+    $textile = new Textile();
+    return $textile->TextileThis($input);
 
 };
 
