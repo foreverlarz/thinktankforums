@@ -48,7 +48,9 @@ while ($rev = mysql_fetch_array($result)) {
 
     $title = outputxml("{$rev['type']} {$rev['ref_id']}, rid {$rev['rev_id']} by {$rev['username']}");
     $link = outputxml("http://{$ttf_cfg['address']}/revision.php?type={$rev['type']}&ref_id={$rev['ref_id']}");
-    $description = outputxml(nl2br($rev['body']."\n\n<hr \>".$bonus));
+    $description = outputxml(nl2br($rev['body']."\n\n<hr />".$bonus));
+
+
 
     echo <<<EOF
         <item>
