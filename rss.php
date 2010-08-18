@@ -36,10 +36,7 @@ while ($rev = mysql_fetch_array($result)) {
         list($thread_id) = mysql_fetch_row($result_a);
         $bonus = "<a href=\"http://{$ttf_cfg['address']}/thread.php?thread_id=$thread_id#post-{$rev['ref_id']}\">view this post in the context of the thread</a>";
     } else if ($rev['type'] === 'thread') {
-        $sql = "SELECT thread_id FROM ttf_post WHERE post_id='{$rev['ref_id']}'";
-        if (!$result_a = mysql_query($sql)) showerror();
-        list($thread_id) = mysql_fetch_row($result_a);
-        $bonus = "<a href=\"http://{$ttf_cfg['address']}/thread.php?thread_id=$thread_id\">view this thread</a>";
+        $bonus = "<a href=\"http://{$ttf_cfg['address']}/thread.php?thread_id={$rev['ref_id']}\">view this thread</a>";
     } else if ($rev['type'] === 'profile') {
         $bonus = "<a href=\"http://{$ttf_cfg['address']}/profile.php?user_id={$rev['ref_id']}\">view this user profile</a>";
     } else if ($rev['type'] === 'title') {
