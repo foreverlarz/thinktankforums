@@ -392,7 +392,7 @@ if (isset($_POST["edit"])) {
                         <td><input type="password" name="password0" maxlength="32" size="16" /></td>
                     </tr>
                     <tr>
-                        <td>corfirm the new password:</td>
+                        <td>confirm the new password:</td>
                         <td><input type="password" name="password1" maxlength="32" size="16" /></td>
                     </tr>
                 </table>
