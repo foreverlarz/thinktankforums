@@ -15,7 +15,16 @@ kill_users();
 // if the form was submitted
 if ($_POST["action"] == "register") {
 
-    $username = clean($_POST["username"]);
+    if (!empty($_POST["username"])) {
+
+        message("register an account", "fatal error",
+                "you did it wrong.");
+
+        die();
+
+    };
+
+    $username = clean($_POST["garbage"]);
 
     // if the username is 16 characters or less
     if ($username == substr($username, 0, 15)) {
@@ -24,7 +33,7 @@ if ($_POST["action"] == "register") {
         if (!empty($username)) {
 
             // if the username is clean 
-            if ($username == $_POST["username"]) {
+            if ($username == $_POST["garbage"]) {
 
                 $email0 = clean($_POST["email0"]);
                 $email1 = clean($_POST["email1"]);
@@ -147,8 +156,12 @@ EOF;
                         <th colspan="2">we'll e-mail you a password</th>
                     </tr>
                     <tr>
-                        <td>username:</td>
+                        <td>leave empty:</td>
                         <td><input type="text" name="username" maxlength="16" size="16" /></td>
+                    </tr>
+                    <tr>
+                        <td>username:</td>
+                        <td><input type="text" name="garbage" maxlength="16" size="16" /></td>
                     </tr>
                     <tr>
                         <td>e-mail:</td>
