@@ -130,25 +130,31 @@ EOF;
 
     echo <<<EOF
                 </div>
-                <div class="userbar_right"><span title="{$date[1]}">{$date[0]}</span><br />
+                <div class="userbar_right">
+                    <span title="{$date[1]}">{$date[0]}</span><br />
 
 EOF;
 
     if ($post["rev"] > 0) {
 
-?>
-                    <a class="link" href="revision.php?ref_id=<?php echo $post["post_id"]; ?>&amp;type=post">r<?php echo $post["rev"]; ?></a><?php if ($hasperm) echo ",\n"; ?>
-<?php
+        echo <<<EOF
+                    <a class="link" href="revision.php?ref_id={$post["post_id"]}&amp;type=post">r{$post["rev"]}</a>, 
+
+EOF;
 
     };
 
     if ($hasperm) {
 
-        echo "                    <a class=\"link\" href=\"revise.php?post_id={$post["post_id"]}\">revise</a>";
+        echo <<<EOF
+                    <a class="link" href="revise.php?post_id={$post["post_id"]}">revise</a>,
+
+EOF;
 
     };
 
 ?>
+                    <a class="link" href="thread.php?thread_id=<?php echo $thread_id; ?>#post-<?php echo $post["post_id"]; ?>">link</a>
                 </div>
                 <a class="username" href="profile.php?user_id=<?php echo $post["author_id"]; ?>"><?php echo output($post["username"]); ?></a><br />
                 <?php echo $post["title"]."\n"; ?>
@@ -186,4 +192,3 @@ EOF;
 
 require_once "include_footer.php";
 
-?>
