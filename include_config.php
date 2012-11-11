@@ -6,30 +6,30 @@
 
 $ttf_dbms = array(
     'host' => 'localhost',
-    'user' => 'ttf',
+    'user' => 'fh',
     'pass' => '',
-    'db'   => 'ttf'
+    'db'   => 'fh'
 );
 
 $ttf_cfg = array(
-    'forum_name'        => 'think tank forums',
-    'forum_shortname'   => 'ttf',
-    'address'           => 'www.thinktankforums.com',
+    'forum_name'        => 'forum hector',
+    'forum_shortname'   => 'fh',
+    'address'           => 'www.forumhector.com',
     'version'           => '',
     'maintenance'       => FALSE,
     'index_title'       => 'welcome',
     'online_timeout'    => 300,
     'forum_display'     => 15,
 
-    'admin_name'        => 'lucas reddinger',
-    'admin_email'       => 'trashbin@ttfproject.com',
-    'bot_name'          => 'violet',
-    'bot_email'         => 'violet@thinktankforums.com',
+    'admin_name'        => 'king hector',
+    'admin_email'       => 'hector@gmail.com',
+    'bot_name'          => 'king hector',
+    'bot_email'         => 'hector@gmail.com',
 
-    'cookie_name'       => 'ttf',
+    'cookie_name'       => 'fh',
     'cookie_time'       => 31556926,
     'cookie_path'       => '/',
-    'cookie_domain'     => 'www.thinktankforums.com',
+    'cookie_domain'     => 'www.forumhector.com',
     'cookie_secure'     => FALSE
 );
 
@@ -40,8 +40,7 @@ $ttf_msg = array(
     "resultstitl"       => "results",
     "ip_banned"         => "sorry, but your IP is banned.",
     "user_banned"       => "sorry, but your user account is banned.",
-    "cookie_inv"        => 'sorry, but your cookie is invalid. please <a href="/logout.php">click here to delete all ttf cookies</a>,'.
-                           'restart your browser, and then try to log-in again.',
+    "cookie_inv"        => "sorry, but your cookie was invalid. please log in again.",
     "maint_body"        => "sorry, but the forum is offline for maintenance. we are most likely ".
                            "updating scripts and adding new features. please come back soon.",
     "field_empty"       => "sorry, but you left a field empty.",
@@ -61,4 +60,3 @@ $ttf_msg = array(
                            "administrator, {$ttf_cfg["admin_name"]}, at {$ttf_cfg["admin_email"]}"
 );
 
-?>
