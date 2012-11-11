@@ -133,6 +133,7 @@ if (isset($_COOKIE["{$ttf_cfg["cookie_name"]}-pair"])) {
     } else {
 
         // or print an error and exit
+        cookie_smash();
         message($ttf_cfg["forum_name"], $ttf_msg["fatal_error"], $ttf_msg["cookie_inv"]);
         die();
 
@@ -161,5 +162,3 @@ if (isset($ttf["uid"])) {
     if (!$result = mysql_query($sql)) showerror();
 
 };
-
-?>

@@ -14,7 +14,7 @@
  */
 function message($ttf_label, $title, $body) {
 
-    global $ttf;            // pull through the $ttf array for include_header.php (SMART!)
+    global $ttf;        // pull through the $ttf array for include_header.php (SMART!)
     global $ttf_cfg;    // pull through the $ttf_cfg array (even smarter!)
 
     require_once "include_header.php";
@@ -411,4 +411,19 @@ function reformat_caches() {
 
 };
 
-?>
+
+
+/* cookie smash
+ * ~~~~~~~~~~~~
+ * expire all cookies.
+ */
+function cookie_smash() {
+
+    global $ttf_cfg;    // pull through the $ttf_cfg array (even smarter!)
+
+    $expire = 1;
+    setcookie($ttf_cfg["cookie_name"].'-pair', FALSE, $expire, $ttf_cfg["cookie_path"], $ttf_cfg["cookie_domain"], $ttf_cfg["cookie_secure"]);
+    setcookie($ttf_cfg["cookie_name"].'-user', FALSE, $expire, $ttf_cfg["cookie_path"], $ttf_cfg["cookie_domain"], FALSE);
+
+};
+
