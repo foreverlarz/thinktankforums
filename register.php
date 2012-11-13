@@ -155,7 +155,7 @@ EOF;
                     <tr>
                         <th colspan="2">we'll e-mail you a password</th>
                     </tr>
-                    <tr>
+                    <tr class="hide">
                         <td>leave empty:</td>
                         <td><input type="text" name="username" maxlength="16" size="16" /></td>
                     </tr>
@@ -189,4 +189,3 @@ EOF;
 
 require_once "include_footer.php";
 
-?>

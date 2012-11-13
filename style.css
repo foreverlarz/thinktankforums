@@ -124,7 +124,6 @@ ul {
     padding: 0 1.5em;
 }
 
-
 /***************
  * FONT STYLES *
  ***************/
@@ -224,6 +223,9 @@ td {
     background-color: white;
 }
 
+tr.hide {
+    display: none;
+}
 
 /***************
  * FORM STYLES *
@@ -285,7 +287,6 @@ form {
     margin: 0;
 }
 
-
 /************************
  * PAGE-SPECIFIC STYLES *
  ************************/
@@ -324,7 +325,6 @@ form {
     width: 594px;
     background-color: white;
 }
-
 
 /******************
  * USERBAR STYLES *
@@ -365,7 +365,6 @@ a.username, a.username:link, a.username:active, a.username:visited,
 a.link, a.link:link, a.link:active, a.link:visited {
     color: white;
 }
-
 
 /***************
  * POST STYLES *
