@@ -7,6 +7,7 @@
 $ttf_title = $ttf_label = "revision browser";
 
 require_once "include_common.php";
+require_once "include_finediff.php";
 
 // pull through the variables
 $ref_id = clean($_GET["ref_id"]);
@@ -63,6 +64,15 @@ while ($rev = mysql_fetch_array($result)) {
 
     $date = formatdate($rev["date"]);
 
+    if (isset($lastrev)) {
+        $opcodes = FineDiff::getDiffOpcodes(output($lastrev), output($rev["body"]), FineDiff::$wordGranularity);
+        $revbody = FineDiff::renderDiffToHTMLFromOpcodes(output($lastrev), $opcodes);
+        $lastrev = $rev["body"];
+    } else {
+        $revbody = $rev["body"];
+        $lastrev = $rev["body"];
+    };
+
     echo "            <div class=\"contenttitle_sm\">\n";
     echo "                rev $revnum, rev_id {$rev["rev_id"]} by\n";
     echo "                <a class=\"link\" href=\"profile.php?user_id={$rev["author_id"]}\">".output($rev["username"])."</a>";
@@ -72,7 +82,7 @@ while ($rev = mysql_fetch_array($result)) {
     echo "                <span title=\"{$date[1]}\">{$date[0]}</span>\n";
     echo "            </div>\n";
     echo "            <div class=\"contentbox_sm\">\n";
-    echo nl2br(output($rev["body"]))."\n";
+    echo nl2br($revbody)."\n";
     echo "            </div>\n";
 
     $revnum++;
