@@ -496,4 +496,3 @@ if (isset($_POST["edit"])) {
 
 require_once "include_footer.php";
 
-?>

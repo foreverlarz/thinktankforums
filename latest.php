@@ -52,4 +52,3 @@ while ($rev = mysql_fetch_array($result)) {
 
 require_once "include_footer.php";
 
-?>

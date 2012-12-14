@@ -10,4 +10,3 @@ require_once "include_common.php";
 
 message($ttf_label, "thanks!", "your question and answer pair was submitted.");
 
-?>

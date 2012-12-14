@@ -85,8 +85,8 @@ $sql = "SELECT user_id, username, perm                                      ".
        "ORDER BY username                                                   ";
 if (!$result = mysql_query($sql)) showerror();
 
-// initialize $i
-$i = 0;
+// initialize variables for loop
+$i = 0; $code = '';
 
 while ($user = mysql_fetch_array($result)) {
 
@@ -131,4 +131,3 @@ if (isset($ttf["uid"])) $tot_span = 3; else $tot_span = 2;
 
 require_once "include_footer.php";
 
-?>

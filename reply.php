@@ -68,4 +68,3 @@ if (!$result = mysql_query($sql)) showerror();
 
 header("Location: $ttf_protocol://{$ttf_cfg["address"]}/thread.php?thread_id=$thread_id#post-$post_id");
 
-?>

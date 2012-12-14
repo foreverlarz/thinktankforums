@@ -70,4 +70,3 @@ if (!$result = mysql_query($sql)) showerror();
 // redirect to the new thread
 header("Location: $ttf_protocol://{$ttf_cfg["address"]}/test.php?test_id=$test_id");
 
-?>

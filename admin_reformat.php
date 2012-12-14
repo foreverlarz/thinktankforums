@@ -22,4 +22,3 @@ echo "</div>\n";
 
 require_once "include_footer.php";
 
-?>

@@ -202,4 +202,4 @@ EOF;
 
 require_once "include_footer.php";
 
-?>
+

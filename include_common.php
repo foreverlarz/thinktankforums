@@ -162,3 +162,4 @@ if (isset($ttf["uid"])) {
     if (!$result = mysql_query($sql)) showerror();
 
 };
+

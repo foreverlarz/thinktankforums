@@ -120,4 +120,3 @@ if ($_GET["action"] == "ban") {
 
 require_once "include_footer.php";
 
-?>

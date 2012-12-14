@@ -37,7 +37,7 @@ if (isset($user["user_id"]) && $user["perm"] == 'banned') {
 // if a match was found (and they aren't banned)    
 } else if (isset($user["user_id"])) {
 
-    // give them a cookie        
+    // give them a cookie
     $expire = time() + $ttf_cfg["cookie_time"];
     $cookie = serialize(array($user["user_id"], $password));
     setcookie($ttf_cfg["cookie_name"].'-pair', $cookie, $expire, $ttf_cfg["cookie_path"], $ttf_cfg["cookie_domain"], $ttf_cfg["cookie_secure"]);
@@ -51,4 +51,3 @@ if (isset($user["user_id"]) && $user["perm"] == 'banned') {
     
 };
 
-?>

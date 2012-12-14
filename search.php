@@ -81,4 +81,3 @@ if (!empty($string)) {
 
 require_once "include_footer.php";
 
-?>
