@@ -167,11 +167,15 @@ a, a:active, a:link, a:visited {
 }
 
 .tip {
-    border-bottom: 1px dashed black;
+    border-bottom: 1px dotted #222222;
 }
 
 .tip:hover {
     cursor: help;
+}
+
+.pro-tip {
+    border-bottom: 1px dotted #24DEFF;
 }
 
 .center {

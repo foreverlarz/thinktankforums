@@ -86,21 +86,17 @@ EOF;
 
 require_once "include_header.php";
 
-$sql = "SELECT ttf_forum.*                                                  ".
-       "FROM ttf_forum                                                      ".
-       "LEFT JOIN ttf_thread USING ( forum_id )                             ".
-       "GROUP BY ttf_forum.forum_id                                         ";
+$sql = "SELECT * FROM ttf_forum";
 if (!$result = mysql_query($sql)) showerror();
 
 ?>
             <table cellspacing="1" class="content">
                 <tr>
                     <th>name</th>
-                    <th>description</th>
-                    <th>threads</th>
-                    <th>posts</th>
-                    <th>last</th>
-                    <th>action</th>
+                    <th>thrd</th>
+                    <th>psts</th>
+                    <th>date</th>
+                    <th>actn</th>
                 </tr>
 <?php
 
@@ -112,11 +108,10 @@ while($forum = mysql_fetch_array($result)) {
 
     echo <<<EOF
                     <tr>
-                        <td>{$output_forum_name}</td>
-                        <td class="small">{$output_forum_desc}</td>
+                        <td><span title="{$output_forum_desc}" class="pro-tip">{$output_forum_name}</span></td>
                         <td>{$forum["threads"]}</td>
                         <td>{$forum["posts"]}</td>
-                        <td title="{$date[1]}">{$date[0]}</td>
+                        <td><span title="{$date[1]}" class="pro-tip">{$date[0]}</span></td>
                         <td><a href="admin_forum.php?forum_id={$forum["forum_id"]}">modify</a></td>
                     </tr>
 
