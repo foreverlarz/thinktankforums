@@ -4,13 +4,24 @@
  * include_header.php
  */
 
+
+// get and clear any cookie message
+$message = $_COOKIE[$ttf_cfg["cookie_name"].'-msg'];
+setcookie($ttf_cfg["cookie_name"].'-msg', FALSE, 1, $ttf_cfg["cookie_path"], $ttf_cfg["cookie_domain"], $ttf_cfg["cookie_secure"]);
+
+
+
 header('Content-Type: text/html; charset=utf-8');
+
+
 
 if (empty($ttf_title)) {
     $ttf_htmltitle = $ttf_cfg["forum_name"];
 } else {
     $ttf_htmltitle = $ttf_cfg["forum_name"]." &raquo; ".$ttf_title;
 };
+
+
 
 echo <<<EOF
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
@@ -30,6 +41,8 @@ EOF;
 
 if (isset($ttf["uid"])) {
 
+    // print user box
+
     if (isset($ttf["avatar_type"])) {
         echo '                <img src="avatars/'.$ttf["uid"].'.'.$ttf["avatar_type"].'" alt="your avatar" width="30" height="30" class="avatar" />'."\n";
     };
@@ -40,16 +53,13 @@ if (isset($ttf["uid"])) {
             <div class="menu_body">
                 &middot; <a href="search.php">search</a><br />
                 &middot; <a href="editprofile.php">edit your profile</a><br />
+                &middot; <a href="logout.php">log out</a>
 
 EOF;
 
-    if ($ttf["perm"] == 'admin') {
-        echo '                &middot; <a href="admin_userlist.php">user list</a><br />'."\n";
-    };
-
-    echo '                &middot; <a href="logout.php">log out</a>'."\n";
-
 } else {
+
+    // print login box
 
     $force_https = $ttf_cfg["cookie_secure"] ? 'https://'.$ttf_cfg["address"].'/' : '';
 
@@ -77,5 +87,34 @@ EOF;
 
 };
 
-?>
+echo <<<EOF
             </div>
+
+EOF;
+
+if ($ttf["perm"] == 'admin') {
+
+    echo <<<EOF
+            <div class="menu_title">
+                you can admin!
+            </div>
+            <div class="menu_body">
+                &middot; <a href="admin_forum.php">forums</a><br />
+                &middot; <a href="admin_userlist.php">user list</a><br />
+            </div>
+
+EOF;
+
+};
+
+if (!empty($message)) {
+
+echo <<<EOF
+            <div class="contentbox-green">{$message}</div>
+
+EOF;
+
+};
+
+
+

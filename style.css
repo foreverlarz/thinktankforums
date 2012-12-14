@@ -120,6 +120,24 @@ h2 {
     font-size: 8pt;
 }
 
+.contentbox-green {
+    margin-top: 25px;
+    padding: 5px;
+    width: 588px;
+    color: black;
+    background-color: white;
+    border: 1px solid green;
+}
+
+.contentbox-orange {
+    margin-top: 25px;
+    padding: 5px;
+    width: 588px;
+    color: black;
+    background-color: white;
+    border: 1px solid orange;
+}
+
 ul {
     padding: 0 1.5em;
 }
@@ -265,7 +283,7 @@ input, select {
     margin: 1px 0;
 }
 
-input.reply, input.archivepost, input.editpost, input.editprofile, input.newthread_button, input.newtest_button {
+input.reply, input.archivepost, input.editpost, input.editprofile, input.newthread_button, input.newtest_button, input.submit-button {
     font-family: verdana, sans-serif;
     border-width: 0;
     background-color: black;
@@ -297,7 +315,7 @@ form {
     background-color: black;
 }
 
-#editprofile_button, #editpost_button, #newtest_button {
+#editprofile_button, #editpost_button, #newtest_button, #box_submit-button {
     width: 600px;
     margin-top: 25px;
     height: 20px;
