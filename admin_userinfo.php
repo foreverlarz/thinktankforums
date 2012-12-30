@@ -130,6 +130,7 @@ list($numthreads) = mysql_fetch_array($result);
                         <td>date_revision</td>
                         <td><span title="<?php echo $rev_date[1]; ?>"><?php echo $rev_date[0]; ?></span></td>
                     </tr>
+                    <tr>
                         <td>register_ip</td>
                         <td><a href="admin_search_ip.php?ip_address=<?php echo $user["register_ip"]; ?>"><?php echo $user["register_ip"]; ?></a></td>
                     </tr>
