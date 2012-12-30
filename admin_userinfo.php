@@ -130,13 +130,12 @@ list($numthreads) = mysql_fetch_array($result);
                         <td>date_revision</td>
                         <td><span title="<?php echo $rev_date[1]; ?>"><?php echo $rev_date[0]; ?></span></td>
                     </tr>
-                    <tr>
                         <td>register_ip</td>
-                        <td><?php echo $user["register_ip"]; ?></td>
+                        <td><a href="admin_search_ip.php?ip_address=<?php echo $user["register_ip"]; ?>"><?php echo $user["register_ip"]; ?></a></td>
                     </tr>
                     <tr>
                         <td>visit_ip</td>
-                        <td><?php echo $user["visit_ip"]; ?></td>
+                        <td><a href="admin_search_ip.php?ip_address=<?php echo $user["visit_ip"]; ?>"><?php echo $user["visit_ip"]; ?></a></td>
                     </tr>
                     <tr>
                         <td>num_threads</td>
@@ -186,7 +185,7 @@ while ($rev = mysql_fetch_array($result)) {
 
     echo <<<EOF
                     <tr>
-                        <td>{$rev["ip"]}</td>
+                        <td><a href="admin_search_ip.php?ip_address={$rev["ip"]}">{$rev["ip"]}</a></td>
                         <td><span title="{$date[1]}">{$date[0]}</span></td>
                     </tr>
 
