@@ -62,28 +62,42 @@ if (!$result = mysql_query($sql)) showerror();
 
 while ($rev = mysql_fetch_array($result)) {
 
-    $date = formatdate($rev["date"]);
 
-    if (isset($lastrev)) {
-        $opcodes = FineDiff::getDiffOpcodes(output($lastrev), output($rev["body"]), FineDiff::$wordGranularity);
-        $revbody = FineDiff::renderDiffToHTMLFromOpcodes(output($lastrev), $opcodes);
-        $lastrev = $rev["body"];
+    if (isset($rev["privacy"])) {
+
+        echo "            <div class=\"contenttitle_sm\">\n";
+        echo "                rev $revnum, rev_id {$rev["rev_id"]}";
+        echo "            </div>\n";
+
     } else {
-        $revbody = $rev["body"];
-        $lastrev = $rev["body"];
-    };
 
-    echo "            <div class=\"contenttitle_sm\">\n";
-    echo "                rev $revnum, rev_id {$rev["rev_id"]} by\n";
-    echo "                <a class=\"link\" href=\"profile.php?user_id={$rev["author_id"]}\">".output($rev["username"])."</a>";
-    if (!empty($rev["ip"])) {
-        echo "                ({$rev["ip"]})\n";
+        $date = formatdate($rev["date"]);
+
+        //if (isset($lastrev)) {
+        //    $opcodes = FineDiff::getDiffOpcodes(output($lastrev), output($rev["body"]), FineDiff::$wordGranularity);
+        //    $revbody = FineDiff::renderDiffToHTMLFromOpcodes(output($lastrev), $opcodes);
+        //    $lastrev = $rev["body"];
+        //} else {
+            $revbody = $rev["body"];
+        //    $lastrev = $rev["body"];
+        //};
+
+        echo "            <div class=\"contenttitle_sm\">\n";
+        echo "                rev $revnum, rev_id {$rev["rev_id"]} by\n";
+        echo "                <a class=\"link\" href=\"profile.php?user_id={$rev["author_id"]}\">".output($rev["username"])."</a>";
+        if (!empty($rev["ip"])) {
+            echo "                ({$rev["ip"]})\n";
+        };
+        echo "                <span title=\"{$date[1]}\">{$date[0]}</span>\n";
+        if ($ttf["perm"] == 'admin') {
+            echo "                    <a class=\"link\" href=\"admin_privacy.php?rev_id={$rev["rev_id"]}\">privacy</a>\n";
+        };
+        echo "            </div>\n";
+        echo "            <div class=\"contentbox_sm\">\n";
+        echo nl2br($revbody)."\n";
+        echo "            </div>\n";
+
     };
-    echo "                <span title=\"{$date[1]}\">{$date[0]}</span>\n";
-    echo "            </div>\n";
-    echo "            <div class=\"contentbox_sm\">\n";
-    echo nl2br($revbody)."\n";
-    echo "            </div>\n";
 
     $revnum++;
 
@@ -93,3 +107,4 @@ while ($rev = mysql_fetch_array($result)) {
 
 require_once "include_footer.php";
 
+?>
