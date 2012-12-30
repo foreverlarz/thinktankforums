@@ -434,13 +434,20 @@ function cookie_smash() {
  * put a message in a cookie to be printed on the next page view.
  * note that this function must be used before content is output.
  */
-function set_msg($message) {
+function set_msg($message, $color = null) {
 
-    global $ttf_cfg;    // pull through the $ttf_cfg array (even smarter!)
-
-    $cookie = clean($message);
+    global $ttf_cfg;
     $expire = time() + $ttf_cfg["cookie_time"];
-    setcookie($ttf_cfg["cookie_name"].'-msg', $cookie, $expire, $ttf_cfg["cookie_path"], $ttf_cfg["cookie_domain"], $ttf_cfg["cookie_secure"]);
+
+    $message = clean($message);
+    setcookie($ttf_cfg["cookie_name"].'-msg', $message, $expire, $ttf_cfg["cookie_path"], $ttf_cfg["cookie_domain"], $ttf_cfg["cookie_secure"]);
+
+    if (!empty($color)) {
+
+        $color = clean($color);
+        setcookie($ttf_cfg["cookie_name"].'-msg-clr', $color, $expire, $ttf_cfg["cookie_path"], $ttf_cfg["cookie_domain"], $ttf_cfg["cookie_secure"]);
+
+    };
 
 };
 

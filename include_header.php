@@ -6,8 +6,12 @@
 
 
 // get and clear any cookie message
-$message = $_COOKIE[$ttf_cfg["cookie_name"].'-msg'];
-setcookie($ttf_cfg["cookie_name"].'-msg', FALSE, 1, $ttf_cfg["cookie_path"], $ttf_cfg["cookie_domain"], $ttf_cfg["cookie_secure"]);
+if (!empty($_COOKIE[$ttf_cfg["cookie_name"].'-msg'])) {
+    $message = $_COOKIE[$ttf_cfg["cookie_name"].'-msg'];
+    $message_color = $_COOKIE[$ttf_cfg["cookie_name"].'-msg-clr'];
+    setcookie($ttf_cfg["cookie_name"].'-msg', FALSE, 1, $ttf_cfg["cookie_path"], $ttf_cfg["cookie_domain"], $ttf_cfg["cookie_secure"]);
+    setcookie($ttf_cfg["cookie_name"].'-msg-clr', FALSE, 1, $ttf_cfg["cookie_path"], $ttf_cfg["cookie_domain"], $ttf_cfg["cookie_secure"]);
+};
 
 
 
@@ -100,6 +104,8 @@ if ($ttf["perm"] == 'admin') {
             </div>
             <div class="menu_body">
                 &middot; <a href="admin_forum.php">forums</a><br />
+                &middot; <a href="admin_recovery.php">recovery</a><br />
+                &middot; <a href="admin_search_ip.php">search by ip</a><br />
                 &middot; <a href="admin_userlist.php">user list</a><br />
             </div>
 
@@ -110,7 +116,7 @@ EOF;
 if (!empty($message)) {
 
 echo <<<EOF
-            <div class="contentbox-green">{$message}</div>
+            <div class="contentbox-green" style="border-color: {$message_color};">{$message}</div>
 
 EOF;
 
