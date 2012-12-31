@@ -1,8 +1,10 @@
 <?php
 /* think tank forums
  *
- * privacy.php
+ * admin_privacy.php
  */
+
+$length_wrap = 32;
 
 $ttf_title = $ttf_label = "administration &raquo; change revision privacy";
 
@@ -11,91 +13,153 @@ require_once "include_common.php";
 // this is an admin-only script--kill everyone else
 kill_nonadmin();
 
-$rev_id = clean($_REQUEST["rev_id"]);
-
-// if a revision is not specified, kill agent
-if (empty($rev_id)) {
-
-    message($ttf_label, $ttf_msg["fatal_error"], $ttf_msg["noitemspec"]);
-    die();
-
-};
 
 
+if (isset($_POST["batch"])) {
 
-if (isset($_POST["rev_id"])) {
+    $batch = explode(' ', clean($_POST["batch"]));
+    
+    if (count($batch) == 0) {
 
+        message($ttf_label, $ttf_msg["fatal_error"], $ttf_msg["field_empty"]);
+        die();
 
-    header("Location: $ttf_protocol://{$ttf_cfg["address"]}/admin_privacy.php?rev_id=".$rev_id);
+    };
 
+    foreach($batch as $rev_id) {
 
-} else if (isset($_GET["rev_id"])) {
+        if (!is_numeric($rev_id)) {
 
-    $ttf_title = $ttf_label = "changing privacy of revision $rev_id";
+            message($ttf_label, $ttf_msg["fatal_error"], "all of the id numbers must be numeric.");
+            die();
+
+        };
+    };
+
+    $ttf_title = $ttf_label = "changing the privacy of a revision batch";
 
     require_once "include_header.php";
+
+    $comma_list = implode(', ', $batch);
 
     $sql = <<<EOF
 SELECT ttf_revision.*, ttf_user.username
 FROM ttf_revision, ttf_user
 WHERE ttf_revision.author_id = ttf_user.user_id
-   && rev_id='{$rev_id}'
+   && rev_id IN ($comma_list)
 EOF;
 
     if (!$result = mysql_query($sql)) showerror();
 
-    $rev = mysql_fetch_array($result);
+    echo <<<EOF
+            <div class="content_title">alter your batch</div>
+            <div class="content_body">
+                please verify that these are the revisions that you wish to alter, and choose new permissions.
+            </div>
+            <form action="admin_privacy.php" method="post">
+                <table cellspacing="1" class="content">
+                    <tr>
+                        <th>rev</th>
+                        <th>date</th>
+                        <th>user</th>
+                        <th>ip</th>
+                        <th>body</th>
+                        <th>cmnt</th>
+                        <th>priv</th>
+                    </tr>
 
-    $username = output($rev["username"]);
-    $date = formatdate($rev["date"]);
-    $privacy = $rev["privacy"] === NULL ? '<em>NULL</em>' : $rev["privacy"];
+EOF;
+
+    while ($row = mysql_fetch_array($result)) {
+
+        $rev = "<a href=\"revision.php?type={$row["type"]}&ref_id={$row["ref_id"]}#rev-{$row["rev_id"]}\">{$row["rev_id"]}</a>";
+        $date = formatdate($row["date"]);
+        $user = "<a href=\"admin_userinfo.php?user_id={$row["author_id"]}\">{$row["username"]}</a>";
+        $ip = ($row["ip"] == null) ? "<em>null</em>" : $row["ip"];
+        $priv = ($row["privacy"] == null) ? "null" : $row["privacy"];
+        if ($row["body"] === null) {
+            $body = "<em>null</em>";
+        } else {
+            $body = output(str_replace("\n", ' \n ', $row["body"]));
+            if (strlen($body) > $length_wrap) {
+                $body = wordwrap($body, $length_wrap);
+                $body = substr($body, 0, strpos($body, "\n"));
+            };
+        };
+        if ($row["comment"] == null) {
+            $comment = "<em>null</em>";
+        } else {
+            $comment = output(str_replace("\n", ' \n ', $row["comment"]));
+            if (strlen($comment) > $length_wrap) {
+                $comment = wordwrap($comment, $length_wrap);
+                $comment = substr($comment, 0, strpos($comment, "\n"));
+            };
+        };
+
+        $priv_null = ($row["privacy"] == null) ? ' selected="true"' : '';
+        $priv_admin = ($row["privacy"] == 'admin') ? ' selected="true"' : '';
+        $priv_user = ($row["privacy"] == 'user') ? ' selected="true"' : '';
+
+        echo <<<EOF
+                    <tr class="small">
+                        <td>{$rev}</td>
+                        <td>{$date[1]}</td>
+                        <td>{$user}</td>
+                        <td>{$ip}</td>
+                        <td>{$body}</td>
+                        <td>{$comment}</td>
+                        <td>
+                            <select class="small" name="privacy-{$row["rev_id"]}">
+                                <option value="null"{$priv_null}>none</option>
+                                <option value="admin"{$priv_admin}>admin</option>
+                                <option value="user"{$priv_user}>user</option>
+                            </select>
+                        </td>
+                    </tr>
+
+EOF;
+
+    };
 
 echo <<<EOF
-            <table cellspacing="1" class="content">
-                <thead>
-                    <tr>
-                        <th colspan="2">current information for revision {$rev_id}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>author</td>
-                        <td><a href="profile.php?user_id={$rev["author_id"]}">{$username}</a></td>
-                    </tr>
-                    <tr>
-                        <td>date</td>
-                        <td>{$date[1]}</td>
-                    </tr>
-                    <tr>
-                        <td>ip address</td>
-                        <td><a href="admin_search_ip.php?ip_address={$rev["ip"]}">{$rev["ip"]}</a></td>
-                    </tr>
-                    <tr>
-                        <td>privacy</td>
-                        <td>{$privacy}</td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="contenttitle">change privacy for revision {$rev_id}</div>
-            <form action="admin_privacy.php" method="post">
-                <div class="contentbox">
-                    <input type="radio" name="privacy" value="null"> no privacy<br />
-                    <input type="radio" name="privacy" value="admin"> admin only
-                </div>
-                <div class="contenttitle">comment on the privacy change</div>
-                <div id="editpost_textarea">
-                    <textarea class="editpost" cols="72" rows="6" name="comment"></textarea>
-                </div>
-                <div id="editpost_button">
-                    <input class="editpost" type="submit" value="commit" />
+                </table>
+                <div class="content_title">comment on the change</div>
+                <div class="content_body">
+                    <textarea class="large" cols="72" rows="64" name="comment" wrap="virtual"></textarea>
                 </div>
                 <div>
-                    <input type="hidden" name="rev_id" value="{$rev_id}" />
+                    <input class="submit-large" type="submit" value="submit" />
                 </div>
             </form>
 
 EOF;
 
+    require_once "include_footer.php";
+
+    die();
+
+} else if (isset($_POST["comment"])) {
+    
+    print_r($_POST);
+
+    die();
+
 };
 
+require_once "include_header.php";
+
+echo <<<EOF
+            <form action="admin_privacy.php" method="post">
+                <div class="content_title">enter revision ids separated by spaces</div>
+                <div class="content_body">
+                    <textarea class="large" cols="72" rows="4" name="batch" wrap="virtual"></textarea>
+                </div>
+                <div>
+                    <input class="submit-large" type="submit" value="submit" />
+                </div>
+            </form>
+
+EOF;
+
 require_once "include_footer.php";
+

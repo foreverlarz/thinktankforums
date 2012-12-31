@@ -105,6 +105,7 @@ if ($ttf["perm"] == 'admin') {
             <div class="menu_body">
                 &middot; <a href="admin_forum.php">forums</a><br />
                 &middot; <a href="admin_recovery.php">recovery</a><br />
+                &middot; <a href="admin_privacy.php">privacy</a><br />
                 &middot; <a href="admin_search_ip.php">search by ip</a><br />
                 &middot; <a href="admin_userlist.php">user list</a><br />
             </div>

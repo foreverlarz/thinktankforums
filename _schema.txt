@@ -3,101 +3,119 @@
 -- --------------------------------------------------------
 
 CREATE TABLE `ttf_banned` (
-  `user_id` mediumint(9) NOT NULL default '0',
-  `ip` varchar(15) collate utf8_unicode_ci NOT NULL default '',
+  `user_id` mediumint(9) NOT NULL DEFAULT '0',
+  `ip` varchar(15) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   UNIQUE KEY `ip` (`ip`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `ttf_forum` (
-  `forum_id` tinyint(4) NOT NULL auto_increment,
-  `name` text collate utf8_unicode_ci NOT NULL,
-  `description` text collate utf8_unicode_ci NOT NULL,
-  `threads` mediumint(9) NOT NULL default '0',
-  `posts` mediumint(9) NOT NULL default '0',
-  `date` int(11) NOT NULL default '0',
-  PRIMARY KEY  (`forum_id`)
+  `forum_id` tinyint(4) NOT NULL AUTO_INCREMENT,
+  `name` text COLLATE utf8_unicode_ci NOT NULL,
+  `description` text COLLATE utf8_unicode_ci NOT NULL,
+  `threads` mediumint(9) NOT NULL DEFAULT '0',
+  `posts` mediumint(9) NOT NULL DEFAULT '0',
+  `date` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`forum_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `ttf_forum_new` (
-  `user_id` mediumint(9) NOT NULL default '0',
-  `forum_id` mediumint(9) NOT NULL default '0',
-  `last_view` int(11) NOT NULL default '0',
-  PRIMARY KEY  (`user_id`,`forum_id`)
+  `user_id` mediumint(9) NOT NULL DEFAULT '0',
+  `forum_id` mediumint(9) NOT NULL DEFAULT '0',
+  `last_view` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`user_id`,`forum_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `ttf_post` (
-  `post_id` mediumint(9) NOT NULL auto_increment,
-  `thread_id` mediumint(9) default NULL,
-  `author_id` mediumint(9) default NULL,
-  `rev` smallint(6) NOT NULL default '0',
-  `date` int(11) default NULL,
-  `body` longtext collate utf8_unicode_ci,
-  PRIMARY KEY  (`post_id`),
+  `post_id` mediumint(9) NOT NULL AUTO_INCREMENT,
+  `thread_id` mediumint(9) DEFAULT NULL,
+  `author_id` mediumint(9) DEFAULT NULL,
+  `rev` smallint(6) NOT NULL DEFAULT '0',
+  `date` int(11) DEFAULT NULL,
+  `body` longtext COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`post_id`),
   KEY `thread_id` (`thread_id`),
   FULLTEXT KEY `body` (`body`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-CREATE TABLE `ttf_recover` (
-  `recover_id` mediumint(9) NOT NULL auto_increment,
+CREATE TABLE `ttf_privacy` (
+  `priv_id` int(11) NOT NULL AUTO_INCREMENT,
   `date` int(11) NOT NULL,
-  `ip` varchar(15) collate utf8_unicode_ci NOT NULL,
   `user_id` mediumint(9) NOT NULL,
-  `password` varchar(40) collate utf8_unicode_ci NOT NULL,
-  `passkey` varchar(32) collate utf8_unicode_ci NOT NULL,
-  PRIMARY KEY  (`recover_id`),
+  `ip` varchar(15) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `comment` longtext COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`priv_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE `ttf_privacy_revision` (
+  `priv_id` int(11) NOT NULL,
+  `rev_id` int(11) NOT NULL,
+  `privacy` enum('user','admin') COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`priv_id`,`rev_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE `ttf_recover` (
+  `recover_id` mediumint(9) NOT NULL AUTO_INCREMENT,
+  `date` int(11) NOT NULL,
+  `ip` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
+  `user_id` mediumint(9) NOT NULL,
+  `password` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `passkey` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`recover_id`),
   UNIQUE KEY `passkey` (`passkey`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `ttf_revision` (
-  `rev_id` int(9) NOT NULL auto_increment,
+  `rev_id` int(9) NOT NULL AUTO_INCREMENT,
   `ref_id` mediumint(9) NOT NULL,
-  `type` enum('post','thread','profile','title') collate utf8_unicode_ci NOT NULL,
+  `type` enum('post','thread','profile','title') COLLATE utf8_unicode_ci NOT NULL,
   `author_id` mediumint(9) NOT NULL,
   `date` int(11) NOT NULL,
-  `ip` varchar(15) collate utf8_unicode_ci default NULL,
-  `body` longtext collate utf8_unicode_ci,
-  PRIMARY KEY  (`rev_id`)
+  `ip` varchar(15) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `privacy` enum('user','admin') COLLATE utf8_unicode_ci DEFAULT NULL,
+  `body` longtext COLLATE utf8_unicode_ci,
+  `comment` longtext COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`rev_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `ttf_thread` (
-  `forum_id` mediumint(9) NOT NULL default '0',
-  `thread_id` mediumint(9) NOT NULL auto_increment,
-  `author_id` mediumint(9) NOT NULL default '0',
-  `rev` smallint(6) NOT NULL default '0',
-  `posts` mediumint(9) NOT NULL default '0',
-  `views` mediumint(9) NOT NULL default '0',
-  `date` int(11) NOT NULL default '0',
-  `title` text collate utf8_unicode_ci NOT NULL,
-  PRIMARY KEY  (`thread_id`),
+  `forum_id` mediumint(9) NOT NULL DEFAULT '0',
+  `thread_id` mediumint(9) NOT NULL AUTO_INCREMENT,
+  `author_id` mediumint(9) NOT NULL DEFAULT '0',
+  `rev` smallint(6) NOT NULL DEFAULT '0',
+  `posts` mediumint(9) NOT NULL DEFAULT '0',
+  `views` mediumint(9) NOT NULL DEFAULT '0',
+  `date` int(11) NOT NULL DEFAULT '0',
+  `title` text COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`thread_id`),
   KEY `forum_id` (`forum_id`),
   FULLTEXT KEY `title` (`title`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `ttf_thread_new` (
-  `user_id` mediumint(9) NOT NULL default '0',
-  `thread_id` mediumint(9) NOT NULL default '0',
-  `last_view` int(11) NOT NULL default '0',
-  PRIMARY KEY  (`user_id`,`thread_id`)
+  `user_id` mediumint(9) NOT NULL DEFAULT '0',
+  `thread_id` mediumint(9) NOT NULL DEFAULT '0',
+  `last_view` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`user_id`,`thread_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `ttf_user` (
-  `user_id` mediumint(9) NOT NULL auto_increment,
-  `username` varchar(16) collate utf8_unicode_ci NOT NULL default '',
-  `password` varchar(40) collate utf8_unicode_ci NOT NULL default '',
-  `perm` enum('admin','user','banned') collate utf8_unicode_ci NOT NULL default 'user',
-  `email` varchar(64) collate utf8_unicode_ci NOT NULL default '',
-  `title` varchar(64) collate utf8_unicode_ci default NULL,
-  `avatar_type` enum('gif','jpg','png') collate utf8_unicode_ci default NULL,
-  `time_zone` float NOT NULL default '0',
-  `dst_scheme` enum('eu','na_akdt','na_pdt','na_mdt','na_cdt','na_edt','na_adt','na_mx3','na_mx2','na_mx1') collate utf8_unicode_ci default NULL,
-  `register_date` int(11) default NULL,
-  `visit_date` int(11) default NULL,
-  `post_date` int(11) default NULL,
-  `rev_date` int(11) default NULL,
-  `register_ip` varchar(15) collate utf8_unicode_ci default NULL,
-  `visit_ip` varchar(15) collate utf8_unicode_ci default NULL,
-  `profile` longtext collate utf8_unicode_ci,
-  PRIMARY KEY  (`user_id`),
+  `user_id` mediumint(9) NOT NULL AUTO_INCREMENT,
+  `username` varchar(16) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `password` varchar(40) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `perm` enum('admin','user','banned') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'user',
+  `email` varchar(64) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `title` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `avatar_type` enum('gif','jpg','png') COLLATE utf8_unicode_ci DEFAULT NULL,
+  `time_zone` float NOT NULL DEFAULT '0',
+  `dst_scheme` enum('eu','na_akdt','na_pdt','na_mdt','na_cdt','na_edt','na_adt','na_mx3','na_mx2','na_mx1') COLLATE utf8_unicode_ci DEFAULT NULL,
+  `register_date` int(11) DEFAULT NULL,
+  `visit_date` int(11) DEFAULT NULL,
+  `post_date` int(11) DEFAULT NULL,
+  `rev_date` int(11) DEFAULT NULL,
+  `register_ip` varchar(15) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `visit_ip` varchar(15) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `profile` longtext COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`user_id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

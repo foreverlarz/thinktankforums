@@ -65,7 +65,7 @@ while ($rev = mysql_fetch_array($result)) {
 
     if (isset($rev["privacy"])) {
 
-        echo "            <div class=\"contenttitle_sm\">\n";
+        echo "            <div class=\"contenttitle_sm\" id=\"rev-{$rev["rev_id"]}\">\n";
         echo "                rev $revnum, rev_id {$rev["rev_id"]}";
         echo "            </div>\n";
 
@@ -82,7 +82,7 @@ while ($rev = mysql_fetch_array($result)) {
         //    $lastrev = $rev["body"];
         //};
 
-        echo "            <div class=\"contenttitle_sm\">\n";
+        echo "            <div class=\"contenttitle_sm\" id=\"rev-{$rev["rev_id"]}\">\n";
         echo "                rev $revnum, rev_id {$rev["rev_id"]} by\n";
         echo "                <a class=\"link\" href=\"profile.php?user_id={$rev["author_id"]}\">".output($rev["username"])."</a>";
         if (!empty($rev["ip"])) {

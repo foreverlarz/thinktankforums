@@ -105,8 +105,8 @@ h2 {
 
 .contentbox {
     margin-top: 1px;
-    padding: 2px;
-    width: 596px;
+    padding: 5px;
+    width: 590px;
     color: black;
     background-color: white;
 }
@@ -287,7 +287,7 @@ input, select {
     margin: 1px 0;
 }
 
-input.reply, input.archivepost, input.editpost, input.editprofile, input.newthread_button, input.newtest_button, input.submit-button {
+input.large, input.reply, input.archivepost, input.editpost, input.editprofile, input.newthread_button, input.newtest_button, input.submit-button {
     font-family: verdana, sans-serif;
     border-width: 0;
     background-color: black;
@@ -417,3 +417,42 @@ pre, blockquote {
     text-align: center;
 }
 
+/****************
+ * FRESH STYLES *
+ ****************/
+
+div.content_title {
+    margin-top: 25px;
+    padding: 2px 5px;
+    width: 590px;
+    color: white;
+    background-color: black;
+    font-weight: bold;
+}
+
+div.content_body {
+    margin-top: 1px;
+    padding: 5px;
+    width: 590px;
+    color: black;
+    background-color: white;
+}
+
+textarea.large {
+    font-family: verdana, sans-serif;
+    width: 590px;
+    color: black;
+    font-size: 8pt;
+    background-color: white;
+}
+
+input.submit-large {
+    width: 600px;
+    height: 20px;
+    color: white;
+    background-color: black;
+}
+
+select {
+    margin: 0 0 0 0;
+}
