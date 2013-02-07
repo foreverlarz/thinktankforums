@@ -54,7 +54,7 @@ EOF;
     echo <<<EOF
             <div class="content_title">alter your batch</div>
             <div class="content_body">
-                please verify that these are the revisions that you wish to alter, and choose new permissions.
+                choose new permissions as you wish. if you don't change the privacy of a revision, then it will be excluded from the batch. include all information to justify this change.
             </div>
             <form action="admin_privacy.php" method="post">
                 <table cellspacing="1" class="content">
@@ -96,9 +96,9 @@ EOF;
             };
         };
 
-        $priv_null = ($row["privacy"] == null) ? ' selected="true"' : '';
-        $priv_admin = ($row["privacy"] == 'admin') ? ' selected="true"' : '';
-        $priv_user = ($row["privacy"] == 'user') ? ' selected="true"' : '';
+        $priv_null = ($row["privacy"] == null) ? 'selected="true" value="nochg"' : 'value="null"';
+        $priv_admin = ($row["privacy"] == 'admin') ? 'selected="true" value="nochg"' : 'value="admin"';
+        $priv_user = ($row["privacy"] == 'user') ? 'selected="true" value="nochg"' : 'value="user"';
 
         echo <<<EOF
                     <tr class="small">
@@ -109,10 +109,10 @@ EOF;
                         <td>{$body}</td>
                         <td>{$comment}</td>
                         <td>
-                            <select class="small" name="privacy-{$row["rev_id"]}">
-                                <option value="null"{$priv_null}>none</option>
-                                <option value="admin"{$priv_admin}>admin</option>
-                                <option value="user"{$priv_user}>user</option>
+                            <select class="small" name="privacy[{$row["rev_id"]}]">
+                                <option {$priv_null}>none</option>
+                                <option {$priv_admin}>admin</option>
+                                <option {$priv_user}>user</option>
                             </select>
                         </td>
                     </tr>
@@ -139,8 +139,38 @@ EOF;
     die();
 
 } else if (isset($_POST["comment"])) {
+
+    $message = '';
+    $sql = '';
+
+    foreach ($_POST["privacy"] as $rev_id => $privacy) {
+
+        if ($privacy == 'nochg') {
+
+            $message .= "$rev_id unchanged."
+
+        } else {
+
+            $sql .= " ... ";
+
+        };
+
+    };
+
+    echo "\n\n";
     
-    print_r($_POST);
+    echo $_POST["comment"];
+
+/*
+    $sql = <<<EOF
+SELECT ttf_revision.*, ttf_user.username
+FROM ttf_revision, ttf_user
+WHERE ttf_revision.author_id = ttf_user.user_id
+   && rev_id IN ($comma_list)
+EOF;
+
+    if (!$result = mysql_query($sql)) showerror();
+*/
 
     die();
 
