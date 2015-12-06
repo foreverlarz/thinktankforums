@@ -1,0 +1,1 @@
+This project aims to create forum software with **fast** and **clean** code that utilizes an intuitive layout and complies with W3C standards.
