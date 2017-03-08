@@ -22,9 +22,9 @@ $ttf_cfg = array(
     'forum_display'     => 15,
 
     'admin_name'        => 'king hector',
-    'admin_email'       => 'hector@gmail.com',
-    'bot_name'          => 'king hector',
-    'bot_email'         => 'hector@gmail.com',
+    'admin_email'       => 'king@forumhector.com',
+    'bot_name'          => 'robot hector',
+    'bot_email'         => 'noreply@forumhector.com',
 
     'cookie_name'       => 'fh',
     'cookie_time'       => 31556926,
