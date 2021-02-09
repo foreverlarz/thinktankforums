@@ -268,7 +268,7 @@ if (isset($_POST["edit"])) {
 
     if (strcmp($email, $user["email"]) != 0) {
 
-        if (preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/i", $email)) {
+        if (preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,24})$/i", $email)) {
 
             $sql = "UPDATE ttf_user                 ".
                    "SET email='".clean($email)."'   ".
